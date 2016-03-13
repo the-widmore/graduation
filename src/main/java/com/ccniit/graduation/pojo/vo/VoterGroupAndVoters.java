@@ -19,7 +19,7 @@ public class VoterGroupAndVoters {
 
 	public void setGroupDescription(String string) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

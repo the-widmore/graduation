@@ -6,8 +6,8 @@
 <head lang="zh-CN">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>用户:联系人详情</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
@@ -20,17 +20,17 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/easyvote/">EasyVote</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="/easyvote/">首页</a></li>
-				<li><a href="/easyvote/vote/startVote.html">投票</a></li>
-				<li><a href="/easyvote/poll/startPoll.html">问卷</a></li>
-				<li class="active"><a href="/easyvote/user/selfCenter.html">个人</a></li>
-				<li><a href="/easyvote/demo/demo.html">演示</a></li>
-				<li><a href="/easyvote/help/help.html">帮助</a></li>
-				<li><a href="/easyvote/about/about.html">关于</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>
@@ -51,9 +51,9 @@
 
 	<div class="container content">
 		<ol class="breadcrumb">
-			<li><a href="/easyvote/index.html">首页</a></li>
-			<li><a href="/easyvote/user/selfCenter.html"> 个人中心</a></li>
-			<li><a href="/easyvote/user/myLinkman.html"> 联系人管理</a></li>
+			<li><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
+			<li><a href="${pageContext.request.contextPath}/user/selfCenter.html"> 个人中心</a></li>
+			<li><a href="${pageContext.request.contextPath}/user/myLinkman.html"> 联系人管理</a></li>
 			<li class="active">联系人详细信息</li>
 		</ol>
 		<div class="row">
@@ -78,7 +78,7 @@
 							<tr>
 								<td><b class="dblclick" id="${voter.id }">${voter.email }</b></td>
 								<td>${voter.alias }</td>
-								<td><a href="/easyvote/user/linkmanDel/${voter.id }">删除</a></td>
+								<td><a href="${pageContext.request.contextPath}/user/linkmanDel/${voter.id }">删除</a></td>
 							</tr>
 						</c:forEach>
 
@@ -111,8 +111,8 @@
 	</div>
 	</footer>
 
-	<script src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../../js/jquery.jeditable.js"></script>
 	<script src="../../js/user/linkmanDetailEdit.js"></script>
 </body>

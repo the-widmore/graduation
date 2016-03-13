@@ -5,8 +5,8 @@
 <head lang="zh-CN">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>用户:注册</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
@@ -23,13 +23,13 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="/easyvote/">首页</a></li>
-				<li><a href="/easyvote/vote/startVote.html">投票</a></li>
-				<li><a href="/easyvote/poll/startPoll.html">问卷</a></li>
-				<li class="active"><a href="/easyvote/user/selfCenter.html">个人</a></li>
-				<li><a href="/easyvote/demo/demo.html">演示</a></li>
-				<li><a href="/easyvote/help/help.html">帮助</a></li>
-				<li><a href="/easyvote/about/about.html">关于</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>
@@ -60,7 +60,7 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你已经成为EasyVote的注册用户你可以，<a
 						href="" target="_blank">购买套餐</a>为你更好的服务。 <br>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更多精彩点击
-					<a href="/easyvote/user/userLogin.html" role="button" class="btn btn-primary">登录</a>
+					<a href="${pageContext.request.contextPath}/user/userLogin.html" role="button" class="btn btn-primary">登录</a>
 				</div>
 			</div>
 			<div class="col-lg-3">
@@ -110,8 +110,8 @@
 	</div>
 	</footer>
 
-	<script src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>

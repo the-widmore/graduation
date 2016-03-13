@@ -6,8 +6,10 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EasyVote::活动</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
@@ -20,11 +22,11 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/easyvote/">EasyVote</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="../../index.html">首页</a></li>
+				<li><a href="../">首页</a></li>
 				<li><a href="../vote/startVote.html">投票</a></li>
 				<li><a href="../poll/startPoll.html">问卷</a></li>
 				<li><a href="../user/selfCenter.html">个人</a></li>
@@ -72,7 +74,9 @@
 	</div>
 	</footer>
 
-	<script src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

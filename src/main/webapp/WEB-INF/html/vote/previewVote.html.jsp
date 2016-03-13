@@ -6,8 +6,8 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>投票:预览</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
@@ -53,7 +53,7 @@
 			<h3>预览的的投票</h3>
 		</div>
 
-		<form action="/easyvote/vote/submitVote.html" method="POST"
+		<form action="${pageContext.request.contextPath}/vote/submitVote.html" method="POST"
 			class="container">
 			${voteText } <input type="submit" value="确认并提交">
 			&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="继续编辑">

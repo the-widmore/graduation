@@ -6,8 +6,8 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>演示:业务演示</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
 
 </head>
 <body>
@@ -21,11 +21,11 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/easyvote/">EasyVote</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="/easyvote/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
 				<li><a href="../vote/startVote.html">投票</a></li>
 				<li><a href="../poll/startPoll.html">问卷</a></li>
 				<li><a href="../user/selfCenter.html">个人</a></li>
@@ -76,7 +76,7 @@
 					<h4>Excel上传模式</h4>
 					&nbsp;&nbsp;&nbsp;&nbsp;为了用户更方便的管理联系人管理，我们提供了Excel模式。但是如果格式不正确可能会出行解析错误，所以使用此模式请下载模版并填写。
 					邮箱为必填，电话为选填。如果出现邮箱格式错误，我们将抛弃该条数据。在联系人解析完毕后，我们会尽快通知你。 <a
-						href="/easyvote/demo/dowmloadLinkmanTemplate.do"
+						href="${pageContext.request.contextPath}/demo/dowmloadLinkmanTemplate.do"
 						class="btn btn-sm btn-success">下载模版</a>
 					<h4>文本域编辑模式</h4>
 					&nbsp;&nbsp;&nbsp;&nbsp;该模式方便编辑，每条数据用
@@ -197,7 +197,7 @@
 	</div>
 	</footer>
 
-	<script src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

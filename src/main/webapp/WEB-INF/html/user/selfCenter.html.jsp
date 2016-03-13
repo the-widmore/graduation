@@ -9,8 +9,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <title>用户:个人中心</title>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
@@ -23,17 +23,17 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/easyvote/">EasyVote</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="/easyvote/">首页</a></li>
-				<li><a href="/easyvote/vote/startVote.html">投票</a></li>
-				<li><a href="/easyvote/poll/startPoll.html">问卷</a></li>
-				<li class="active"><a href="/easyvote/user/selfCenter.html">个人</a></li>
-				<li><a href="/easyvote/demo/demo.html">演示</a></li>
-				<li><a href="/easyvote/help/help.html">帮助</a></li>
-				<li><a href="/easyvote/about/about.html">关于</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>
@@ -57,7 +57,7 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="/easyvote/">首页</a></li>
+			<li><a href="${pageContext.request.contextPath}/">首页</a></li>
 			<li class="active">个人中心</li>
 		</ol>
 
@@ -130,7 +130,7 @@
 
 						<p>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以查看和修改你的账号的基本信息。这里包括了账号的昵称、密码和<a
-								href="/easyvote/about/secondPassword.html"> 二级密码</a>。
+								href="${pageContext.request.contextPath}/about/secondPassword.html"> 二级密码</a>。
 						</p>
 						<a href="userProfile.html" role="button" class="btn btn-default">查看详细&raquo;</a>
 					</div>
@@ -249,8 +249,8 @@
 	</div>
 	</footer>
 
-	<script src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
 </html>

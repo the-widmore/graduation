@@ -30,7 +30,5 @@ public class UserToken {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 }

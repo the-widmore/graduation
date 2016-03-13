@@ -10,9 +10,9 @@
 <meta name="keyWords" content="EasyVote,Vote,Poll,">
 <title>EasyVote首页</title>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/main.css">
+	href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
@@ -25,30 +25,27 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<%=request.getContextPath()%>/">EasyVote</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="<%=request.getContextPath()%>/">首页</a></li>
-				<li><a href="<%=request.getContextPath()%>/vote/startVote.html">投票</a></li>
-				<li><a href="<%=request.getContextPath()%>/poll/startPoll.html">问卷</a></li>
-				<li><a
-					href="<%=request.getContextPath()%>/user/selfCenter.html">个人</a></li>
-				<li><a href="<%=request.getContextPath()%>/demo/demo.html">演示</a></li>
-				<li><a href="<%=request.getContextPath()%>/help/help.html">帮助</a></li>
-				<li><a href="<%=request.getContextPath()%>/about/about.html">关于</a></li>
+				<li class="active"><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a
-							href="<%=request.getContextPath()%>/more/activity.html">活动</a></li>
+						<li><a href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
 						<li class="divider"></li>
 						<li class="dropdown-header">隐私政策</li>
+						<li><a href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
 						<li><a
-							href="<%=request.getContextPath()%>/more/userData.html">用户数据</a></li>
-						<li><a
-							href="<%=request.getContextPath()%>/more/platformPolicy.html">平台政策</a></li>
+							href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -63,23 +60,23 @@
 			<h3>EasyVote</h3>
 
 			<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EasyVote是一个网上投票、问卷调查、信息收集、信息分析的平台，使用它可以更简单的完成这一切。
-				<a href="<%=request.getContextPath()%>/about/about.html"
-				role="button" class="btn btn-sm btn-info">了解更多...</a>
+				<a href="${pageContext.request.contextPath}/about/about.html" role="button"
+				class="btn btn-sm btn-info">了解更多...</a>
 			</b> <br> <br> <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们从设计到实现都以用户为中心，让用户可以根据自己需要自定义投票和问卷的问题和选项。
 				每项投票和问卷用户都可以由发起人控制，加上方便实用的联系人管理和数据导出功能。</b>
 
 			<p>
 				<a class="btn btn-sm btn-primary"
-					href="<%=request.getContextPath()%>/vote/startVote.html"
+					href="${pageContext.request.contextPath}/vote/startVote.html"
 					role="button">发起投票 &raquo;</a> <a class="btn btn-sm btn-success"
-					href="<%=request.getContextPath()%>/poll/startPoll.html"
+					href="${pageContext.request.contextPath}/poll/startPoll.html"
 					role="button">发起问卷调查 &raquo;</a>
 			</p>
 
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在正式使用我们的平台，建议你先阅读<a
-				target="_blank" href="<%=request.getContextPath()%>/demo/demo.html">演示</a>&raquo;
+				target="_blank" href="${pageContext.request.contextPath}/demo/demo.html">演示</a>&raquo;
 			<a target="_blank"
-				href="<%=request.getContextPath()%>/demo/processDemo.html">过程演示。</a>可以帮你了解更多功能，一可以简化后续工作。
+				href="${pageContext.request.contextPath}/demo/processDemo.html">过程演示。</a>可以帮你了解更多功能，一可以简化后续工作。
 		</div>
 		<!--end  jumbotron-->
 
@@ -99,13 +96,13 @@
 					<div class="panel-body">
 						<ul>
 							<li><a
-								href="<%=request.getContextPath()%>/vote/startVote.html">轻松发起投票</a></li>
+								href="${pageContext.request.contextPath}/vote/startVote.html">轻松发起投票</a></li>
 							<li><a
-								href="<%=request.getContextPath()%>/user/myLinkman.html">轻松管理投票人</a></li>
+								href="${pageContext.request.contextPath}/user/myLinkman.html">轻松管理投票人</a></li>
 							<li><a
-								href="<%=request.getContextPath()%>/demo/exportData.html">轻松将数据导出Excel</a></li>
+								href="${pageContext.request.contextPath}/demo/exportData.html">轻松将数据导出Excel</a></li>
 							<li><a
-								href="<%=request.getContextPath()%>/demo/voteChart.html">
+								href="${pageContext.request.contextPath}/demo/voteChart.html">
 									轻松导出投票图表</a></li>
 						</ul>
 					</div>
@@ -122,13 +119,12 @@
 					<div class="panel-body">
 						<ul>
 							<li><a
-								href="<%=request.getContextPath()%>/demo/linkmanUpload.html">联系人上传多样</a></li>
+								href="${pageContext.request.contextPath}/demo/linkmanUpload.html">联系人上传多样</a></li>
+							<li><a href="${pageContext.request.contextPath}/demo/pollType.html">问卷形式丰富</a></li>
 							<li><a
-								href="<%=request.getContextPath()%>/demo/pollType.html">问卷形式丰富</a></li>
+								href="${pageContext.request.contextPath}/demo/voteChart.html">投票报表多样性</a></li>
 							<li><a
-								href="<%=request.getContextPath()%>/demo/voteChart.html">投票报表多样性</a></li>
-							<li><a
-								href="<%=request.getContextPath()%>/demo/phoneDemo.html">兼容移动设备</a></li>
+								href="${pageContext.request.contextPath}/demo/phoneDemo.html">兼容移动设备</a></li>
 						</ul>
 					</div>
 				</div>
@@ -143,11 +139,11 @@
 					<div class="panel-body">
 						<ul>
 							<li><a
-								href="<%=request.getContextPath()%>/about/systemSecurity.html">系统加固，保证正常运行</a></li>
+								href="${pageContext.request.contextPath}/about/systemSecurity.html">系统加固，保证正常运行</a></li>
 							<li><a
-								href="<%=request.getContextPath()%>/demo/pollResultShare.html">权限控制，可以共享结果</a></li>
+								href="${pageContext.request.contextPath}/demo/pollResultShare.html">权限控制，可以共享结果</a></li>
 							<li><a
-								href="<%=request.getContextPath()%>/about/dataSave.html">数据机密保护你的隐私</a></li>
+								href="${pageContext.request.contextPath}/about/dataSave.html">数据机密保护你的隐私</a></li>
 						</ul>
 					</div>
 				</div>
@@ -163,11 +159,11 @@
 					<div class="panel-body">
 						<ul>
 							<li><a
-								href="<%=request.getContextPath()%>/demo/voteSummary.html">投票信息摘要</a></li>
+								href="${pageContext.request.contextPath}/demo/voteSummary.html">投票信息摘要</a></li>
 							<li><a
-								href="<%=request.getContextPath()%>/demo/voteChart.html">投票百分比分布</a></li>
+								href="${pageContext.request.contextPath}/demo/voteChart.html">投票百分比分布</a></li>
 							<li><a
-								href="<%=request.getContextPath()%>/demo/advanceDataAnalyse.html">高级数据分析（定制）</a></li>
+								href="${pageContext.request.contextPath}/demo/advanceDataAnalyse.html">高级数据分析（定制）</a></li>
 						</ul>
 					</div>
 				</div>
@@ -184,84 +180,84 @@
 
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
 			</div>
 			<div class="col-lg-2 col-sm-3 col-xs-4">
 				<a href="#"> <img
-					src="<%=request.getContextPath()%>/resources/image/neusoft.jpg"
+					src="${pageContext.request.contextPath}/resources/image/neusoft.jpg"
 					class="thumbnail img-responsive">
 				</a>
 				<p>成都东软学院十佳歌手</p>
@@ -300,8 +296,8 @@
 	</footer>
 
 	<script
-		src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
 	<script
-		src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

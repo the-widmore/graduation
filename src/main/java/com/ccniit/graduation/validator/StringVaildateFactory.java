@@ -6,7 +6,7 @@ public class StringVaildateFactory {
 		TEL, EMAIL, URL
 	}
 
-	// impl othor 
+	// impl othor
 	public boolean vaildate(StringVaildateType type, String source) {
 		StringVaildator vaildator = null;
 		switch (type) {

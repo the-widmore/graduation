@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<form action="/easyvote/user/fileUpload.do" method="POST"
+	<form action="${pageContext.request.contextPath}/user/fileUpload.do" method="POST"
 		enctype="multipart/form-data">
 		<input type="file" value="选择你的文档" name="file"> <input
 			type="submit" value="上传">

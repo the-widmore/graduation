@@ -6,9 +6,9 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>EasyVote::关于</title>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/main.css">
+	href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
@@ -25,13 +25,14 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="<%=request.getContextPath()%>/">首页</a></li>
-				<li><a href="<%=request.getContextPath()%>/vote/startVote.html">投票</a></li>
-				<li><a href="<%=request.getContextPath()%>/poll/startPoll.html">问卷</a></li>
-				<li><a href="<%=request.getContextPath()%>/user/selfCenter.html">个人</a></li>
-				<li><a href="<%=request.getContextPath()%>/demo/demo.html">演示</a></li>
-				<li><a href="<%=request.getContextPath()%>/help/help.html">帮助</a></li>
-				<li class="active"><a href="<%=request.getContextPath()%>/about/about.html">关于</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>
@@ -99,7 +100,9 @@
 	</div>
 	</footer>
 
-	<script src="<%=request.getContextPath()%>/resources/js/jquery-1.11.0.min.js"></script>
-	<script src="<%=request.getContextPath()%>/resources/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 </body>
 </html>

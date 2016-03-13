@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <title>问卷:创建问卷</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
     <link rel="stylesheet" href="../../userDefined/poll/progress-nav.css">
 
 </head>
@@ -22,7 +22,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/easyvote/">EasyVote</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -133,7 +133,7 @@
     </div>
 </footer>
 
-<script src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -74,6 +74,14 @@
 			<version>1.8.4.RELEASE</version>
 		</dependency>
 
+		<!-- Cache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		<!-- end Cache -->
+
 
 		<!-- JSON -->
 		<dependency>
@@ -86,6 +94,7 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.6.4</version>
 		</dependency>
+		<!-- end JSON -->
 
 		<!-- AspectJ -->
 		<dependency>
@@ -98,6 +107,7 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
+		<!-- end AspectJ -->
 
 		<!-- Logging -->
 		<dependency>
@@ -201,10 +211,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.5.1</version>
+				<version>3.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<compilerArgument>-Xlint:all</compilerArgument>
 					<showWarnings>true</showWarnings>
 					<showDeprecation>true</showDeprecation>

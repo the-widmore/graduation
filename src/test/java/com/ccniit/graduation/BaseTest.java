@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @Configuration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring-context.xml" })
+@ContextConfiguration(locations = { "classpath:root-context.xml" })
 public class BaseTest {
 
 }

@@ -5,7 +5,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 
 public class JSONUtils {
 
-	public JSONUtils() {
+	private JSONUtils() {
+
 	}
 
 	public static String toJSON(Object object) {

@@ -8,7 +8,7 @@ public class JSONUtils {
 	public JSONUtils() {
 	}
 
-	public static String toJson(Object object) {
+	public static String toJSON(Object object) {
 		SerializerFeature[] serializerFeatures = { SerializerFeature.WriteNullStringAsEmpty };
 		return JSON.toJSONString(object, serializerFeatures);
 	}

@@ -29,7 +29,7 @@
 
 	<!-- mybatis -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="sqlSessionFactory" />
+		<property name="dataSource" ref="dataSource" />
 		<property name="typeAliasesPackage" value="com.ccniit.graduation.pojo.db" />
 	</bean>
 

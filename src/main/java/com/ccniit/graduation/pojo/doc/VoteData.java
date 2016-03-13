@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.alibaba.fastjson.JSON;
 
-@Document(collection = "voteData")
+@Document(collection = "voteDatas")
 public class VoteData {
 
 	private Map<String, String[]> data;

@@ -6,8 +6,8 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EasyVote平台使用政策</title>
-<link rel="stylesheet" href="/easyvote/staticFile/css/bootstrap.min.css">
-<link rel="stylesheet" href="/easyvote/staticFile/main.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
 </head>
 <body>
 
@@ -72,7 +72,7 @@
 	</div>
 	</footer>
 
-	<script src="/easyvote/staticFile/js/jquery-1.11.0.min.js"></script>
-	<script src="/easyvote/staticFile/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

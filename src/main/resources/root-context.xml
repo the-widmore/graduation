@@ -90,6 +90,13 @@
 	<!-- end MongoDB -->
 
 	<!-- Shiro -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+
+	<bean id="defaultRealm" class="com.ccniit.graduation.plus.shiro.DefaultRealm"></bean>
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="defaultRealm" />
+	</bean>
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/user/userLogin.html" />
@@ -106,19 +113,19 @@
 		</property>
 	</bean>
 
-	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+	<bean id="defaultKaptcha" class="com.google.code.kaptcha.impl.DefaultKaptcha">
 		<property name="config">
 			<bean class="com.google.code.kaptcha.util.Config">
 				<constructor-arg>
 					<props>
 						<prop key="kaptcha.border">yes</prop>
-						<prop key="kaptcha.border.color">105,179,90</prop>
-						<prop key="kaptcha.textproducer.font.color">black</prop>
-						<prop key="kaptcha.image.width">150</prop>
-						<prop key="kaptcha.textproducer.font.size">40</prop>
 						<prop key="kaptcha.image.height">50</prop>
+						<prop key="kaptcha.image.width">150</prop>
 						<prop key="kaptcha.session.key">code</prop>
+						<prop key="kaptcha.border.color">105,179,90</prop>
+						<prop key="kaptcha.textproducer.font.size">40</prop>
 						<prop key="kaptcha.textproducer.char.length">4</prop>
+						<prop key="kaptcha.textproducer.font.color">black</prop>
 					</props>
 				</constructor-arg>
 			</bean>

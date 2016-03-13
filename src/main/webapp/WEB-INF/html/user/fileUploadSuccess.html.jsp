@@ -7,8 +7,8 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>用户:创建联系人库</title>
-<link rel="stylesheet" href="/easyvote/staticFile/css/bootstrap.min.css">
-<link rel="stylesheet" href="/easyvote/staticFile/main.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
 </head>
 <body>
 

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.google.code.kaptcha.Producer;
+import com.google.code.kaptcha.impl.DefaultKaptcha;
 
 @Controller
 public class CaptchaImageController {
@@ -22,7 +22,7 @@ public class CaptchaImageController {
 	private static final Logger LOG = LoggerFactory.getLogger(CaptchaImageController.class);
 
 	@Resource
-	private Producer captchaProducer;
+	DefaultKaptcha captchaProducer;
 
 	@RequestMapping(value = "/captchaImage", method = RequestMethod.GET)
 	public void handleRequest(HttpServletResponse response) throws IOException {

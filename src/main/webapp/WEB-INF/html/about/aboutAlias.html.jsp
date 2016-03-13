@@ -6,8 +6,8 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>关于:用户别名</title>
-<link rel="stylesheet" href="/easyvote/staticFile/css/bootstrap.min.css">
-<link rel="stylesheet" href="/easyvote/staticFile/main.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
 </head>
 <body>
 	<nav class="navbar navbar-default">
@@ -19,11 +19,11 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/easyvote/">EasyVote</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/">EasyVote</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="/easyvote/">首页</a></li>
+				<li><a href="<%=request.getContextPath()%>/">首页</a></li>
 				<li><a href="vote/startVote.html">投票</a></li>
 				<li><a href="poll/startPoll.html">问卷</a></li>
 				<li><a href="user/selfCenter.html">个人</a></li>
@@ -81,7 +81,7 @@
 	</div>
 	</footer>
 
-	<script src="/easyvote/staticFile/js/jquery-1.11.0.min.js"></script>
-	<script src="/easyvote/staticFile/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

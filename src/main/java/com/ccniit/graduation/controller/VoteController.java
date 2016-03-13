@@ -75,7 +75,6 @@ public class VoteController {
 	@RequestMapping(value = { FROM_VOTE_SUBMIT }, method = RequestMethod.POST)
 	public String submitVoteAction(HttpServletRequest request) {
 
-		@SuppressWarnings("unchecked")
 		Map<String, String[]> paramaterMap = request.getParameterMap();
 		int questionCounter = paramaterMap.size();
 

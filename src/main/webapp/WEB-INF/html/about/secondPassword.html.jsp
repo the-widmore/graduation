@@ -5,8 +5,8 @@
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>关于:二级密码</title>
-    <link rel="stylesheet" href="/easyvote/staticFile/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/easyvote/staticFile/main.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/main.css">
 </head>
 <body>
 
@@ -19,17 +19,17 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/easyvote/">EasyVote</a>
+            <a class="navbar-brand" href="<%=request.getContextPath()%>/">EasyVote</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-               <li><a href="/easyvote/">首页</a></li>
-				<li><a href="/easyvote/vote/startVote.html">投票</a></li>
-				<li><a href="/easyvote/poll/startPoll.html">问卷</a></li>
-				<li><a href="/easyvote/user/selfCenter.html">个人</a></li>
-				<li><a href="/easyvote/demo/demo.html">演示</a></li>
-				<li><a href="/easyvote/help/help.html">帮助</a></li>
-				<li class="active"><a href="/easyvote/about/about.html">关于</a></li>
+               <li><a href="<%=request.getContextPath()%>/">首页</a></li>
+				<li><a href="<%=request.getContextPath()%>/vote/startVote.html">投票</a></li>
+				<li><a href="<%=request.getContextPath()%>/poll/startPoll.html">问卷</a></li>
+				<li><a href="<%=request.getContextPath()%>/user/selfCenter.html">个人</a></li>
+				<li><a href="<%=request.getContextPath()%>/demo/demo.html">演示</a></li>
+				<li><a href="<%=request.getContextPath()%>/help/help.html">帮助</a></li>
+				<li class="active"><a href="<%=request.getContextPath()%>/about/about.html">关于</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">更多 <span class="caret"></span></a>
@@ -81,7 +81,7 @@
     </div>
 </footer>
 
-<script src="/easyvote/staticFile/js/jquery-1.11.0.min.js"></script>
-<script src="/easyvote/staticFile/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/easyui/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

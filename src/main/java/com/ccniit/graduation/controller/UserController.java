@@ -318,7 +318,7 @@ public class UserController {
 	public static final String ACTION_CREATE_LINKMAN_BY_EXCEL = "/user/createLinkmanBuildByExcel.do";
 
 	@RequestMapping(value = { ACTION_CREATE_LINKMAN_BY_EXCEL }, method = RequestMethod.POST)
-	public String createLinkmanByExcelAction(@RequestParam(value = "file", required = false) MultipartFile file,
+	public String createLinkmanByExcelAction(@RequestParam(value = "file", required = true) MultipartFile file,
 			HttpServletRequest request) throws IException {
 
 		String tempDir = null;

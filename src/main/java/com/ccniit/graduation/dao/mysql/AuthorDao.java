@@ -4,8 +4,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
+import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.mapper.AuthorMapper;
 import com.ccniit.graduation.pojo.db.Author;
+import com.ccniit.graduation.pojo.vo.EmailToken;
 
 @Repository("authorDao")
 public class AuthorDao implements AuthorMapper {
@@ -41,6 +43,18 @@ public class AuthorDao implements AuthorMapper {
 	@Override
 	public int countByEmail(String email) {
 		return authorMapper.countByEmail(email);
+	}
+
+	@Override
+	public EmailToken selectAuthorEmailToken(String email) throws IException {
+		EmailToken token = authorMapper.selectAuthorEmailToken(email);
+
+		// 没有查询到该Author
+		if (null == token) {
+			throw new AuthorNotFoundException("not found this author");
+		}
+
+		return token;
 	}
 
 }

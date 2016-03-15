@@ -97,6 +97,7 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="defaultRealm" />
 	</bean>
+
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/user/userLogin.html" />
@@ -112,6 +113,8 @@
 			</value>
 		</property>
 	</bean>
+
+	<!-- end Shiro -->
 
 	<bean id="defaultKaptcha" class="com.google.code.kaptcha.impl.DefaultKaptcha">
 		<property name="config">

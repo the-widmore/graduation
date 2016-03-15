@@ -5,7 +5,9 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
+import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.Author;
+import com.ccniit.graduation.pojo.vo.EmailToken;
 
 public interface AuthorMapper {
 
@@ -61,5 +63,14 @@ public interface AuthorMapper {
 	 */
 	@Select("SELECT COUNT(email) FROM author WHERE email=#{email}")
 	int countByEmail(String email);
+
+	/**
+	 * 查询Author的登录信息
+	 * 
+	 * @param author.email
+	 * @return author凭证，邮箱和密码
+	 */
+	@Select("SELECT email,password FROM author WHERE email=#{email}")
+	EmailToken selectAuthorEmailToken(String email) throws IException;
 
 }

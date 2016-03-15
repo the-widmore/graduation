@@ -20,6 +20,12 @@ public class AuthorCountServiceImplTest extends BaseTest {
 	public void testCountAuthorVote() {
 		List<VoteCategoryCount> list = authorCountService.countAuthorVote(1);
 		System.out.println(Arrays.toString(list.toArray()));
+		List<VoteCategoryCount> list1 = authorCountService.countAuthorVote(1);
+		System.out.println(Arrays.toString(list1.toArray()));
+		List<VoteCategoryCount> list2 = authorCountService.countAuthorVote(1);
+		System.out.println(Arrays.toString(list2.toArray()));
+		List<VoteCategoryCount> list3 = authorCountService.countAuthorVote(1);
+		System.out.println(Arrays.toString(list3.toArray()));
 	}
 
 }

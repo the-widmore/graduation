@@ -61,4 +61,10 @@ public class AuthorContentCounter implements Serializable {
 		this.infoCount = infoCount;
 	}
 
+	@Override
+	public String toString() {
+		return "AuthorContentCounter [linkmanCount=" + linkmanCount + ", voteCount=" + voteCount + ", pollCount="
+				+ pollCount + ", infoCount=" + infoCount + "]";
+	}
+
 }

@@ -1,6 +1,4 @@
-package com.ccniit.graduation.dao.mysql;
-
-import com.ccniit.graduation.exception.IException;
+package com.ccniit.graduation.exception;
 
 public class AuthorNotFoundException extends IException {
 

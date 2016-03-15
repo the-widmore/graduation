@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
+import com.ccniit.graduation.exception.AuthorNotFoundException;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.mapper.AuthorMapper;
 import com.ccniit.graduation.pojo.db.Author;

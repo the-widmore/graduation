@@ -7,4 +7,10 @@
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU" />
 
+	<!-- author 计数对象 -->
+	<cache name="AuthorContentCounterCache" eternal="false"
+		maxElementsInMemory="1024" overflowToDisk="false" diskPersistent="false"
+		timeToIdleSeconds="0" timeToLiveSeconds="3600"
+		memoryStoreEvictionPolicy="LRU" />
+
 </ehcache>

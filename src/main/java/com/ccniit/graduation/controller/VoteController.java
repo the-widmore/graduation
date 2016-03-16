@@ -1,17 +1,24 @@
 package com.ccniit.graduation.controller;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
+import com.ccniit.graduation.pojo.doc.VoteData;
 
 @Controller
 public class VoteController {
@@ -69,16 +76,29 @@ public class VoteController {
 		return VIEW_VOTE_PREVIEW;
 	}
 
+	@Resource
+	MongoTemplate mongoTemplate;
+	@Resource
+	RequestParamsMapToArrayMap requestParamsMapToArrayMap;
+
 	public static final String FROM_VOTE_SUBMIT = "/vote/submitVote.html";
 	public static final String FROM_VOTE_SUBMIT_SUCCESS = "/vote/voteSubmitSuccess.html";
 
 	@RequestMapping(value = { FROM_VOTE_SUBMIT }, method = RequestMethod.POST)
 	public String submitVoteAction(HttpServletRequest request) {
-
+		// TODO
 		Map<String, String[]> paramaterMap = request.getParameterMap();
+
+		VoteData voteData = new VoteData();
+		Map<String, List<String>> arrayMap = requestParamsMapToArrayMap.convert(paramaterMap);
+		voteData.setVote(1);
+		voteData.setData(arrayMap);
+
+		mongoTemplate.insert(voteData);
+
 		int questionCounter = paramaterMap.size();
 
-		LOG.info("questionCounter:{0}", questionCounter);
+		LOG.info("questionCounter:{}", questionCounter);
 
 		for (Map.Entry<String, String[]> entry : paramaterMap.entrySet()) {
 			System.out.println(entry.getKey());

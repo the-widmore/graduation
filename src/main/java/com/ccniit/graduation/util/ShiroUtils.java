@@ -15,7 +15,7 @@ public class ShiroUtils {
 
 	public static long getUserId() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	public static Subject getSubject() {

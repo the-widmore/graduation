@@ -46,6 +46,7 @@ import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.service.VoterGruopService;
 import com.ccniit.graduation.service.VoterService;
 import com.ccniit.graduation.util.ShiroUtils;
+import com.ccniit.graduation.util.SpringMVCUtils;
 import com.ccniit.graduation.util.StringUtils;
 
 @Controller
@@ -294,7 +295,8 @@ public class UserController {
 			long id = authorService.getAuthorIdByEmail(userToken.getEmail());
 			session.setAttribute(Constants.SESSION_KEY_USER_ID, id);
 			session.setAttribute(Constants.SESSION_KEY_SHOW_NAME, authorService.getShowName(id));
-			return VIEW_USER_SELF_CENTER;
+
+			return USER_LOGIN_RESULT;
 		} else {
 			model.addAttribute("message", "account or password error!");
 			return VIEW_USER_LOGIN;
@@ -307,10 +309,16 @@ public class UserController {
 	@RequestMapping(value = { ACTION_LOGOUT_URL }, method = RequestMethod.GET)
 	public String logoutAction(ModelMap modelMap) {
 		modelMap.addAttribute("message", "Logout success!");
-		Subject subject = ShiroUtils.getSubject();
-		subject.getSession().removeAttribute(Constants.SESSION_KEY_USER_ID);
-		subject.getSession().removeAttribute(Constants.SESSION_KEY_SHOW_NAME);
-		subject.logout();
+
+		try {
+
+			Subject subject = ShiroUtils.getSubject();
+			subject.getSession().removeAttribute(Constants.SESSION_KEY_USER_ID);
+			subject.getSession().removeAttribute(Constants.SESSION_KEY_SHOW_NAME);
+			subject.logout();
+		} catch (Exception e) {
+			LOG.error("注销错误", e);
+		}
 
 		return ACTION_LOGOUT_RESULT;
 	}
@@ -361,7 +369,7 @@ public class UserController {
 		// First create voterGroup
 		long authorId = ShiroUtils.getUserId();
 		VoterGroup voterGroup = new VoterGroup(authorId, voterGroupAndVoters.getGroupDescription());
-		int voterGroupId = voterGroupService.createVoterGroup(voterGroup);
+		long voterGroupId = voterGroupService.createVoterGroup(voterGroup);
 
 		String votersText = voterGroupAndVoters.getVoterText();
 

@@ -8,12 +8,14 @@ import com.ccniit.graduation.pojo.vo.VoterQuery;
 
 public interface VoterGruopService {
 
-	int createVoterGroup(VoterGroup voterGroup);
+	long createVoterGroup(VoterGroup voterGroup);
 
 	String getVoterGroupDescription(int voterGroupId);
 
 	List<Voter> getVotersByVoterGroupIdAndPage(VoterQuery voterQuery);
 
-	Object getVoterGroups(long userId);
+	List<VoterGroup> getVoterGroups(long authorId);
+
+	VoterGroup getVoterGroup(long voterGroupId);
 
 }

@@ -7,7 +7,7 @@ public class VoterGroupAndVoters {
 		return null;
 	}
 
-	public Object getGroupDescription() {
+	public String getGroupDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}

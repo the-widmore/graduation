@@ -5,9 +5,12 @@
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>投票:编辑</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
-<script src="${pageContext.request.contextPath}/staticFile/ckeditor/ckeditor.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/main.css">
+<script
+	src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 
@@ -61,19 +64,21 @@
 			1、你只需要填写问题和选项即可。<br>
 			2、在添加问题选项时，选项的名称必须填写，并每个问题的选项的名称必须相同。第1个问题就用
 			<kbd>q1</kbd>
-			，以此类推。<br> 3、选定值/选项值，建议使用大写英文字母。并从A开始，依次增加。每个问题在问题定义时，选项必须要至少有一个选中值。
+			，以此类推。<br>
+			3、选定值/选项值，建议使用大写英文字母。并从大写的英文字母A开始，依次增加。每个问题在问题定义时，选项必须要至少有一个选中值。
 		</div>
 
 
 		<div>
-			<form action="${pageContext.request.contextPath}/vote/previewVote.do" method="POST">
+			<form action="${pageContext.request.contextPath}/vote/previewVote.do"
+				method="POST">
 				<textarea id="editor" name="voteText">
 					<p>1.示例单选问题？</p>
 
 <p>
-						<input name="q1" type="radio" value="A" />选项1 &nbsp; &nbsp; <input
-							name="q1" type="radio" value="B" />选项2 &nbsp; &nbsp; <input
-							name="q1" type="radio" value="C" />选项3 &nbsp; &nbsp;</p>
+						<input name="q1" value="A" type="radio" />选项1 &nbsp; &nbsp; <input
+							name="q1" value="B" type="radio" />选项2 &nbsp; &nbsp; <input
+							name="q1" value="C" type="radio" />选项3 &nbsp; &nbsp;</p>
 
 <p>2.多选实例问题？</p>
 
@@ -105,13 +110,15 @@
 
 	</div>
 
-	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			CKEDITOR.replace('editor', {
 				/* customConfig : '../../staticFile/ckeditor/config-advance.js' */
-				customConfig : '../../staticFile/ckeditor/config-vote.js'
+				customConfig : '../../resources/ckeditor/config-vote.js'
 			});
 		});
 	</script>

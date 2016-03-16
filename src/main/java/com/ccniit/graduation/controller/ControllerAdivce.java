@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.ccniit.graduation.exception.NotLoginException;
 
-@ControllerAdvice(basePackages = "com.ccniit.easyvote.controller")
+@ControllerAdvice(basePackages = "com.ccniit.graduation.controller")
 public class ControllerAdivce {
 
 	@ExceptionHandler(NotLoginException.class)

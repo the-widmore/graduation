@@ -63,7 +63,8 @@
 
 			<div class="col-sm-8">
 
-				<h2>用户注册</h2>
+				<h2>用户登录</h2>
+				<p></p>
 
 
 				<form:form class="form-horizontal"

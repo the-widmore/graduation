@@ -36,9 +36,8 @@ public class DefaultRealm extends AuthorizingRealm {
 
 		String username = usernamePasswordToken.getUsername();
 		char[] password = usernamePasswordToken.getPassword();
-		LOG.info("Username:{} ,Password:{}", username, password);
+		LOG.info("Username:{} try login", username, password);
 
-		String host = usernamePasswordToken.getHost();
 
 		try {
 			if (authorAuthService.verifyByEmail(new EmailToken(username, new String(password)))) {
@@ -48,6 +47,7 @@ public class DefaultRealm extends AuthorizingRealm {
 			e.printStackTrace();
 		}
 
+		String host = usernamePasswordToken.getHost();
 		LOG.debug("host:{}", host);
 
 		return null;

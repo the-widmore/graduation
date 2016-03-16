@@ -40,13 +40,13 @@ public class AuthorServiceImpl implements AuthorService {
 	@Override
 	public long getAuthorIdByEmail(String email) {
 		// TODO Auto-generated method stub
-		return 0;
+		return 1;
 	}
 
 	@Override
-	public Object getShowName(Long id) {
+	public String getShowName(Long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return "测试账号";
 	}
 
 	@Override

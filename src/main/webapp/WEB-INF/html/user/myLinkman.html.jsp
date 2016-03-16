@@ -132,9 +132,9 @@
 
 						<c:forEach items="${linkmans}" var="linkman">
 							<tr>
-								<td><a href="${pageContext.request.contextPath}/user/linkmanDetail/${linkman.id }/1">${linkman.groupDescription }</a></td>
-								<td></td>
-								<td>${linkman.inDateString }</td>
+								<td><a href="${pageContext.request.contextPath}/user/linkmanDetail/${linkman.id }">${linkman.groupDescription }</a></td>
+								<td>${linkman.quantity }</td>
+								<td>${linkman.inDate }</td>
 								<td><a href="${pageContext.request.contextPath}/user/voterGroupDel/${ linkman.id}">删除</a></td>
 							</tr>
 						</c:forEach>

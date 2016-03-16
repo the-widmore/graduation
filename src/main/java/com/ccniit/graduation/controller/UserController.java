@@ -37,10 +37,10 @@ import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.VoterGroup;
+import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.pojo.vo.UserDetailInfo;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoterGroupAndVoters;
-import com.ccniit.graduation.pojo.vo.VoterQuery;
 import com.ccniit.graduation.resource.Constants;
 import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.service.VoterGroupService;
@@ -397,7 +397,9 @@ public class UserController {
 				alias = linkmanInfo[1];
 			}
 
-			Voter voter = new Voter(voterGroupId, email, alias);
+			// TODO phone
+			String phone = "";
+			Voter voter = new Voter(voterGroupId, email, phone, alias);
 			// insert voters
 			voterService.insertVoter(voter);
 		}

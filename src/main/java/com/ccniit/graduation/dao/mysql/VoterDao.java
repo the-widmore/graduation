@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.VoterMapper;
 import com.ccniit.graduation.pojo.db.Voter;
-import com.ccniit.graduation.pojo.vo.VoterQuery;
+import com.ccniit.graduation.pojo.qo.VoterQuery;
 
 @Repository("voteDao")
 public class VoterDao implements VoterMapper {

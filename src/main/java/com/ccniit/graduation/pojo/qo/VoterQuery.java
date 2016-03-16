@@ -1,4 +1,4 @@
-package com.ccniit.graduation.pojo.vo;
+package com.ccniit.graduation.pojo.qo;
 
 import java.io.Serializable;
 

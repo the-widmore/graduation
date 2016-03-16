@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 import com.ccniit.graduation.pojo.db.Voter;
-import com.ccniit.graduation.pojo.vo.VoterQuery;
+import com.ccniit.graduation.pojo.qo.VoterQuery;
 
 public interface VoterMapper {
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ccniit.graduation.dao.mysql.VoterGroupDao;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.VoterGroup;
-import com.ccniit.graduation.pojo.vo.VoterQuery;
+import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.service.VoterGroupService;
 
 @Service("voterGruopService")

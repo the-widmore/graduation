@@ -2,6 +2,8 @@ package com.ccniit.graduation.pojo.db;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Voter implements Serializable {
 
 	/**
@@ -9,7 +11,7 @@ public class Voter implements Serializable {
 	 */
 	private static final long serialVersionUID = -1399569389959295577L;
 	private long id;
-	private long voterGroupId;
+	private long voterGroup;
 	private String email;
 	private String phone;
 	private String alias;
@@ -18,9 +20,9 @@ public class Voter implements Serializable {
 		super();
 	}
 
-	public Voter(long voterGroupId, String email, String phone, String alias) {
+	public Voter(long voterGroup, String email, String phone, String alias) {
 		super();
-		this.voterGroupId = voterGroupId;
+		this.voterGroup = voterGroup;
 		this.email = email;
 		this.phone = phone;
 		this.alias = alias;
@@ -35,11 +37,12 @@ public class Voter implements Serializable {
 	}
 
 	public long getVoterGroupId() {
-		return voterGroupId;
+		return voterGroup;
 	}
 
-	public void setVoterGroupId(long voterGroupId) {
-		this.voterGroupId = voterGroupId;
+	@JsonIgnore
+	public void setVoterGroupId(long voterGroup) {
+		this.voterGroup = voterGroup;
 	}
 
 	public String getEmail() {

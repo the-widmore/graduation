@@ -43,10 +43,9 @@ import com.ccniit.graduation.pojo.vo.VoterGroupAndVoters;
 import com.ccniit.graduation.pojo.vo.VoterQuery;
 import com.ccniit.graduation.resource.Constants;
 import com.ccniit.graduation.service.AuthorService;
-import com.ccniit.graduation.service.VoterGruopService;
+import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.service.VoterService;
 import com.ccniit.graduation.util.ShiroUtils;
-import com.ccniit.graduation.util.SpringMVCUtils;
 import com.ccniit.graduation.util.StringUtils;
 
 @Controller
@@ -59,7 +58,7 @@ public class UserController {
 	@Resource
 	private VoterService voterService;
 	@Resource
-	private VoterGruopService voterGroupService;
+	private VoterGroupService voterGroupService;
 
 	public static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
 

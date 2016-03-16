@@ -10,10 +10,10 @@ import com.ccniit.graduation.dao.mysql.VoterGroupDao;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.VoterGroup;
 import com.ccniit.graduation.pojo.vo.VoterQuery;
-import com.ccniit.graduation.service.VoterGruopService;
+import com.ccniit.graduation.service.VoterGroupService;
 
 @Service("voterGruopService")
-public class VoterGruopServiceImpl implements VoterGruopService {
+public class VoterGruopServiceImpl implements VoterGroupService {
 
 	@Resource
 	VoterGroupDao voterGroupDao;

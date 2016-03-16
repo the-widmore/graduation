@@ -6,8 +6,14 @@
 <head lang="zh-CN">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>用户:联系人详情</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/easyui/themes/default/easyui.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/easyui/themes/icon.css">
 </head>
 <body>
 
@@ -25,12 +31,16 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
-				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
-				<li class="active"><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
 				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
-				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>
@@ -52,8 +62,12 @@
 	<div class="container content">
 		<ol class="breadcrumb">
 			<li><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
-			<li><a href="${pageContext.request.contextPath}/user/selfCenter.html"> 个人中心</a></li>
-			<li><a href="${pageContext.request.contextPath}/user/myLinkman.html"> 联系人管理</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/user/selfCenter.html">
+					个人中心</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/user/myLinkman.html">
+					联系人管理</a></li>
 			<li class="active">联系人详细信息</li>
 		</ol>
 		<div class="row">
@@ -63,6 +77,17 @@
 						<i class="glyphicon glyphicon-th-list"></i> 联系人详情 <small>${description }</small>
 					</h3>
 				</div>
+
+				<!-- use EasyUI -->
+				<table id="voterGroupDetail" class="easyui-datagrid" url=""
+					rownumbers="true" fitColumns="true" singleSelect="true"
+					style="width: 95%, height:600px">
+					<thead>
+						<th data-options="field:email"></th>
+						<th data-options="field:tel"></th>
+						<th data-options="field:alias"></th>
+					</thead>
+				</table>
 
 				<table class="table table-bordered table-hover table-condensed">
 					<thead class="alert-info">
@@ -78,7 +103,8 @@
 							<tr>
 								<td><b class="dblclick" id="${voter.id }">${voter.email }</b></td>
 								<td>${voter.alias }</td>
-								<td><a href="${pageContext.request.contextPath}/user/linkmanDel/${voter.id }">删除</a></td>
+								<td><a
+									href="${pageContext.request.contextPath}/user/linkmanDel/${voter.id }">删除</a></td>
 							</tr>
 						</c:forEach>
 
@@ -111,8 +137,15 @@
 	</div>
 	</footer>
 
-	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.easyui.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<!-- TODO -->
 	<script src="../../js/jquery.jeditable.js"></script>
 	<script src="../../js/user/linkmanDetailEdit.js"></script>
 </body>

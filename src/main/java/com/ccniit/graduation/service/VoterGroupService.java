@@ -6,7 +6,7 @@ import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.VoterGroup;
 import com.ccniit.graduation.pojo.vo.VoterQuery;
 
-public interface VoterGruopService {
+public interface VoterGroupService {
 
 	long createVoterGroup(VoterGroup voterGroup);
 

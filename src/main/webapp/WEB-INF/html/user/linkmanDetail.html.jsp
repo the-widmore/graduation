@@ -79,9 +79,9 @@
 				</div>
 
 				<!-- use EasyUI -->
-				<table id="voterGroupDetail" class="easyui-datagrid" url=""
-					rownumbers="true" fitColumns="true" singleSelect="true"
-					style="width: 95%, height:600px">
+				<table id="voterGroupDetail" class="easyui-datagrid"
+					style="width: 95%, height:600px"
+					data-options="singleSelect:true,collapsible:true,url:'${pageContext.request.contextPath}/easyui/voterGroupDetail/1?page=0',method:'get'">
 					<thead>
 						<th data-options="field:email"></th>
 						<th data-options="field:tel"></th>

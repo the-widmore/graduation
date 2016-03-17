@@ -6,8 +6,10 @@
 <head lang="zh-CN">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>用户:我的联系人</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
@@ -26,12 +28,16 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
-				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
-				<li class="active"><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
 				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
-				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>
@@ -130,12 +136,14 @@
 					</thead>
 					<tbody>
 
-						<c:forEach items="${linkmans}" var="linkman">
+						<c:forEach items="${voterGroups}" var="group">
 							<tr>
-								<td><a href="${pageContext.request.contextPath}/user/linkmanDetail/${linkman.id }">${linkman.groupDescription }</a></td>
-								<td>${linkman.quantity }</td>
-								<td>${linkman.inDate }</td>
-								<td><a href="${pageContext.request.contextPath}/user/voterGroupDel/${ linkman.id}">删除</a></td>
+								<td><a
+									href="${pageContext.request.contextPath}/user/linkmanDetail/${group.id }">${group.description }</a></td>
+								<td>${group.quantity }</td>
+								<td>${group.inDate }</td>
+								<td><a
+									href="${pageContext.request.contextPath}/user/voterGroupDel/${group.id}">删除</a></td>
 							</tr>
 						</c:forEach>
 
@@ -168,7 +176,9 @@
 	</div>
 	</footer>
 
-	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

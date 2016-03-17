@@ -12,14 +12,14 @@ public class VoterGroup implements Serializable {
 	private long id;
 	private long author;
 	private int quantity;
-	private String groupDescription;
+	private String description;
 	private Date inDate;
 
 	public VoterGroup() {
 		super();
 	}
 
-	public VoterGroup(long authorId, String groupDescription) {
+	public VoterGroup(long authorId, String description) {
 		this.inDate = new Date();
 	}
 
@@ -47,12 +47,12 @@ public class VoterGroup implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public String getGroupDescription() {
-		return groupDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setGroupDescription(String groupDescription) {
-		this.groupDescription = groupDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getInDate() {

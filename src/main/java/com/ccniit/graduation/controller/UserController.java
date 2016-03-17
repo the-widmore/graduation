@@ -126,7 +126,7 @@ public class UserController {
 
 	@RequestMapping(value = { VIEW_USER_MY_LINKMAN }, method = RequestMethod.GET)
 	public String myLinkman(ModelMap modelMap) {
-		modelMap.addAttribute("linkmans", voterGroupService.getVoterGroups(ShiroUtils.getUserId()));
+		modelMap.addAttribute("voterGroups", voterGroupService.getVoterGroups(ShiroUtils.getUserId()));
 		return VIEW_USER_MY_LINKMAN;
 	}
 
@@ -218,18 +218,33 @@ public class UserController {
 
 	// linkman group detail
 
-	public static final String VIEW_LINKMAN_DETAIL_PAGE = "/user/linkmanDetail/{voterGroupId}/{page}";
+	/*
+	 * public static final String VIEW_LINKMAN_DETAIL_PAGE =
+	 * "/user/linkmanDetail/{voterGroupId}/{page}";
+	 * 
+	 * @RequestMapping(value = { VIEW_LINKMAN_DETAIL_PAGE }, method =
+	 * RequestMethod.GET) public String linkmanDetailByIdAndPage(@PathVariable
+	 * int voterGroupId, @PathVariable int page, ModelMap model) {
+	 * 
+	 * VoterQuery voterQuery = new VoterQuery(voterGroupId, (page - 1) * 20);
+	 * 
+	 * String description =
+	 * voterGroupService.getVoterGroupDescription(voterGroupId);
+	 * model.addAttribute("description", description);
+	 * 
+	 * List<Voter> voters =
+	 * voterGroupService.getVotersByVoterGroupIdAndPage(voterQuery);
+	 * model.addAttribute("voters", voters); return VIEW_USER_LINKMAN_DETAIL; }
+	 */
 
-	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_PAGE }, method = RequestMethod.GET)
-	public String linkmanDetailByIdAndPage(@PathVariable int voterGroupId, @PathVariable int page, ModelMap model) {
+	public static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroupId}";
+
+	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_URL }, method = RequestMethod.GET)
+	public String linkmanDetail(@PathVariable int voterGroupId, @RequestParam("page") int page) {
 
 		VoterQuery voterQuery = new VoterQuery(voterGroupId, (page - 1) * 20);
 
-		String description = voterGroupService.getVoterGroupDescription(voterGroupId);
-		model.addAttribute("description", description);
-
-		List<Voter> voters = voterGroupService.getVotersByVoterGroupIdAndPage(voterQuery);
-		model.addAttribute("voters", voters);
+		// TODO
 		return VIEW_USER_LINKMAN_DETAIL;
 	}
 

@@ -51,7 +51,7 @@ public interface VoterGroupMapper {
 	int deleteVoterGroup(long voterGroupId);
 
 	/**
-	 * 更新VoterGroup.quantity；
+	 * 更新VoterGroup.quantity(人数)；
 	 * 
 	 * @param VoterGroup.id
 	 * @return updated recode

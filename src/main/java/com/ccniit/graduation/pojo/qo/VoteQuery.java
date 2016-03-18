@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class VoteQuery implements Serializable {
 
+	private static final int DEFAULT_PAGE_SIZE = 20;
+
 	/**
 	 * 
 	 */
@@ -14,6 +16,13 @@ public class VoteQuery implements Serializable {
 
 	public VoteQuery() {
 		super();
+	}
+
+	public VoteQuery(String tag, int page) {
+		super();
+		this.tag = tag;
+		this.page = page;
+		this.pageSize = DEFAULT_PAGE_SIZE;
 	}
 
 	public VoteQuery(String tag, int page, int pageSize) {

@@ -14,4 +14,8 @@ public class StringUtils {
 		return System.getProperty("line.separator");
 	}
 
+	public static String[] split(String source, String sub) {
+		return source.split(sub);
+	}
+
 }

@@ -1,6 +1,5 @@
 package com.ccniit.graduation.controller;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
-import com.ccniit.graduation.pojo.doc.VoteData;
+import com.ccniit.graduation.pojo.doc.VoteDataDoc;
 
 @Controller
 public class VoteController {
@@ -89,7 +88,7 @@ public class VoteController {
 		// TODO
 		Map<String, String[]> paramaterMap = request.getParameterMap();
 
-		VoteData voteData = new VoteData();
+		VoteDataDoc voteData = new VoteDataDoc();
 		Map<String, List<String>> arrayMap = requestParamsMapToArrayMap.convert(paramaterMap);
 		voteData.setVote(1);
 		voteData.setData(arrayMap);

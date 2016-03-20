@@ -69,4 +69,9 @@ public class Voter implements Serializable {
 		this.alias = alias;
 	}
 
+	@Override
+	public String toString() {
+		return "Voter [email=" + email + ", phone=" + phone + ", alias=" + alias + "]";
+	}
+
 }

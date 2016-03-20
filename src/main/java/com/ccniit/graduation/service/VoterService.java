@@ -6,7 +6,7 @@ import com.ccniit.graduation.pojo.db.Voter;
 
 public interface VoterService {
 
-	int insertVoter(Voter voter);
+	long insertVoter(Voter voter);
 
 	int insertVoters(List<Voter> voters);
 

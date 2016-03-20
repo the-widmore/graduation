@@ -1,5 +1,7 @@
 package com.ccniit.graduation.plus.poi;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -17,6 +19,13 @@ public class VoterParseFromExcelTest extends BaseTest {
 	public void testParse() {
 
 		voterParseFromExcel.parse(PATH);
+
+	}
+
+	@Test
+	public void testReadXls() throws IOException {
+
+		voterParseFromExcel.readXls(PATH);
 
 	}
 

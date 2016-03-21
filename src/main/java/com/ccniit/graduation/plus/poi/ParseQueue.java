@@ -1,5 +1,6 @@
 package com.ccniit.graduation.plus.poi;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,6 +8,10 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.ccniit.graduation.exception.IException;
+import com.ccniit.graduation.pojo.db.Voter;
+import com.ccniit.graduation.service.VoterService;
 
 public class ParseQueue {
 
@@ -18,6 +23,8 @@ public class ParseQueue {
 
 	@Resource
 	VoterParse parseVotersFromExcel;
+	@Resource
+	VoterService voterService;
 
 	public void add(String path) {
 		synchronized (queue) {
@@ -26,11 +33,23 @@ public class ParseQueue {
 	}
 
 	// TODO task
-	public void start() {
+	public void start() throws IException {
 
 		if (parsing) {
 			return;
 		}
+
+		parsing = true;
+		for (Iterator<String> iterator = queue.iterator(); iterator.hasNext();) {
+			String path = iterator.next();
+			String[] params = { path };
+
+			List<Voter> voters = parseVotersFromExcel.parse(params);
+
+			voterService.insertVoters(voters);
+		}
+
+		parsing = false;
 
 		// TODO
 

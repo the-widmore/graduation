@@ -66,11 +66,15 @@ public class UserController {
 	public String selfCenter(ModelMap modelMap) throws IException {
 		long id = ShiroUtils.getUserId();
 
+		LOG.info("Author:{}", id);
+
 		if (0 == id) {
 			throw new NotLoginException("必须登录");
 		}
 
 		modelMap.addAttribute("userShow", authorService.getShowName(id));
+		modelMap.addAttribute("authorContentCounter", authorService.getAuthorAuthorContentCounter(id));
+
 		return VIEW_USER_SELF_CENTER;
 	}
 
@@ -240,7 +244,8 @@ public class UserController {
 	public static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroupId}";
 
 	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_URL }, method = RequestMethod.GET)
-	public String linkmanDetail(@PathVariable int voterGroupId, @RequestParam("page") int page) {
+	public String linkmanDetail(@PathVariable int voterGroupId,
+			@RequestParam(required = true, value = "page", defaultValue = "0") int page) {
 
 		VoterQuery voterQuery = new VoterQuery(voterGroupId, (page - 1) * 20);
 

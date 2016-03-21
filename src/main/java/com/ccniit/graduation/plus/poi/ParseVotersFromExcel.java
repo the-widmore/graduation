@@ -22,6 +22,7 @@ import com.ccniit.graduation.exception.ParamsLengthException;
 import com.ccniit.graduation.exception.TemplateStructureUpdateException;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.resource.SpringScope;
+import com.ccniit.graduation.util.DateUtils;
 import com.ccniit.graduation.validator.StringVaildateFactory;
 import com.ccniit.graduation.validator.StringVaildateFactory.StringVaildateType;
 
@@ -43,6 +44,7 @@ public class ParseVotersFromExcel implements VoterParse {
 		}
 
 		List<Voter> voters = new ArrayList<>();
+		String voterGroupDescript = null;
 		Voter voter = null;
 
 		String excelPath = params[0];
@@ -65,6 +67,13 @@ public class ParseVotersFromExcel implements VoterParse {
 		HSSFSheet sheet = workbook.getSheetAt(0);
 		if (null == sheet) {
 			return null;
+		}
+
+		// 获取联系人组描述
+		try {
+			voterGroupDescript = sheet.getRow(0).getCell(2).getStringCellValue();
+		} catch (NullPointerException e) {
+			voterGroupDescript = DateUtils.y4M2d2(null);
 		}
 
 		// get voter ,begin with 3th row

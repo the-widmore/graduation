@@ -11,7 +11,6 @@
 	href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
-
 	<nav class="navbar navbar-default ">
 	<div class="container">
 		<div class="navbar-header">
@@ -26,9 +25,12 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
-				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
-				<li><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
 				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
 				<li class="active"><a
@@ -101,8 +103,8 @@
 	</footer>
 
 	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-1.11.0.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

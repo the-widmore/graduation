@@ -5,6 +5,7 @@ import java.util.List;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.VoterGroup;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
+import com.ccniit.graduation.pojo.vo.VoterGroupVo;
 
 public interface VoterGroupService {
 
@@ -14,7 +15,7 @@ public interface VoterGroupService {
 
 	List<Voter> getVotersByVoterGroupIdAndPage(VoterQuery voterQuery);
 
-	List<VoterGroup> getVoterGroups(long authorId);
+	List<VoterGroupVo> getVoterGroups(long authorId);
 
 	VoterGroup getVoterGroup(long voterGroupId);
 

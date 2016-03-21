@@ -28,7 +28,7 @@ public interface AuthorMapper {
 	 * @param author.id
 	 * @return author
 	 */
-	@Select("SELECT email,tel,nickname,name,sex,avatar FROM author WHERE id=#{id}")
+	@Select("SELECT email,tel,nickname,name,sex FROM author WHERE id=#{id}")
 	Author selectById(long id);
 
 	/**
@@ -54,7 +54,7 @@ public interface AuthorMapper {
 	 */
 	@Update("UPDATE author SET tel=#{tel},nickname=#{nickanem},name=#{name},sex=#{sex} WHERE id=#{id}")
 	int updateAuthor(Author author);
-	
+
 	/**
 	 * 统计Email在Author中的记录条数
 	 * 

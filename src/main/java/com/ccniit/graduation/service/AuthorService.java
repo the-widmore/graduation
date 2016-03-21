@@ -21,9 +21,7 @@ public interface AuthorService {
 
 	long getAuthorIdByEmail(String email);
 
-	String getShowName(Long id);
-
-	boolean authorIsExist(Object email);
+	boolean authorIsExist(String email);
 
 	Author findAuthorById(long id);
 

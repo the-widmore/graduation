@@ -53,7 +53,7 @@ public class ShiroUtils {
 	}
 
 	public static long getUserId() throws IException {
-		Object object = getSessionValue(Constants.SESSION_KEY_USER_ID);
+		Object object = getSessionValue(Constants.SESSION_KEY_AUTHOR_ID);
 
 		if (null == object) {
 			return 0L;

@@ -81,7 +81,6 @@ public class UserController {
 			throw new NotLoginException("必须登录");
 		}
 
-		modelMap.addAttribute("userShow", authorService.getShowName(id));
 		modelMap.addAttribute("authorContentCounter", getAuthorContentCounter(id));
 
 		return VIEW_USER_SELF_CENTER;
@@ -322,8 +321,7 @@ public class UserController {
 
 			LOG.debug("Email:{} ID:{}", currentUser.getPrincipal(), id);
 
-			session.setAttribute(Constants.SESSION_KEY_USER_ID, id);
-			session.setAttribute(Constants.SESSION_KEY_SHOW_NAME, authorService.getShowName(id));
+			session.setAttribute(Constants.SESSION_KEY_AUTHOR_ID, id);
 
 			return USER_LOGIN_RESULT;
 		} else {
@@ -340,10 +338,8 @@ public class UserController {
 		modelMap.addAttribute("message", "Logout success!");
 
 		try {
-
 			Subject subject = ShiroUtils.getSubject();
-			subject.getSession().removeAttribute(Constants.SESSION_KEY_USER_ID);
-			subject.getSession().removeAttribute(Constants.SESSION_KEY_SHOW_NAME);
+			subject.getSession().stop();
 			subject.logout();
 		} catch (Exception e) {
 			LOG.error("注销错误", e);

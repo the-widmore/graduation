@@ -3,6 +3,8 @@ package com.ccniit.graduation.service.impl;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ import com.ccniit.graduation.service.AuthorService;
 
 @Service("authorService")
 public class AuthorServiceImpl implements AuthorService {
+
+	private static final Logger LOG = LoggerFactory.getLogger(AuthorService.class);
 
 	@Resource
 	AuthorContentCounterBuilder authorContentCounterBuilder;
@@ -47,27 +51,15 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public String getShowName(Long id) {
-		Author author = findAuthorById(id);
-		String nickname = author.getNickname().trim();
-		if (StringUtils.isNotBlank(nickname)) {
-			return nickname;
-		} else {
-			String email = author.getEmail();
-			return email.split("@")[0];
-		}
-	}
-
-	@Override
-	public boolean authorIsExist(Object email) {
+	public boolean authorIsExist(String email) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Cacheable(cacheNames = CacheNams.AUTHOR, key = "#id")
+	@Cacheable(cacheNames = CacheNams.AUTHOR, key = "#authorId")
 	@Override
-	public Author findAuthorById(long id) {
-		return authorDao.selectById(id);
+	public Author findAuthorById(long authorId) {
+		return authorDao.selectById(authorId);
 	}
 
 	@Cacheable(cacheNames = CacheNams.AUTHOR_VOTE_COUNT, key = "#authorId")

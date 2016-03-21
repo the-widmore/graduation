@@ -5,13 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
@@ -27,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
@@ -38,6 +37,7 @@ import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.VoterGroup;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
+import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserDetailInfo;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoterGroupAndVoters;
@@ -49,6 +49,7 @@ import com.ccniit.graduation.util.ShiroUtils;
 import com.ccniit.graduation.util.StringUtils;
 
 @Controller
+@SessionAttributes(names = { "authorContentCounter" })
 public class UserController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
@@ -60,11 +61,19 @@ public class UserController {
 	@Resource
 	private VoterGroupService voterGroupService;
 
+	private AuthorContentCounter getAuthorContentCounter(long id) {
+		return authorService.getAuthorContentCounter(id);
+	}
+
 	public static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
+
+	public AuthorContentCounter get() {
+		return null;
+	}
 
 	@RequestMapping(value = { VIEW_USER_SELF_CENTER })
 	public String selfCenter(ModelMap modelMap) throws IException {
-		long id = ShiroUtils.getUserId();
+		long id = getAuthorId();
 
 		LOG.info("Author:{}", id);
 
@@ -73,7 +82,7 @@ public class UserController {
 		}
 
 		modelMap.addAttribute("userShow", authorService.getShowName(id));
-		modelMap.addAttribute("authorContentCounter", authorService.getAuthorAuthorContentCounter(id));
+		modelMap.addAttribute("authorContentCounter", getAuthorContentCounter(id));
 
 		return VIEW_USER_SELF_CENTER;
 	}
@@ -130,7 +139,7 @@ public class UserController {
 
 	@RequestMapping(value = { VIEW_USER_MY_LINKMAN }, method = RequestMethod.GET)
 	public String myLinkman(ModelMap modelMap) {
-		modelMap.addAttribute("voterGroups", voterGroupService.getVoterGroups(ShiroUtils.getUserId()));
+		modelMap.addAttribute("voterGroups", voterGroupService.getVoterGroups(getAuthorId()));
 		return VIEW_USER_MY_LINKMAN;
 	}
 
@@ -187,7 +196,7 @@ public class UserController {
 	@RequestMapping(value = { VIEW_USER_PROFILE }, method = RequestMethod.GET)
 	public String userProfile(Model model) {
 
-		long id = ShiroUtils.getUserId();
+		long id = getAuthorId();
 
 		Author author = authorService.findAuthorById(id);
 
@@ -297,9 +306,8 @@ public class UserController {
 	@RequestMapping(value = { FORM_USER_LOGIN }, method = RequestMethod.POST)
 	public String loginAction(@ModelAttribute("userToken") UserToken userToken, BindingResult result, Model model) {
 
-		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(userToken.getEmail(), userToken.getPassword());
-
+		Subject currentUser = ShiroUtils.getSubject();
 		try {
 			currentUser.login(token);
 		} catch (AuthenticationException e) {
@@ -309,9 +317,10 @@ public class UserController {
 		}
 
 		if (currentUser.isAuthenticated()) {
-			LOG.info(currentUser.getPrincipal().toString() + ": logined!");
 			Session session = currentUser.getSession(true);
 			long id = authorService.getAuthorIdByEmail(userToken.getEmail());
+
+			LOG.debug("Email:{} ID:{}", currentUser.getPrincipal(), id);
 
 			session.setAttribute(Constants.SESSION_KEY_USER_ID, id);
 			session.setAttribute(Constants.SESSION_KEY_SHOW_NAME, authorService.getShowName(id));
@@ -387,7 +396,7 @@ public class UserController {
 		}
 
 		// First create voterGroup
-		long authorId = ShiroUtils.getUserId();
+		long authorId = getAuthorId();
 		VoterGroup voterGroup = new VoterGroup(authorId, voterGroupAndVoters.getGroupDescription());
 		long voterGroupId = voterGroupService.createVoterGroup(voterGroup);
 
@@ -443,7 +452,7 @@ public class UserController {
 			model.addAttribute("errorMessageNewPassword", "new password not same");
 		}
 
-		userBaseInfo.setId(ShiroUtils.getUserId());
+		userBaseInfo.setId(getAuthorId());
 		authorService.updateBaseInfo(userBaseInfo);
 		return VIEW_USER_PROFILE;
 	}
@@ -456,6 +465,16 @@ public class UserController {
 		// TODO
 
 		return VIEW_USER_PROFILE;
+	}
+
+	private long getAuthorId() {
+		long authorId = -1L;
+		try {
+			authorId = ShiroUtils.getUserId();
+		} catch (IException e) {
+			LOG.error("获取Author.id错误", e);
+		}
+		return authorId;
 	}
 
 }

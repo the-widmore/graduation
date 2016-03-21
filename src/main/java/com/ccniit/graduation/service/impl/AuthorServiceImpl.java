@@ -2,10 +2,12 @@ package com.ccniit.graduation.service.impl;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.builder.AuthorContentCounterBuilder;
+import com.ccniit.graduation.dao.mysql.AuthorDao;
 import com.ccniit.graduation.pojo.common.UserBaseInfo;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
@@ -18,6 +20,8 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Resource
 	AuthorContentCounterBuilder authorContentCounterBuilder;
+	@Resource
+	AuthorDao authorDao;
 
 	@Override
 	public long register(Author author) {
@@ -39,14 +43,19 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public long getAuthorIdByEmail(String email) {
-		// TODO Auto-generated method stub
-		return 1;
+		return authorDao.selectAuthorIdByEmail(email);
 	}
 
 	@Override
 	public String getShowName(Long id) {
-		// TODO Auto-generated method stub
-		return "测试账号";
+		Author author = findAuthorById(id);
+		String nickname = author.getNickname().trim();
+		if (StringUtils.isNotBlank(nickname)) {
+			return nickname;
+		} else {
+			String email = author.getEmail();
+			return email.split("@")[0];
+		}
 	}
 
 	@Override
@@ -55,15 +64,15 @@ public class AuthorServiceImpl implements AuthorService {
 		return false;
 	}
 
+	@Cacheable(cacheNames = CacheNams.AUTHOR, key = "#id")
 	@Override
 	public Author findAuthorById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return authorDao.selectById(id);
 	}
 
 	@Cacheable(cacheNames = CacheNams.AUTHOR_VOTE_COUNT, key = "#authorId")
 	@Override
-	public AuthorContentCounter getAuthorAuthorContentCounter(long authorId) {
+	public AuthorContentCounter getAuthorContentCounter(long authorId) {
 		return authorContentCounterBuilder.build(authorId);
 	}
 

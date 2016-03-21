@@ -27,6 +27,6 @@ public interface AuthorService {
 
 	Author findAuthorById(long id);
 
-	AuthorContentCounter getAuthorAuthorContentCounter(long authorId);
+	AuthorContentCounter getAuthorContentCounter(long authorId);
 
 }

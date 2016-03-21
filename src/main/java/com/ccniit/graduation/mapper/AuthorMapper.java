@@ -44,7 +44,7 @@ public interface AuthorMapper {
 	 * @return author
 	 */
 	@Select("SELECT id,tel,nickname,name,sex,avatar FROM author WHERE email=#{email}")
-	Author selectByEmail(String email);
+	Author selectAuthorByEmail(String email);
 
 	/**
 	 * 更新一条author记录，按照id
@@ -54,7 +54,7 @@ public interface AuthorMapper {
 	 */
 	@Update("UPDATE author SET tel=#{tel},nickname=#{nickanem},name=#{name},sex=#{sex} WHERE id=#{id}")
 	int updateAuthor(Author author);
-
+	
 	/**
 	 * 统计Email在Author中的记录条数
 	 * 

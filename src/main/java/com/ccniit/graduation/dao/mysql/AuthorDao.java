@@ -32,8 +32,8 @@ public class AuthorDao implements AuthorMapper {
 	}
 
 	@Override
-	public Author selectByEmail(String email) {
-		return authorMapper.selectByEmail(email);
+	public Author selectAuthorByEmail(String email) {
+		return authorMapper.selectAuthorByEmail(email);
 	}
 
 	@Override

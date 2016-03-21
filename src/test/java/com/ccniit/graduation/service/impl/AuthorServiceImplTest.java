@@ -52,9 +52,9 @@ public class AuthorServiceImplTest extends BaseTest {
 
 	@Test
 	public void testGetAuthorAuthorContentCounter() {
-		AuthorContentCounter authorContentCounter1 = authorService.getAuthorAuthorContentCounter(1);
-		AuthorContentCounter authorContentCounter2 = authorService.getAuthorAuthorContentCounter(1);
-		AuthorContentCounter authorContentCounter3 = authorService.getAuthorAuthorContentCounter(1);
+		AuthorContentCounter authorContentCounter1 = authorService.getAuthorContentCounter(1);
+		AuthorContentCounter authorContentCounter2 = authorService.getAuthorContentCounter(1);
+		AuthorContentCounter authorContentCounter3 = authorService.getAuthorContentCounter(1);
 		System.out.println(authorContentCounter1);
 		System.out.println(authorContentCounter2);
 		System.out.println(authorContentCounter3);

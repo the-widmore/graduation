@@ -153,9 +153,7 @@
 
 		function reloadKaptchaImage() {
 			var verify = $("#kaptchaImage");
-			verify.attr('src', '${pageContext.request.contextPath}
-		/captchaImage?'
-					+ Math.random());
+			verify.attr('src', '${pageContext.request.contextPath}/captchaImage?'+ Math.random());
 		}
 	</script>
 </body>

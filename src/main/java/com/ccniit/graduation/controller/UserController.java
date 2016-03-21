@@ -312,6 +312,7 @@ public class UserController {
 			LOG.info(currentUser.getPrincipal().toString() + ": logined!");
 			Session session = currentUser.getSession(true);
 			long id = authorService.getAuthorIdByEmail(userToken.getEmail());
+
 			session.setAttribute(Constants.SESSION_KEY_USER_ID, id);
 			session.setAttribute(Constants.SESSION_KEY_SHOW_NAME, authorService.getShowName(id));
 

@@ -90,11 +90,15 @@
                             <div class="panel ">
                                 <div class="panel-body">
                                     <ul>
-                                        <li><a href="myLinkman.html">我的联系人</a><span class="badge">3</span></li>
-                                        <li><hr></li>
-                                        <li><a href="myPoll.html">我的问卷</a><span class="badge">4</span></li>
-                                        <li><a href="myVote.html">我的投票</a><span class="badge">10</span></li>
-                                        <li><a href="myInfoGather.html">我的信息收集</a><span class="badge">1</span></li>
+                                        <li><a href="myLinkman.html">我的联系人</a><span
+												class="badge">${authorContentCounter.linkmanCount }</span></li>
+											<li>
+												<hr>
+											</li>
+											<li><a href="myPoll.html">我的问卷</a><span class="badge">${authorContentCounter.voteCount }</span></li>
+											<li><a href="myVote.html">我的投票</a><span class="badge">${authorContentCounter.pollCount }</span></li>
+											<li><a href="myInfoGather.html">我的信息收集</a><span
+												class="badge">${authorContentCounter.infoCount }</span></li>
                                     </ul>
                                 </div>
                             </div>

@@ -1,12 +1,39 @@
 package com.ccniit.graduation.plus.poi;
 
-/**
- * excel解析比较消耗资源，使用队列保证服务器稳定
- */
-public interface ParseQueue {
+import java.util.LinkedList;
+import java.util.List;
 
-	boolean add(String excelPath, int primary);
+import javax.annotation.Resource;
 
-	void start();
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class ParseQueue {
+
+	private static final Logger LOG = LoggerFactory.getLogger(ParseQueue.class);
+
+	// Thread safe
+	private volatile static List<String> queue = new LinkedList<>();
+	private static boolean parsing;
+
+	@Resource
+	VoterParse parseVotersFromExcel;
+
+	public void add(String path) {
+		synchronized (queue) {
+			queue.add(path);
+		}
+	}
+
+	// TODO task
+	public void start() {
+
+		if (parsing) {
+			return;
+		}
+
+		// TODO
+
+	}
 
 }

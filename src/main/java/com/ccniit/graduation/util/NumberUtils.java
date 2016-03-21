@@ -1,8 +1,6 @@
 package com.ccniit.graduation.util;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 public class NumberUtils {
 
@@ -10,18 +8,16 @@ public class NumberUtils {
 
 	}
 
-	// 格式化小数
+	// 格式化小数,四舍五入
 	public static double formatDouble(double value, int pointSize) {
-		NumberFormat decimalFormat = DecimalFormat.getInstance();
-		decimalFormat.setMaximumFractionDigits(pointSize);
-		return Double.parseDouble(decimalFormat.format(value));
+		BigDecimal decimal = new BigDecimal(value);
+		return decimal.setScale(pointSize, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 
-	public static double div(double f, double s) {
+	public static double div(double f, double s, int pointSize) {
 		BigDecimal first = new BigDecimal(f);
 		BigDecimal second = new BigDecimal(s);
-		BigDecimal result = first.divide(second, 100, 5);
-		return formatDouble(result.doubleValue(), 2);
+		return first.divide(second, pointSize, BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 
 }

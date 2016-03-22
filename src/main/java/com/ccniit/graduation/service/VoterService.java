@@ -3,6 +3,7 @@ package com.ccniit.graduation.service;
 import java.util.List;
 
 import com.ccniit.graduation.pojo.db.Voter;
+import com.ccniit.graduation.pojo.qo.VoterQuery;
 
 public interface VoterService {
 
@@ -11,5 +12,7 @@ public interface VoterService {
 	int insertVoters(List<Voter> voters);
 
 	int deleteVoter(long voterId);
+
+	List<Voter> selectVoterFromVoterGroup(VoterQuery voterQuery);
 
 }

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -46,6 +48,7 @@ import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.service.VoterService;
 import com.ccniit.graduation.util.ShiroUtils;
+import com.ccniit.graduation.util.SpringMVCUtils;
 import com.ccniit.graduation.util.StringUtils;
 
 @Controller
@@ -66,10 +69,6 @@ public class UserController {
 	}
 
 	public static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
-
-	public AuthorContentCounter get() {
-		return null;
-	}
 
 	@RequestMapping(value = { VIEW_USER_SELF_CENTER })
 	public String selfCenter(ModelMap modelMap) throws IException {
@@ -120,6 +119,7 @@ public class UserController {
 
 	public static final String VIEW_USER_LINKMAN_DETAIL = "/user/linkmanDetail.html";
 
+	@RequiresAuthentication
 	@RequestMapping(value = { VIEW_USER_LINKMAN_DETAIL }, method = RequestMethod.GET)
 	public String linkmanDetail(ModelMap modelMap) {
 
@@ -251,11 +251,15 @@ public class UserController {
 
 	public static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroupId}";
 
+	@RequiresAuthentication
 	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_URL }, method = RequestMethod.GET)
 	public String linkmanDetail(@PathVariable int voterGroupId,
-			@RequestParam(required = true, value = "page", defaultValue = "0") int page) {
+			@RequestParam(required = true, value = "page", defaultValue = "0") int page, Model model) {
 
-		VoterQuery voterQuery = new VoterQuery(voterGroupId, (page - 1) * 20);
+		VoterQuery voterQuery = new VoterQuery(voterGroupId, (page * 20));
+
+		List<Voter> voters = voterService.selectVoterFromVoterGroup(voterQuery);
+		model.addAttribute("voters", voters);
 
 		// TODO
 		return VIEW_USER_LINKMAN_DETAIL;
@@ -322,8 +326,7 @@ public class UserController {
 			LOG.debug("Email:{} ID:{}", currentUser.getPrincipal(), id);
 
 			session.setAttribute(Constants.SESSION_KEY_AUTHOR_ID, id);
-
-			return USER_LOGIN_RESULT;
+			return SpringMVCUtils.redirect(USER_LOGIN_RESULT);
 		} else {
 			model.addAttribute("message", "account or password error!");
 			return VIEW_USER_LOGIN;
@@ -345,7 +348,7 @@ public class UserController {
 			LOG.error("注销错误", e);
 		}
 
-		return ACTION_LOGOUT_RESULT;
+		return SpringMVCUtils.redirect(ACTION_LOGOUT_RESULT);
 	}
 
 	public static final String ACTION_CREATE_LINKMAN_BY_EXCEL = "/user/createLinkmanBuildByExcel.do";

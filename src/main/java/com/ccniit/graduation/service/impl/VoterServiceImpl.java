@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.dao.mysql.VoterDao;
 import com.ccniit.graduation.pojo.db.Voter;
+import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.service.VoterService;
 
 @Service("voterService")
@@ -40,6 +41,11 @@ public class VoterServiceImpl implements VoterService {
 	public int deleteVoter(long voterId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Voter> selectVoterFromVoterGroup(VoterQuery voterQuery) {
+		return voterDao.selectVoterFromVoterGroup(voterQuery);
 	}
 
 }

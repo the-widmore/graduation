@@ -19,7 +19,7 @@ public class VoterGroupToVoterGroupVo implements Converter<VoterGroup, VoterGrou
 		vo.setDescription(source.getDescription());
 		vo.setQuantity(source.getQuantity());
 		vo.setInDate(DateUtils.y4M2d2(source.getInDate()));
-		return null;
+		return vo;
 	}
 
 }

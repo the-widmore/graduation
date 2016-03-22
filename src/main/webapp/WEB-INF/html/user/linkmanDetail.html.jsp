@@ -78,38 +78,37 @@
 					</h3>
 				</div>
 
-				<!-- use EasyUI -->
-				<table id="voterGroupDetail" class="easyui-datagrid"
-					style="width: 95%, height:600px"
-					data-options="singleSelect:true,collapsible:true,url:'${pageContext.request.contextPath}/easyui/voterGroupDetail/1?page=0',method:'get'">
-					<thead>
-						<th data-options="field:email"></th>
-						<th data-options="field:tel"></th>
-						<th data-options="field:alias"></th>
-					</thead>
-				</table>
-
 				<table class="table table-bordered table-hover table-condensed">
 					<thead class="alert-info">
 						<tr>
 							<td>联系人邮箱</td>
-							<th>备注</th>
+							<td>电 话</td>
+							<th>备 注</th>
 							<td class="text-center">删除</td>
 						</tr>
 					</thead>
 					<tbody>
-
-						<c:forEach items="${ voters}" var="voter">
+						<c:forEach items="${voters}" var="voter">
 							<tr>
 								<td><b class="dblclick" id="${voter.id }">${voter.email }</b></td>
-								<td>${voter.alias }</td>
+								<td><b>${voter.phone }</b></td>
+								<td><b>${voter.alias }</b></td>
 								<td><a
 									href="${pageContext.request.contextPath}/user/linkmanDel/${voter.id }">删除</a></td>
 							</tr>
 						</c:forEach>
-
 					</tbody>
 				</table>
+				<!-- pager TODO -->
+				<ul class="pagination">
+					<li><a href="#">&laquo;</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li><a href="#">&raquo;</a></li>
+				</ul>
 			</div>
 
 			<div class="col-sm-3"></div>
@@ -145,8 +144,8 @@
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.easyui.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/easyui/locale/easyui-lang-zh_CN.js"></script>
-	<!-- TODO -->
-	<script src="../../js/jquery.jeditable.js"></script>
-	<script src="../../js/user/linkmanDetailEdit.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/resources/editable/jquery.editable.min.js"></script>
+	<!-- TODO editable JS -->
 </body>
 </html>

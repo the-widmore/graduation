@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.ccniit.graduation.pojo.common.VoteCategoryCount;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
-import com.ccniit.graduation.resource.VoteCategory;
+import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.AuthorCountService;
 
 /**
@@ -29,11 +29,11 @@ public class AuthorContentCounterBuilder implements Builder<Long, AuthorContentC
 
 		for (VoteCategoryCount voteCategoryCount : voteCategoryCounts) {
 			String category = voteCategoryCount.getCategory();
-			if (category.equals(VoteCategory.vote.toString())) {
+			if (category.equals(VoteResource.Category.vote.toString())) {
 				vote = voteCategoryCount.getCounter();
-			} else if (category.equals(VoteCategory.poll.toString())) {
+			} else if (category.equals(VoteResource.Category.poll.toString())) {
 				poll = voteCategoryCount.getCounter();
-			} else if (category.equals(VoteCategory.vote.toString())) {
+			} else if (category.equals(VoteResource.Category.vote.toString())) {
 				poll = voteCategoryCount.getCounter();
 			}
 		}

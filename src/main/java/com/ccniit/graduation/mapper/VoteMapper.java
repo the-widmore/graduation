@@ -10,15 +10,14 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.pojo.vo.VoteVo;
-import com.ccniit.graduation.resource.VoteCategory;
+import com.ccniit.graduation.resource.VoteResource;
 
 public interface VoteMapper {
 
 	/**
 	 * 插入一条Vote记录
 	 * 
-	 * @param Vote
+	 * @param VoteResource
 	 * @return Vote.id
 	 */
 	@Insert("INSERT INTO vote(tableName,category,author,title,inDate,endDate)VALUES(#{tableName},#{category},#{author},#{title},#{inDate},#{endDate})")
@@ -48,6 +47,15 @@ public interface VoteMapper {
 	int updateVoteEndDate(@Param("vote") long vote, @Param("endDate") Date endDate);
 
 	/**
+	 * 查询Vote的tableName
+	 * 
+	 * @param vote(Long)
+	 * @return Vote.tableName
+	 */
+	@Select("SELECT tableName FROM vote WHERE id=#{vote}")
+	String selectVoteTableName(long vote);
+
+	/**
 	 * 按照id查询Vote
 	 * 
 	 * @param Vote.id
@@ -72,7 +80,8 @@ public interface VoteMapper {
 	 * @param category
 	 * @return List<VoteVo>
 	 */
-	@Select("SELECT id,tableName,category,title,progress,inDate,predictDate,endDate FROM vote WHERE author=#{author} AND category=#{category}")
-	List<VoteVo> selectAuthorVotes(@Param("author") long author, @Param("category") VoteCategory category);
+	@Select("SELECT id,tableName,category,title,progress,inDate,predictDate,endDate FROM vote WHERE author=#{author} AND category=#{category} LIMIT #{offset},20")
+	List<Vote> selectAuthorVotes(@Param("author") long author, @Param("category") VoteResource.Category category,
+			@Param("offset") int offset);
 
 }

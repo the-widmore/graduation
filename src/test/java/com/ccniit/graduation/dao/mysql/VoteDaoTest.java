@@ -14,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.pojo.vo.VoteVo;
-import com.ccniit.graduation.resource.VoteCategory;
+import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.util.DateUtils;
 import com.ccniit.graduation.util.StringUtils;
 
@@ -31,7 +30,7 @@ public class VoteDaoTest extends BaseTest {
 	@Rollback(true)
 	public void testInsertVote() {
 		String tableName = StringUtils.getUUID();
-		Vote vote = new Vote(tableName, VoteCategory.info.toString(), 1, "vote title",
+		Vote vote = new Vote(tableName, VoteResource.Category.info.toString(), 1, "vote title",
 				DateUtils.getAfterDate(null, DateUtils.model_week, 2));
 		voteDao.insertVote(vote);
 		assertNotEquals(vote.getId(), 0);
@@ -66,7 +65,7 @@ public class VoteDaoTest extends BaseTest {
 
 	@Test
 	public void testSelectAuthorVotes() {
-		List<VoteVo> votes = voteDao.selectAuthorVotes(1, VoteCategory.info);
+		List<Vote> votes = voteDao.selectAuthorVotes(1, VoteResource.Category.info, 1);
 		assertEquals(1, votes.size());
 	}
 

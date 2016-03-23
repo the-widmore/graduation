@@ -11,4 +11,10 @@ public interface VoteTagService {
 	 */
 	int insertTagToVote(long vote, String tags);
 
+	/**
+	 * 
+	 * 
+	 * */
+	String selectTags(long vote);
+
 }

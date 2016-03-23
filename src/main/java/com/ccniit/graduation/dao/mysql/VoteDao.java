@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.VoteMapper;
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.pojo.vo.VoteVo;
-import com.ccniit.graduation.resource.VoteCategory;
+import com.ccniit.graduation.resource.VoteResource;
 
 @Repository("voteDao")
 public class VoteDao implements VoteMapper {
@@ -44,8 +43,13 @@ public class VoteDao implements VoteMapper {
 	}
 
 	@Override
-	public List<VoteVo> selectAuthorVotes(long author, VoteCategory category) {
-		return voteMapper.selectAuthorVotes(author, category);
+	public List<Vote> selectAuthorVotes(long author, VoteResource.Category category, int page) {
+		return voteMapper.selectAuthorVotes(author, category, page);
+	}
+
+	@Override
+	public String selectVoteTableName(long vote) {
+		return voteMapper.selectVoteTableName(vote);
 	}
 
 }

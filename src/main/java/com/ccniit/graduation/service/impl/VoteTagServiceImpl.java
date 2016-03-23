@@ -28,17 +28,18 @@ public class VoteTagServiceImpl implements VoteTagService {
 	@Override
 	public int insertTagToVote(long vote, String tags) {
 		String[] tagArray = StringUtils.split(tags, TAG_DIVISION);
-
 		String[] newTags = Arrays.copyOfRange(tagArray, 0, 5);
-
-		System.out.println("###" + Arrays.deepToString(newTags));
-
 		int inserted = 0;
 		for (int i = 0; i < newTags.length; i++) {
 			int tagId = selectTagId(newTags[i]);
 			inserted += voteTagDao.insertVoteTagByTagId(vote, tagId);
 		}
 		return inserted;
+	}
+
+	@Override
+	public String selectTags(long vote) {
+		return voteTagDao.selectVoteTags(vote);
 	}
 
 	// 查询tag的id,没有就插入,并返回id

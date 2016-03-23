@@ -11,6 +11,7 @@ public class DateUtils {
 	}
 
 	private static DateFormat _y4M2d2 = new SimpleDateFormat("yyyy-MM-dd");
+	private static DateFormat _y4M2d2h2m2 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
 	public static final int model_second = 1;
 	public static final int model_minute = model_second * 60;
@@ -29,6 +30,10 @@ public class DateUtils {
 
 	public static String y4M2d2(Date date) {
 		return _y4M2d2.format(checkDate(date));
+	}
+
+	public static String y4M2d2h2m2(Date date) {
+		return _y4M2d2h2m2.format(checkDate(date));
 	}
 
 	private static Date checkDate(Date date) {

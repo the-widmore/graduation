@@ -12,11 +12,26 @@ public class DateUtils {
 
 	private static DateFormat _y4M2d2 = new SimpleDateFormat("yyyy-MM-dd");
 
-	public static String y4M2d2(Date date) {
-		return _y4M2d2.format(check(date));
+	public static final int model_second = 1;
+	public static final int model_minute = model_second * 60;
+	public static final int model_hour = model_minute * 60;
+	public static final int model_day = model_hour * 24;
+	public static final int model_week = model_day * 7;
+
+	// 一秒钟的毫秒数
+	private static final int MS = 1000;
+
+	public static Date getAfterDate(Date date, int mode, long after) {
+		long fastTime = checkDate(date).getTime();
+		long target = fastTime + mode * after * MS;
+		return new Date(target);
 	}
 
-	private static Date check(Date date) {
+	public static String y4M2d2(Date date) {
+		return _y4M2d2.format(checkDate(date));
+	}
+
+	private static Date checkDate(Date date) {
 		if (null == date) {
 			return new Date();
 		} else {

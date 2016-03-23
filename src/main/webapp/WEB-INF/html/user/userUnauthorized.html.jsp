@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户未授权</title>
+<title>你没有权限访问该资源</title>
 </head>
 <body>
 

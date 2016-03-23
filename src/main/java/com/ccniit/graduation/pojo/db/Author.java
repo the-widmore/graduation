@@ -12,7 +12,6 @@ public class Author implements Serializable {
 	private String email;
 	private String tel;
 	private String password;
-	private String nickname;
 	private String name;
 	private String sex;
 
@@ -50,14 +49,6 @@ public class Author implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
 	}
 
 	public String getName() {

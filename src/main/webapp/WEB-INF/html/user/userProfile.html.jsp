@@ -6,8 +6,10 @@
 <head lang="zh-CN">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>用户:信息</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/main.css">
 
 </head>
 <body>
@@ -25,12 +27,16 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
-				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
-				<li class="active"><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
 				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
-				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>
@@ -135,16 +141,6 @@
 							</div>
 
 							<div class="form-group">
-								<label for="nicknameInput" class="col-md-2 control-label">昵称</label>
-
-								<div class="col-sm-4">
-									<form:input type="text" id="nicknameInput" name="nickName"
-										class="form-control" placeholder="新的昵称" value="${nickName }"
-										path="nickName" />
-								</div>
-							</div>
-
-							<div class="form-group">
 								<label for="passwordInput" class="col-md-2 control-label">原密码</label>
 
 								<div class="col-sm-4">
@@ -195,7 +191,9 @@
 					<div class="tab-pane" id="detailInfo">
 						<br>
 
-						<form class="form-horizontal" action="${pageContext.request.contextPath}/user/updateUserDetailInfo.do" method="POST">
+						<form class="form-horizontal"
+							action="${pageContext.request.contextPath}/user/updateUserDetailInfo.do"
+							method="POST">
 
 							<div class="form-group">
 								<label class="col-md-2 control-label" for="realNameInput">真实姓名</label>
@@ -256,7 +254,8 @@
 
 								<div class="col-sm-4">
 									<textarea class="form-control" name="aboutYou"
-										id="aboutYouInput" rows="5" cols="50" placeholder="关于你..."></textarea>
+										id="aboutYouInput" rows="5" cols="50" placeholder="关于你..."
+										style="max-width: 300px;max-height: 100px"></textarea>
 								</div>
 							</div>
 
@@ -297,8 +296,11 @@
 	</div>
 	</footer>
 
-	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/staticFile/site/user/userProfile-tab-switch.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/site/user/userProfile-tab-switch.js"></script>
 </body>
 </html>

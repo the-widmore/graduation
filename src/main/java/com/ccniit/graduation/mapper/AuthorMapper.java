@@ -28,7 +28,7 @@ public interface AuthorMapper {
 	 * @param author.id
 	 * @return author
 	 */
-	@Select("SELECT email,tel,nickname,name,sex FROM author WHERE id=#{id}")
+	@Select("SELECT email,tel,name,sex FROM author WHERE id=#{id}")
 	Author selectById(long id);
 
 	/**

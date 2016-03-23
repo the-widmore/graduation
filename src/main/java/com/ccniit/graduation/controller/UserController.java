@@ -17,7 +17,6 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -33,6 +32,7 @@ import org.springframework.web.util.WebUtils;
 
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.NotLoginException;
+import com.ccniit.graduation.exception.PermissionException;
 import com.ccniit.graduation.pojo.common.UserBaseInfo;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
@@ -45,8 +45,10 @@ import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoterGroupAndVoters;
 import com.ccniit.graduation.resource.Constants;
 import com.ccniit.graduation.service.AuthorService;
+import com.ccniit.graduation.service.ResourcePermissionService;
 import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.service.VoterService;
+import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.ShiroUtils;
 import com.ccniit.graduation.util.SpringMVCUtils;
 import com.ccniit.graduation.util.StringUtils;
@@ -55,7 +57,8 @@ import com.ccniit.graduation.util.StringUtils;
 @SessionAttributes(names = { "authorContentCounter" })
 public class UserController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+	private static final Logger LOG_DEV = LoggerUtils.getDev();
+	private static final Logger LOG_AUTH = LoggerUtils.getAuth();
 
 	@Resource
 	private AuthorService authorService;
@@ -63,18 +66,17 @@ public class UserController {
 	private VoterService voterService;
 	@Resource
 	private VoterGroupService voterGroupService;
+	@Resource
+	private ResourcePermissionService resourcePermissionService;
 
-	private AuthorContentCounter getAuthorContentCounter(long id) {
-		return authorService.getAuthorContentCounter(id);
-	}
-
+	public static final String VIEW_USER = "/user";
 	public static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
 
-	@RequestMapping(value = { VIEW_USER_SELF_CENTER })
+	@RequestMapping(value = { VIEW_USER_SELF_CENTER, VIEW_USER })
 	public String selfCenter(ModelMap modelMap) throws IException {
 		long id = getAuthorId();
 
-		LOG.info("Author:{}", id);
+		LOG_AUTH.info("Author:{}", id);
 
 		if (0 == id) {
 			throw new NotLoginException("必须登录");
@@ -83,6 +85,10 @@ public class UserController {
 		modelMap.addAttribute("authorContentCounter", getAuthorContentCounter(id));
 
 		return VIEW_USER_SELF_CENTER;
+	}
+
+	private AuthorContentCounter getAuthorContentCounter(long id) {
+		return authorService.getAuthorContentCounter(id);
 	}
 
 	public static final String VIEW_USER_CREATE_LINKMAN_BUILD = "/user/createLinkmanBuild.html";
@@ -174,12 +180,12 @@ public class UserController {
 		return VIEW_USER_CONSLOE;
 	}
 
-	public static final String VIEW_USER_LOGIN = "/user/userLogin.html";
+	public static final String VIEW_USER_LOG_DEVIN = "/user/userLogin.html";
 
-	@RequestMapping(value = { VIEW_USER_LOGIN }, method = RequestMethod.GET)
+	@RequestMapping(value = { VIEW_USER_LOG_DEVIN }, method = RequestMethod.GET)
 	public String userLogin(Model model) {
 		model.addAttribute("userToken", new UserToken());
-		return VIEW_USER_LOGIN;
+		return VIEW_USER_LOG_DEVIN;
 	}
 
 	public static final String VIEW_USER_ORDER = "/user/userOrder.html";
@@ -201,7 +207,6 @@ public class UserController {
 
 		UserBaseInfo userBaseInfo = new UserBaseInfo();
 		userBaseInfo.setEmail(author.getEmail());
-		userBaseInfo.setNickname(author.getNickname());
 
 		UserDetailInfo userDetailInfo = new UserDetailInfo();
 		// TODO set userDetailInfo value
@@ -249,14 +254,21 @@ public class UserController {
 	 * model.addAttribute("voters", voters); return VIEW_USER_LINKMAN_DETAIL; }
 	 */
 
-	public static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroupId}";
+	public static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroup}";
 
-	@RequiresAuthentication
 	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_URL }, method = RequestMethod.GET)
-	public String linkmanDetail(@PathVariable int voterGroupId,
-			@RequestParam(required = true, value = "page", defaultValue = "0") int page, Model model) {
+	public String linkmanDetail(@PathVariable int voterGroup,
+			@RequestParam(required = true, value = "page", defaultValue = "0") int page, Model model)
+					throws IException {
+		// 权限验证
+		long author = getAuthorId();
+		boolean havePermisssion = resourcePermissionService.voterGroupHavePermission(author, voterGroup);
 
-		VoterQuery voterQuery = new VoterQuery(voterGroupId, (page * 20));
+		if (!havePermisssion) {
+			throw new PermissionException("你没有访问该资源的权限");
+		}
+
+		VoterQuery voterQuery = new VoterQuery(voterGroup, (page * 20));
 
 		List<Voter> voters = voterService.selectVoterFromVoterGroup(voterQuery);
 		model.addAttribute("voters", voters);
@@ -276,7 +288,7 @@ public class UserController {
 
 		String verifyCode = (String) ShiroUtils.getSessionValue(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 
-		LOG.info("verifyCode : " + verifyCode);
+		LOG_DEV.info("verifyCode : " + verifyCode);
 
 		if (!verifyCode.equalsIgnoreCase(userRegister.getVerifyCode().trim())) {
 			model.addAttribute("errorMessageVerifyCode", "验证码错误");
@@ -296,17 +308,16 @@ public class UserController {
 		Author author = new Author();
 		author.setEmail(userRegister.getEmail());
 		author.setPassword(userRegister.getPassword());
-		author.setNickname(userRegister.getNickname());
 
 		authorService.register(author);
 
 		return USER_SIGN_IN_RESULT;
 	}
 
-	public static final String FORM_USER_LOGIN = "/user/userLogin.do";
-	public static final String USER_LOGIN_RESULT = "/user/selfCenter.html";
+	public static final String VIEW_USER_LOGIN = "/user/userLogin.do";
+	public static final String USER_LOG_DEVIN_RESULT = "/user/selfCenter.html";
 
-	@RequestMapping(value = { FORM_USER_LOGIN }, method = RequestMethod.POST)
+	@RequestMapping(value = { VIEW_USER_LOGIN }, method = RequestMethod.POST)
 	public String loginAction(@ModelAttribute("userToken") UserToken userToken, BindingResult result, Model model) {
 
 		UsernamePasswordToken token = new UsernamePasswordToken(userToken.getEmail(), userToken.getPassword());
@@ -323,20 +334,20 @@ public class UserController {
 			Session session = currentUser.getSession(true);
 			long id = authorService.getAuthorIdByEmail(userToken.getEmail());
 
-			LOG.debug("Email:{} ID:{}", currentUser.getPrincipal(), id);
+			LOG_DEV.debug("Email:{} ID:{}", currentUser.getPrincipal(), id);
 
 			session.setAttribute(Constants.SESSION_KEY_AUTHOR_ID, id);
-			return SpringMVCUtils.redirect(USER_LOGIN_RESULT);
+			return SpringMVCUtils.redirect(USER_LOG_DEVIN_RESULT);
 		} else {
 			model.addAttribute("message", "account or password error!");
-			return VIEW_USER_LOGIN;
+			return VIEW_USER_LOG_DEVIN;
 		}
 	}
 
-	public static final String ACTION_LOGOUT_URL = "/user/logout.do";
-	public static final String ACTION_LOGOUT_RESULT = "../index";
+	public static final String ACTION_LOG_DEVOUT_URL = "/user/logout.do";
+	public static final String ACTION_LOG_DEVOUT_RESULT = "../index";
 
-	@RequestMapping(value = { ACTION_LOGOUT_URL }, method = RequestMethod.GET)
+	@RequestMapping(value = { ACTION_LOG_DEVOUT_URL }, method = RequestMethod.GET)
 	public String logoutAction(ModelMap modelMap) {
 		modelMap.addAttribute("message", "Logout success!");
 
@@ -345,10 +356,10 @@ public class UserController {
 			subject.getSession().stop();
 			subject.logout();
 		} catch (Exception e) {
-			LOG.error("注销错误", e);
+			LOG_DEV.error("注销错误", e);
 		}
 
-		return SpringMVCUtils.redirect(ACTION_LOGOUT_RESULT);
+		return SpringMVCUtils.redirect(ACTION_LOG_DEVOUT_RESULT);
 	}
 
 	public static final String ACTION_CREATE_LINKMAN_BY_EXCEL = "/user/createLinkmanBuildByExcel.do";
@@ -471,7 +482,7 @@ public class UserController {
 		try {
 			authorId = ShiroUtils.getUserId();
 		} catch (IException e) {
-			LOG.error("获取Author.id错误", e);
+			LOG_DEV.error("获取Author.id错误", e);
 		}
 		return authorId;
 	}

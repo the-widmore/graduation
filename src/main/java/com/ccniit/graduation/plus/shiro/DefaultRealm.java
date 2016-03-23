@@ -11,15 +11,15 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.vo.EmailToken;
 import com.ccniit.graduation.service.AuthorAuthService;
+import com.ccniit.graduation.util.LoggerUtils;
 
 public class DefaultRealm extends AuthorizingRealm {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DefaultRealm.class);
+	private static final Logger LOG = LoggerUtils.getAuth();
 
 	@Resource
 	AuthorAuthService authorAuthService;
@@ -36,8 +36,7 @@ public class DefaultRealm extends AuthorizingRealm {
 
 		String username = usernamePasswordToken.getUsername();
 		char[] password = usernamePasswordToken.getPassword();
-		LOG.info("Username:{} try login", username, password);
-
+		LOG.info("Username:{} try login", username);
 
 		try {
 			if (authorAuthService.verifyByEmail(new EmailToken(username, new String(password)))) {

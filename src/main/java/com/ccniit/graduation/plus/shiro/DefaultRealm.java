@@ -19,7 +19,7 @@ import com.ccniit.graduation.util.LoggerUtils;
 
 public class DefaultRealm extends AuthorizingRealm {
 
-	private static final Logger LOG = LoggerUtils.getAuth();
+	private static final Logger LOG_AUTH = LoggerUtils.getAuth();
 
 	@Resource
 	AuthorAuthService authorAuthService;
@@ -36,7 +36,7 @@ public class DefaultRealm extends AuthorizingRealm {
 
 		String username = usernamePasswordToken.getUsername();
 		char[] password = usernamePasswordToken.getPassword();
-		LOG.info("Username:{} try login", username);
+		LOG_AUTH.info("Username:{} try login", username);
 
 		try {
 			if (authorAuthService.verifyByEmail(new EmailToken(username, new String(password)))) {
@@ -47,7 +47,7 @@ public class DefaultRealm extends AuthorizingRealm {
 		}
 
 		String host = usernamePasswordToken.getHost();
-		LOG.debug("host:{}", host);
+		LOG_AUTH.debug("host:{}", host);
 
 		return null;
 	}

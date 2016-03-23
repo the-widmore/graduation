@@ -1,9 +1,7 @@
 package com.ccniit.graduation.plus.poi;
 
-import java.util.List;
-
 import com.ccniit.graduation.exception.IException;
-import com.ccniit.graduation.pojo.db.Voter;
+import com.ccniit.graduation.pojo.common.VoterGroupData;
 
 public interface VoterParse {
 
@@ -13,6 +11,6 @@ public interface VoterParse {
 	 * @param String[]
 	 * @return List<Voter>
 	 */
-	List<Voter> parse(String[] params) throws IException;
+	VoterGroupData parse(String[] params) throws IException;
 
 }

@@ -8,7 +8,7 @@ import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 public interface AuthorService {
 
 	/**
-	 * author注册,添加一条空的AuthorInfo //TODO
+	 * author注册,添加一条空的AuthorInfo //TODO add comments
 	 * 
 	 * @param author
 	 * @return author.id
@@ -26,5 +26,6 @@ public interface AuthorService {
 	Author findAuthorById(long id);
 
 	AuthorContentCounter getAuthorContentCounter(long authorId);
+
 
 }

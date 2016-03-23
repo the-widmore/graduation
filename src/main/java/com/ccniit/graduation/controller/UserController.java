@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.util.WebUtils;
 
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.NotLoginException;
@@ -51,14 +50,12 @@ import com.ccniit.graduation.service.VoterService;
 import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.ShiroUtils;
 import com.ccniit.graduation.util.SpringMVCUtils;
-import com.ccniit.graduation.util.StringUtils;
 
 @Controller
 @SessionAttributes(names = { "authorContentCounter" })
 public class UserController {
 
 	private static final Logger LOG_DEV = LoggerUtils.getDev();
-	private static final Logger LOG_AUTH = LoggerUtils.getAuth();
 
 	@Resource
 	private AuthorService authorService;
@@ -75,8 +72,6 @@ public class UserController {
 	@RequestMapping(value = { VIEW_USER_SELF_CENTER, VIEW_USER })
 	public String selfCenter(ModelMap modelMap) throws IException {
 		long id = getAuthorId();
-
-		LOG_AUTH.info("Author:{}", id);
 
 		if (0 == id) {
 			throw new NotLoginException("必须登录");
@@ -367,16 +362,6 @@ public class UserController {
 	@RequestMapping(value = { ACTION_CREATE_LINKMAN_BY_EXCEL }, method = RequestMethod.POST)
 	public String createLinkmanByExcelAction(@RequestParam(value = "file", required = true) MultipartFile file,
 			HttpServletRequest request) throws IException {
-
-		String tempDir = null;
-		try {
-			tempDir = WebUtils.getRealPath(request.getServletContext(), "/WEB-INF/fileUpload/temp");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String originalName = file.getOriginalFilename();
-		String filePath = tempDir + StringUtils.getUUID() + ".xls";
 
 		// TODO
 

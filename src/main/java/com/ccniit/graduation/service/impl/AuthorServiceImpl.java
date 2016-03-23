@@ -3,7 +3,6 @@ package com.ccniit.graduation.service.impl;
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +14,12 @@ import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.resource.CacheNams;
 import com.ccniit.graduation.service.AuthorService;
+import com.ccniit.graduation.util.LoggerUtils;
 
 @Service("authorService")
 public class AuthorServiceImpl implements AuthorService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(AuthorService.class);
+	private static final Logger BUS_LOG = LoggerUtils.getBus();
 
 	@Resource
 	AuthorContentCounterBuilder authorContentCounterBuilder;
@@ -28,7 +28,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public long register(Author author) {
-		// TODO Auto-generated method stub
+		BUS_LOG.info("", author.getEmail());
 		return 0;
 	}
 

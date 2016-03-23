@@ -7,15 +7,15 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.ccniit.graduation.exception.IException;
-import com.ccniit.graduation.pojo.db.Voter;
+import com.ccniit.graduation.pojo.common.VoterGroupData;
 import com.ccniit.graduation.service.VoterService;
+import com.ccniit.graduation.util.LoggerUtils;
 
 public class ParseQueue {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ParseQueue.class);
+	private static final Logger LOG = LoggerUtils.getDev();
 
 	// Thread safe
 	private volatile static List<String> queue = new LinkedList<>();
@@ -42,11 +42,14 @@ public class ParseQueue {
 		parsing = true;
 		for (Iterator<String> iterator = queue.iterator(); iterator.hasNext();) {
 			String path = iterator.next();
+
+			LOG.debug(path);
+
 			String[] params = { path };
 
-			List<Voter> voters = parseVotersFromExcel.parse(params);
-
-			voterService.insertVoters(voters);
+			VoterGroupData voterGroup = parseVotersFromExcel.parse(params);
+			// TODO
+			voterService.insertVoters(voterGroup.getVoters());
 		}
 
 		parsing = false;

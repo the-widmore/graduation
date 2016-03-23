@@ -13,6 +13,16 @@ import com.ccniit.graduation.pojo.vo.VoteVo;
 public interface VoteTagMapper {
 
 	/**
+	 * 插入投票的标签(按照tag的id)
+	 * 
+	 * @param voteId
+	 * @param tagId
+	 * @return success inserted recode
+	 */
+	@Insert("INSERT INTO vote_tag(vote,tag) VALUES(#{vote},#{tagId})")
+	Integer insertVoteTagByTagId(@Param("vote") long vote, @Param("tagId") int tagId);
+
+	/**
 	 * 按照tag模糊查询VoteTag hot最高的10个
 	 * 
 	 * @param tag
@@ -30,17 +40,7 @@ public interface VoteTagMapper {
 	 */
 	// TODO add tag index
 	@Select("SELECT id FROM tag WHERE tag=#{tag}")
-	int selectTagId(String tag);
-
-	/**
-	 * 插入投票的标签(按照tag的id)
-	 * 
-	 * @param voteId
-	 * @param tagId
-	 * @return success inserted recode
-	 */
-	@Insert("INSERT INTO vote_tag SET tag=#{tagId} WHERE vote=#{vote}")
-	int insertVoteTagByTagId(@Param("vote") long vote, @Param("tagId") int tagId);
+	Integer selectTagId(String tag);
 
 	/**
 	 * 插入投票的标签，按照tag(String类型，必须保证已经存在)
@@ -50,7 +50,7 @@ public interface VoteTagMapper {
 	 * @return 成功插入的条数
 	 */
 	@Insert("INSERT INTO vote_tag(vote,tag) VALUES(#{vote},(SELECT id FROM tag WHERE tag=#{tag}))")
-	int insertVoteTagByTagStr(@Param("vote") long vote, @Param("tag") String tag);
+	Integer insertVoteTagByTagStr(@Param("vote") long vote, @Param("tag") String tag);
 
 	/**
 	 * 查询一个Vote的tags

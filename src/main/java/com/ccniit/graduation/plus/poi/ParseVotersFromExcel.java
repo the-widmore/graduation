@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.ParamsLengthException;
 import com.ccniit.graduation.exception.TemplateStructureUpdateException;
+import com.ccniit.graduation.pojo.common.VoterGroupData;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.resource.SpringScope;
 import com.ccniit.graduation.util.DateUtils;
@@ -38,13 +39,13 @@ public class ParseVotersFromExcel implements VoterParse {
 	StringVaildateFactory stringVaildateFactory;
 
 	@Override
-	public List<Voter> parse(String[] params) throws IException {
+	public VoterGroupData parse(String[] params) throws IException {
 		if (1 != params.length) {
 			throw new ParamsLengthException("参数个数错误！");
 		}
 
 		List<Voter> voters = new ArrayList<>();
-		String voterGroupDescript = null;
+		String voterGroupDescription = null;
 		Voter voter = null;
 
 		String excelPath = params[0];
@@ -71,9 +72,9 @@ public class ParseVotersFromExcel implements VoterParse {
 
 		// 获取联系人组描述
 		try {
-			voterGroupDescript = sheet.getRow(0).getCell(2).getStringCellValue();
+			voterGroupDescription = sheet.getRow(0).getCell(2).getStringCellValue();
 		} catch (NullPointerException e) {
-			voterGroupDescript = DateUtils.y4M2d2(null);
+			voterGroupDescription = DateUtils.y4M2d2(null);
 		}
 
 		// get voter ,begin with 3th row
@@ -118,7 +119,9 @@ public class ParseVotersFromExcel implements VoterParse {
 			e.printStackTrace();
 		}
 
-		return voters;
+		VoterGroupData voterGroupData = new VoterGroupData(voterGroupDescription, voters);
+
+		return voterGroupData;
 	}
 
 }

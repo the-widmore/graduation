@@ -9,6 +9,6 @@ public interface VoteTagService {
 	 * @return inserted tag(Limit 5)
 	 * 
 	 */
-	int insertTagToVote(String tags);
+	int insertTagToVote(long vote, String tags);
 
 }

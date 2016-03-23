@@ -13,13 +13,13 @@ public class TagDao implements TagMapper {
 	TagMapper tagMapper;
 
 	@Override
-	public int countTag(String tag) {
-		return tagMapper.countTag(tag);
+	public Integer insertTag(String tag) {
+		return tagMapper.insertTag(tag);
 	}
 
 	@Override
-	public int insertTag(String tag) {
-		return tagMapper.insertTag(tag);
+	public Integer selectTagId(String tag) {
+		return tagMapper.selectTagId(tag);
 	}
 
 }

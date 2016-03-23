@@ -1,11 +1,10 @@
 package com.ccniit.graduation.util;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class IPUtils {
 
-	private static final Logger LOG = LoggerFactory.getLogger(IPUtils.class);
+	private static final Logger LOG = LoggerUtils.getDev();
 
 	public static long ipToLong(String ipaddress) {
 		String[] ipPartsStr = StringUtils.split(ipaddress, "\\.");

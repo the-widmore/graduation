@@ -36,7 +36,10 @@ public class VoterServiceImplTest extends BaseTest {
 	}
 
 	@Test
+	@Transactional
+	@Rollback(true)
 	public void testDeleteVoter() {
+		voterService.deleteVoter(1);
 		fail("Not yet implemented");
 	}
 

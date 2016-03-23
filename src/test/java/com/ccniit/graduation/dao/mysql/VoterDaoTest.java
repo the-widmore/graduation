@@ -19,6 +19,8 @@ public class VoterDaoTest extends BaseTest {
 	VoterDao voterDao;
 
 	@Test
+	@Transactional
+	@Rollback(true)
 	public void testInsertVoter() {
 		Voter voter = new Voter(1, "1174310485@qq.com", "13551174063", "Widmore");
 		voterDao.insertVoter(voter);
@@ -35,7 +37,7 @@ public class VoterDaoTest extends BaseTest {
 
 	@Test
 	@Transactional
-	// @Rollback(true)
+	@Rollback(true)
 	public void testUpdateVoter() {
 		Voter voter = new Voter(1, "1174310485@google.com", "18851174063", "Good");
 		voter.setId(4);
@@ -47,7 +49,7 @@ public class VoterDaoTest extends BaseTest {
 		VoterQuery voterQuery = new VoterQuery(1, 0);
 		List<Voter> voters = voterDao.selectVoterFromVoterGroup(voterQuery);
 
-		Assert.assertEquals(6, voters.size());
+		Assert.assertEquals(7, voters.size());
 	}
 
 }

@@ -72,7 +72,7 @@ public class ParseVotersFromExcel implements VoterParse {
 
 		// 获取联系人组描述
 		try {
-			voterGroupDescription = sheet.getRow(0).getCell(2).getStringCellValue();
+			voterGroupDescription = sheet.getRow(0).getCell(1).getStringCellValue();
 		} catch (NullPointerException e) {
 			voterGroupDescription = DateUtils.y4M2d2(null);
 		}

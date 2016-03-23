@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.exception.IException;
+import com.ccniit.graduation.pojo.common.VoterGroupData;
 
 public class ParseVotersFromExcelTest extends BaseTest {
 
@@ -17,7 +18,8 @@ public class ParseVotersFromExcelTest extends BaseTest {
 	@Test
 	public void testParse() throws IException {
 		String[] params = { TEST_DOC };
-		parseVotersFromExcel.parse(params);
+		VoterGroupData data = parseVotersFromExcel.parse(params);
+		System.out.println(data.getVoterGroupDescription());
 	}
 
 }

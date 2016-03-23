@@ -18,9 +18,7 @@ public class VoteTagServiceImplTest extends BaseTest {
 	@Test
 	public void testInsertTagToVote() {
 		int result = voteTagService.insertTagToVote(1, TAGS);
-
 		Assert.assertEquals(5, result);
-
 	}
 
 }

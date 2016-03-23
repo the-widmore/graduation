@@ -40,7 +40,7 @@ public class MongoConfigurationTest extends BaseTest {
 
 	}
 
-	private static final int INSERT_TEST_TIMES = 100000;
+	private static final int INSERT_TEST_TIMES = 100;
 	public static final char[] CHARS = { 'A', 'B', 'C', 'D' };
 
 	@Test
@@ -72,7 +72,7 @@ public class MongoConfigurationTest extends BaseTest {
 	private Map<String, List<String>> random() {
 		Map<String, List<String>> data = new HashMap<>();
 		Random random = new Random();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 20; i++) {
 
 			int valueSize = random.nextInt(3);
 

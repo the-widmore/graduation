@@ -21,6 +21,9 @@ public class Vote implements Serializable {
 
 	public Vote() {
 		super();
+		Date now = new Date();
+		this.inDate = now;
+		this.endDate = now;
 	}
 
 	public Vote(String tableName, String category, long author, String title, Date predictDate) {
@@ -30,6 +33,9 @@ public class Vote implements Serializable {
 		this.author = author;
 		this.title = title;
 		this.predictDate = predictDate;
+		Date now = new Date();
+		this.inDate = now;
+		this.endDate = now;
 	}
 
 	public long getId() {

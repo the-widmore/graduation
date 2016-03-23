@@ -45,7 +45,7 @@ public interface VoteMapper {
 	 * @return successful updated recode
 	 */
 	@Update("UPDATE vote SET endDate=#{endDate} WHERE id=#{vote}")
-	int updateVoteEndDate(@Param("vote") long vote, @Param("enDate") Date enDate);
+	int updateVoteEndDate(@Param("vote") long vote, @Param("endDate") Date endDate);
 
 	/**
 	 * 按照id查询Vote
@@ -73,6 +73,6 @@ public interface VoteMapper {
 	 * @return List<VoteVo>
 	 */
 	@Select("SELECT id,tableName,category,title,progress,inDate,predictDate,endDate FROM vote WHERE author=#{author} AND category=#{category}")
-	List<VoteVo> selectAuthorVotes(@Param("vote") long author, @Param("category") VoteCategory category);
+	List<VoteVo> selectAuthorVotes(@Param("author") long author, @Param("category") VoteCategory category);
 
 }

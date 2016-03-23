@@ -14,7 +14,7 @@ public class VoterGroupDao implements VoterGroupMapper {
 
 	@Resource
 	VoterGroupMapper voterGroupMapper;
-	
+
 	@Override
 	public long insertVoterGroup(VoterGroup voterGroup) {
 		return voterGroupMapper.insertVoterGroup(voterGroup);

@@ -10,7 +10,7 @@ import com.ccniit.graduation.mapper.VoterMapper;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
 
-@Repository("voteDao")
+@Repository("voterDao")
 public class VoterDao implements VoterMapper {
 
 	@Resource

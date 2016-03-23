@@ -1,7 +1,5 @@
 package com.ccniit.graduation.dao.mysql;
 
-import static org.junit.Assert.fail;
-
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -49,7 +47,7 @@ public class VoterDaoTest extends BaseTest {
 		VoterQuery voterQuery = new VoterQuery(1, 0);
 		List<Voter> voters = voterDao.selectVoterFromVoterGroup(voterQuery);
 
-		Assert.assertEquals(2, voters.size());
+		Assert.assertEquals(6, voters.size());
 	}
 
 }

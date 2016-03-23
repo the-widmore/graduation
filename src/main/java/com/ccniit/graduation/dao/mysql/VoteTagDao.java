@@ -2,8 +2,6 @@ package com.ccniit.graduation.dao.mysql;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.VoteTagMapper;
@@ -49,7 +47,5 @@ public class VoteTagDao implements VoteTagMapper {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 }

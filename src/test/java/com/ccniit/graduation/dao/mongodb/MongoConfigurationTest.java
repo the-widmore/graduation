@@ -17,7 +17,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.pojo.doc.PrivateVoteData;
 import com.ccniit.graduation.util.StringUtils;
-import com.mongodb.DBCollection;
 
 public class MongoConfigurationTest extends BaseTest {
 

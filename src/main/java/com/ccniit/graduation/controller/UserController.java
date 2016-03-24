@@ -43,8 +43,10 @@ import com.ccniit.graduation.pojo.vo.UserDetailInfo;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoterGroupAndVoters;
 import com.ccniit.graduation.resource.Constants;
+import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.service.ResourcePermissionService;
+import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.service.VoterService;
 import com.ccniit.graduation.util.LoggerUtils;
@@ -61,6 +63,8 @@ public class UserController {
 	private AuthorService authorService;
 	@Resource
 	private VoterService voterService;
+	@Resource
+	private VoteService voteService;
 	@Resource
 	private VoterGroupService voterGroupService;
 	@Resource
@@ -127,14 +131,6 @@ public class UserController {
 		return VIEW_USER_LINKMAN_DETAIL;
 	}
 
-	public static final String VIEW_USER_MY_INFO_GATHER = "/user/myInfoGather.html";
-
-	@RequestMapping(value = { VIEW_USER_MY_INFO_GATHER }, method = RequestMethod.GET)
-	public String myInfoGather(ModelMap modelMap) {
-
-		return VIEW_USER_MY_INFO_GATHER;
-	}
-
 	public static final String VIEW_USER_MY_LINKMAN = "/user/myLinkman.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_LINKMAN }, method = RequestMethod.GET)
@@ -147,8 +143,16 @@ public class UserController {
 
 	@RequestMapping(value = { VIEW_USER_MY_POLL }, method = RequestMethod.GET)
 	public String myPoll(ModelMap modelMap) {
-
+		modelMap.addAttribute("votes", voteService.selectVotes(getAuthorId(), VoteResource.Category.poll, 0));
 		return VIEW_USER_MY_POLL;
+	}
+
+	public static final String VIEW_USER_MY_INFO_GATHER = "/user/myInfoGather.html";
+
+	@RequestMapping(value = { VIEW_USER_MY_INFO_GATHER }, method = RequestMethod.GET)
+	public String myInfoGather(ModelMap modelMap) {
+
+		return VIEW_USER_MY_INFO_GATHER;
 	}
 
 	public static final String VIEW_USER_MY_VOTE = "/user/myVote.html";

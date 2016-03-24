@@ -16,16 +16,12 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.pojo.doc.PrivateVoteData;
+import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.StringUtils;
 
 public class MongoConfigurationTest extends BaseTest {
 
-	private Logger LOG = getLog();
-
-	@Override
-	public Logger getLog() {
-		return super.getLog();
-	}
+	private Logger LOG = LoggerUtils.getDev();
 
 	@Resource
 	MongoTemplate mongoTemplate;
@@ -34,8 +30,9 @@ public class MongoConfigurationTest extends BaseTest {
 	public void mongoDBConfigTest() {
 		Set<String> collections = mongoTemplate.getCollectionNames();
 
-		for (String coll : collections) {
-			LOG.info(coll);
+		for (String collectionName : collections) {
+			LOG.info(collectionName);
+			mongoTemplate.dropCollection(collectionName);
 		}
 
 	}
@@ -64,7 +61,8 @@ public class MongoConfigurationTest extends BaseTest {
 		for (int i = 0; i < INSERT_TEST_TIMES; i++) {
 			PrivateVoteData voteData = new PrivateVoteData("chenyiyuan00@gmail.com", 2130706433L);
 			voteData.setData(random());
-			mongoTemplate.insert(voteData, "_" + StringUtils.getUUID());
+			//mongoTemplate.insert(voteData, "_" + StringUtils.getUUID());
+			mongoTemplate.save(voteData, "_" + StringUtils.getUUID());
 		}
 
 	}

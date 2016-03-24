@@ -1,7 +1,13 @@
 package com.ccniit.graduation.pojo.vo;
 
-public class VoteVo {
+import java.io.Serializable;
 
+public class VoteVo implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2913879808020120607L;
 	private String title;
 	private String progress;
 	private String tags;

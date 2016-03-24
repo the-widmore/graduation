@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
-import com.ccniit.graduation.pojo.doc.VoteDataDoc;
+import com.ccniit.graduation.pojo.doc.PrivateVoteData;
 
 @Controller
 public class VoteController {
@@ -88,9 +88,9 @@ public class VoteController {
 		// TODO
 		Map<String, String[]> paramaterMap = request.getParameterMap();
 
-		VoteDataDoc voteData = new VoteDataDoc();
+		PrivateVoteData voteData = new PrivateVoteData();
 		Map<String, List<String>> arrayMap = requestParamsMapToArrayMap.convert(paramaterMap);
-		voteData.setVote(1);
+
 		voteData.setData(arrayMap);
 
 		mongoTemplate.insert(voteData);

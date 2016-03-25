@@ -1,6 +1,7 @@
 package com.ccniit.graduation.service.impl;
 
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -38,8 +39,13 @@ public class VoteTagServiceImpl implements VoteTagService {
 	}
 
 	@Override
-	public String selectTags(long vote) {
-		return voteTagDao.selectVoteTags(vote);
+	public String selectTagsToString(long vote) {
+		return voteTagDao.selectVoteTagsToString(vote);
+	}
+	
+	@Override
+	public List<String> selectTagsToArray(long vote) {
+		return voteTagDao.selectVoteTagsToArray(vote);
 	}
 
 	// 查询tag的id,没有就插入,并返回id

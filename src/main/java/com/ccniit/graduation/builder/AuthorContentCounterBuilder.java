@@ -33,8 +33,8 @@ public class AuthorContentCounterBuilder implements Builder<Long, AuthorContentC
 				vote = voteCategoryCount.getCounter();
 			} else if (category.equals(VoteResource.Category.poll.toString())) {
 				poll = voteCategoryCount.getCounter();
-			} else if (category.equals(VoteResource.Category.vote.toString())) {
-				poll = voteCategoryCount.getCounter();
+			} else if (category.equals(VoteResource.Category.info.toString())) {
+				info = voteCategoryCount.getCounter();
 			}
 		}
 

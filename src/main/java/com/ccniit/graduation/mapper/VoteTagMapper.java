@@ -59,7 +59,10 @@ public interface VoteTagMapper {
 	 * @return tags
 	 */
 	@Select("SELECT GROUP_CONCAT(distinct tag.tag separator ' ') FROM vote_tag INNER JOIN tag ON tag.id=vote_tag.tag WHERE vote=#{vote}")
-	String selectVoteTags(long vote);
+	String selectVoteTagsToString(long vote);
+
+	@Select("SELECT tag.tag FROM tag INNER JOIN vote_tag ON tag.id=vote_tag.tag WHERE vote_tag.vote=#{vote}")
+	List<String> selectVoteTagsToArray(long vote);
 
 	/**
 	 * 按照tag,搜索Vote。

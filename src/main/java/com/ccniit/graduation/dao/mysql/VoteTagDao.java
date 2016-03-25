@@ -38,8 +38,13 @@ public class VoteTagDao implements VoteTagMapper {
 	}
 
 	@Override
-	public String selectVoteTags(long vote) {
-		return voteTagMapper.selectVoteTags(vote);
+	public String selectVoteTagsToString(long vote) {
+		return voteTagMapper.selectVoteTagsToString(vote);
+	}
+
+	@Override
+	public List<String> selectVoteTagsToArray(long vote) {
+		return voteTagMapper.selectVoteTagsToArray(vote);
 	}
 
 	@Override

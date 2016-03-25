@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -34,12 +33,7 @@ public class VoteToVoteVo implements Converter<Vote, VoteVo> {
 		voteVo.setProgress(VoteResource.getProgressMsg(vote.getProgress()));
 
 		// tags
-		String tags = voteTagService.selectTags(vote.getId());
-		if (null == tags) {
-			voteVo.setTags(StringUtils.EMPTY);
-		} else {
-			voteVo.setTags(tags);
-		}
+		voteVo.setTags(voteTagService.selectTagsToArray(vote.getId()));
 
 		// inDate
 		voteVo.setInDate(DateUtils.y4M2d2h2m2(vote.getInDate()));

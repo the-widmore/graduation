@@ -135,119 +135,19 @@
 					</thead>
 					<tbody>
 
-						<c:forEach items="votes" var="vote">
+						<c:forEach items="${voteVos }" var="vote">
 							<tr>
-								<td>${vote.toString() }</td>
 								<td>${vote.title }</td>
 								<td>${vote.progress }</td>
-								<td>${vote.tags }</td>
-								<td>${vote.inDate }-${vote.endDate }</td>
+								<td><c:forEach items="${vote.tags }" var="tag">
+										<a href="#"><span class="label label-default">${tag }</span></a>
+									</c:forEach></td>
+
+								<%-- <td>${vote.tags }</td> --%>
+								<td>${vote.inDate }	至  ${vote.endDate }</td>
 							</tr>
 						</c:forEach>
 
-					</tbody>
-				</table>
-
-				<table class="table table-striped table-bordered table-responsive">
-					<thead class="bg-info">
-						<tr>
-							<td>No.</td>
-							<td>主题</td>
-							<td>状态</td>
-							<td>数据</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td><a href="#">个人基本信息</a></td>
-							<td>完结</td>
-							<td><a href="#">前去导出</a></td>
-						</tr>
 					</tbody>
 				</table>
 

@@ -1,5 +1,7 @@
 package com.ccniit.graduation.service;
 
+import java.util.List;
+
 public interface VoteTagService {
 
 	/**
@@ -15,6 +17,8 @@ public interface VoteTagService {
 	 * 
 	 * 
 	 * */
-	String selectTags(long vote);
+	String selectTagsToString(long vote);
+
+	List<String> selectTagsToArray(long vote);
 
 }

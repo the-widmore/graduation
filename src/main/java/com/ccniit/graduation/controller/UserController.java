@@ -41,6 +41,7 @@ import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserDetailInfo;
 import com.ccniit.graduation.pojo.vo.UserRegister;
+import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.pojo.vo.VoterGroupAndVoters;
 import com.ccniit.graduation.resource.Constants;
 import com.ccniit.graduation.resource.VoteResource;
@@ -143,7 +144,9 @@ public class UserController {
 
 	@RequestMapping(value = { VIEW_USER_MY_POLL }, method = RequestMethod.GET)
 	public String myPoll(ModelMap modelMap) {
-		modelMap.addAttribute("votes", voteService.selectVotes(getAuthorId(), VoteResource.Category.poll, 0));
+		// TODO getAuthorId
+		List<VoteVo> voteVos = voteService.selectVotes(getAuthorId(), VoteResource.Category.info, 1);
+		modelMap.addAttribute("voteVos", voteVos);
 		return VIEW_USER_MY_POLL;
 	}
 
@@ -232,27 +235,6 @@ public class UserController {
 		return VIEW_USER_UNAUTHORIZED;
 	}
 
-	// linkman group detail
-
-	/*
-	 * public static final String VIEW_LINKMAN_DETAIL_PAGE =
-	 * "/user/linkmanDetail/{voterGroupId}/{page}";
-	 * 
-	 * @RequestMapping(value = { VIEW_LINKMAN_DETAIL_PAGE }, method =
-	 * RequestMethod.GET) public String linkmanDetailByIdAndPage(@PathVariable
-	 * int voterGroupId, @PathVariable int page, ModelMap model) {
-	 * 
-	 * VoterQuery voterQuery = new VoterQuery(voterGroupId, (page - 1) * 20);
-	 * 
-	 * String description =
-	 * voterGroupService.getVoterGroupDescription(voterGroupId);
-	 * model.addAttribute("description", description);
-	 * 
-	 * List<Voter> voters =
-	 * voterGroupService.getVotersByVoterGroupIdAndPage(voterQuery);
-	 * model.addAttribute("voters", voters); return VIEW_USER_LINKMAN_DETAIL; }
-	 */
-
 	public static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroup}";
 
 	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_URL }, method = RequestMethod.GET)
@@ -314,7 +296,7 @@ public class UserController {
 	}
 
 	public static final String VIEW_USER_LOGIN = "/user/userLogin.do";
-	public static final String USER_LOG_DEVIN_RESULT = "/user/selfCenter.html";
+	public static final String AUTHOR_LOGIN_RESULT = "/user/selfCenter.html";
 
 	@RequestMapping(value = { VIEW_USER_LOGIN }, method = RequestMethod.POST)
 	public String loginAction(@ModelAttribute("userToken") UserToken userToken, BindingResult result, Model model) {
@@ -336,7 +318,7 @@ public class UserController {
 			LOG_DEV.debug("Email:{} ID:{}", currentUser.getPrincipal(), id);
 
 			session.setAttribute(Constants.SESSION_KEY_AUTHOR_ID, id);
-			return SpringMVCUtils.redirect(USER_LOG_DEVIN_RESULT);
+			return SpringMVCUtils.redirect(AUTHOR_LOGIN_RESULT);
 		} else {
 			model.addAttribute("message", "account or password error!");
 			return VIEW_USER_LOG_DEVIN;
@@ -459,7 +441,7 @@ public class UserController {
 	public static final String FORM_UPDATE_USER_DETAIL_INFO = "/user/updateUserDetailInfo.do";
 
 	@RequestMapping(value = FORM_UPDATE_USER_DETAIL_INFO, method = RequestMethod.POST)
-	public String updateDetailProfile(Object model) {
+	public String updateDetailProfile(Model model) {
 
 		// TODO
 

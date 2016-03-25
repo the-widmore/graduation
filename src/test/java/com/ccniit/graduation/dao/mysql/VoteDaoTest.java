@@ -48,7 +48,8 @@ public class VoteDaoTest extends BaseTest {
 	@Transactional
 	@Rollback(true)
 	public void testUpdateVoteEndDate() {
-		assertEquals(1, voteDao.updateVoteEndDate(4, DateUtils.getAfterDate(null, DateUtils.model_week, 1)));
+		Integer result = voteDao.updateVoteEndDate(4, DateUtils.getAfterDate(null, DateUtils.model_week, 1));
+		assertEquals(1, result.intValue());
 	}
 
 	@Test

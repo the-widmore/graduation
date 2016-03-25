@@ -16,13 +16,13 @@ public interface VoterMapper {
 	@Insert("INSERT INTO voter(voterGroup,email,phone,alias) VALUES(#{voterGroup},#{email},#{phone},#{alias})")
 	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
-	long insertVoter(Voter voter);
+	Long insertVoter(Voter voter);
 
 	@Delete("DELETE FROM voter WHERE id=#{voterId}")
-	int deleteVoter(long voterId);
+	Integer deleteVoter(long voterId);
 
 	@Update("UPDATE voter SET email=#{email},phone=#{phone},alias=#{alias} WHERE id=#{id}")
-	int updateVoter(Voter voter);
+	Integer updateVoter(Voter voter);
 
 	@Select("SELECT id,email,phone,alias FROM voter WHERE voterGroup=#{voterGroup} LIMIT #{offset},#{pageSize};")
 	List<Voter> selectVoterFromVoterGroup(VoterQuery voterQuery);

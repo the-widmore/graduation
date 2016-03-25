@@ -1,5 +1,7 @@
 package com.ccniit.graduation.dao.mysql;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
@@ -14,8 +16,14 @@ public class VoteVoterGroupDao implements VoteVoterGroupMapper {
 	VoteVoterGroupMapper voteVoterGroupMapper;
 
 	@Override
-	public int insertVoteVoterGroup(VoteVoterGroup voteVoterGroup) {
+	public Integer insertVoteVoterGroup(VoteVoterGroup voteVoterGroup) {
 		return voteVoterGroupMapper.insertVoteVoterGroup(voteVoterGroup);
+	}
+
+	@Override
+	public List<Long> selectVoteGroupByVote(long vote) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

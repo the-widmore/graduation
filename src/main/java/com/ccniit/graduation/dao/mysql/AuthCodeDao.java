@@ -22,12 +22,12 @@ public class AuthCodeDao implements AuthCodeMapper {
 	AuthCodeMapper authCodeMapper;
 
 	@Override
-	public long insertAuthCode(AuthCode code) {
+	public Long insertAuthCode(AuthCode code) {
 		return authCodeMapper.insertAuthCode(code);
 	}
 
 	@Override
-	public int deleteAuthCodes(long vote) {
+	public Integer deleteAuthCodes(long vote) {
 		return authCodeMapper.deleteAuthCodes(vote);
 	}
 

@@ -14,7 +14,7 @@ public interface AuthorCountMapper {
 	 * @param auhtor.id
 	 */
 	@Select("SELECT COUNT(id) FROM voter_group WHERE author=#{authorId}")
-	int countAuthorLinkmanGroup(long authorId);
+	Integer countAuthorLinkmanGroup(long authorId);
 
 	/**
 	 * 统计Author的Vote每种有多少个，顺序为[vote,poll,info]

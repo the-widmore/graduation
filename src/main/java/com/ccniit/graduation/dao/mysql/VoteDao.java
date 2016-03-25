@@ -18,17 +18,17 @@ public class VoteDao implements VoteMapper {
 	VoteMapper voteMapper;
 
 	@Override
-	public long insertVote(Vote vote) {
+	public Long insertVote(Vote vote) {
 		return voteMapper.insertVote(vote);
 	}
 
 	@Override
-	public int updateVoteProgress(long vote, int progress) {
+	public Integer updateVoteProgress(long vote, int progress) {
 		return voteMapper.updateVoteProgress(vote, progress);
 	}
 
 	@Override
-	public int updateVoteEndDate(long vote, Date enDate) {
+	public Integer updateVoteEndDate(long vote, Date enDate) {
 		return voteMapper.updateVoteEndDate(vote, enDate);
 	}
 

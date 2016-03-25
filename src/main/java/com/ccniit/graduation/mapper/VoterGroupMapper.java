@@ -21,7 +21,7 @@ public interface VoterGroupMapper {
 	@Insert("INSERT INTO voter_group(author,description,inDate) VALUES(#{author},#{description},NOW());")
 	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
-	long insertVoterGroup(VoterGroup voterGroup);
+	Long insertVoterGroup(VoterGroup voterGroup);
 
 	/**
 	 * 获取一个Author的所有VoterGroup
@@ -48,7 +48,7 @@ public interface VoterGroupMapper {
 	 * @return deleted record
 	 */
 	@Delete("DELETE FROM voter_group WHERE id=#{voterGroupId}")
-	int deleteVoterGroup(long voterGroupId);
+	Integer deleteVoterGroup(long voterGroupId);
 
 	/**
 	 * 更新VoterGroup.quantity(人数)；
@@ -57,6 +57,6 @@ public interface VoterGroupMapper {
 	 * @return updated recode
 	 */
 	@Update("UPDATE voter_group SET quantity=(SELECT COUNT(id) FROM voter WHERE voterGroup=#{voterGroupId}) WHERE id=#{voterGroupId}")
-	int updateVoterGroupQuantity(long voterGroupId);
+	Integer updateVoterGroupQuantity(long voterGroupId);
 
 }

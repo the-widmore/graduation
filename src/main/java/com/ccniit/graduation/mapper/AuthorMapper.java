@@ -20,7 +20,7 @@ public interface AuthorMapper {
 	@Insert("INSERT INTO author(email,password,nickname) VALUES(#{email},#{password},#{nickname})")
 	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
-	long insertAuthor(Author author);
+	Long insertAuthor(Author author);
 
 	/**
 	 * 按照id查询一条Author记录
@@ -35,7 +35,7 @@ public interface AuthorMapper {
 	 * 按照email查询Author的id
 	 */
 	@Select("SELECT id FROM author WHERE email=#{email}")
-	long selectAuthorIdByEmail(String email);
+	Long selectAuthorIdByEmail(String email);
 
 	/**
 	 * 按照email查询一条Author记录

@@ -13,17 +13,17 @@ public class ResourceDao implements ResourceMapper {
 	ResourceMapper resourceMapper;
 
 	@Override
-	public long selectAuthorIdFromVote(long voteId) {
+	public Long selectAuthorIdFromVote(long voteId) {
 		return resourceMapper.selectAuthorIdFromVote(voteId);
 	}
 
 	@Override
-	public long selectAuthorIdFromVoterGroup(long voterGroupId) {
+	public Long selectAuthorIdFromVoterGroup(long voterGroupId) {
 		return resourceMapper.selectAuthorIdFromVoterGroup(voterGroupId);
 	}
 
 	@Override
-	public long selectAuthorIdFromVoter(long voterId) {
+	public Long selectAuthorIdFromVoter(long voterId) {
 		return resourceMapper.selectAuthorIdFromVoter(voterId);
 	}
 

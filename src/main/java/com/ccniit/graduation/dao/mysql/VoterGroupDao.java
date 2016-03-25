@@ -16,7 +16,7 @@ public class VoterGroupDao implements VoterGroupMapper {
 	VoterGroupMapper voterGroupMapper;
 
 	@Override
-	public long insertVoterGroup(VoterGroup voterGroup) {
+	public Long insertVoterGroup(VoterGroup voterGroup) {
 		return voterGroupMapper.insertVoterGroup(voterGroup);
 	}
 
@@ -31,12 +31,12 @@ public class VoterGroupDao implements VoterGroupMapper {
 	}
 
 	@Override
-	public int deleteVoterGroup(long voterGroupId) {
+	public Integer deleteVoterGroup(long voterGroupId) {
 		return voterGroupMapper.deleteVoterGroup(voterGroupId);
 	}
 
 	@Override
-	public int updateVoterGroupQuantity(long voterGroupId) {
+	public Integer updateVoterGroupQuantity(long voterGroupId) {
 		return voterGroupMapper.updateVoterGroupQuantity(voterGroupId);
 	}
 

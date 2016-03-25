@@ -17,17 +17,17 @@ public class VoterDao implements VoterMapper {
 	VoterMapper voterMapper;
 
 	@Override
-	public long insertVoter(Voter voter) {
+	public Long insertVoter(Voter voter) {
 		return voterMapper.insertVoter(voter);
 	}
 
 	@Override
-	public int deleteVoter(long voterId) {
+	public Integer deleteVoter(long voterId) {
 		return voterMapper.deleteVoter(voterId);
 	}
 
 	@Override
-	public int updateVoter(Voter voter) {
+	public Integer updateVoter(Voter voter) {
 		return voterMapper.updateVoter(voter);
 	}
 

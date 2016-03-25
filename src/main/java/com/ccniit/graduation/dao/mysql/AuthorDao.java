@@ -17,7 +17,7 @@ public class AuthorDao implements AuthorMapper {
 	AuthorMapper authorMapper;
 
 	@Override
-	public long insertAuthor(Author author) {
+	public Long insertAuthor(Author author) {
 		return authorMapper.insertAuthor(author);
 	}
 
@@ -27,7 +27,7 @@ public class AuthorDao implements AuthorMapper {
 	}
 
 	@Override
-	public long selectAuthorIdByEmail(String email) {
+	public Long selectAuthorIdByEmail(String email) {
 		return authorMapper.selectAuthorIdByEmail(email);
 	}
 

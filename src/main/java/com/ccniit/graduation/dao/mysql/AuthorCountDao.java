@@ -16,7 +16,7 @@ public class AuthorCountDao implements AuthorCountMapper {
 	AuthorCountMapper authorCountMapper;
 
 	@Override
-	public int countAuthorLinkmanGroup(long authorId) {
+	public Integer countAuthorLinkmanGroup(long authorId) {
 		return authorCountMapper.countAuthorLinkmanGroup(authorId);
 	}
 

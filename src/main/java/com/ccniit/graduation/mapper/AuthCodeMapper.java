@@ -18,7 +18,7 @@ public interface AuthCodeMapper {
 	 * 
 	 */
 	@Insert("INSERT INTO auth_code(vote,voter,code) VALUES (#{vote},#{voter},#{code})")
-	long insertAuthCode(AuthCode code);
+	Long insertAuthCode(AuthCode code);
 
 	/**
 	 * 删除一个Vote的全部验证码
@@ -28,6 +28,6 @@ public interface AuthCodeMapper {
 	 * 
 	 */
 	@Delete("DELETE FROM auth_code WHERE vote=#{vote}")
-	int deleteAuthCodes(long vote);
+	Integer deleteAuthCodes(long vote);
 
 }

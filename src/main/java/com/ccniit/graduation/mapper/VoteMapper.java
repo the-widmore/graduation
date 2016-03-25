@@ -23,7 +23,7 @@ public interface VoteMapper {
 	@Insert("INSERT INTO vote(tableName,category,author,title,inDate,endDate)VALUES(#{tableName},#{category},#{author},#{title},#{inDate},#{endDate})")
 	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
-	long insertVote(Vote vote);
+	Long insertVote(Vote vote);
 
 	/**
 	 * 更新进度Vote.progress
@@ -33,7 +33,7 @@ public interface VoteMapper {
 	 * @return successful updated recode
 	 */
 	@Update("UPDATE vote SET progress=#{progress} WHERE id=#{vote}")
-	int updateVoteProgress(@Param("vote") long vote, @Param("progress") int progress);
+	Integer updateVoteProgress(@Param("vote") long vote, @Param("progress") int progress);
 
 	/**
 	 * 
@@ -44,7 +44,7 @@ public interface VoteMapper {
 	 * @return successful updated recode
 	 */
 	@Update("UPDATE vote SET endDate=#{endDate} WHERE id=#{vote}")
-	int updateVoteEndDate(@Param("vote") long vote, @Param("endDate") Date endDate);
+	Integer updateVoteEndDate(@Param("vote") long vote, @Param("endDate") Date endDate);
 
 	/**
 	 * 查询Vote的tableName

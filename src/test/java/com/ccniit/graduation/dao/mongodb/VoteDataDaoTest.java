@@ -1,6 +1,6 @@
 package com.ccniit.graduation.dao.mongodb;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import javax.annotation.Resource;
 

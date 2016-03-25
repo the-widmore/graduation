@@ -7,8 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.ccniit.graduation.pojo.db.VoteTag;
-import com.ccniit.graduation.pojo.qo.VoteQueryByCategory;
-import com.ccniit.graduation.pojo.vo.VoteVo;
+import com.ccniit.graduation.pojo.qo.VoteQueryTag;
 
 public interface VoteTagMapper {
 
@@ -70,8 +69,7 @@ public interface VoteTagMapper {
 	 * @param VoteQuery
 	 * @return List<VoteVo>
 	 */
-	// TODO 分页
-	@Select("")
-	List<VoteVo> selectVotes(VoteQueryByCategory query);
+	@Select("SELECT DISTINCT vote_tag.vote FROM vote_tag INNER JOIN tag ON vote_tag.tag=tag.id WHERE tag.tag LIKE CONCAT('%',#{tag},'%') LIMIT #{offset},#{pageSize}")
+	List<Long> selectVotesIdByTag(VoteQueryTag query);
 
 }

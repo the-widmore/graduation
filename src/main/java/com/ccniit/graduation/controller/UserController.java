@@ -145,7 +145,7 @@ public class UserController {
 	@RequestMapping(value = { VIEW_USER_MY_POLL }, method = RequestMethod.GET)
 	public String myPoll(ModelMap modelMap) {
 		// TODO getAuthorId
-		List<VoteVo> voteVos = voteService.selectVotes(getAuthorId(), VoteResource.Category.info, 1);
+		List<VoteVo> voteVos = voteService.selectVotes(getAuthorId(), VoteResource.Category.poll, 1);
 		modelMap.addAttribute("voteVos", voteVos);
 		return VIEW_USER_MY_POLL;
 	}

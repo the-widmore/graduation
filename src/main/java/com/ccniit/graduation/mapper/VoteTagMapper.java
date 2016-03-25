@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.ccniit.graduation.pojo.db.VoteTag;
-import com.ccniit.graduation.pojo.qo.VoteQuery;
+import com.ccniit.graduation.pojo.qo.VoteQueryByCategory;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 
 public interface VoteTagMapper {
@@ -72,6 +72,6 @@ public interface VoteTagMapper {
 	 */
 	// TODO 分页
 	@Select("")
-	List<VoteVo> selectVotes(VoteQuery query);
+	List<VoteVo> selectVotes(VoteQueryByCategory query);
 
 }

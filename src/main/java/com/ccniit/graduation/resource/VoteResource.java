@@ -36,4 +36,7 @@ public class VoteResource {
 		return PROGRESS_MAP.get(progress);
 	}
 
+	public static final int VOTE_PAGE_SIZE = 20;
+	public static final int LINKMAN_PAGE_SIZE = 50;
+
 }

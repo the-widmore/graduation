@@ -33,10 +33,6 @@ public class VoteServiceImplTest extends BaseTest {
 	public void testSelectVotes() {
 		List<VoteVo> voteVos1 = voteService.selectVotes(1, VoteResource.Category.info, 1);
 		System.out.println(Arrays.deepToString(voteVos1.toArray()));
-		List<VoteVo> voteVos2 = voteService.selectVotes(1, VoteResource.Category.info, 1);
-		System.out.println(Arrays.deepToString(voteVos2.toArray()));
-		List<VoteVo> voteVos3 = voteService.selectVotes(1, VoteResource.Category.info, 1);
-		System.out.println(Arrays.deepToString(voteVos3.toArray()));
 	}
 
 }

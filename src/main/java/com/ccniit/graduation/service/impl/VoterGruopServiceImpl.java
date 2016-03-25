@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.convertor.VoterGroupToVoterGroupVo;
 import com.ccniit.graduation.dao.mysql.VoterGroupDao;
-import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.VoterGroup;
-import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.pojo.vo.VoterGroupVo;
 import com.ccniit.graduation.service.VoterGroupService;
 
@@ -30,11 +28,6 @@ public class VoterGruopServiceImpl implements VoterGroupService {
 
 	@Override
 	public String getVoterGroupDescription(int voterGroupId) {
-		return null;
-	}
-
-	@Override
-	public List<Voter> getVotersByVoterGroupIdAndPage(VoterQuery voterQuery) {
 		return null;
 	}
 

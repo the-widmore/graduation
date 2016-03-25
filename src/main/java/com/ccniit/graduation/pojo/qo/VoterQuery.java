@@ -1,32 +1,34 @@
 package com.ccniit.graduation.pojo.qo;
 
-import java.io.Serializable;
-
-public class VoterQuery implements Serializable {
+public class VoterQuery extends BaseQuery {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3302872562908414725L;
+	private static final long serialVersionUID = -6761339918352166728L;
+	private long author;
 	private long voterGroup;
-	private int page;
-	private int offset;
-	private int pageSize;
-
-	private static final int DEFAULT_PAGE_SIZE = 50;
 
 	public VoterQuery() {
 		super();
-		this.pageSize = DEFAULT_PAGE_SIZE;
-		this.offset = DEFAULT_PAGE_SIZE * page;
 	}
 
-	public VoterQuery(long voterGroup, int page) {
+	public VoterQuery(long offset, int pageSize) {
+		super(offset, pageSize);
+	}
+
+	public VoterQuery(long author, long voterGroup) {
 		super();
+		this.author = author;
 		this.voterGroup = voterGroup;
-		this.page = page;
-		this.pageSize = DEFAULT_PAGE_SIZE;
-		this.offset = DEFAULT_PAGE_SIZE * page;
+	}
+
+	public long getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(long author) {
+		this.author = author;
 	}
 
 	public long getVoterGroup() {
@@ -37,27 +39,4 @@ public class VoterQuery implements Serializable {
 		this.voterGroup = voterGroup;
 	}
 
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getOffset() {
-		return offset;
-	}
-
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
 }

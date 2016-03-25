@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.resource.VoteResource;
+import com.ccniit.graduation.pojo.qo.BaseQuery;
 
 public interface VoteMapper {
 
@@ -74,14 +74,12 @@ public interface VoteMapper {
 	Vote selectVoteByTableName(String tableName);
 
 	/**
-	 * 按照author和Vote.category查询多个VoteVo
+	 * 按照author和Vote.category查询多个Vote的id
 	 * 
-	 * @param author
-	 * @param category
-	 * @return List<VoteVo>
+	 * @param VoteQueryByCategory(offset,pageSize,author,category)
+	 * @return List<Long>
 	 */
-	@Select("SELECT id,tableName,category,title,progress,inDate,predictDate,endDate FROM vote WHERE author=#{author} AND category=#{category} LIMIT #{offset},20")
-	List<Vote> selectAuthorVotes(@Param("author") long author, @Param("category") VoteResource.Category category,
-			@Param("offset") int offset);
+	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} LIMIT #{offset},#{pageSize}")
+	List<Long> selectAuthorVotesId(BaseQuery query);
 
 }

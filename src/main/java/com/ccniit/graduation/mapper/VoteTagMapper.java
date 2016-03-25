@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.ccniit.graduation.pojo.db.VoteTag;
-import com.ccniit.graduation.pojo.qo.VoteQueryTag;
+import com.ccniit.graduation.pojo.qo.VoteQueryByTag;
 
 public interface VoteTagMapper {
 
@@ -70,6 +70,6 @@ public interface VoteTagMapper {
 	 * @return List<VoteVo>
 	 */
 	@Select("SELECT DISTINCT vote_tag.vote FROM vote_tag INNER JOIN tag ON vote_tag.tag=tag.id WHERE tag.tag LIKE CONCAT('%',#{tag},'%') LIMIT #{offset},#{pageSize}")
-	List<Long> selectVotesIdByTag(VoteQueryTag query);
+	List<Long> selectVotesIdByTag(VoteQueryByTag query);
 
 }

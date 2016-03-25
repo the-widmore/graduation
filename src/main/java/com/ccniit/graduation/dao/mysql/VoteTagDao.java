@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.VoteTagMapper;
 import com.ccniit.graduation.pojo.db.VoteTag;
-import com.ccniit.graduation.pojo.qo.VoteQueryTag;
+import com.ccniit.graduation.pojo.qo.VoteQueryByTag;
 
 @Repository("voteTagDao")
 public class VoteTagDao implements VoteTagMapper {
@@ -47,7 +47,7 @@ public class VoteTagDao implements VoteTagMapper {
 	}
 
 	@Override
-	public List<Long> selectVotesIdByTag(VoteQueryTag query) {
+	public List<Long> selectVotesIdByTag(VoteQueryByTag query) {
 		return voteTagMapper.selectVotesIdByTag(query);
 	}
 

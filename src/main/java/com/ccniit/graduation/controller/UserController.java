@@ -37,6 +37,7 @@ import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.VoterGroup;
+import com.ccniit.graduation.pojo.qo.VoteQueryByCategory;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserDetailInfo;
@@ -143,9 +144,14 @@ public class UserController {
 	public static final String VIEW_USER_MY_POLL = "/user/myPoll.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_POLL }, method = RequestMethod.GET)
-	public String myPoll(ModelMap modelMap) {
-		// TODO getAuthorId
-		List<VoteVo> voteVos = voteService.selectVotes(getAuthorId(), VoteResource.Category.poll, 1);
+	public String myPoll(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
+			ModelMap modelMap) {
+		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.poll.toString());
+
+		query.setPageSize(VoteResource.VOTE_PAGE_SIZE);
+		query.setOffset(VoteResource.VOTE_PAGE_SIZE * page);
+
+		List<VoteVo> voteVos = voteService.selectVoteVos(query);
 		modelMap.addAttribute("voteVos", voteVos);
 		return VIEW_USER_MY_POLL;
 	}

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import com.ccniit.graduation.convertor.VoteToVoteVo;
 import com.ccniit.graduation.dao.mysql.VoteDao;
 import com.ccniit.graduation.pojo.db.Vote;
+import com.ccniit.graduation.pojo.qo.BaseQuery;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.CacheNams;
-import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoteTagService;
 
@@ -32,17 +32,20 @@ public class VoteServiceImpl implements VoteService {
 		return voteDao.insertVote(vote);
 	}
 
-	@Cacheable(cacheNames = CacheNams.VOTE, key = "#author+#category.toString()")
+	@Cacheable(cacheNames = CacheNams.VOTE, key = "#voteId")
 	@Override
-	public List<VoteVo> selectVotes(long author, VoteResource.Category category, int page) {
+	public VoteVo selectVoteVo(long voteId) {
+		Vote vote = voteDao.selectVoteById(voteId);
+		return voteToVoteVo.convert(vote);
+	}
 
-		List<Vote> votes = voteDao.selectAuthorVotes(author, category, page);
-		List<VoteVo> voteVos = new ArrayList<>(votes.size());
-
-		for (Vote vote : votes) {
-			voteVos.add(voteToVoteVo.convert(vote));
+	@Override
+	public List<VoteVo> selectVoteVos(BaseQuery query) {
+		List<Long> voteIds = voteDao.selectAuthorVotesId(query);
+		List<VoteVo> voteVos = new ArrayList<>(voteIds.size());
+		for (Long voteId : voteIds) {
+			voteVos.add(selectVoteVo(voteId));
 		}
-
 		return voteVos;
 	}
 

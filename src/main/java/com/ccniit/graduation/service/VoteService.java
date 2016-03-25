@@ -3,13 +3,27 @@ package com.ccniit.graduation.service;
 import java.util.List;
 
 import com.ccniit.graduation.pojo.db.Vote;
+import com.ccniit.graduation.pojo.qo.BaseQuery;
 import com.ccniit.graduation.pojo.vo.VoteVo;
-import com.ccniit.graduation.resource.VoteResource;
 
 public interface VoteService {
 
 	Long createVote(Vote vote);
 
-	List<VoteVo> selectVotes(long author, VoteResource.Category category, int page);
+	/**
+	 * 查询一个Vote,使用缓存
+	 * 
+	 * @param Vote.id
+	 * @return VoteVo(use VoteToVoteVo)
+	 */
+	VoteVo selectVoteVo(long vote);
+
+	/**
+	 * 使用VoteQuery查询Votes,使用selectVoteVo方法
+	 * 
+	 * @param VoteQuery
+	 * @return List<VoteVo>
+	 */
+	List<VoteVo> selectVoteVos(BaseQuery query);
 
 }

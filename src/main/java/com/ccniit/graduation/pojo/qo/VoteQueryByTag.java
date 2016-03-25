@@ -1,6 +1,6 @@
 package com.ccniit.graduation.pojo.qo;
 
-public class VoteQueryTag extends BaseQuery {
+public class VoteQueryByTag extends BaseQuery {
 
 	/**
 	 * 
@@ -8,15 +8,15 @@ public class VoteQueryTag extends BaseQuery {
 	private static final long serialVersionUID = 1182525189855440221L;
 	private String tag;
 
-	public VoteQueryTag() {
+	public VoteQueryByTag() {
 		super();
 	}
 
-	public VoteQueryTag(long offset, int pageSize) {
+	public VoteQueryByTag(long offset, int pageSize) {
 		super(offset, pageSize);
 	}
 
-	public VoteQueryTag(String tag) {
+	public VoteQueryByTag(String tag) {
 		super();
 		this.tag = tag;
 	}

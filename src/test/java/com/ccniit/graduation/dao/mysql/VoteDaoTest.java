@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.pojo.db.Vote;
+import com.ccniit.graduation.pojo.qo.VoteQueryByCategory;
 import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.util.DateUtils;
 import com.ccniit.graduation.util.StringUtils;
@@ -66,8 +67,9 @@ public class VoteDaoTest extends BaseTest {
 
 	@Test
 	public void testSelectAuthorVotes() {
-		List<Vote> votes = voteDao.selectAuthorVotes(1, VoteResource.Category.info, 1);
-		assertEquals(1, votes.size());
+		VoteQueryByCategory query = new VoteQueryByCategory(1L, VoteResource.Category.info.toString());
+		List<Long> votes = voteDao.selectAuthorVotesId(query);
+		assertEquals(2, votes.size());
 	}
 
 }

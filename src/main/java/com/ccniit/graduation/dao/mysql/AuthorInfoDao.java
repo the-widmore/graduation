@@ -13,7 +13,7 @@ public class AuthorInfoDao implements AuthorInfoMapper {
 
 	@Resource
 	AuthorInfoMapper authorInfoMapper;
-	
+
 	@Override
 	public Integer insertEmptyAuthorInfo(long author) {
 		return authorInfoMapper.insertEmptyAuthorInfo(author);

@@ -26,12 +26,17 @@
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
-				<li><a href="vote/startVote.html">投票</a></li>
-				<li><a href="poll/startPoll.html">问卷</a></li>
-				<li><a href="user/selfCenter.html">个人</a></li>
-				<li><a href="demo/demo.html">演示</a></li>
-				<li><a href="help/help.html">帮助</a></li>
-				<li class="active"><a href="about/about.html">关于</a></li>
+				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>

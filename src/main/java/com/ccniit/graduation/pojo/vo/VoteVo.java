@@ -58,8 +58,8 @@ public class VoteVo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "VoteVo [title=" + title + ", progress=" + progress + ", tags=" + Arrays.toString(tags.toArray()) + ", inDate=" + inDate
-				+ ", endDate=" + endDate + "]";
+		return "VoteVo [title=" + title + ", progress=" + progress + ", tags=" + Arrays.toString(tags.toArray())
+				+ ", inDate=" + inDate + ", endDate=" + endDate + "]";
 	}
 
 }

@@ -61,7 +61,7 @@ public class MongoConfigurationTest extends BaseTest {
 		for (int i = 0; i < INSERT_TEST_TIMES; i++) {
 			PrivateVoteData voteData = new PrivateVoteData("chenyiyuan00@gmail.com", 2130706433L);
 			voteData.setData(random());
-			//mongoTemplate.insert(voteData, "_" + StringUtils.getUUID());
+			// mongoTemplate.insert(voteData, "_" + StringUtils.getUUID());
 			mongoTemplate.save(voteData, "_" + StringUtils.getUUID());
 		}
 

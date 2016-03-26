@@ -29,21 +29,29 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="${pageContext.request.contextPath}/">首页</a></li>
-				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
-				<li><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
 				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
-				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
 						<li class="divider"></li>
 						<li class="dropdown-header">隐私政策</li>
-						<li><a href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
 						<li><a
 							href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
 					</ul></li>
@@ -60,8 +68,8 @@
 			<h3>EasyVote</h3>
 
 			<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EasyVote是一个网上投票、问卷调查、信息收集、信息分析的平台，使用它可以更简单的完成这一切。
-				<a href="${pageContext.request.contextPath}/about/about.html" role="button"
-				class="btn btn-sm btn-info">了解更多...</a>
+				<a href="${pageContext.request.contextPath}/about/about.html"
+				role="button" class="btn btn-sm btn-info">了解更多...</a>
 			</b> <br> <br> <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们从设计到实现都以用户为中心，让用户可以根据自己需要自定义投票和问卷的问题和选项。
 				每项投票和问卷用户都可以由发起人控制，加上方便实用的联系人管理和数据导出功能。</b>
 
@@ -74,7 +82,8 @@
 			</p>
 
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在正式使用我们的平台，建议你先阅读<a
-				target="_blank" href="${pageContext.request.contextPath}/demo/demo.html">演示</a>&raquo;
+				target="_blank"
+				href="${pageContext.request.contextPath}/demo/demo.html">演示</a>&raquo;
 			<a target="_blank"
 				href="${pageContext.request.contextPath}/demo/processDemo.html">过程演示。</a>可以帮你了解更多功能，一可以简化后续工作。
 		</div>
@@ -120,7 +129,8 @@
 						<ul>
 							<li><a
 								href="${pageContext.request.contextPath}/demo/linkmanUpload.html">联系人上传多样</a></li>
-							<li><a href="${pageContext.request.contextPath}/demo/pollType.html">问卷形式丰富</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/demo/pollType.html">问卷形式丰富</a></li>
 							<li><a
 								href="${pageContext.request.contextPath}/demo/voteChart.html">投票报表多样性</a></li>
 							<li><a

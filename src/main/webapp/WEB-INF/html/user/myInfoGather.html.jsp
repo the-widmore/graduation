@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="zh-CN">
@@ -106,7 +107,52 @@
 				</div>
 			</div>
 
-			<div class="col-sm-9"></div>
+			<div class="col-sm-9">
+				<div class="page-header">
+					<h3>
+						<i class="glyphicon glyphicon-stats"></i>我的问卷
+					</h3>
+				</div>
+
+				<table class="table table-striped table-bordered table-responsive">
+					<thead class="bg-info">
+						<tr>
+							<td>标题</td>
+							<td>进度</td>
+							<td>标签</td>
+							<td>时间</td>
+						</tr>
+					</thead>
+					<tbody>
+
+						<c:forEach items="${voteVos }" var="vote">
+							<tr>
+								<td>${vote.title }</td>
+								<td>${vote.progress }</td>
+								<td><c:forEach items="${vote.tags }" var="tag">
+										<a href="#"><span class="label label-default">${tag }</span></a>
+									</c:forEach></td>
+
+								<%-- <td>${vote.tags }</td> --%>
+								<td>${vote.inDate }至${vote.endDate }</td>
+							</tr>
+						</c:forEach>
+
+					</tbody>
+				</table>
+
+				<ul class="pagination" style="padding-bottom: 10px">
+					<li class="disable"><a href="#">&laquo;</a></li>
+					<li class="active"><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li>
+					<li><a href="#">6</a></li>
+					<li><a href="#">...</a></li>
+					<li><a href="#">&raquo;</a></li>
+				</ul>
+			</div>
 
 		</div>
 	</div>

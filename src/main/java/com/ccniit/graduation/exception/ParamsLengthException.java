@@ -1,6 +1,6 @@
 package com.ccniit.graduation.exception;
 
-public class ParamsLengthException extends ClientException {
+public class ParamsLengthException extends ParamsException {
 
 	/**
 	 * 

@@ -9,14 +9,15 @@ import com.ccniit.graduation.pojo.qo.AuthorBaseUpdater;
 @Component("authorToAuthorBaseUpdater")
 public class AuthorToAuthorBaseUpdater implements Converter<Author, AuthorBaseUpdater> {
 
-	AuthorBaseUpdater baseUpdater = new AuthorBaseUpdater();
+	AuthorBaseUpdater baseUpdater = null;
 
 	@Override
 	public AuthorBaseUpdater convert(Author author) {
+		baseUpdater = new AuthorBaseUpdater();
 		baseUpdater.setEmail(author.getEmail());
 		baseUpdater.setSex(author.getSex());
 		baseUpdater.setPhone(author.getPhone());
-		return null;
+		return baseUpdater;
 	}
 
 }

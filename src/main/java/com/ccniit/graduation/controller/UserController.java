@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -31,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ccniit.graduation.convertor.AuthorToAuthorBaseUpdater;
 import com.ccniit.graduation.exception.IException;
-import com.ccniit.graduation.exception.NotLoginException;
+import com.ccniit.graduation.exception.ParamsException;
 import com.ccniit.graduation.exception.PermissionException;
 import com.ccniit.graduation.exception.ServerException;
 import com.ccniit.graduation.pojo.common.UserToken;
@@ -72,21 +71,14 @@ public class UserController {
 	@Resource
 	private ResourcePermissionService resourcePermissionService;
 	@Resource
-	AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
+	private AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
 
 	public static final String VIEW_USER = "/user";
 	public static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
 
 	@RequestMapping(value = { VIEW_USER_SELF_CENTER, VIEW_USER })
 	public String selfCenter(ModelMap modelMap) throws IException {
-		long id = getAuthorId();
-
-		if (0 == id) {
-			throw new NotLoginException("必须登录");
-		}
-
-		modelMap.addAttribute("authorContentCounter", getAuthorContentCounter(id));
-
+		modelMap.addAttribute("authorContentCounter", getAuthorContentCounter(getAuthorId()));
 		return VIEW_USER_SELF_CENTER;
 	}
 
@@ -97,7 +89,7 @@ public class UserController {
 	public static final String VIEW_USER_CREATE_LINKMAN_BUILD = "/user/createLinkmanBuild.html";
 
 	@RequestMapping(value = { VIEW_USER_CREATE_LINKMAN_BUILD }, method = RequestMethod.GET)
-	public String createLinkmanBuild(Model model) {
+	public String createLinkmanBuild(ModelMap modelMap) {
 		// TODO
 		return VIEW_USER_CREATE_LINKMAN_BUILD;
 	}
@@ -126,10 +118,9 @@ public class UserController {
 
 	public static final String VIEW_USER_LINKMAN_DETAIL = "/user/linkmanDetail.html";
 
-	@RequiresAuthentication
 	@RequestMapping(value = { VIEW_USER_LINKMAN_DETAIL }, method = RequestMethod.GET)
 	public String linkmanDetail(ModelMap modelMap) {
-
+		// TODO
 		return VIEW_USER_LINKMAN_DETAIL;
 	}
 
@@ -144,12 +135,17 @@ public class UserController {
 	public static final String VIEW_USER_MY_POLL = "/user/myPoll.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_POLL }, method = RequestMethod.GET)
-	public String myPoll(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
-			ModelMap modelMap) {
+	public String myPoll(@RequestParam(value = "page", defaultValue = "1", required = true) int page, ModelMap modelMap)
+			throws IException {
+
+		if (page < 0) {
+			throw new ParamsException("参数Page不能小于0");
+		}
+
 		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.poll.toString());
 
 		query.setPageSize(VoteResource.VOTE_PAGE_SIZE);
-		query.setOffset(VoteResource.VOTE_PAGE_SIZE * page);
+		query.setOffset(VoteResource.VOTE_PAGE_SIZE * (page - 1));
 
 		List<VoteVo> voteVos = voteService.selectVoteVos(query);
 		modelMap.addAttribute("voteVos", voteVos);
@@ -159,7 +155,20 @@ public class UserController {
 	public static final String VIEW_USER_MY_INFO_GATHER = "/user/myInfoGather.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_INFO_GATHER }, method = RequestMethod.GET)
-	public String myInfoGather(ModelMap modelMap) {
+	public String myInfoGather(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
+			ModelMap modelMap) throws IException {
+
+		if (page < 0) {
+			throw new ParamsException("参数Page不能小于0");
+		}
+
+		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.info.toString());
+
+		query.setPageSize(VoteResource.VOTE_PAGE_SIZE);
+		query.setOffset(VoteResource.VOTE_PAGE_SIZE * (page - 1));
+
+		List<VoteVo> voteVos = voteService.selectVoteVos(query);
+		modelMap.addAttribute("voteVos", voteVos);
 
 		return VIEW_USER_MY_INFO_GATHER;
 	}
@@ -167,7 +176,20 @@ public class UserController {
 	public static final String VIEW_USER_MY_VOTE = "/user/myVote.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_VOTE }, method = RequestMethod.GET)
-	public String myVote(ModelMap modelMap) {
+	public String myVote(@RequestParam(value = "page", defaultValue = "1", required = true) int page, ModelMap modelMap)
+			throws IException {
+
+		if (page < 0) {
+			throw new ParamsException("参数Page不能小于0");
+		}
+
+		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.vote.toString());
+
+		query.setPageSize(VoteResource.VOTE_PAGE_SIZE);
+		query.setOffset(VoteResource.VOTE_PAGE_SIZE * (page - 1));
+
+		List<VoteVo> voteVos = voteService.selectVoteVos(query);
+		modelMap.addAttribute("voteVos", voteVos);
 
 		return VIEW_USER_MY_VOTE;
 	}

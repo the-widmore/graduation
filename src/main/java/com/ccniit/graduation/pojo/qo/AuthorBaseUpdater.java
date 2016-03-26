@@ -10,6 +10,7 @@ public class AuthorBaseUpdater extends AuthorUpdater {
 	 */
 	private static final long serialVersionUID = -2992520029775406342L;
 	private String email;
+	private String sex;
 	private String phone;
 	private String oldPassword;
 	private String newPassword;
@@ -20,10 +21,11 @@ public class AuthorBaseUpdater extends AuthorUpdater {
 		super();
 	}
 
-	public AuthorBaseUpdater(String email, String phone, String oldPassword, String newPassword, String confirmPassword,
-			String secondPassword) {
+	public AuthorBaseUpdater(String email, String sex, String phone, String oldPassword, String newPassword,
+			String confirmPassword, String secondPassword) {
 		super();
 		this.email = email;
+		this.sex = sex;
 		this.phone = phone;
 		this.oldPassword = oldPassword;
 		this.newPassword = newPassword;
@@ -37,6 +39,14 @@ public class AuthorBaseUpdater extends AuthorUpdater {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
 	public String getPhone() {

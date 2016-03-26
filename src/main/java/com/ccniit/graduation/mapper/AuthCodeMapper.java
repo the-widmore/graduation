@@ -2,6 +2,10 @@ package com.ccniit.graduation.mapper;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 
 import com.ccniit.graduation.pojo.db.AuthCode;
 
@@ -18,6 +22,8 @@ public interface AuthCodeMapper {
 	 * 
 	 */
 	@Insert("INSERT INTO auth_code(vote,voter,code) VALUES (#{vote},#{voter},#{code})")
+	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
+			"SELECT LAST_INSERT_ID() AS id" })
 	Long insertAuthCode(AuthCode code);
 
 	/**
@@ -29,5 +35,26 @@ public interface AuthCodeMapper {
 	 */
 	@Delete("DELETE FROM auth_code WHERE vote=#{vote}")
 	Integer deleteAuthCodes(long vote);
+
+	/**
+	 * 获取Vote的验证码，参数是vote和voter
+	 * 
+	 * @param Vote.id
+	 * @param Voter.id
+	 * @return AuthCode.code
+	 */
+	@Select("SELECT code FROM auth_code WHERE vote=#{vote} AND voter=#{voter}")
+	String selectAuthCode(@Param("vote") long vote, @Param("voter") long voter);
+
+	/**
+	 * 将一个验证码设置为使用过
+	 * 
+	 * @param Vote.id
+	 * @param Voter.id
+	 * 
+	 * @return affected rows
+	 */
+	@Update("UPDATE auth_code SET used=1 WHERE vote =#{vote} AND voter=#{voter}")
+	Integer setAuthCodeUsed(@Param("vote") long vote, @Param("voter") long voter);
 
 }

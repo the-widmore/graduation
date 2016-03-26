@@ -21,7 +21,7 @@ public interface AuthorService {
 	 * 更新Author的基本信息
 	 * 
 	 * @param AuthorUpdater
-	 * @return updated
+	 * @return Integer，返回值对应的意义如下： 1 = 修改成功
 	 */
 	int updateAuthorBase(AuthorUpdater authorUpdater);
 

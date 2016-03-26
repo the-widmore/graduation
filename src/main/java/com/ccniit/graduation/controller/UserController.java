@@ -29,9 +29,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ccniit.graduation.convertor.AuthorToAuthorBaseUpdater;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.NotLoginException;
 import com.ccniit.graduation.exception.PermissionException;
+import com.ccniit.graduation.exception.ServerException;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.db.Voter;
@@ -69,6 +71,8 @@ public class UserController {
 	private VoterGroupService voterGroupService;
 	@Resource
 	private ResourcePermissionService resourcePermissionService;
+	@Resource
+	AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
 
 	public static final String VIEW_USER = "/user";
 	public static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
@@ -203,15 +207,18 @@ public class UserController {
 	public static final String VIEW_USER_PROFILE = "/user/userProfile.html";
 
 	@RequestMapping(value = { VIEW_USER_PROFILE }, method = RequestMethod.GET)
-	public String userProfile(Model model, BindingResult result) {
+	public String userProfile(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater,
+			@ModelAttribute("infoUpdater") AuthorInfoUpdater infoUpdater, Model model, BindingResult result)
+					throws IException {
+
+		if (result.hasErrors()) {
+			throw new ServerException("");
+		}
 
 		long id = getAuthorId();
 
 		Author author = authorService.findAuthorById(id);
-		AuthorBaseUpdater baseUpdater = new AuthorBaseUpdater();
-		AuthorInfoUpdater infoUpdater = new AuthorInfoUpdater();
-
-		baseUpdater.setEmail(author.getEmail());
+		baseUpdater = authorToAuthorBaseUpdater.convert(author);
 
 		// TODO set userDetailInfo value
 

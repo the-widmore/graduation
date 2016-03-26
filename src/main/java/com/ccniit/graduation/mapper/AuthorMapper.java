@@ -28,7 +28,7 @@ public interface AuthorMapper {
 	 * @param author.id
 	 * @return author
 	 */
-	@Select("SELECT email,tel,name,sex FROM author WHERE id=#{id}")
+	@Select("SELECT email,phone,password,secondPassword,name,sex FROM author WHERE id=#{id}")
 	Author selectById(long id);
 
 	/**
@@ -52,7 +52,7 @@ public interface AuthorMapper {
 	 * @param author
 	 * @return affected rows
 	 */
-	@Update("UPDATE author SET tel=#{tel},name=#{name},sex=#{sex} WHERE id=#{id}")
+	@Update("UPDATE author SET phone=#{phone},password=#{password},secondPassword=#{secondPassword},name=#{name},sex=#{sex} WHERE id=#{id}")
 	int updateAuthor(Author author);
 
 	/**

@@ -31,4 +31,14 @@ public class AuthCodeDao implements AuthCodeMapper {
 		return authCodeMapper.deleteAuthCodes(vote);
 	}
 
+	@Override
+	public String selectAuthCode(long vote, long voter) {
+		return authCodeMapper.selectAuthCode(vote, voter);
+	}
+
+	@Override
+	public Integer setAuthCodeUsed(long vote, long voter) {
+		return authCodeMapper.setAuthCodeUsed(vote, voter);
+	}
+
 }

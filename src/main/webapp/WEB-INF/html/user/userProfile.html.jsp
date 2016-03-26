@@ -1,5 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -136,7 +137,39 @@
 
 								<div class="col-sm-4">
 									<input type="email" class="form-control" name="email"
-										value="${AuthorBaseUpdater.email }" readonly>
+										value="${baseUpdater.email }" readonly>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-2 control-label" id="sex">性别</label>
+
+								<div class="col-sm-4">
+									<c:choose>
+										<c:when test="${baseUpdater.sex =='男' }">
+											<input type="radio" name="sex" value="男" checked="checked">男
+										<input type="radio" name="sex" value="女">女
+									</c:when>
+										<c:when test="${baseUpdater.sex =='女' }">
+											<input type="radio" name="sex" value="男">男
+										<input type="radio" name="sex" value="女" checked="checked">女
+									</c:when>
+										<c:otherwise>
+											<input type="radio" name="sex" value="男">男
+										<input type="radio" name="sex" value="女">女
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-2 control-label" for="telInput">电话</label>
+
+								<div class="col-sm-4">
+
+									<input type="tel" id="telInput" name="phone"
+										class="form-control" value="${baseUpdater.phone }"
+										placeholder="有必要时我们会用电话或者短信联系你">
 								</div>
 							</div>
 
@@ -204,23 +237,7 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label class="col-md-2 control-label" id="sex">性别</label>
 
-								<div class="col-sm-4">
-									<input type="radio" name="sex"> 男 <input type="radio"
-										name="sex"> 女
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-md-2 control-label" for="telInput">电话</label>
-
-								<div class="col-sm-4">
-									<input type="tel" id="telInput" name="tel" class="form-control"
-										placeholder="有必要时我们会用电话或者短信联系你">
-								</div>
-							</div>
 
 							<div class="form-group">
 								<label class="col-md-2 control-label" for="addressInput">地址</label>

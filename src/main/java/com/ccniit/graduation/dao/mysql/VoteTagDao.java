@@ -22,17 +22,17 @@ public class VoteTagDao implements VoteTagMapper {
 	}
 
 	@Override
-	public Integer selectTagId(String tag) {
+	public Long selectTagId(String tag) {
 		return voteTagMapper.selectTagId(tag);
 	}
 
 	@Override
-	public Integer insertVoteTagByTagId(long vote, int tagId) {
+	public Integer insertVoteTagByTagId(long vote, long tagId) {
 		return voteTagMapper.insertVoteTagByTagId(vote, tagId);
 	}
 
 	@Override
-	public Integer insertVoteTagByTagStr(long vote, String tag) {
+	public Long insertVoteTagByTagStr(long vote, String tag) {
 		return voteTagMapper.insertVoteTagByTagStr(vote, tag);
 	}
 

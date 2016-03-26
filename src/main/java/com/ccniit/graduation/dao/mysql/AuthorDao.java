@@ -18,7 +18,8 @@ public class AuthorDao implements AuthorMapper {
 
 	@Override
 	public Long insertAuthor(Author author) {
-		return authorMapper.insertAuthor(author);
+		authorMapper.insertAuthor(author);
+		return author.getId();
 	}
 
 	@Override

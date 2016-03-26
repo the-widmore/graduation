@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.TagMapper;
+import com.ccniit.graduation.pojo.db.VoteTag;
 
 @Repository("tagDao")
 public class TagDao implements TagMapper {
@@ -13,12 +14,13 @@ public class TagDao implements TagMapper {
 	TagMapper tagMapper;
 
 	@Override
-	public Integer insertTag(String tag) {
-		return tagMapper.insertTag(tag);
+	public Long insertTag(VoteTag tag) {
+		tagMapper.insertTag(tag);
+		return tag.getId();
 	}
 
 	@Override
-	public Integer selectTagId(String tag) {
+	public Long selectTagId(String tag) {
 		return tagMapper.selectTagId(tag);
 	}
 

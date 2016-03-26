@@ -23,7 +23,8 @@ public class AuthCodeDao implements AuthCodeMapper {
 
 	@Override
 	public Long insertAuthCode(AuthCode code) {
-		return authCodeMapper.insertAuthCode(code);
+		authCodeMapper.insertAuthCode(code);
+		return code.getId();
 	}
 
 	@Override

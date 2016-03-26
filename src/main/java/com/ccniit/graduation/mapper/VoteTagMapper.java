@@ -19,7 +19,7 @@ public interface VoteTagMapper {
 	 * @return success inserted recode
 	 */
 	@Insert("INSERT INTO vote_tag(vote,tag) VALUES(#{vote},#{tagId})")
-	Integer insertVoteTagByTagId(@Param("vote") long vote, @Param("tagId") int tagId);
+	Integer insertVoteTagByTagId(@Param("vote") long vote, @Param("tagId") long tagId);
 
 	/**
 	 * 按照tag模糊查询VoteTag hot最高的10个
@@ -39,7 +39,7 @@ public interface VoteTagMapper {
 	 */
 	// TODO add tag index
 	@Select("SELECT id FROM tag WHERE tag=#{tag}")
-	Integer selectTagId(String tag);
+	Long selectTagId(String tag);
 
 	/**
 	 * 插入投票的标签，按照tag(String类型，必须保证已经存在)
@@ -49,7 +49,7 @@ public interface VoteTagMapper {
 	 * @return 成功插入的条数
 	 */
 	@Insert("INSERT INTO vote_tag(vote,tag) VALUES(#{vote},(SELECT id FROM tag WHERE tag=#{tag}))")
-	Integer insertVoteTagByTagStr(@Param("vote") long vote, @Param("tag") String tag);
+	Long insertVoteTagByTagStr(@Param("vote") long vote, @Param("tag") String tag);
 
 	/**
 	 * 查询一个Vote的tags

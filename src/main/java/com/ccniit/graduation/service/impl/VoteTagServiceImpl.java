@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.dao.mysql.TagDao;
 import com.ccniit.graduation.dao.mysql.VoteTagDao;
+import com.ccniit.graduation.pojo.db.VoteTag;
 import com.ccniit.graduation.service.VoteTagService;
 import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.StringUtils;
@@ -19,7 +20,8 @@ public class VoteTagServiceImpl implements VoteTagService {
 
 	private static final Logger DEV_LOG = LoggerUtils.getDev();
 
-	private static final String TAG_DIVISION = "[;|,\\s]+";
+	// Vote标签使用';'OR','分割
+	private static final String TAG_DIVISION = "[;|,]+";
 
 	@Resource
 	VoteTagDao voteTagDao;
@@ -32,7 +34,7 @@ public class VoteTagServiceImpl implements VoteTagService {
 		String[] newTags = Arrays.copyOfRange(tagArray, 0, 5);
 		int inserted = 0;
 		for (int i = 0; i < newTags.length; i++) {
-			int tagId = selectTagId(newTags[i]);
+			Long tagId = selectTagId(newTags[i]);
 			inserted += voteTagDao.insertVoteTagByTagId(vote, tagId);
 		}
 		return inserted;
@@ -42,20 +44,20 @@ public class VoteTagServiceImpl implements VoteTagService {
 	public String selectTagsToString(long vote) {
 		return voteTagDao.selectVoteTagsToString(vote);
 	}
-	
+
 	@Override
 	public List<String> selectTagsToArray(long vote) {
 		return voteTagDao.selectVoteTagsToArray(vote);
 	}
 
 	// 查询tag的id,没有就插入,并返回id
-	private Integer selectTagId(String tag) {
+	private Long selectTagId(String tag) {
 
 		DEV_LOG.debug(tag);
 
-		Integer id = tagDao.selectTagId(tag);
+		Long id = tagDao.selectTagId(tag);
 		if (null == id || 0 == id) {
-			return tagDao.insertTag(tag);
+			return tagDao.insertTag(new VoteTag(tag));
 		} else {
 			return id;
 		}

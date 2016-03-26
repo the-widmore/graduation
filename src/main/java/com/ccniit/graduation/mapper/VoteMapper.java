@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.pojo.qo.BaseQuery;
+import com.ccniit.graduation.pojo.qo.PagedQuery;
 
 public interface VoteMapper {
 
@@ -80,6 +80,6 @@ public interface VoteMapper {
 	 * @return List<Long>
 	 */
 	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} LIMIT #{offset},#{pageSize}")
-	List<Long> selectAuthorVotesId(BaseQuery query);
+	List<Long> selectAuthorVotesId(PagedQuery query);
 
 }

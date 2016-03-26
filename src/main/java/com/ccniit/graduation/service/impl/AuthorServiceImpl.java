@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.builder.AuthorContentCounterBuilder;
 import com.ccniit.graduation.dao.mysql.AuthorDao;
-import com.ccniit.graduation.pojo.common.UserBaseInfo;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
+import com.ccniit.graduation.pojo.qo.AuthorUpdater;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.resource.CacheNams;
 import com.ccniit.graduation.service.AuthorService;
@@ -39,9 +39,15 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public void updateBaseInfo(UserBaseInfo userBaseInfo) {
+	public int updateAuthorBase(AuthorUpdater authorUpdater) {
 		// TODO Auto-generated method stub
+		return 0;
+	}
 
+	@Override
+	public int updateAuthorInfo(AuthorUpdater authorUpdater) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override

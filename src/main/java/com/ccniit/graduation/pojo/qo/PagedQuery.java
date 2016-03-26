@@ -2,7 +2,13 @@ package com.ccniit.graduation.pojo.qo;
 
 import java.io.Serializable;
 
-public class BaseQuery implements Serializable {
+/**
+ * 需要分页的查询
+ * 
+ * @field offset 查询的索引
+ * @field pageSize 一次查询的条数
+ */
+public class PagedQuery implements Serializable {
 
 	/**
 	 * 
@@ -11,11 +17,11 @@ public class BaseQuery implements Serializable {
 	private long offset;
 	private int pageSize;
 
-	public BaseQuery() {
+	public PagedQuery() {
 		super();
 	}
 
-	public BaseQuery(long offset, int pageSize) {
+	public PagedQuery(long offset, int pageSize) {
 		super();
 		this.offset = offset;
 		this.pageSize = pageSize;

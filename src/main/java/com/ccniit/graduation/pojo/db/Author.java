@@ -10,13 +10,20 @@ public class Author implements Serializable {
 	private static final long serialVersionUID = 3887017416615097662L;
 	private long id;
 	private String email;
-	private String tel;
+	private String phone;
 	private String password;
+	private String secondPassword;
 	private String name;
 	private String sex;
 
 	public Author() {
 		super();
+	}
+
+	public Author(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
 	}
 
 	public long getId() {
@@ -35,12 +42,12 @@ public class Author implements Serializable {
 		this.email = email;
 	}
 
-	public String getTel() {
-		return tel;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getPassword() {
@@ -49,6 +56,14 @@ public class Author implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getSecondPassword() {
+		return secondPassword;
+	}
+
+	public void setSecondPassword(String secondPassword) {
+		this.secondPassword = secondPassword;
 	}
 
 	public String getName() {

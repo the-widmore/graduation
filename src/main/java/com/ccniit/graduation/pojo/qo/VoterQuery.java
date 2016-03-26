@@ -1,6 +1,6 @@
 package com.ccniit.graduation.pojo.qo;
 
-public class VoterQuery extends BaseQuery {
+public class VoterQuery extends PagedQuery {
 
 	/**
 	 * 

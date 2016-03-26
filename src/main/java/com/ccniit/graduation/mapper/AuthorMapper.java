@@ -52,7 +52,7 @@ public interface AuthorMapper {
 	 * @param author
 	 * @return affected rows
 	 */
-	@Update("UPDATE author SET tel=#{tel},nickname=#{nickanem},name=#{name},sex=#{sex} WHERE id=#{id}")
+	@Update("UPDATE author SET tel=#{tel},name=#{name},sex=#{sex} WHERE id=#{id}")
 	int updateAuthor(Author author);
 
 	/**

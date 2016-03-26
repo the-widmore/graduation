@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.VoteMapper;
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.pojo.qo.BaseQuery;
+import com.ccniit.graduation.pojo.qo.PagedQuery;
 
 @Repository("voteDao")
 public class VoteDao implements VoteMapper {
@@ -48,7 +48,7 @@ public class VoteDao implements VoteMapper {
 	}
 
 	@Override
-	public List<Long> selectAuthorVotesId(BaseQuery query) {
+	public List<Long> selectAuthorVotesId(PagedQuery query) {
 		return voteMapper.selectAuthorVotesId(query);
 	}
 

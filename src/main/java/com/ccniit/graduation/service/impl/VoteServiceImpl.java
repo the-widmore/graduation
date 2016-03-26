@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ccniit.graduation.convertor.VoteToVoteVo;
 import com.ccniit.graduation.dao.mysql.VoteDao;
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.pojo.qo.BaseQuery;
+import com.ccniit.graduation.pojo.qo.PagedQuery;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.CacheNams;
 import com.ccniit.graduation.service.VoteService;
@@ -40,7 +40,7 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@Override
-	public List<VoteVo> selectVoteVos(BaseQuery query) {
+	public List<VoteVo> selectVoteVos(PagedQuery query) {
 		List<Long> voteIds = voteDao.selectAuthorVotesId(query);
 		List<VoteVo> voteVos = new ArrayList<>(voteIds.size());
 		for (Long voteId : voteIds) {

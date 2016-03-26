@@ -32,18 +32,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.NotLoginException;
 import com.ccniit.graduation.exception.PermissionException;
-import com.ccniit.graduation.pojo.common.UserBaseInfo;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.db.Voter;
-import com.ccniit.graduation.pojo.db.VoterGroup;
+import com.ccniit.graduation.pojo.qo.AuthorBaseUpdater;
+import com.ccniit.graduation.pojo.qo.AuthorInfoUpdater;
 import com.ccniit.graduation.pojo.qo.VoteQueryByCategory;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
-import com.ccniit.graduation.pojo.vo.UserDetailInfo;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoteVo;
-import com.ccniit.graduation.pojo.vo.VoterGroupAndVoters;
 import com.ccniit.graduation.resource.Constants;
 import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.AuthorService;
@@ -96,9 +94,7 @@ public class UserController {
 
 	@RequestMapping(value = { VIEW_USER_CREATE_LINKMAN_BUILD }, method = RequestMethod.GET)
 	public String createLinkmanBuild(Model model) {
-		VoterGroupAndVoters voterGroupAndVoters = new VoterGroupAndVoters();
-		voterGroupAndVoters.setGroupDescription("描述你的该联系人库...");
-		model.addAttribute("voterGroupAndVoters", voterGroupAndVoters);
+		// TODO
 		return VIEW_USER_CREATE_LINKMAN_BUILD;
 	}
 
@@ -207,20 +203,20 @@ public class UserController {
 	public static final String VIEW_USER_PROFILE = "/user/userProfile.html";
 
 	@RequestMapping(value = { VIEW_USER_PROFILE }, method = RequestMethod.GET)
-	public String userProfile(Model model) {
+	public String userProfile(Model model, BindingResult result) {
 
 		long id = getAuthorId();
 
 		Author author = authorService.findAuthorById(id);
+		AuthorBaseUpdater baseUpdater = new AuthorBaseUpdater();
+		AuthorInfoUpdater infoUpdater = new AuthorInfoUpdater();
 
-		UserBaseInfo userBaseInfo = new UserBaseInfo();
-		userBaseInfo.setEmail(author.getEmail());
+		baseUpdater.setEmail(author.getEmail());
 
-		UserDetailInfo userDetailInfo = new UserDetailInfo();
 		// TODO set userDetailInfo value
 
-		model.addAttribute("userBaseInfo", userBaseInfo);
-		model.addAttribute("userDetailInfo", userDetailInfo);
+		model.addAttribute("baseUpdater", baseUpdater);
+		model.addAttribute("infoUpdater", infoUpdater);
 
 		return VIEW_USER_PROFILE;
 	}
@@ -363,63 +359,8 @@ public class UserController {
 	public static final String ACTION_CREATE_LINKMAN_BY_TEXT = "/user/createLinkmanBuildByText.do";
 	public static final String VIEW_LINKMAN_FORMAT_ERROR = "/help/linkmanCreateFormate.html";
 
-	private static final String SEPARATOR_LINKMAN = ";";
-	private static final String SEPARATOR_USERNAME_ALIAS = ":";
-	private static final String EMAIL_USERNAME_REGULAR = "[\\w[.-]]+";
-	private static final String EMAIL_SERVICE_REGULAR = "@[\\w[.-]]+\\.[\\w]+";
-
 	@RequestMapping(value = { ACTION_CREATE_LINKMAN_BY_TEXT }, method = RequestMethod.POST)
-	public String createLinkmanByTextAction(
-			@ModelAttribute("voterGroupAndVoters") VoterGroupAndVoters voterGroupAndVoters, BindingResult result,
-			Model model) {
-
-		// check defaultEmailService
-		String defaultEmailService = voterGroupAndVoters.getDefaultEmailService();
-		if ((null != defaultEmailService || "".equals(defaultEmailService))) {
-			if (!defaultEmailService.matches(EMAIL_SERVICE_REGULAR)) {
-				model.addAttribute("errorMessage", "default email service format error");
-				return VIEW_LINKMAN_FORMAT_ERROR;
-			}
-		}
-
-		// First create voterGroup
-		long authorId = getAuthorId();
-		VoterGroup voterGroup = new VoterGroup(authorId, voterGroupAndVoters.getGroupDescription());
-		long voterGroupId = voterGroupService.createVoterGroup(voterGroup);
-
-		String votersText = voterGroupAndVoters.getVoterText();
-
-		String email = null;
-		String alias = null;
-		String[] linkmans = votersText.split(SEPARATOR_LINKMAN);
-
-		for (int i = 0; i < linkmans.length; i++) {
-			String linkman = linkmans[i];
-			String[] linkmanInfo = linkman.split(SEPARATOR_USERNAME_ALIAS);
-			int linkmanInfoLength = linkmanInfo.length;
-
-			String emailOrEmailUserName = linkmanInfo[0];
-
-			if (emailOrEmailUserName.matches(EMAIL_USERNAME_REGULAR)) {
-				if (null == defaultEmailService) {
-					continue;
-				}
-
-				email = emailOrEmailUserName + defaultEmailService;
-			} else {
-				email = emailOrEmailUserName;
-			}
-
-			if (linkmanInfoLength >= 2) {
-				alias = linkmanInfo[1];
-			}
-
-			// TODO phone
-			String phone = "";
-			Voter voter = new Voter(voterGroupId, email, phone, alias);
-			// insert voters
-			voterService.insertVoter(voter);
-		}
+	public String createLinkmanByTextAction(BindingResult result, Model model) {
 
 		return VIEW_USER_MY_LINKMAN;
 	}
@@ -427,20 +368,20 @@ public class UserController {
 	public static final String FORM_UPDATE_USER_BASE_INFO = "/user/updateUserBaseInfo.do";
 
 	@RequestMapping(value = { FORM_UPDATE_USER_BASE_INFO }, method = RequestMethod.POST)
-	public String updateUserBaseInfoAction(@ModelAttribute("userBaseInfo") UserBaseInfo userBaseInfo, Model model) {
+	public String updateUserBaseInfoAction(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater, Model model) {
 
-		UserToken userToken = new UserToken(userBaseInfo.getEmail(), userBaseInfo.getPassword());
+		UserToken userToken = new UserToken(baseUpdater.getEmail(), baseUpdater.getOldPassword());
 		boolean isMatched = authorService.authentication(userToken);
 		if (!isMatched) {
 			model.addAttribute("errorMessagePassword", "password error");
 		}
 
-		if (!userBaseInfo.getNewPassword().equals(userBaseInfo.getReNewPassword())) {
+		if (!baseUpdater.getNewPassword().equals(baseUpdater.getConfirmPassword())) {
 			model.addAttribute("errorMessageNewPassword", "new password not same");
 		}
 
-		userBaseInfo.setId(getAuthorId());
-		authorService.updateBaseInfo(userBaseInfo);
+		baseUpdater.setId(getAuthorId());
+		authorService.updateAuthorBase(baseUpdater);
 		return VIEW_USER_PROFILE;
 	}
 

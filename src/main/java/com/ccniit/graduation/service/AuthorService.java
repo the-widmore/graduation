@@ -1,8 +1,8 @@
 package com.ccniit.graduation.service;
 
-import com.ccniit.graduation.pojo.common.UserBaseInfo;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
+import com.ccniit.graduation.pojo.qo.AuthorUpdater;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 
 public interface AuthorService {
@@ -17,7 +17,15 @@ public interface AuthorService {
 
 	boolean authentication(UserToken userToken);
 
-	void updateBaseInfo(UserBaseInfo userBaseInfo);
+	/**
+	 * 更新Author的基本信息
+	 * 
+	 * @param AuthorUpdater
+	 * @return updated
+	 */
+	int updateAuthorBase(AuthorUpdater authorUpdater);
+
+	int updateAuthorInfo(AuthorUpdater authorUpdater);
 
 	long getAuthorIdByEmail(String email);
 
@@ -26,6 +34,5 @@ public interface AuthorService {
 	Author findAuthorById(long id);
 
 	AuthorContentCounter getAuthorContentCounter(long authorId);
-
 
 }

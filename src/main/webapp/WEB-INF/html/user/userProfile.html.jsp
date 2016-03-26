@@ -136,7 +136,7 @@
 
 								<div class="col-sm-4">
 									<input type="email" class="form-control" name="email"
-										value="${userBaseInfo.email }" readonly>
+										value="${AuthorBaseUpdater.email }" readonly>
 								</div>
 							</div>
 
@@ -144,7 +144,7 @@
 								<label for="passwordInput" class="col-md-2 control-label">原密码</label>
 
 								<div class="col-sm-4">
-									<input type="password" id="passwordInput" name="password"
+									<input type="password" id="passwordInput" name="oldPassword"
 										class="form-control" placeholder="输入旧的密码">
 								</div>
 							</div>
@@ -163,7 +163,7 @@
 
 								<div class="col-sm-4">
 									<input type="password" id="reNewPasswordInput"
-										name="reNewPassword" class="form-control"
+										name="confirmPassword" class="form-control"
 										placeholder="再次输入新的密码">
 								</div>
 							</div>
@@ -255,7 +255,7 @@
 								<div class="col-sm-4">
 									<textarea class="form-control" name="aboutYou"
 										id="aboutYouInput" rows="5" cols="50" placeholder="关于你..."
-										style="max-width: 300px;max-height: 100px"></textarea>
+										style="max-width: 300px; max-height: 100px"></textarea>
 								</div>
 							</div>
 

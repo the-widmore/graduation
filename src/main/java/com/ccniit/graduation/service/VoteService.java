@@ -3,7 +3,7 @@ package com.ccniit.graduation.service;
 import java.util.List;
 
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.pojo.qo.BaseQuery;
+import com.ccniit.graduation.pojo.qo.PagedQuery;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 
 public interface VoteService {
@@ -24,6 +24,6 @@ public interface VoteService {
 	 * @param VoteQuery
 	 * @return List<VoteVo>
 	 */
-	List<VoteVo> selectVoteVos(BaseQuery query);
+	List<VoteVo> selectVoteVos(PagedQuery query);
 
 }

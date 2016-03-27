@@ -10,14 +10,16 @@ public class Vote implements Serializable {
 	 */
 	private static final long serialVersionUID = 1590936135125667970L;
 	private long id;
+	private String url;
 	private String tableName;
 	private String category;
 	private long author;
 	private String title;
 	private int progress;
+	private String auth;
 	private Date inDate;
 	private Date predictDate;
-	private Date endDate;
+	private Date endDate;;
 
 	public Vote() {
 		super();
@@ -44,6 +46,14 @@ public class Vote implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public String getTableName() {
@@ -84,6 +94,14 @@ public class Vote implements Serializable {
 
 	public void setProgress(int progress) {
 		this.progress = progress;
+	}
+
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
 	}
 
 	public Date getInDate() {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.ccniit.graduation.mapper.VoteMapper;
 import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.qo.PagedQuery;
+import com.ccniit.graduation.pojo.vo.VoteSearchResult;
 
 @Repository("voteDao")
 public class VoteDao implements VoteMapper {
@@ -50,6 +51,12 @@ public class VoteDao implements VoteMapper {
 	@Override
 	public List<Long> selectAuthorVotesId(PagedQuery query) {
 		return voteMapper.selectAuthorVotesId(query);
+	}
+
+	@Override
+	public List<VoteSearchResult> select() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -58,7 +58,7 @@ import com.ccniit.graduation.util.SpringMVCUtils;
 @SessionAttributes(names = { "authorContentCounter" })
 public class UserController {
 
-	private static final Logger LOG_DEV = LoggerUtils.getDev();
+	private static final Logger DEV = LoggerUtils.getDev();
 
 	@Resource
 	private AuthorService authorService;
@@ -82,7 +82,7 @@ public class UserController {
 		return VIEW_USER_SELF_CENTER;
 	}
 
-	private AuthorContentCounter getAuthorContentCounter(long id) {
+	private AuthorContentCounter getAuthorContentCounter(long id) throws IException {
 		return authorService.getAuthorContentCounter(id);
 	}
 
@@ -300,7 +300,7 @@ public class UserController {
 
 		String verifyCode = (String) ShiroUtils.getSessionValue(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
 
-		LOG_DEV.info("verifyCode : " + verifyCode);
+		DEV.info("verifyCode : " + verifyCode);
 
 		if (!verifyCode.equalsIgnoreCase(userRegister.getVerifyCode().trim())) {
 			model.addAttribute("errorMessageVerifyCode", "验证码错误");
@@ -330,7 +330,8 @@ public class UserController {
 	public static final String AUTHOR_LOGIN_RESULT = "/user/selfCenter.html";
 
 	@RequestMapping(value = { VIEW_USER_LOGIN }, method = RequestMethod.POST)
-	public String loginAction(@ModelAttribute("userToken") UserToken userToken, BindingResult result, Model model) {
+	public String loginAction(@ModelAttribute("userToken") UserToken userToken, BindingResult result, Model model)
+			throws IException {
 
 		UsernamePasswordToken token = new UsernamePasswordToken(userToken.getEmail(), userToken.getPassword());
 		Subject currentUser = ShiroUtils.getSubject();
@@ -346,7 +347,7 @@ public class UserController {
 			Session session = currentUser.getSession(true);
 			long id = authorService.getAuthorIdByEmail(userToken.getEmail());
 
-			LOG_DEV.debug("Email:{} ID:{}", currentUser.getPrincipal(), id);
+			DEV.debug("Email:{} ID:{}", currentUser.getPrincipal(), id);
 
 			session.setAttribute(Constants.SESSION_KEY_AUTHOR_ID, id);
 			return SpringMVCUtils.redirect(AUTHOR_LOGIN_RESULT);
@@ -368,7 +369,7 @@ public class UserController {
 			subject.getSession().stop();
 			subject.logout();
 		} catch (Exception e) {
-			LOG_DEV.error("注销错误", e);
+			DEV.error("注销错误", e);
 		}
 
 		return SpringMVCUtils.redirect(ACTION_LOG_DEVOUT_RESULT);
@@ -397,21 +398,27 @@ public class UserController {
 	public static final String FORM_UPDATE_USER_BASE_INFO = "/user/updateUserBaseInfo.do";
 
 	@RequestMapping(value = { FORM_UPDATE_USER_BASE_INFO }, method = RequestMethod.POST)
-	public String updateUserBaseInfoAction(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater, Model model) {
-
-		UserToken userToken = new UserToken(baseUpdater.getEmail(), baseUpdater.getOldPassword());
-		boolean isMatched = authorService.authentication(userToken);
-		if (!isMatched) {
-			model.addAttribute("errorMessagePassword", "password error");
-		}
-
-		if (!baseUpdater.getNewPassword().equals(baseUpdater.getConfirmPassword())) {
-			model.addAttribute("errorMessageNewPassword", "new password not same");
-		}
-
+	public String updateUserBaseInfoAction(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater, Model model)
+			throws IException {
 		baseUpdater.setId(getAuthorId());
-		authorService.updateAuthorBase(baseUpdater);
-		return VIEW_USER_PROFILE;
+		int result = authorService.updateAuthorBase(baseUpdater);
+
+		DEV.debug("更新结果：{}", result);
+
+		switch (result) {
+		case AuthorService.PASSWORD_ERROR:
+			model.addAttribute("msg", "密码错误");
+			break;
+		case AuthorService.UPDATE_SUCCESS:
+			model.addAttribute("msg", "成功");
+			return SpringMVCUtils.redirect(VIEW_USER_PROFILE);
+		case AuthorService.PASSWORD_NOT_SAME:
+			model.addAttribute("msg", "新密码和确认不一致");
+			break;
+		default:
+			break;
+		}
+		return SpringMVCUtils.redirect(VIEW_USER_PROFILE);
 	}
 
 	public static final String FORM_UPDATE_USER_DETAIL_INFO = "/user/updateUserDetailInfo.do";
@@ -429,7 +436,7 @@ public class UserController {
 		try {
 			authorId = ShiroUtils.getUserId();
 		} catch (IException e) {
-			LOG_DEV.error("获取Author.id错误", e);
+			DEV.error("获取Author.id错误", e);
 		}
 		return authorId;
 	}

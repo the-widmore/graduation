@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import com.ccniit.graduation.BaseTest;
+import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.service.AuthorService;
 
@@ -51,7 +52,7 @@ public class AuthorServiceImplTest extends BaseTest {
 	}
 
 	@Test
-	public void testGetAuthorAuthorContentCounter() {
+	public void testGetAuthorAuthorContentCounter() throws IException {
 		AuthorContentCounter authorContentCounter1 = authorService.getAuthorContentCounter(1);
 		AuthorContentCounter authorContentCounter2 = authorService.getAuthorContentCounter(1);
 		AuthorContentCounter authorContentCounter3 = authorService.getAuthorContentCounter(1);

@@ -38,8 +38,18 @@ public class AuthorDao implements AuthorMapper {
 	}
 
 	@Override
-	public int updateAuthor(Author author) {
-		return authorMapper.updateAuthor(author);
+	public int updateAuthorPassword(Author author) {
+		return authorMapper.updateAuthorPassword(author);
+	}
+
+	@Override
+	public int updateAuthorSecondPassword(Author author) {
+		return authorMapper.updateAuthorSecondPassword(author);
+	}
+
+	@Override
+	public int updateAuthorWithoutPassword(Author author) {
+		return authorMapper.updateAuthorWithoutPassword(author);
 	}
 
 	@Override

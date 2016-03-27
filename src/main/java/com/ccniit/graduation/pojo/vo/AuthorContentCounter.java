@@ -11,11 +11,11 @@ public class AuthorContentCounter implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 377006535506262111L;
-	private int linkmanCount;
+	private int linkmanCount;// 联系人组个数
 
-	private int voteCount;
-	private int pollCount;
-	private int infoCount;
+	private int voteCount;// 投票个数
+	private int pollCount;// 问卷个数
+	private int infoCount;// 信息收集个数
 
 	public AuthorContentCounter() {
 		super();

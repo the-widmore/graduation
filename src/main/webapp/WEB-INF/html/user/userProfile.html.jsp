@@ -27,7 +27,8 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
 				<li><a
@@ -139,6 +140,25 @@
 									<input type="email" class="form-control" name="email"
 										value="${baseUpdater.email }" readonly>
 								</div>
+								<div class="col-sm-4">${msg }</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-2 control-label">姓名</label>
+
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="name"
+										value="${baseUpdater.name }">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-2 control-label">昵称</label>
+
+								<div class="col-sm-4">
+									<input type="text" class="form-control" name="nickName"
+										value="${baseUpdater.nickName }">
+								</div>
 							</div>
 
 							<div class="form-group">
@@ -178,7 +198,7 @@
 
 								<div class="col-sm-4">
 									<input type="password" id="passwordInput" name="oldPassword"
-										class="form-control" placeholder="输入旧的密码">
+										class="form-control" placeholder="输入旧的密码" required>
 								</div>
 							</div>
 
@@ -187,7 +207,7 @@
 
 								<div class="col-sm-4">
 									<input type="password" id="newPasswordInput" name="newPassword"
-										class="form-control" placeholder="输入新的密码">
+										class="form-control" placeholder="输入新的密码,不修改就不填">
 								</div>
 							</div>
 

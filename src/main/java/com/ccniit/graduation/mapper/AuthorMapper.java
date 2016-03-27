@@ -28,7 +28,7 @@ public interface AuthorMapper {
 	 * @param author.id
 	 * @return author
 	 */
-	@Select("SELECT email,phone,password,secondPassword,name,sex FROM author WHERE id=#{id}")
+	@Select("SELECT email,phone,name,nickName,sex,status FROM author WHERE id=#{id}")
 	Author selectById(long id);
 
 	/**
@@ -43,17 +43,35 @@ public interface AuthorMapper {
 	 * @param author.email
 	 * @return author
 	 */
-	@Select("SELECT id,tel,nickname,name,sex,avatar FROM author WHERE email=#{email}")
+	@Select("SELECT email,phone,name,nickName,sex,status FROM author WHERE email=#{email}")
 	Author selectAuthorByEmail(String email);
 
 	/**
-	 * 更新一条author记录，按照id
+	 * 修改Author的基本信息，不包括密码
+	 * 
+	 * @param Author
+	 * @return affected rows
+	 */
+	@Update("UPDATE author SET phone=#{phone},name=#{name},nickName=#{nickName},sex=#{sex} WHERE id=#{id}")
+	int updateAuthorWithoutPassword(Author author);
+
+	/**
+	 * 按照id更新一条Author的密码
 	 * 
 	 * @param author
 	 * @return affected rows
 	 */
-	@Update("UPDATE author SET phone=#{phone},password=#{password},secondPassword=#{secondPassword},name=#{name},sex=#{sex} WHERE id=#{id}")
-	int updateAuthor(Author author);
+	@Update("UPDATE author SET password=#{password} WHERE id=#{id}")
+	int updateAuthorPassword(Author author);
+
+	/**
+	 * 按照id更新Author的二级密
+	 * 
+	 * @param author
+	 * @return affected rows
+	 */
+	@Update("UPDATE author SET secondPassword=#{secondPassword} WHERE id=#{id}")
+	int updateAuthorSecondPassword(Author author);
 
 	/**
 	 * 统计Email在Author中的记录条数

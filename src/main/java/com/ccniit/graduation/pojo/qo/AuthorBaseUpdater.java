@@ -1,7 +1,7 @@
 package com.ccniit.graduation.pojo.qo;
 
 /**
- * Author个人基本信息更新器，主要是密码和电话
+ * Author个人基本信息更新器
  */
 public class AuthorBaseUpdater extends AuthorUpdater {
 
@@ -10,6 +10,8 @@ public class AuthorBaseUpdater extends AuthorUpdater {
 	 */
 	private static final long serialVersionUID = -2992520029775406342L;
 	private String email;
+	private String name;
+	private String nickName;
 	private String sex;
 	private String phone;
 	private String oldPassword;
@@ -21,24 +23,28 @@ public class AuthorBaseUpdater extends AuthorUpdater {
 		super();
 	}
 
-	public AuthorBaseUpdater(String email, String sex, String phone, String oldPassword, String newPassword,
-			String confirmPassword, String secondPassword) {
-		super();
-		this.email = email;
-		this.sex = sex;
-		this.phone = phone;
-		this.oldPassword = oldPassword;
-		this.newPassword = newPassword;
-		this.confirmPassword = confirmPassword;
-		this.secondPassword = secondPassword;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public String getSex() {

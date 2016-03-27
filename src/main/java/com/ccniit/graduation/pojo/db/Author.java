@@ -1,20 +1,20 @@
 package com.ccniit.graduation.pojo.db;
 
-import java.io.Serializable;
-
-public class Author implements Serializable {
+public class Author implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3887017416615097662L;
+	private static final long serialVersionUID = 386062764883300692L;
 	private long id;
 	private String email;
 	private String phone;
-	private String password;
+	private String password;;
 	private String secondPassword;
 	private String name;
+	private String nickName;
 	private String sex;
+	private String status;
 
 	public Author() {
 		super();
@@ -74,12 +74,28 @@ public class Author implements Serializable {
 		this.name = name;
 	}
 
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	public String getSex() {
 		return sex;
 	}
 
 	public void setSex(String sex) {
 		this.sex = sex;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

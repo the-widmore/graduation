@@ -6,15 +6,11 @@ public class VoterQuery extends PagedQuery {
 	 * 
 	 */
 	private static final long serialVersionUID = -6761339918352166728L;
-	private long author;
-	private long voterGroup;
+	private Long author;
+	private Long voterGroup;
 
 	public VoterQuery() {
 		super();
-	}
-
-	public VoterQuery(long offset, int pageSize) {
-		super(offset, pageSize);
 	}
 
 	public VoterQuery(long author, long voterGroup) {
@@ -23,7 +19,7 @@ public class VoterQuery extends PagedQuery {
 		this.voterGroup = voterGroup;
 	}
 
-	public long getAuthor() {
+	public Long getAuthor() {
 		return author;
 	}
 
@@ -31,12 +27,18 @@ public class VoterQuery extends PagedQuery {
 		this.author = author;
 	}
 
-	public long getVoterGroup() {
+	public Long getVoterGroup() {
 		return voterGroup;
 	}
 
 	public void setVoterGroup(long voterGroup) {
 		this.voterGroup = voterGroup;
+	}
+
+	@Override
+	public String toString() {
+		return "VoterQuery [author=" + author + ", voterGroup=" + voterGroup + ", offset=" + offset + ", pageSize="
+				+ pageSize + "]";
 	}
 
 }

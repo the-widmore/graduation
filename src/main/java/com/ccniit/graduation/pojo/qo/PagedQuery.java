@@ -14,8 +14,8 @@ public class PagedQuery implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6960197778217633204L;
-	private long offset;
-	private int pageSize;
+	protected long offset;
+	protected int pageSize;
 
 	public PagedQuery() {
 		super();

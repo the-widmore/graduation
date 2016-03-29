@@ -24,7 +24,19 @@ public interface VoterMapper {
 	@Update("UPDATE voter SET email=#{email},phone=#{phone},alias=#{alias} WHERE id=#{id}")
 	Integer updateVoter(Voter voter);
 
+	@Update("UPDATE voter SET email=#{email} WHERE id=#{id}")
+	Integer updateVoterEmail(long id);
+
+	@Update("UPDATE voter SET phone=#{phone} WHERE id=#{id}")
+	Integer updateVoterPhone(long id);
+
+	@Update("UPDATE voter SET alias=#{alias} WHERE id=#{id}")
+	Integer updateVoterAlias(long id);
+
 	@Select("SELECT id,email,phone,alias FROM voter WHERE voterGroup=#{voterGroup} LIMIT #{offset},#{pageSize};")
 	List<Voter> selectVoterFromVoterGroup(VoterQuery voterQuery);
+
+	@Select("SELECT id,email,phone,alias FROM voter WHERE id=#{voterId}")
+	Voter selectVoteById(long voterId);
 
 }

@@ -30,7 +30,8 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
 				<li><a
@@ -89,10 +90,10 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${voters}" var="voter">
-							<tr>
-								<td><b class="dblclick" id="${voter.id }">${voter.email }</b></td>
-								<td><b>${voter.phone }</b></td>
-								<td><b>${voter.alias }</b></td>
+							<tr id="voter_${voter.id }">
+								<td><div class="voter_email" id="voter_${voter.id }_email">${voter.email }</div></td>
+								<td><div class="voter_phone">${voter.phone }</div></td>
+								<td><div class="voter_alias">${voter.alias }</div></td>
 								<td><a
 									href="${pageContext.request.contextPath}/user/linkmanDel/${voter.id }">删除</a></td>
 							</tr>
@@ -145,7 +146,39 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/easyui/locale/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/editable/jquery.editable.min.js"></script>
+		src="${pageContext.request.contextPath}/resources/jeditable/jquery.jeditable.js"></script>
 	<!-- TODO editable JS -->
+	<script type="application/javascript">
+		
+		
+		
+		$(document).ready(
+						function() {
+							$(".voter_email")
+									.editable(
+											'http://localhost:8080/graduation/voter/updateEmail?id=voter_1_email&value=NewEmail',
+											{
+												type:"textarea",
+												submit : "Ok",
+												 tooltip   : 'Click to edit email...',
+													callback : function(value, settings) {
+											         console.log(value);
+											     }
+											});
+						});
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</script>
 </body>
 </html>

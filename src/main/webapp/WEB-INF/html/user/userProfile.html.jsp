@@ -249,30 +249,10 @@
 							method="POST">
 
 							<div class="form-group">
-								<label class="col-md-2 control-label" for="realNameInput">真实姓名</label>
-
-								<div class="col-sm-4">
-									<input type="text" id="realNameInput" name="realName"
-										class="form-control" placeholder="真实姓名，保证可信性">
-								</div>
-							</div>
-
-
-
-							<div class="form-group">
 								<label class="col-md-2 control-label" for="addressInput">地址</label>
 
 								<div class="col-sm-4">
 									<input type="tel" id="addressInput" name="address"
-										class="form-control" placeholder="你的联系地址">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-md-2 control-label" for="companyInput">公司/机构</label>
-
-								<div class="col-sm-4">
-									<input type="tel" id="companyInput" name="company"
 										class="form-control" placeholder="你的联系地址">
 								</div>
 							</div>
@@ -283,6 +263,15 @@
 								<div class="col-sm-4">
 									<input type="tel" id="workInput" name="work"
 										class="form-control" placeholder="你的工作">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-2 control-label" for="companyInput">公司/机构</label>
+
+								<div class="col-sm-4">
+									<input type="tel" id="companyInput" name="company"
+										class="form-control" placeholder="你的联系地址">
 								</div>
 							</div>
 

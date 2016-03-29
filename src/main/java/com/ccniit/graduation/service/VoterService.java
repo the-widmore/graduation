@@ -15,4 +15,10 @@ public interface VoterService {
 
 	List<Voter> selectVoterFromVoterGroup(VoterQuery voterQuery);
 
+	Voter getVoter(long voterId);
+
+	String getVoterField(Voter.VoterField field, long voterId);
+
+	String updateVoterField(Voter.VoterField field, long voterId);
+
 }

@@ -1,7 +1,5 @@
 package com.ccniit.graduation.service.impl;
 
-import static org.junit.Assert.fail;
-
 import javax.annotation.Resource;
 
 import org.junit.Assert;
@@ -13,6 +11,8 @@ import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.plus.poi.ParseVotersFromExcel;
 import com.ccniit.graduation.pojo.common.VoterGroupData;
+import com.ccniit.graduation.pojo.qo.VoterQuery;
+import com.ccniit.graduation.resource.Commons;
 import com.ccniit.graduation.service.VoterService;
 
 public class VoterServiceImplTest extends BaseTest {
@@ -40,7 +40,18 @@ public class VoterServiceImplTest extends BaseTest {
 	@Rollback(true)
 	public void testDeleteVoter() {
 		voterService.deleteVoter(1);
-		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testSelectVoterFromVoterGroup() {
+		VoterQuery voterQuery = new VoterQuery(1, 1);
+		voterQuery.setPageSize(Commons.LINKMAN_PAGE_SIZE);
+		voterQuery.setOffset(Commons.LINKMAN_PAGE_SIZE * (1 - 1));
+
+		System.out.println(voterQuery);
+
+		int size = voterService.selectVoterFromVoterGroup(voterQuery).size();
+		System.out.println(size);
 	}
 
 }

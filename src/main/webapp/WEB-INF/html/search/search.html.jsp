@@ -113,7 +113,9 @@
 			<div class="col-lg-8">
 				<div class="media well">
 					<a class="pull-left" href="#"><img
-						class="media-object thumbnail" src="img.jpg" alt='' /></a>
+						class="media-object thumbnail"
+						src="${pageContext.request.contextPath}/resources/image/defaultCover.jpg"
+						alt='' /></a>
 
 					<div class="media-body">
 						<h4 class="media-heading">title</h4>
@@ -121,11 +123,17 @@
 				</div>
 				<div class="media well">
 					<a class="pull-left" href="#"><img
-						class="media-object thumbnail" src="img.jpg" alt='' /></a>
+						class="media-object thumbnail"
+						src="${pageContext.request.contextPath}/resources/image/defaultCover.jpg"
+						alt='' /></a>
 
 					<div class="media-body">
-						<h4 class="media-heading">title</h4>
-
+						<h4 class="media-heading">
+							<b>【标题 】</b>${vote.title }</h4>
+						<p>【作者】：${vote.authorName }</p>
+						<p>【标签】：${vote.tags }</p>
+						<p>【时间】：${vote.startTime } - ${vote.endTime }</p>
+						<p>【热度】：${vote.hot }</p>
 					</div>
 				</div>
 			</div>
@@ -134,9 +142,11 @@
 			</div>
 		</div>
 	</div>
-	<script type="application/javascript" src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script type="application/javascript"
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
 	<script type="application/javascript"
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
-	<script type="application/javascript" src="${pageContext.request.contextPath}/resources/easyui/jquery.easyui.min.js"></script>
+	<script type="application/javascript"
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.easyui.min.js"></script>
 </body>
 </html>

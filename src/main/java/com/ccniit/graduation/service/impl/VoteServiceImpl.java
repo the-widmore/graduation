@@ -41,8 +41,8 @@ public class VoteServiceImpl implements VoteService {
 	public VoteVo selectVoteVo(long voteId) {
 		Vote vote = voteDao.selectVoteById(voteId);
 
-		DEV.debug("{}:{}",voteId,vote);
-		
+		DEV.debug("{}:{}", voteId, vote);
+
 		return voteToVoteVo.convert(vote);
 	}
 

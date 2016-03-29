@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.NotFoundSessionException;
-import com.ccniit.graduation.resource.Constants;
+import com.ccniit.graduation.resource.Commons;
 
 public class ShiroUtils {
 
@@ -51,7 +51,7 @@ public class ShiroUtils {
 	}
 
 	public static long getUserId() throws IException {
-		Object object = getSessionValue(Constants.SESSION_KEY_AUTHOR_ID);
+		Object object = getSessionValue(Commons.SESSION_KEY_AUTHOR_ID);
 
 		if (null == object) {
 			return 0L;

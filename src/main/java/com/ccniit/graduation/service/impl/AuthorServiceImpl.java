@@ -56,6 +56,7 @@ public class AuthorServiceImpl implements AuthorService {
 		boolean isMatched = authorAuthService.verifyByEmail(userToken);
 
 		DEV.debug("passwordIsMatched{}", isMatched);
+		DEV.debug("updater{}", updater.toString());
 
 		// 密码匹配
 		if (isMatched) {
@@ -65,14 +66,14 @@ public class AuthorServiceImpl implements AuthorService {
 
 			String newPassword = updater.getNewPassword();
 			if (StringUtils.isNotBlank(newPassword) && newPassword.equals(updater.getConfirmPassword())) {
-				return authorDao.updateAuthorPassword(author);
+				result = authorDao.updateAuthorPassword(author);
 			} else if (StringUtils.isNotBlank(newPassword) && !newPassword.equals(updater.getConfirmPassword())) {
-				return AuthorServiceImpl.PASSWORD_NOT_SAME;
+				result = AuthorServiceImpl.PASSWORD_NOT_SAME;
 			}
 
 			String secondPassword = updater.getSecondPassword();
 			if (StringUtils.isNotBlank(secondPassword)) {
-				return authorDao.updateAuthorSecondPassword(author);
+				result = authorDao.updateAuthorSecondPassword(author);
 			}
 
 			return result;

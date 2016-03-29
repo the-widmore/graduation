@@ -95,4 +95,11 @@ public class AuthorBaseUpdater extends AuthorUpdater {
 		this.secondPassword = secondPassword;
 	}
 
+	@Override
+	public String toString() {
+		return "AuthorBaseUpdater [email=" + email + ", name=" + name + ", nickName=" + nickName + ", sex=" + sex
+				+ ", phone=" + phone + ", oldPassword=" + oldPassword + ", newPassword=" + newPassword
+				+ ", confirmPassword=" + confirmPassword + ", secondPassword=" + secondPassword + "]";
+	}
+
 }

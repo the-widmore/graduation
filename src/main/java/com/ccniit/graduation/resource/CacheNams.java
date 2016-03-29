@@ -6,5 +6,6 @@ public interface CacheNams {
 	public static final String AUTHOR = "AuthorCache";
 	public static final String AUTHOR_VOTE_COUNT = "AuthorContentCounterCache";
 	public static final String VOTE = "VoteCache";
+	public static final String VOTER = "VoterCache";
 
 }

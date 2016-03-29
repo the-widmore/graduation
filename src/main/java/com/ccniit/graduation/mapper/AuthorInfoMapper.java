@@ -5,7 +5,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.ccniit.graduation.pojo.db.AuthorInfo;
-import com.ccniit.graduation.pojo.qo.AuthorUpdater;
+import com.ccniit.graduation.pojo.qo.AuthorConfigUpdater;
+import com.ccniit.graduation.pojo.qo.AuthorInfoUpdater;
 
 /**
  * Author的扩展信息操作接口
@@ -18,7 +19,10 @@ public interface AuthorInfoMapper {
 	Integer insertEmptyAuthorInfo(long author);
 
 	@Update("")
-	Integer updateAuthorInfo(AuthorUpdater authorUpdater);
+	Integer updateAuthorInfo(AuthorInfoUpdater updater);
+
+	@Update("")
+	Integer updateAuthorConfig(AuthorConfigUpdater updater);
 
 	@Select("")
 	AuthorInfo selectAuthorInfo(long author);

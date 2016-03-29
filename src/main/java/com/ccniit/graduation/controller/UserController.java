@@ -43,7 +43,7 @@ import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoteVo;
-import com.ccniit.graduation.resource.Constants;
+import com.ccniit.graduation.resource.Commons;
 import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.resource.VoteResource.Category;
 import com.ccniit.graduation.service.AuthorCountService;
@@ -147,8 +147,8 @@ public class UserController {
 
 		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.poll.toString());
 
-		query.setPageSize(com.ccniit.graduation.resource.Constants.VOTE_PAGE_SIZE);
-		query.setOffset(com.ccniit.graduation.resource.Constants.VOTE_PAGE_SIZE * (page - 1));
+		query.setPageSize(com.ccniit.graduation.resource.Commons.VOTE_PAGE_SIZE);
+		query.setOffset(com.ccniit.graduation.resource.Commons.VOTE_PAGE_SIZE * (page - 1));
 
 		List<VoteVo> voteVos = voteService.selectVoteVos(query);
 		modelMap.addAttribute("voteVos", voteVos);
@@ -185,8 +185,8 @@ public class UserController {
 		}
 
 		VoteQueryByCategory qurey = new VoteQueryByCategory(getAuthorId(), category.toString());
-		qurey.setPageSize(Constants.VOTE_PAGE_SIZE);
-		qurey.setOffset(Constants.VOTE_PAGE_SIZE * (page - 1));
+		qurey.setPageSize(Commons.VOTE_PAGE_SIZE);
+		qurey.setOffset(Commons.VOTE_PAGE_SIZE * (page - 1));
 
 		List<VoteVo> voteVos = voteService.selectVoteVos(qurey);
 		return voteVos;
@@ -267,8 +267,8 @@ public class UserController {
 	public static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroup}";
 
 	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_URL }, method = RequestMethod.GET)
-	public String linkmanDetail(@PathVariable int voterGroup,
-			@RequestParam(required = true, value = "page", defaultValue = "0") int page, Model model)
+	public String linkmanDetail(@PathVariable("voterGroup") int voterGroup,
+			@RequestParam(required = true, value = "page", defaultValue = "1") int page, Model model)
 					throws IException {
 		// 权限验证
 		long author = getAuthorId();
@@ -277,8 +277,12 @@ public class UserController {
 		if (!havePermisssion) {
 			throw new PermissionException("你没有访问该资源的权限");
 		}
+		
+		
 
-		VoterQuery voterQuery = new VoterQuery(voterGroup, (page * 20));
+		VoterQuery voterQuery = new VoterQuery(author, voterGroup);
+		voterQuery.setPageSize(Commons.LINKMAN_PAGE_SIZE);
+		voterQuery.setOffset(Commons.LINKMAN_PAGE_SIZE * (page - 1));
 
 		List<Voter> voters = voterService.selectVoterFromVoterGroup(voterQuery);
 		model.addAttribute("voters", voters);
@@ -346,7 +350,7 @@ public class UserController {
 
 			DEV.debug("Email:{} ID:{}", currentUser.getPrincipal(), id);
 
-			session.setAttribute(Constants.SESSION_KEY_AUTHOR_ID, id);
+			session.setAttribute(Commons.SESSION_KEY_AUTHOR_ID, id);
 			return SpringMVCUtils.redirect(AUTHOR_LOGIN_RESULT);
 		} else {
 			model.addAttribute("message", "account or password error!");

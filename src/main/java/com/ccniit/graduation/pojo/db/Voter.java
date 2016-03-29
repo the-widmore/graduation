@@ -6,6 +6,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Voter implements Serializable {
 
+	public static enum VoterField {
+		email, phone, alias
+	}
+
+	public static VoterField voterField(String field) {
+		if (VoterField.email.toString().equals(field)) {
+			return VoterField.email;
+		} else if (VoterField.phone.toString().equals(field)) {
+			return VoterField.phone;
+		} else if (VoterField.alias.toString().equals(field)) {
+			return VoterField.alias;
+		} else {
+			return null;
+		}
+	}
+
 	/**
 	 * 
 	 */

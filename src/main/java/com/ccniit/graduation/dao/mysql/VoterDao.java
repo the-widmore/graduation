@@ -32,8 +32,28 @@ public class VoterDao implements VoterMapper {
 	}
 
 	@Override
+	public Integer updateVoterAlias(long id) {
+		return voterMapper.updateVoterAlias(id);
+	}
+
+	@Override
+	public Integer updateVoterEmail(long id) {
+		return voterMapper.updateVoterEmail(id);
+	}
+
+	@Override
+	public Integer updateVoterPhone(long id) {
+		return voterMapper.updateVoterPhone(id);
+	}
+
+	@Override
 	public List<Voter> selectVoterFromVoterGroup(VoterQuery voterQuery) {
 		return voterMapper.selectVoterFromVoterGroup(voterQuery);
+	}
+
+	@Override
+	public Voter selectVoteById(long voterId) {
+		return voterMapper.selectVoteById(voterId);
 	}
 
 }

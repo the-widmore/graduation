@@ -1,6 +1,4 @@
 *.class
-
-#log
 *.log
 
 # Package Files #

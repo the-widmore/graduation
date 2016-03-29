@@ -38,7 +38,7 @@ public class AuthorContentCounterBuilder implements Builder<Long, AuthorContentC
 			}
 		}
 
-		AuthorContentCounter authorContentCounter = new AuthorContentCounter(linkman, vote, poll, info);
+		AuthorContentCounter authorContentCounter = new AuthorContentCounter(authorId, linkman, vote, poll, info);
 		return authorContentCounter;
 	}
 

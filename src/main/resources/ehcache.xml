@@ -9,8 +9,8 @@
 
 	<!-- author 计数对象 -->
 	<cache name="AuthorContentCounterCache" eternal="false"
-		maxElementsInMemory="1024" overflowToDisk="false" diskPersistent="false"
-		timeToIdleSeconds="0" timeToLiveSeconds="3600"
+		maxElementsInMemory="10240" overflowToDisk="false" diskPersistent="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="3600"
 		memoryStoreEvictionPolicy="LRU" />
 
 	<cache name="VoteCache" eternal="false" maxElementsInMemory="1024"

@@ -15,7 +15,6 @@ import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.qo.AuthorBaseUpdater;
 import com.ccniit.graduation.pojo.qo.AuthorInfoUpdater;
-import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.EmailToken;
 import com.ccniit.graduation.resource.CacheNams;
 import com.ccniit.graduation.service.AuthorAuthService;
@@ -52,7 +51,6 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public int updateAuthorBase(AuthorBaseUpdater updater) throws IException {
-		// TODO AuthorUpdater to Author
 
 		EmailToken userToken = new EmailToken(updater.getEmail(), updater.getOldPassword());
 		boolean isMatched = authorAuthService.verifyByEmail(userToken);
@@ -96,20 +94,13 @@ public class AuthorServiceImpl implements AuthorService {
 
 	@Override
 	public boolean authorIsExist(String email) {
-		// TODO Auto-generated method stub
-		return false;
+		return 1 == authorDao.countByEmail(email) ? true : false;
 	}
 
 	@Cacheable(cacheNames = CacheNams.AUTHOR, key = "#authorId")
 	@Override
 	public Author findAuthorById(long authorId) {
 		return authorDao.selectById(authorId);
-	}
-
-	@Cacheable(cacheNames = CacheNams.AUTHOR_VOTE_COUNT, key = "#authorId")
-	@Override
-	public AuthorContentCounter getAuthorContentCounter(long authorId) {
-		return authorContentCounterBuilder.build(authorId);
 	}
 
 }

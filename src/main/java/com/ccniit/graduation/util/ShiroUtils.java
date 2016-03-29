@@ -30,7 +30,7 @@ public class ShiroUtils {
 		return getSubject().getSession();
 	}
 
-	public static Object add(Object key, Object value) {
+	public static void addAttribute(Object key, Object value) {
 		Session session = getSession();
 		// if session not exist create
 		if (null == session) {
@@ -38,8 +38,6 @@ public class ShiroUtils {
 		}
 
 		session.setAttribute(key, value);
-
-		return value;
 	}
 
 	public static Object getSessionValue(Object sessionKey) throws IException {

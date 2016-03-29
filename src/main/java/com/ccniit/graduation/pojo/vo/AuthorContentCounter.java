@@ -11,6 +11,7 @@ public class AuthorContentCounter implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 377006535506262111L;
+	private long id;
 	private int linkmanCount;// 联系人组个数
 
 	private int voteCount;// 投票个数
@@ -21,12 +22,21 @@ public class AuthorContentCounter implements Serializable {
 		super();
 	}
 
-	public AuthorContentCounter(int linkmanCount, int voteCount, int pollCount, int infoCount) {
+	public AuthorContentCounter(long id, int linkmanCount, int voteCount, int pollCount, int infoCount) {
 		super();
+		this.id = id;
 		this.linkmanCount = linkmanCount;
 		this.voteCount = voteCount;
 		this.pollCount = pollCount;
 		this.infoCount = infoCount;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public int getLinkmanCount() {

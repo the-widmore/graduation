@@ -4,7 +4,6 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -13,12 +12,9 @@ import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.VoteTagService;
 import com.ccniit.graduation.util.DateUtils;
-import com.ccniit.graduation.util.LoggerUtils;
 
 @Component("voteToVoteVo")
 public class VoteToVoteVo implements Converter<Vote, VoteVo> {
-
-	private static final Logger LOG = LoggerUtils.getDev();
 
 	@Resource
 	VoteTagService voteTagService;
@@ -26,6 +22,7 @@ public class VoteToVoteVo implements Converter<Vote, VoteVo> {
 	@Override
 	public VoteVo convert(Vote vote) {
 		VoteVo voteVo = new VoteVo();
+
 		// title
 		voteVo.setTitle(vote.getTitle());
 
@@ -46,8 +43,6 @@ public class VoteToVoteVo implements Converter<Vote, VoteVo> {
 			endDate = vote.getPredictDate();
 		}
 		voteVo.setEndDate(DateUtils.y4M2d2h2m2(endDate));
-
-		LOG.debug(voteVo.toString());
 
 		return voteVo;
 	}

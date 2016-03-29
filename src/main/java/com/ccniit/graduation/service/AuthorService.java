@@ -4,7 +4,6 @@ import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.qo.AuthorBaseUpdater;
 import com.ccniit.graduation.pojo.qo.AuthorInfoUpdater;
-import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 
 public interface AuthorService {
 
@@ -38,6 +37,9 @@ public interface AuthorService {
 	 */
 	int updateAuthorInfo(AuthorInfoUpdater authorUpdater) throws IException;
 
+	/**
+	 * 
+	 * */
 	long getAuthorIdByEmail(String email) throws IException;
 
 	/**
@@ -55,14 +57,5 @@ public interface AuthorService {
 	 * @return Author(ignore password and secondPassword)
 	 */
 	Author findAuthorById(long id) throws IException;
-
-	/**
-	 * 获取Author的联系人组、投票、问卷和信息收集的个数
-	 * 
-	 * @param 要查询的Author的id
-	 * 
-	 * @return @see com.ccniit.graduation.pojo.vo.AuthorContentCounter
-	 */
-	AuthorContentCounter getAuthorContentCounter(long authorId) throws IException;
 
 }

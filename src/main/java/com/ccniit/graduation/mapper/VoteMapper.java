@@ -83,6 +83,7 @@ public interface VoteMapper {
 	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} LIMIT #{offset},#{pageSize}")
 	List<Long> selectAuthorVotesId(PagedQuery query);
 
+	// TODO
 	List<VoteSearchResult> select();
 
 }

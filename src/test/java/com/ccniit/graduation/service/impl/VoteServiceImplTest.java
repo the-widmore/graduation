@@ -3,6 +3,7 @@ package com.ccniit.graduation.service.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.qo.VoteQueryByCategory;
 import com.ccniit.graduation.pojo.vo.VoteVo;
+import com.ccniit.graduation.resource.Constants;
 import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.util.DateUtils;
@@ -39,14 +41,14 @@ public class VoteServiceImplTest extends BaseTest {
 	@Test
 	public void testSelectVoteVos() {
 		VoteQueryByCategory query = new VoteQueryByCategory(1L, "info");
-		query.setPageSize(VoteResource.VOTE_PAGE_SIZE);
-		query.setOffset(VoteResource.VOTE_PAGE_SIZE * 0);
+		query.setPageSize(Constants.VOTE_PAGE_SIZE);
+		query.setOffset(Constants.VOTE_PAGE_SIZE * 0);
 		List<VoteVo> voteVos1 = voteService.selectVoteVos(query);
 		List<VoteVo> voteVos2 = voteService.selectVoteVos(query);
 		List<VoteVo> voteVos3 = voteService.selectVoteVos(query);
-		System.out.println(voteVos1.size());
-		System.out.println(voteVos2.size());
-		System.out.println(voteVos3.size());
+		System.out.println(Arrays.toString(voteVos1.toArray()));
+		System.out.println(Arrays.toString(voteVos2.toArray()));
+		System.out.println(Arrays.toString(voteVos3.toArray()));
 	}
 
 }

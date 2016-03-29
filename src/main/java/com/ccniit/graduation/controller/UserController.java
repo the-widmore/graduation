@@ -45,6 +45,8 @@ import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.Constants;
 import com.ccniit.graduation.resource.VoteResource;
+import com.ccniit.graduation.resource.VoteResource.Category;
+import com.ccniit.graduation.service.AuthorCountService;
 import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.service.ResourcePermissionService;
 import com.ccniit.graduation.service.VoteService;
@@ -55,35 +57,36 @@ import com.ccniit.graduation.util.ShiroUtils;
 import com.ccniit.graduation.util.SpringMVCUtils;
 
 @Controller
-@SessionAttributes(names = { "authorContentCounter" })
+@SessionAttributes("authorContentCounter")
 public class UserController {
 
 	private static final Logger DEV = LoggerUtils.getDev();
 
 	@Resource
-	private AuthorService authorService;
+	AuthorService authorService;
 	@Resource
-	private VoterService voterService;
+	AuthorCountService authorCountService;
 	@Resource
-	private VoteService voteService;
+	VoterService voterService;
 	@Resource
-	private VoterGroupService voterGroupService;
+	VoteService voteService;
 	@Resource
-	private ResourcePermissionService resourcePermissionService;
+	VoterGroupService voterGroupService;
 	@Resource
-	private AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
+	ResourcePermissionService resourcePermissionService;
+	@Resource
+	AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
 
 	public static final String VIEW_USER = "/user";
 	public static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
 
 	@RequestMapping(value = { VIEW_USER_SELF_CENTER, VIEW_USER })
 	public String selfCenter(ModelMap modelMap) throws IException {
-		modelMap.addAttribute("authorContentCounter", getAuthorContentCounter(getAuthorId()));
+		if (null == ShiroUtils.getSessionValue("authorContentCounter")) {
+			AuthorContentCounter authorContentCounter = authorCountService.getAuthorCounters(getAuthorId());
+			ShiroUtils.addAttribute("authorContentCounter", authorContentCounter);
+		}
 		return VIEW_USER_SELF_CENTER;
-	}
-
-	private AuthorContentCounter getAuthorContentCounter(long id) throws IException {
-		return authorService.getAuthorContentCounter(id);
 	}
 
 	public static final String VIEW_USER_CREATE_LINKMAN_BUILD = "/user/createLinkmanBuild.html";
@@ -144,8 +147,8 @@ public class UserController {
 
 		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.poll.toString());
 
-		query.setPageSize(VoteResource.VOTE_PAGE_SIZE);
-		query.setOffset(VoteResource.VOTE_PAGE_SIZE * (page - 1));
+		query.setPageSize(com.ccniit.graduation.resource.Constants.VOTE_PAGE_SIZE);
+		query.setOffset(com.ccniit.graduation.resource.Constants.VOTE_PAGE_SIZE * (page - 1));
 
 		List<VoteVo> voteVos = voteService.selectVoteVos(query);
 		modelMap.addAttribute("voteVos", voteVos);
@@ -158,16 +161,7 @@ public class UserController {
 	public String myInfoGather(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
 			ModelMap modelMap) throws IException {
 
-		if (page < 0) {
-			throw new ParamsException("参数Page不能小于0");
-		}
-
-		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.info.toString());
-
-		query.setPageSize(VoteResource.VOTE_PAGE_SIZE);
-		query.setOffset(VoteResource.VOTE_PAGE_SIZE * (page - 1));
-
-		List<VoteVo> voteVos = voteService.selectVoteVos(query);
+		List<VoteVo> voteVos = getVoteVos(Category.info, page);
 		modelMap.addAttribute("voteVos", voteVos);
 
 		return VIEW_USER_MY_INFO_GATHER;
@@ -179,19 +173,23 @@ public class UserController {
 	public String myVote(@RequestParam(value = "page", defaultValue = "1", required = true) int page, ModelMap modelMap)
 			throws IException {
 
-		if (page < 0) {
-			throw new ParamsException("参数Page不能小于0");
-		}
-
-		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.vote.toString());
-
-		query.setPageSize(VoteResource.VOTE_PAGE_SIZE);
-		query.setOffset(VoteResource.VOTE_PAGE_SIZE * (page - 1));
-
-		List<VoteVo> voteVos = voteService.selectVoteVos(query);
+		List<VoteVo> voteVos = getVoteVos(Category.vote, page);
 		modelMap.addAttribute("voteVos", voteVos);
 
 		return VIEW_USER_MY_VOTE;
+	}
+
+	private List<VoteVo> getVoteVos(Category category, int page) throws IException {
+		if (page < 0) {
+			throw new ParamsException("参数page不能小于0");
+		}
+
+		VoteQueryByCategory qurey = new VoteQueryByCategory(getAuthorId(), category.toString());
+		qurey.setPageSize(Constants.VOTE_PAGE_SIZE);
+		qurey.setOffset(Constants.VOTE_PAGE_SIZE * (page - 1));
+
+		List<VoteVo> voteVos = voteService.selectVoteVos(qurey);
+		return voteVos;
 	}
 
 	public static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";
@@ -339,8 +337,7 @@ public class UserController {
 			currentUser.login(token);
 		} catch (AuthenticationException e) {
 			model.addAttribute("message", "account or password error!");
-			e.printStackTrace(System.out);
-			return VIEW_USER_LOGIN;
+			return VIEW_USER_LOG_DEVIN;
 		}
 
 		if (currentUser.isAuthenticated()) {
@@ -431,7 +428,7 @@ public class UserController {
 		return VIEW_USER_PROFILE;
 	}
 
-	private long getAuthorId() {
+	private Long getAuthorId() {
 		long authorId = -1L;
 		try {
 			authorId = ShiroUtils.getUserId();

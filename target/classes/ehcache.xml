@@ -21,4 +21,10 @@
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
 
+	<!-- 权限 -->
+	<cache name="PermissionCache" eternal="false"
+		maxElementsInMemory="10240" overflowToDisk="false" diskPersistent="false"
+		timeToIdleSeconds="0" timeToLiveSeconds="36000"
+		memoryStoreEvictionPolicy="LRU" />
+
 </ehcache>

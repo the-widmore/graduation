@@ -11,7 +11,7 @@ import com.ccniit.graduation.builder.AuthorContentCounterBuilder;
 import com.ccniit.graduation.dao.mysql.AuthorCountDao;
 import com.ccniit.graduation.pojo.common.VoteCategoryCount;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
-import com.ccniit.graduation.resource.CacheNams;
+import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.service.AuthorCountService;
 
 @Service("authorCountService")
@@ -32,7 +32,7 @@ public class AuthorCountServiceImpl implements AuthorCountService {
 		return authorCountDao.countAuthorVote(authorId);
 	}
 
-	@Cacheable(cacheNames = CacheNams.AUTHOR_VOTE_COUNT, key = "#authorId")
+	@Cacheable(cacheNames = CacheNames.AUTHOR_VOTE_COUNT, key = "#authorId")
 	@Override
 	public AuthorContentCounter getAuthorCounters(long authorId) {
 		return authorContentCounterBuilder.build(authorId);

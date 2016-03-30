@@ -162,8 +162,7 @@
 											'http://localhost:8080/graduation/voter/updateEmail',
 											{
 												data:{"id":"voter_1_email","value":"NewEmail@123.com"},
-												//TODO load
-												type:"textarea",
+												loadurl:"http://localhost:8080/graduation/voter/loadEmail",
 												submit : "Ok",
 												 tooltip   : 'Click to edit email...',
 													callback : function(value, settings) {

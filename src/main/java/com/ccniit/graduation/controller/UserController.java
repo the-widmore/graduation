@@ -48,7 +48,7 @@ import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.resource.VoteResource.Category;
 import com.ccniit.graduation.service.AuthorCountService;
 import com.ccniit.graduation.service.AuthorService;
-import com.ccniit.graduation.service.ResourcePermissionService;
+import com.ccniit.graduation.service.PermissionService;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.service.VoterService;
@@ -73,7 +73,7 @@ public class UserController {
 	@Resource
 	VoterGroupService voterGroupService;
 	@Resource
-	ResourcePermissionService resourcePermissionService;
+	PermissionService permissionService;
 	@Resource
 	AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
 
@@ -272,13 +272,11 @@ public class UserController {
 					throws IException {
 		// 权限验证
 		long author = getAuthorId();
-		boolean havePermisssion = resourcePermissionService.voterGroupHavePermission(author, voterGroup);
+		boolean havePermisssion = permissionService.voterGroupHavePermission(author, voterGroup);
 
 		if (!havePermisssion) {
 			throw new PermissionException("你没有访问该资源的权限");
 		}
-		
-		
 
 		VoterQuery voterQuery = new VoterQuery(author, voterGroup);
 		voterQuery.setPageSize(Commons.LINKMAN_PAGE_SIZE);

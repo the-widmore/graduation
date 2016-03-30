@@ -12,7 +12,7 @@ import com.ccniit.graduation.dao.mysql.VoterDao;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.Voter.VoterField;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
-import com.ccniit.graduation.resource.CacheNams;
+import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.service.VoterService;
 
 @Service("voterService")
@@ -41,7 +41,7 @@ public class VoterServiceImpl implements VoterService {
 		return successInsertRecode;
 	}
 
-	@Cacheable(cacheNames = CacheNams.VOTER, key = "#voterId")
+	@Cacheable(cacheNames = CacheNames.VOTER, key = "#voterId")
 	@Override
 	public int deleteVoter(long voterId) {
 		return voterDao.deleteVoter(voterId);
@@ -52,7 +52,7 @@ public class VoterServiceImpl implements VoterService {
 		return voterDao.selectVoterFromVoterGroup(voterQuery);
 	}
 
-	@Cacheable(cacheNames = CacheNams.VOTER, key = "#voterId")
+	@Cacheable(cacheNames = CacheNames.VOTER, key = "#voterId")
 	@Override
 	public Voter getVoter(long voterId) {
 		return voterDao.selectVoteById(voterId);
@@ -76,7 +76,7 @@ public class VoterServiceImpl implements VoterService {
 		return value;
 	}
 
-	@CacheEvict(cacheNames = CacheNams.VOTER, key = "#voterId")
+	@CacheEvict(cacheNames = CacheNames.VOTER, key = "#voterId")
 	@Override
 	public String updateVoterField(VoterField field, long voterId, String value) {
 		switch (field) {

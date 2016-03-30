@@ -14,7 +14,7 @@ import com.ccniit.graduation.dao.mysql.VoteDao;
 import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.qo.PagedQuery;
 import com.ccniit.graduation.pojo.vo.VoteVo;
-import com.ccniit.graduation.resource.CacheNams;
+import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoteTagService;
 import com.ccniit.graduation.util.LoggerUtils;
@@ -36,7 +36,7 @@ public class VoteServiceImpl implements VoteService {
 		return voteDao.insertVote(vote);
 	}
 
-	@Cacheable(cacheNames = CacheNams.VOTE, key = "#voteId")
+	@Cacheable(cacheNames = CacheNames.VOTE, key = "#voteId")
 	@Override
 	public VoteVo selectVoteVo(long voteId) {
 		Vote vote = voteDao.selectVoteById(voteId);

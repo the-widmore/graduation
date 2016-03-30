@@ -20,7 +20,8 @@ public class VoteDao implements VoteMapper {
 
 	@Override
 	public Long insertVote(Vote vote) {
-		return voteMapper.insertVote(vote);
+		voteMapper.insertVote(vote);
+		return vote.getId();
 	}
 
 	@Override

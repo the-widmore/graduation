@@ -21,7 +21,7 @@ public interface VoteMapper {
 	 * @param VoteResource
 	 * @return Vote.id
 	 */
-	@Insert("INSERT INTO vote(tableName,category,author,title,inDate,endDate)VALUES(#{tableName},#{category},#{author},#{title},#{inDate},#{endDate})")
+	@Insert("INSERT INTO vote(tableName,category,author,title,predictDate)VALUES(#{tableName},#{category},#{author},#{title},#{predictDate})")
 	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
 	Long insertVote(Vote vote);

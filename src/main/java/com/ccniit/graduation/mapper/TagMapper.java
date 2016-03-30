@@ -17,7 +17,7 @@ public interface TagMapper {
 	@Insert("INSERT INTO tag(tag) VALUES(#{tag})")
 	@SelectKey(before = false, keyProperty = "", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
-	Long insertTag(VoteTag tag);
+	Long insertTag(VoteTag VoteTag);
 
 	/**
 	 * 查询tag的id

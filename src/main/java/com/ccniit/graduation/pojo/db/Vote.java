@@ -5,6 +5,10 @@ import java.util.Date;
 
 public class Vote implements Serializable {
 
+	public static enum Auth {
+		PUBLIC, PROTECTED, PRIVATE
+	}
+
 	/**
 	 * 
 	 */
@@ -16,10 +20,11 @@ public class Vote implements Serializable {
 	private long author;
 	private String title;
 	private int progress;
-	private String auth;
+	private String auth;// 授权方式
 	private Date inDate;
 	private Date predictDate;
-	private Date endDate;;
+	private Date endDate;
+	private String cover;// 封面图片
 
 	public Vote() {
 		super();
@@ -40,7 +45,7 @@ public class Vote implements Serializable {
 		this.endDate = now;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -126,6 +131,14 @@ public class Vote implements Serializable {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getCover() {
+		return cover;
+	}
+
+	public void setCover(String cover) {
+		this.cover = cover;
 	}
 
 }

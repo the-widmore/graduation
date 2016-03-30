@@ -34,7 +34,7 @@ public class VoteDaoTest extends BaseTest {
 		Vote vote = new Vote(tableName, VoteResource.Category.info.toString(), 1, "vote title",
 				DateUtils.getAfterDate(null, DateUtils.model_week, 2));
 		voteDao.insertVote(vote);
-		assertNotEquals(vote.getId(), 0);
+		assertNotEquals(vote.getId(), new Long(0));
 	}
 
 	@Test

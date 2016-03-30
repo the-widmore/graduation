@@ -14,11 +14,16 @@ public interface VoteTagService {
 	int insertTagToVote(long vote, String tags);
 
 	/**
+	 * 获取Vote的全部Tag,使用空格连接
 	 * 
-	 * 
-	 * */
+	 * @param Vote.id
+	 * @return tags
+	 */
 	String selectTagsToString(long vote);
 
+	/**
+	 * 获取数组类型的Vote标签
+	 */
 	List<String> selectTagsToArray(long vote);
 
 }

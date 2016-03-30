@@ -7,22 +7,28 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
 import com.ccniit.graduation.pojo.doc.PrivateVoteData;
+import com.ccniit.graduation.pojo.qo.VoteCreater;
+import com.ccniit.graduation.service.VoteService;
+import com.ccniit.graduation.util.LoggerUtils;
 
 @Controller
 public class VoteController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(VoteController.class);
+	private static final Logger DEV = LoggerUtils.getDev();
+
+	@Resource
+	VoteService voteService;
 
 	public static final String VIEW_VOTE = "/vote/startVote.html";
 
@@ -46,6 +52,16 @@ public class VoteController {
 	public String createVote(ModelMap modelMap) {
 
 		return VIEW_CREATE_VOTE;
+	}
+
+	private static final String CREATE_VOTE_DO = "/vote/createVote.do";
+
+	@RequestMapping(value = CREATE_VOTE_DO, method = RequestMethod.POST)
+	public String post(@ModelAttribute("creater") VoteCreater creater, ModelMap modelMap) {
+
+		// TODO
+
+		return null;
 	}
 
 	public static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";
@@ -97,13 +113,13 @@ public class VoteController {
 
 		int questionCounter = paramaterMap.size();
 
-		LOG.info("questionCounter:{}", questionCounter);
+		DEV.info("questionCounter:{}", questionCounter);
 
 		for (Map.Entry<String, String[]> entry : paramaterMap.entrySet()) {
 			System.out.println(entry.getKey());
 			String[] values = entry.getValue();
 			for (int i = 0; i < values.length; i++) {
-				LOG.info(values[i]);
+				DEV.info(values[i]);
 			}
 		}
 

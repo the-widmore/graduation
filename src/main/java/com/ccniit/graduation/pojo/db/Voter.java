@@ -2,6 +2,7 @@ package com.ccniit.graduation.pojo.db;
 
 import java.io.Serializable;
 
+import com.ccniit.graduation.exception.ParamsException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Voter implements Serializable {
@@ -10,7 +11,7 @@ public class Voter implements Serializable {
 		email, phone, alias
 	}
 
-	public static VoterField voterField(String field) {
+	public static VoterField voterField(String field) throws ParamsException {
 		if (VoterField.email.toString().equals(field)) {
 			return VoterField.email;
 		} else if (VoterField.phone.toString().equals(field)) {
@@ -18,7 +19,7 @@ public class Voter implements Serializable {
 		} else if (VoterField.alias.toString().equals(field)) {
 			return VoterField.alias;
 		} else {
-			return null;
+			throw new ParamsException("Error param ,mast be email,phon or alias.");
 		}
 	}
 

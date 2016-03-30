@@ -17,7 +17,7 @@ import com.ccniit.graduation.pojo.vo.EmailToken;
 import com.ccniit.graduation.service.AuthorAuthService;
 import com.ccniit.graduation.util.LoggerUtils;
 
-public class DefaultRealm extends AuthorizingRealm {
+public class MyRealm extends AuthorizingRealm {
 
 	private static final Logger LOG_AUTH = LoggerUtils.getAuth();
 

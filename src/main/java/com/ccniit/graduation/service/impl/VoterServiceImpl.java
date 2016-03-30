@@ -52,6 +52,7 @@ public class VoterServiceImpl implements VoterService {
 		return voterDao.selectVoterFromVoterGroup(voterQuery);
 	}
 
+	@Cacheable(cacheNames = CacheNams.VOTER, key = "#voterId")
 	@Override
 	public Voter getVoter(long voterId) {
 		return voterDao.selectVoteById(voterId);
@@ -77,21 +78,21 @@ public class VoterServiceImpl implements VoterService {
 
 	@CacheEvict(cacheNames = CacheNams.VOTER, key = "#voterId")
 	@Override
-	public String updateVoterField(VoterField field, long voterId) {
-
+	public String updateVoterField(VoterField field, long voterId, String value) {
 		switch (field) {
 		case email:
-			voterDao.updateVoterEmail(voterId);
+			voterDao.updateVoterEmail(voterId, value);
 			break;
 		case phone:
-			voterDao.updateVoterPhone(voterId);
+			voterDao.updateVoterPhone(voterId, value);
 			break;
 		case alias:
-			voterDao.updateVoterAlias(voterId);
+			voterDao.updateVoterAlias(voterId, value);
 			break;
 		default:
 			break;
 		}
+
 		return getVoterField(field, voterId);
 	}
 

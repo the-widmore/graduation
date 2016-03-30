@@ -152,12 +152,17 @@
 		
 		
 		
+		
+		
+		
 		$(document).ready(
 						function() {
 							$(".voter_email")
 									.editable(
-											'http://localhost:8080/graduation/voter/updateEmail?id=voter_1_email&value=NewEmail',
+											'http://localhost:8080/graduation/voter/updateEmail',
 											{
+												data:{"id":"voter_1_email","value":"NewEmail@123.com"},
+												//TODO load
 												type:"textarea",
 												submit : "Ok",
 												 tooltip   : 'Click to edit email...',
@@ -166,6 +171,11 @@
 											     }
 											});
 						});
+	
+	
+	
+	
+	
 	
 	
 	

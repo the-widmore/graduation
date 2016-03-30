@@ -1,19 +1,23 @@
 package com.ccniit.graduation.controller;
 
 import java.util.Arrays;
-import java.util.concurrent.Callable;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.service.VoterService;
 import com.ccniit.graduation.util.LoggerUtils;
+import com.ccniit.graduation.validator.StringVaildateFactory;
+import com.ccniit.graduation.validator.StringVaildateFactory.StringVaildateType;
 
 /**
  * Voter 管理控制器
@@ -26,26 +30,45 @@ public class VoterController {
 
 	@Resource
 	VoterService voterService;
+	@Resource
+	StringVaildateFactory vaildateFactory;
 
-	@RequestMapping("updateEmail")
-	public Callable<String> updateVoterField(@RequestParam(value = "id", required = true) String id,
-			@RequestParam(value = "value", required = true) String value) {
+	private static final String FORMAT_ERROR_RESULT = "format error,can not be change!";
+
+	@RequiresAuthentication
+	@RequestMapping(value = "updateEmail", method = RequestMethod.POST)
+	public String updateVoterField(@RequestParam(value = "id", required = true) String id,
+			@RequestParam(value = "value", required = true) String value) throws IException {
 		String[] voterInfo = StringUtils.split(id, "_");
-		
-		DEV.debug(Arrays.toString(voterInfo));
-		
-		final Long voter = Long.parseLong(voterInfo[1]);
+
+		DEV.info(Arrays.toString(voterInfo));
+
+		final Long voterId = Long.parseLong(voterInfo[1]);
 		final Voter.VoterField field = Voter.voterField(voterInfo[2]);
 
-		DEV.debug(value);
-		// TODO
-		return new Callable<String>() {
+		boolean isValidated = false;
+		switch (field) {
+		case email:
+			isValidated = vaildateFactory.vaildate(StringVaildateType.EMAIL, value);
+			break;
+		case phone:
+			isValidated = vaildateFactory.vaildate(StringVaildateType.PHONE, value);
+			break;
+		case alias:
+			value = value.substring(0, 4);
+			isValidated = true;
+			break;
+		default:
+			break;
+		}
 
-			@Override
-			public String call() throws Exception {
-				return voterService.updateVoterField(field, voter);
-			}
-		};
+		if (!isValidated) {
+			return FORMAT_ERROR_RESULT;
+		}
+
+		DEV.info(value);
+		// TODO
+		return voterService.updateVoterField(field, voterId, value);
 	}
 
 	@RequestMapping("/loadEmail")

@@ -32,18 +32,18 @@ public class VoterDao implements VoterMapper {
 	}
 
 	@Override
-	public Integer updateVoterAlias(long id) {
-		return voterMapper.updateVoterAlias(id);
+	public Integer updateVoterAlias(long id, String alias) {
+		return voterMapper.updateVoterAlias(id, alias);
 	}
 
 	@Override
-	public Integer updateVoterEmail(long id) {
-		return voterMapper.updateVoterEmail(id);
+	public Integer updateVoterEmail(long id, String email) {
+		return voterMapper.updateVoterEmail(id, email);
 	}
 
 	@Override
-	public Integer updateVoterPhone(long id) {
-		return voterMapper.updateVoterPhone(id);
+	public Integer updateVoterPhone(long id, String phone) {
+		return voterMapper.updateVoterPhone(id, phone);
 	}
 
 	@Override

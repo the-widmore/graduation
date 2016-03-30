@@ -92,10 +92,10 @@
 	<!-- Shiro -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
 
-	<bean id="defaultRealm" class="com.ccniit.graduation.plus.shiro.DefaultRealm"></bean>
+	<bean id="myRealm" class="com.ccniit.graduation.plus.shiro.MyRealm"></bean>
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="defaultRealm" />
+		<property name="realm" ref="myRealm" />
 	</bean>
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">

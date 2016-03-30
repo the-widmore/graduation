@@ -10,9 +10,7 @@
 		infrastructure -->
 
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven>
-		<async-support default-timeout="10000" task-executor="mvcTaskExecutor"/>
-	</annotation-driven>
+	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->

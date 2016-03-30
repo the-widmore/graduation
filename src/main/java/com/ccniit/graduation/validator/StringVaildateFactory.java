@@ -10,17 +10,17 @@ import com.ccniit.graduation.resource.SpringScope;
 public class StringVaildateFactory {
 
 	public static enum StringVaildateType {
-		TEL, EMAIL, URL
+		PHONE, EMAIL, URL
 	}
 
 	private static final StringVaildator TEL_VAILDATOT = new TELVaildator();
 	private static final StringVaildator EMAIL_VAILDATOT = new EmailVaildator();
 
-	// impl othor
+	// TODO other
 	public boolean vaildate(StringVaildateType type, String source) {
 		StringVaildator vaildator = null;
 		switch (type) {
-		case TEL:
+		case PHONE:
 			vaildator = TEL_VAILDATOT;
 			break;
 		case EMAIL:

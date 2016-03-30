@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.Voter;
@@ -37,13 +38,14 @@ public class VoterController {
 	@Resource
 	PermissionService permissionService;
 
-	@RequestMapping(value = "updateEmail", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "updateVoterField", method = { RequestMethod.POST, RequestMethod.GET })
 	public String updateVoterField(@RequestParam(value = "id", required = true) String id,
 			@RequestParam(value = "value", required = true) String value) throws IException {
 
 		String[] voterInfo = StringUtils.split(id, "_");
 
 		DEV.info(Arrays.toString(voterInfo));
+		DEV.info("value" + value);
 
 		final Long voterId = Long.parseLong(voterInfo[1]);
 		final Voter.VoterField field = Voter.voterField(voterInfo[2]);
@@ -81,8 +83,11 @@ public class VoterController {
 		return voterService.updateVoterField(field, voterId, value);
 	}
 
-	@RequestMapping("/loadVoterField")
-	public String loadVoterEmail(@RequestParam("id") String id, @RequestParam("value") String value) throws IException {
+	@RequestMapping(value = "/loadVoterField", method = { RequestMethod.GET, RequestMethod.POST })
+	public String loadVoterEmail(@RequestParam("id") String id, @RequestParam("value") String value, WebRequest request)
+			throws IException {
+
+		DEV.info(request.getParameterMap().toString());
 
 		String[] voterInfo = id.split("_");
 		VoterField voterField = Voter.voterField(voterInfo[2]);

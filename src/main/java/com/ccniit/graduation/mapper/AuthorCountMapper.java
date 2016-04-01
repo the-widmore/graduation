@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.ccniit.graduation.pojo.common.VoteCategoryCount;
+import com.ccniit.graduation.pojo.common.VoteCountByCategory;
 
 public interface AuthorCountMapper {
 
@@ -22,6 +22,6 @@ public interface AuthorCountMapper {
 	 * @param auhtor.id
 	 */
 	@Select("SELECT category,COUNT(id) AS counter FROM vote WHERE author=#{authorId} GROUP BY category")
-	List<VoteCategoryCount> countAuthorVote(long authorId);
+	List<VoteCountByCategory> countAuthorVote(long authorId);
 
 }

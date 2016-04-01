@@ -1,7 +1,7 @@
 package com.ccniit.graduation.pojo.qo;
 
 /**
- * 按照类型查询Vote，继承之分页查询
+ * 按照类型查询Vote，继承自分页查询
  */
 public class VoteQueryByCategory extends PagedQuery {
 

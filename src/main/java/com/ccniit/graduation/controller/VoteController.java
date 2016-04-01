@@ -12,15 +12,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 
 import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
+import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.doc.PrivateVoteData;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
+import com.ccniit.graduation.service.PermissionService;
+import com.ccniit.graduation.service.PermissionService.ResourceType;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.util.LoggerUtils;
+import com.ccniit.graduation.util.ShiroUtils;
+import com.ccniit.graduation.util.WebUtils;
 
 @Controller
 public class VoteController {
@@ -29,6 +36,8 @@ public class VoteController {
 
 	@Resource
 	VoteService voteService;
+	@Resource
+	PermissionService permissionService;
 
 	public static final String VIEW_VOTE = "/vote/startVote.html";
 
@@ -57,9 +66,19 @@ public class VoteController {
 	private static final String CREATE_VOTE_DO = "/vote/createVote.do";
 
 	@RequestMapping(value = CREATE_VOTE_DO, method = RequestMethod.POST)
-	public String post(@ModelAttribute("creater") VoteCreater creater, ModelMap modelMap) {
+	public String createVote(@ModelAttribute() VoteCreater creater, ModelMap modelMap) throws IException {
 
-		// TODO
+
+		Long voteId = 1L;
+		String editMode = VoteCreater.VoteEditMode.html.toString();
+
+		// 编辑模式
+		if (editMode.equals(VoteCreater.VoteEditMode.html)) {
+			return EDIT_VOTE_URL.replace(String.valueOf(voteId), "{voteId}");
+		} else if (editMode.equals(VoteCreater.VoteEditMode.visible)) {
+			// TODO 暂时使用HTML编辑模式代替可视化模式
+			return EDIT_VOTE_URL.replace(String.valueOf(voteId), "{voteId}");
+		}
 
 		return null;
 	}
@@ -68,14 +87,17 @@ public class VoteController {
 
 	@RequestMapping(value = { VIEW_CREATE_ADVANCE_VOTE }, method = RequestMethod.GET)
 	public String createAdvanceVote(ModelMap modelMap) {
-
 		return VIEW_CREATE_ADVANCE_VOTE;
 	}
 
-	public static final String VIEW_EDIT_VOTE = "/vote/editVote.html";
+	// HTML编辑模式 TODO 添加 visible(可视化编辑模式)
+	public static final String VIEW_EDIT_VOTE = "/vote/editVoteByHTML.html";
+	public static final String EDIT_VOTE_URL = "/vote/editVoteByHTML/{voteId}";
 
-	@RequestMapping(value = { VIEW_EDIT_VOTE }, method = RequestMethod.GET)
-	public String editVote() {
+	@RequestMapping(value = { EDIT_VOTE_URL }, method = RequestMethod.GET)
+	public String editVote(@PathVariable("voteId") Long voteId) throws IException {
+		// TODO 权限检查、进度检查、账号检查
+		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
 
 		return VIEW_EDIT_VOTE;
 	}

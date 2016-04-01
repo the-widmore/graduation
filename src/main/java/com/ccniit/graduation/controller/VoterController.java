@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import com.ccniit.graduation.exception.IException;
+import com.ccniit.graduation.pojo.common.AjaxResponseBody;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.Voter.VoterField;
 import com.ccniit.graduation.service.PermissionService;
@@ -45,7 +46,7 @@ public class VoterController {
 		String[] voterInfo = StringUtils.split(id, "_");
 
 		DEV.info(Arrays.toString(voterInfo));
-		DEV.info("value" + value);
+		DEV.info("value:" + value);
 
 		final Long voterId = Long.parseLong(voterInfo[1]);
 		final Voter.VoterField field = Voter.voterField(voterInfo[2]);
@@ -65,7 +66,7 @@ public class VoterController {
 			isValidated = vaildateFactory.vaildate(StringVaildateType.PHONE, value);
 			break;
 		case alias:
-			value = value.substring(0, 4);
+			value = StringUtils.left(value, 10);
 			isValidated = true;
 			break;
 		default:
@@ -83,6 +84,8 @@ public class VoterController {
 		return voterService.updateVoterField(field, voterId, value);
 	}
 
+	// AbstractDispatcherServletInitializer
+
 	@RequestMapping(value = "/loadVoterField", method = { RequestMethod.GET, RequestMethod.POST })
 	public String loadVoterEmail(@RequestParam("id") String id, @RequestParam("value") String value, WebRequest request)
 			throws IException {
@@ -94,6 +97,12 @@ public class VoterController {
 		long voterId = Long.parseLong(voterInfo[1]);
 
 		return voterService.getVoterField(voterField, voterId);
+	}
+
+	@RequestMapping(value = "saveVoteField", method = { RequestMethod.POST })
+	public AjaxResponseBody saveVoterField() {
+
+		return null;
 	}
 
 }

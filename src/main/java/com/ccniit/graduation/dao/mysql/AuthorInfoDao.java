@@ -32,8 +32,7 @@ public class AuthorInfoDao implements AuthorInfoMapper {
 
 	@Override
 	public Integer updateAuthorConfig(AuthorConfigUpdater updater) {
-		// TODO Auto-generated method stub
-		return null;
+		return authorInfoMapper.updateAuthorConfig(updater);
 	}
 
 }

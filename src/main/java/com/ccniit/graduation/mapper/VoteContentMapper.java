@@ -13,6 +13,9 @@ public interface VoteContentMapper {
 			"SELECT LAST_INSERT_ID() AS id" })
 	Long insertVoteContent(VoteContent content);
 
+	@Select("SELECT content FROM vote_content WHERE id=#{vote}")
+	String selectVoteContent(long vote);
+
 	@Select("UPDATE vote_content SET content=#{content} WHERE id=#{id}")
 	Integer updateVoteContent(VoteContent newContent);
 

@@ -71,14 +71,16 @@
 					</h3>
 				</div>
 
-				<form:form class="form-horizontal" action="#" method="POST">
+				<form:form class="form-horizontal"
+					action="${pageContext.request.contextPath}/vote/createVote.do"
+					method="POST">
 
 					<div class="form-group">
 						<label class="control-label col-md-2" for="voteTitleInput">投票标题</label>
 
 						<div class="col-md-6">
 							<input type="text" class="form-control" id="voteTitleInput"
-								name="title">
+								name="title" required>
 						</div>
 					</div>
 
@@ -92,21 +94,12 @@
 					</div>
 
 					<div class="form-group">
-						<label class="control-label col-md-2" for="endTimeInput">结束时间</label>
-
-						<div class="col-md-6">
-							<input type="datetime-local" class="form-control"
-								id="endTimeInput" placeholder="使用分号,逗号,空格分割 最多5个" name="endDate">
-						</div>
-					</div>
-
-					<div class="form-group">
 						<label class="control-label col-md-2">编辑模式</label>
 
 						<div class="col-md-6">
 							<select class="form-control" name="editMode">
-								<option value="visible">拖拽编辑</option>
 								<option value="html">HTML模式</option>
+								<option value="visible">拖拽编辑</option>
 							</select>
 						</div>
 					</div>
@@ -153,5 +146,6 @@
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 </html>

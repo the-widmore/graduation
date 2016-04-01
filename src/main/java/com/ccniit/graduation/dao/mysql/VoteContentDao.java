@@ -18,6 +18,11 @@ public class VoteContentDao implements VoteContentMapper {
 		voteContentMapper.insertVoteContent(content);
 		return content.getId();
 	}
+	
+	@Override
+	public String selectVoteContent(long vote) {
+		return voteContentMapper.selectVoteContent(vote);
+	}
 
 	@Override
 	public Integer updateVoteContent(VoteContent newContent) {

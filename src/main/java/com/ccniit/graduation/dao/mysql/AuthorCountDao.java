@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.AuthorCountMapper;
-import com.ccniit.graduation.pojo.common.VoteCategoryCount;
+import com.ccniit.graduation.pojo.common.VoteCountByCategory;
 
 @Repository("authorCountDao")
 public class AuthorCountDao implements AuthorCountMapper {
@@ -21,7 +21,7 @@ public class AuthorCountDao implements AuthorCountMapper {
 	}
 
 	@Override
-	public List<VoteCategoryCount> countAuthorVote(long authorId) {
+	public List<VoteCountByCategory> countAuthorVote(long authorId) {
 		return authorCountMapper.countAuthorVote(authorId);
 	}
 

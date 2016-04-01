@@ -49,7 +49,6 @@ public class VoteServiceImpl implements VoteService {
 		// from create
 		vote.setAuthor(creater.getAuthor());
 		vote.setTitle(creater.getTitle());
-		vote.setPredictDate(creater.getEndDate());
 
 		// random and unique value
 		vote.setTableName(StringUtils._getUUID());
@@ -62,7 +61,10 @@ public class VoteServiceImpl implements VoteService {
 			throw new ServerException("insert vote error");
 		}
 
-		voteTagService.insertTagToVote(voteId, creater.getTags());
+		String tags = creater.getTags();
+		if (org.apache.commons.lang.StringUtils.isNotBlank(tags)) {
+			voteTagService.insertTagToVote(voteId, tags);
+		}
 
 		return voteId;
 	}

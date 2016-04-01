@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-import com.ccniit.graduation.pojo.common.VoteCategoryCount;
+import com.ccniit.graduation.pojo.common.VoteCountByCategory;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.AuthorCountService;
@@ -22,12 +22,12 @@ public class AuthorContentCounterBuilder implements Builder<Long, AuthorContentC
 
 	@Override
 	public AuthorContentCounter build(Long authorId) {
-		List<VoteCategoryCount> voteCategoryCounts = authorCountService.countAuthorVote(authorId);
+		List<VoteCountByCategory> voteCategoryCounts = authorCountService.countAuthorVote(authorId);
 
 		int linkman = authorCountService.countAuthorLinkmanGroup(authorId);
 		int vote = 0, poll = 0, info = 0;
 
-		for (VoteCategoryCount voteCategoryCount : voteCategoryCounts) {
+		for (VoteCountByCategory voteCategoryCount : voteCategoryCounts) {
 			String category = voteCategoryCount.getCategory();
 			if (category.equals(VoteResource.Category.vote.toString())) {
 				vote = voteCategoryCount.getCounter();

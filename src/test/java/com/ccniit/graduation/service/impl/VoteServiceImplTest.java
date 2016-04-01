@@ -45,7 +45,6 @@ public class VoteServiceImplTest extends BaseTest {
 	public void testCreateVoteByVoteCreater() throws IException {
 		VoteCreater creater = new VoteCreater();
 		creater.setAuthor(1L);
-		creater.setEndDate(DateUtils.getAfterDate(null, DateUtils.model_day, 15));
 		creater.setTags("Tag1;;Tag2, Tag3 ;,; Tag4, Tag5;, tag6;,;");
 		creater.setTitle("vote title");
 

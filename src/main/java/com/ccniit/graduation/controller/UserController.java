@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ccniit.graduation.convertor.AuthorToAuthorBaseUpdater;
 import com.ccniit.graduation.exception.IException;
@@ -44,7 +45,6 @@ import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.Commons;
-import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.resource.VoteResource.Category;
 import com.ccniit.graduation.service.AuthorCountService;
 import com.ccniit.graduation.service.AuthorService;
@@ -138,50 +138,46 @@ public class UserController {
 	public static final String VIEW_USER_MY_POLL = "/user/myPoll.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_POLL }, method = RequestMethod.GET)
-	public String myPoll(@RequestParam(value = "page", defaultValue = "1", required = true) int page, ModelMap modelMap)
-			throws IException {
-
-		if (page < 0) {
-			throw new ParamsException("参数Page不能小于0");
-		}
-
-		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.poll.toString());
-
-		query.setPageSize(com.ccniit.graduation.resource.Commons.VOTE_PAGE_SIZE);
-		query.setOffset(com.ccniit.graduation.resource.Commons.VOTE_PAGE_SIZE * (page - 1));
-
-		List<VoteVo> voteVos = voteService.selectVoteVos(query);
-		modelMap.addAttribute("voteVos", voteVos);
-		return VIEW_USER_MY_POLL;
+	public ModelAndView myPoll(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
+			ModelMap modelMap) throws IException {
+		return getVoteVos(Category.poll, page);
 	}
 
 	public static final String VIEW_USER_MY_INFO_GATHER = "/user/myInfoGather.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_INFO_GATHER }, method = RequestMethod.GET)
-	public String myInfoGather(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
+	public ModelAndView myInfoGather(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
 			ModelMap modelMap) throws IException {
-
-		List<VoteVo> voteVos = getVoteVos(Category.info, page);
-		modelMap.addAttribute("voteVos", voteVos);
-
-		return VIEW_USER_MY_INFO_GATHER;
+		return getVoteVos(Category.info, page);
 	}
 
 	public static final String VIEW_USER_MY_VOTE = "/user/myVote.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_VOTE }, method = RequestMethod.GET)
-	public String myVote(@RequestParam(value = "page", defaultValue = "1", required = true) int page, ModelMap modelMap)
-			throws IException {
-
-		List<VoteVo> voteVos = getVoteVos(Category.vote, page);
-		modelMap.addAttribute("voteVos", voteVos);
-
-		return VIEW_USER_MY_VOTE;
+	public ModelAndView myVote(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
+			ModelMap modelMap) throws IException {
+		return getVoteVos(Category.vote, page);
 	}
 
-	private List<VoteVo> getVoteVos(Category category, int page) throws IException {
+	private ModelAndView getVoteVos(Category category, int page) throws IException {
 		if (page < 0) {
 			throw new ParamsException("参数page不能小于0");
+		}
+
+		String resultPage = null;
+
+		switch (category) {
+		case poll:
+			resultPage = VIEW_USER_MY_POLL;
+			break;
+		case vote:
+			resultPage = VIEW_USER_MY_VOTE;
+			break;
+		case info:
+			resultPage = VIEW_USER_MY_INFO_GATHER;
+			break;
+		default:
+			break;
 		}
 
 		VoteQueryByCategory qurey = new VoteQueryByCategory(getAuthorId(), category.toString());
@@ -189,7 +185,12 @@ public class UserController {
 		qurey.setOffset(Commons.VOTE_PAGE_SIZE * (page - 1));
 
 		List<VoteVo> voteVos = voteService.selectVoteVos(qurey);
-		return voteVos;
+
+		ModelAndView modelAndView = new ModelAndView(resultPage);
+		modelAndView.addObject("voteVos", voteVos);
+		modelAndView.addObject("currentPage", page);
+
+		return modelAndView;
 	}
 
 	public static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";

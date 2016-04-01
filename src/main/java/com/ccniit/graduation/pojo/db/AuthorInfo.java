@@ -1,16 +1,13 @@
 package com.ccniit.graduation.pojo.db;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class AuthorInfo implements Serializable {
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4983288534328571940L;
 	private long id;
-	private String secondPassword;
 	private String company;
 	private String work;
 	private String descriptionSelf;
@@ -18,7 +15,6 @@ public class AuthorInfo implements Serializable {
 	private boolean setFinishNotify;
 	private boolean setDataExpireNotify;
 	private String setPrimaryNofify;
-	private Date inDate;
 
 	public AuthorInfo() {
 		super();
@@ -30,14 +26,6 @@ public class AuthorInfo implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getSecondPassword() {
-		return secondPassword;
-	}
-
-	public void setSecondPassword(String secondPassword) {
-		this.secondPassword = secondPassword;
 	}
 
 	public String getCompany() {
@@ -94,14 +82,6 @@ public class AuthorInfo implements Serializable {
 
 	public void setSetPrimaryNofify(String setPrimaryNofify) {
 		this.setPrimaryNofify = setPrimaryNofify;
-	}
-
-	public Date getInDate() {
-		return inDate;
-	}
-
-	public void setInDate(Date inDate) {
-		this.inDate = inDate;
 	}
 
 }

@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ccniit.graduation.convertor.VoteToVoteVo;
 import com.ccniit.graduation.dao.mysql.VoteDao;
@@ -42,6 +44,7 @@ public class VoteServiceImpl implements VoteService {
 		return vote.getId();
 	}
 
+	@Transactional(propagation = Propagation.NESTED)
 	@Override
 	public Long createVote(VoteCreater creater) throws IException {
 		Vote vote = new Vote();

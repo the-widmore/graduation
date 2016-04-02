@@ -72,7 +72,7 @@
 				</div>
 
 				<form:form class="form-horizontal"
-					action="${pageContext.request.contextPath}/vote/createVote.do"
+					action="createVote.do"
 					method="POST">
 
 					<div class="form-group">

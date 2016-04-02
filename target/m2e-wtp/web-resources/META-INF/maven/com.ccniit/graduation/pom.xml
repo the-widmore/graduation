@@ -7,11 +7,13 @@
 	<name>graduation</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+
 	<properties>
 		<java-version>1.7</java-version>
 		<org.springframework-version>4.2.4.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		<lucene.version>4.10.4</lucene.version>
 	</properties>
 	<dependencies>
 		<!-- Spring and Spring MVC -->
@@ -161,6 +163,22 @@
 		</dependency>
 		<!--end POI -->
 
+		<dependency>
+			<groupId> org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+		<dependency>
+			<groupId> org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+		<dependency>
+			<groupId> org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
+
 
 		<!-- JSON -->
 		<dependency>
@@ -272,6 +290,7 @@
 
 	</dependencies>
 	<build>
+		<defaultGoal>build</defaultGoal>
 		<plugins>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>

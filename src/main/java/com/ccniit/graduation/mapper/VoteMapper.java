@@ -21,7 +21,7 @@ public interface VoteMapper {
 	 * @param VoteResource
 	 * @return Vote.id
 	 */
-	@Insert("INSERT INTO vote(tableName,category,author,title,predictDate)VALUES(#{tableName},#{category},#{author},#{title},#{predictDate})")
+	@Insert("INSERT INTO vote(tableName,category,author,title)VALUES(#{tableName},#{category},#{author},#{title})")
 	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
 	Long insertVote(Vote vote);
@@ -35,6 +35,16 @@ public interface VoteMapper {
 	 */
 	@Update("UPDATE vote SET progress=#{progress} WHERE id=#{vote}")
 	Integer updateVoteProgress(@Param("vote") long vote, @Param("progress") int progress);
+
+	/**
+	 * 更新进度Vote.预计结束时间
+	 * 
+	 * @param Vpte.id
+	 * @param Vote.predictDate
+	 * @return successful updated recode
+	 */
+	@Update("UPDATE vote SET predictDate=#{predictDate} WHERE id=#{vote}")
+	Integer updateVotePredictDate(@Param("vote") long vote, @Param("predictDate") Date predictDate);
 
 	/**
 	 * 

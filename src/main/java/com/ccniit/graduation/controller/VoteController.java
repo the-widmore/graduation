@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
 
 import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
 import com.ccniit.graduation.exception.IException;
@@ -27,7 +26,7 @@ import com.ccniit.graduation.service.PermissionService.ResourceType;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.ShiroUtils;
-import com.ccniit.graduation.util.WebUtils;
+import com.ccniit.graduation.util.SpringMVCUtils;
 
 @Controller
 public class VoteController {
@@ -66,21 +65,22 @@ public class VoteController {
 	private static final String CREATE_VOTE_DO = "/vote/createVote.do";
 
 	@RequestMapping(value = CREATE_VOTE_DO, method = RequestMethod.POST)
-	public String createVote(@ModelAttribute() VoteCreater creater, ModelMap modelMap) throws IException {
+	public String createVote(@ModelAttribute("creater") VoteCreater creater, ModelMap modelMap) throws IException {
 
+		creater.setAuthor(ShiroUtils.getUserId());
 
-		Long voteId = 1L;
-		String editMode = VoteCreater.VoteEditMode.html.toString();
+		Long voteId = voteService.createVote(creater);
+		String editMode = creater.getEditMode();
 
 		// 编辑模式
+		String editPage = null;
 		if (editMode.equals(VoteCreater.VoteEditMode.html)) {
-			return EDIT_VOTE_URL.replace(String.valueOf(voteId), "{voteId}");
+			editPage = EDIT_VOTE_URL.replace(String.valueOf(voteId), "{voteId}");
 		} else if (editMode.equals(VoteCreater.VoteEditMode.visible)) {
-			// TODO 暂时使用HTML编辑模式代替可视化模式
-			return EDIT_VOTE_URL.replace(String.valueOf(voteId), "{voteId}");
+			// TODO 完成可视化模式
 		}
 
-		return null;
+		return SpringMVCUtils.redirect(editPage);
 	}
 
 	public static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";
@@ -94,7 +94,7 @@ public class VoteController {
 	public static final String VIEW_EDIT_VOTE = "/vote/editVoteByHTML.html";
 	public static final String EDIT_VOTE_URL = "/vote/editVoteByHTML/{voteId}";
 
-	@RequestMapping(value = { EDIT_VOTE_URL }, method = RequestMethod.GET)
+	@RequestMapping(value = { EDIT_VOTE_URL }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String editVote(@PathVariable("voteId") Long voteId) throws IException {
 		// TODO 权限检查、进度检查、账号检查
 		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);

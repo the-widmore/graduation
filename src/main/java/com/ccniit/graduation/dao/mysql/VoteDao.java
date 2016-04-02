@@ -30,6 +30,11 @@ public class VoteDao implements VoteMapper {
 	}
 
 	@Override
+	public Integer updateVotePredictDate(long vote, Date predictDate) {
+		return voteMapper.updateVotePredictDate(vote, predictDate);
+	}
+
+	@Override
 	public Integer updateVoteEndDate(long vote, Date enDate) {
 		return voteMapper.updateVoteEndDate(vote, enDate);
 	}

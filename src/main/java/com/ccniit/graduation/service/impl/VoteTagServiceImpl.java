@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ccniit.graduation.dao.mysql.VoteTagDao;
 import com.ccniit.graduation.pojo.db.VoteTag;
@@ -28,6 +30,7 @@ public class VoteTagServiceImpl implements VoteTagService {
 	@Resource
 	TagService tagService;
 
+	@Transactional(propagation = Propagation.NESTED)
 	@Override
 	public int insertTagToVote(long vote, String tags) {
 		String[] tagArray = StringUtils.split(tags, TAG_DIVISION);

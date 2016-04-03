@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+	updateCheck="false">
+	<diskStore path="java.io.tmpdir" />
+	<defaultCache eternal="false" maxElementsInMemory="1024000"
+		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+		timeToLiveSeconds="600" memoryStoreEvictionPolicy="LRU" />
+
+	<!-- author 计数对象 -->
+	<cache name="AuthorContentCounterCache" eternal="false"
+		maxElementsInMemory="10240" overflowToDisk="false" diskPersistent="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="3600"
+		memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="VoteCache" eternal="false" maxElementsInMemory="1024"
+		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="VoterCache" eternal="false" maxElementsInMemory="1024"
+		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
+
+	<!-- 权限 -->
+	<cache name="PermissionCache" eternal="false"
+		maxElementsInMemory="10240" overflowToDisk="false" diskPersistent="false"
+		timeToIdleSeconds="0" timeToLiveSeconds="36000"
+		memoryStoreEvictionPolicy="LRU" />
+
+</ehcache>

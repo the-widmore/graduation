@@ -14,7 +14,7 @@ public interface TagMapper {
 	 * @param tag
 	 * @return Tag.id
 	 */
-	@Insert("INSERT INTO tag(tag) VALUES(#{tag})")
+	@Insert("INSERT INTO tag(tag) VALUES (#{tag})")
 	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
 	Long insertTag(VoteTag VoteTag);

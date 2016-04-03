@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ccniit.graduation.dao.mysql.VoteTagDao;
-import com.ccniit.graduation.pojo.db.VoteTag;
 import com.ccniit.graduation.service.TagService;
 import com.ccniit.graduation.service.VoteTagService;
 import com.ccniit.graduation.util.LoggerUtils;
@@ -30,17 +29,20 @@ public class VoteTagServiceImpl implements VoteTagService {
 	@Resource
 	TagService tagService;
 
-	@Transactional(propagation = Propagation.NESTED)
+	@Transactional(propagation = Propagation.REQUIRED)
 	@Override
 	public int insertTagToVote(long vote, String tags) {
 		String[] tagArray = StringUtils.split(tags, TAG_DIVISION);
 		String[] newTags = Arrays.copyOfRange(tagArray, 0, 5);
 		int inserted = 0;
+
+		Long[] tagIds = tagService.getTagsId(newTags);
 		for (int i = 0; i < newTags.length; i++) {
-			Long tagId = selectTagId(newTags[i]);
-			inserted += voteTagDao.insertVoteTagByTagId(vote, tagId);
-			DEV.debug(newTags[i]);
+			inserted += voteTagDao.insertVoteTagByTagId(vote, tagIds[i]);
 		}
+
+		DEV.debug("vote:{} tags:{}", vote, Arrays.toString(tagIds));
+
 		return inserted;
 	}
 
@@ -52,18 +54,6 @@ public class VoteTagServiceImpl implements VoteTagService {
 	@Override
 	public List<String> selectTagsToArray(long vote) {
 		return voteTagDao.selectVoteTagsToArray(vote);
-	}
-
-	// 查询tag的id,没有就插入,并返回id
-	private Long selectTagId(String tag) {
-		// 查询
-		Long id = tagService.selectTag(tag);
-		if (null == id || 0 == id) {
-			return tagService.insertTag(new VoteTag(tag));
-		} else {
-			return id;
-		}
-
 	}
 
 }

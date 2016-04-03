@@ -26,7 +26,6 @@ import com.ccniit.graduation.service.PermissionService.ResourceType;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.ShiroUtils;
-import com.ccniit.graduation.util.SpringMVCUtils;
 
 @Controller
 public class VoteController {
@@ -69,18 +68,9 @@ public class VoteController {
 
 		creater.setAuthor(ShiroUtils.getUserId());
 
-		Long voteId = voteService.createVote(creater);
-		String editMode = creater.getEditMode();
+		// 编辑模式 选择
 
-		// 编辑模式
-		String editPage = null;
-		if (editMode.equals(VoteCreater.VoteEditMode.html)) {
-			editPage = EDIT_VOTE_URL.replace(String.valueOf(voteId), "{voteId}");
-		} else if (editMode.equals(VoteCreater.VoteEditMode.visible)) {
-			// TODO 完成可视化模式
-		}
-
-		return SpringMVCUtils.redirect(editPage);
+		return UserController.VIEW_USER_MY_VOTE;
 	}
 
 	public static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";
@@ -92,9 +82,9 @@ public class VoteController {
 
 	// HTML编辑模式 TODO 添加 visible(可视化编辑模式)
 	public static final String VIEW_EDIT_VOTE = "/vote/editVoteByHTML.html";
-	public static final String EDIT_VOTE_URL = "/vote/editVoteByHTML/{voteId}";
+	public static final String EDIT_VOTE_BY_HTML_URL = "/vote/editVoteByHTML/{voteId}";
 
-	@RequestMapping(value = { EDIT_VOTE_URL }, method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = { EDIT_VOTE_BY_HTML_URL }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String editVote(@PathVariable("voteId") Long voteId) throws IException {
 		// TODO 权限检查、进度检查、账号检查
 		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
@@ -146,6 +136,14 @@ public class VoteController {
 		}
 
 		return FROM_VOTE_SUBMIT_SUCCESS;
+	}
+
+	protected static final String VOTE_SUMMARY_URL = "/vote/summary/{voteId}";
+
+	@RequestMapping(value = VOTE_SUMMARY_URL, method = RequestMethod.GET)
+	public String getVoteSummaty(ModelMap modelMap) {
+		// TODO Auto generated method stub
+		return null;
 	}
 
 }

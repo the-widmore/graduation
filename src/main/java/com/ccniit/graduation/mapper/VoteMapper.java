@@ -85,12 +85,12 @@ public interface VoteMapper {
 	Vote selectVoteByTableName(String tableName);
 
 	/**
-	 * 按照author和Vote.category查询多个Vote的id
+	 * 按照author和Vote.category查询多个Vote的id。采用倒叙
 	 * 
 	 * @param VoteQueryByCategory(offset,pageSize,author,category)
 	 * @return List<Long>
 	 */
-	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} LIMIT #{offset},#{pageSize}")
+	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} ORDER BY id DESC LIMIT #{offset},#{pageSize}")
 	List<Long> selectAuthorVotesId(PagedQuery query);
 
 	// TODO

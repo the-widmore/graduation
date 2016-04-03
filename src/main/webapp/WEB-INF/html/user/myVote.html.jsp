@@ -28,7 +28,8 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
 				<li><a
@@ -122,7 +123,7 @@
 			<div class="col-sm-9">
 				<div class="page-header">
 					<h3>
-						<i class="glyphicon glyphicon-stats"></i>我的问卷
+						<i class="glyphicon glyphicon-stats"></i>我的投票
 					</h3>
 				</div>
 
@@ -139,14 +140,15 @@
 
 						<c:forEach items="${voteVos }" var="vote">
 							<tr>
-								<td>${vote.title }</td>
+								<td><a
+									href="${pageContext.request.contextPath}/vote/summary/${vote.id }">${vote.title }</a></td>
 								<td>${vote.progress }</td>
 								<td><c:forEach items="${vote.tags }" var="tag">
 										<a href="#"><span class="label label-default">${tag }</span></a>
 									</c:forEach></td>
 
 								<%-- <td>${vote.tags }</td> --%>
-								<td>${vote.inDate }至${vote.endDate }</td>
+								<td>${vote.inDate }</td>
 							</tr>
 						</c:forEach>
 

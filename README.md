@@ -8,13 +8,16 @@
 #### 开发工具 ####
 - Eclipse
 - WebStorm
+
 #### 硬件环境 ####
 - PC
+
 #### 软件环境 ####
 - Linux
 - MySQL
 - MongoDB
 - Tomcat
+
 #### 使用技术 ####
 - Spring
 - Spring MVC

@@ -13,11 +13,15 @@
 		timeToIdleSeconds="600" timeToLiveSeconds="3600"
 		memoryStoreEvictionPolicy="LRU" />
 
-	<cache name="VoteCache" eternal="false" maxElementsInMemory="1024"
+	<cache name="VoteVoCache" eternal="false" maxElementsInMemory="10240"
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
 
-	<cache name="VoterCache" eternal="false" maxElementsInMemory="1024"
+	<cache name="VoteCache" eternal="false" maxElementsInMemory="10240"
+		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="VoterCache" eternal="false" maxElementsInMemory="102400"
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.VoteMapper;
 import com.ccniit.graduation.pojo.db.Vote;
+import com.ccniit.graduation.pojo.db.Vote.AuthType;
 import com.ccniit.graduation.pojo.qo.PagedQuery;
 import com.ccniit.graduation.pojo.vo.VoteSearchResult;
 
@@ -37,6 +38,11 @@ public class VoteDao implements VoteMapper {
 	@Override
 	public Integer updateVoteEndDate(long vote, Date enDate) {
 		return voteMapper.updateVoteEndDate(vote, enDate);
+	}
+
+	@Override
+	public Integer updateVoteAuthType(long vote, AuthType authType) {
+		return voteMapper.updateVoteAuthType(vote, authType);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <meta http-equiv="x-ua-compatible" content="IE=edge">
@@ -27,7 +28,8 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="../../index.html">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+				<li><a href="../../index.html">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li class="active"><a href="../vote/startVote.html">投票</a></li>
 				<li><a href="../poll/startPoll.html">问卷</a></li>
 				<li><a href="../user/selfCenter.html">个人</a></li>
@@ -64,51 +66,50 @@
 			1、你只需要填写问题和选项即可。<br>
 			2、在添加问题选项时，选项的名称必须填写，并每个问题的选项的名称必须相同。第1个问题就用
 			<kbd>q1</kbd>
-			，以此类推。<br>
-			3、选定值/选项值，建议使用大写英文字母。并从大写的英文字母A开始，依次增加。每个问题在问题定义时，选项必须要至少有一个选中值。
+			，以此类推。<br> 3、选定值/选项值，建议使用大写英文字母。并从大写的英文字母A开始，依次增加。<br>
+			4、如果，你没有完成编辑，也可以进行提交。下一次将上一次的基础上继续编辑。
 		</div>
 
 
 		<div>
-			<form action="${pageContext.request.contextPath}/vote/previewVote.do"
+			<form:form
+				action="${pageContext.request.contextPath}/vote/submitVote.do"
 				method="POST">
-				<textarea id="editor" name="voteText">
-					<p>1.示例单选问题？</p>
-
-<p>
-						<input name="q1" value="A" type="radio" />选项1 &nbsp; &nbsp; <input
-							name="q1" value="B" type="radio" />选项2 &nbsp; &nbsp; <input
-							name="q1" value="C" type="radio" />选项3 &nbsp; &nbsp;</p>
-
-<p>2.多选实例问题？</p>
-
-<p>
-						<input name="q2" type="checkbox" value="A" />可选A &nbsp; &nbsp; <input
-							name="q2" type="checkbox" value="B" />可选B &nbsp; &nbsp; <input
-							name="q2" type="checkbox" value="C" />可选C</p>
-
-<p>3.下拉选择实例问题？</p>
-
-<p>
-						<select name="q3"><option value="A">下拉选项01</option>
-							<option value="B">下拉选项02</option>
-							<option value="C">下拉选项03</option>
-							<option value="D">下拉选项04</option> </select>
-					</p>
-
-<p>4.带有自定义域的问题？</p>
-
-<p>
-						<input name="a4" type="checkbox" />选项01 &nbsp; <input name="q4"
-							type="checkbox" />选项02 &nbsp; 其他 <input name="q4" type="text"
-							value="初始值" />
-					</p>
+				<input type="hidden" name="id" value="${voteId }">
+				<textarea id="editor" name="content">
+					${voteContent }
            		</textarea>
-				<br> <input type="submit" value="预览">
-			</form>
+				<br>
+				<input type="submit" value="提交" class="btn btn-default">
+				可以使用编辑器
+				<kbd>打印</kbd>
+				傍边的工具按钮进行预览。
+			</form:form>
 		</div>
-
 	</div>
+
+	<br>
+	<br>
+	<footer class="footer">
+	<div class="col-md-1"></div>
+	<div class="col-md-2">
+		<h2>EasyVote</h2>
+		<ul>
+			<li><a href="">版权声明</a></li>
+			<li><a href="">使用须知</a></li>
+			<li><a href="">隐私策略</a></li>
+			<li><a href="">关于我们</a></li>
+		</ul>
+	</div>
+	<div class="col-md-1"></div>
+	<div class="col-md-2">
+		<br>
+
+		<h3>网站备案</h3>
+
+		<p>京201510-34534****</p>
+	</div>
+	</footer>
 
 	<script
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>

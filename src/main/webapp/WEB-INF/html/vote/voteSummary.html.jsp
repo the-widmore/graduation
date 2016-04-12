@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,6 +10,22 @@
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/main.css">
+<style>
+.title {
+	font-size: 2em;
+	text-align: center;
+}
+
+.row {
+	margin: 50px 0px;
+}
+
+.voteInfo {
+	background-color: #52d689;
+	border-radius: 20px;
+	text-align: center;
+}
+</style>
 </head>
 <body>
 
@@ -54,13 +69,90 @@
 	</nav>
 
 	<div class="container content">
-		<div class="page-hander">
-			<h3>预览的的投票</h3>
+
+		<div class="title">标题</div>
+
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-1 text-right">标签</div>
+			<div class="col-md-6">
+				<span class="label label-default">AAA</span> <span
+					class="label label-default">AAA</span> <span
+					class="label label-default">AAA</span> <span
+					class="label label-default">AAA</span> <span
+					class="label label-default">AAA</span>
+			</div>
+			<div class="col-md-2"></div>
 		</div>
+
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-2">
+				<div class="bg-info">
+					<p style="text-align: center">创建时间</p>
+
+					<div class="voteInfo">2384-34-34 34:45</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-2">
+				<div class="bg-info">
+					<p style="text-align: center">剩余时间</p>
+
+					<div class="voteInfo">X天Y小时Z分钟</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-2">
+				<div class="bg-info">
+					<p style="text-align: center">结束时间</p>
+
+					<div class="voteInfo">2016-04-18 12:00</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-2">
+				<div class="bg-info">
+					<p style="text-align: center">点击次数</p>
+
+					<div class="voteInfo">345</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-2">
+				<div class="bg-info">
+					<p style="text-align: center">提交次数</p>
+
+					<div class="voteInfo">456/500</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-2">
+				<div class="bg-info">
+					<p style="text-align: center">授权方式</p>
+
+					<div class="voteInfo">2384-34-34 34:45</div>
+				</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8"></div>
+			<div class="col-md-4 btn-group">
+				<button class="btn btn-danger">清空数据</button>
+				<button class="btn btn-danger">现在结束</button>
+			</div>
+		</div>
+
 	</div>
 
-	<br>
-	<br>
+
+
 	<footer class="footer">
 	<div class="col-md-1"></div>
 	<div class="col-md-2">
@@ -86,12 +178,6 @@
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			CKEDITOR.replace('editor', {
-				customConfig : '../../resources/ckeditor/config-vote.js'
-			});
-		});
-	</script>
+
 </body>
 </html>

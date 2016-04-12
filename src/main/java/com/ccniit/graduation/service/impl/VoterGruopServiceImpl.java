@@ -17,9 +17,9 @@ import com.ccniit.graduation.service.VoterGroupService;
 public class VoterGruopServiceImpl implements VoterGroupService {
 
 	@Resource
-	VoterGroupDao voterGroupDao;
+	private VoterGroupDao voterGroupDao;
 	@Resource
-	VoterGroupToVoterGroupVo voterGroupToVoterGroupVo;
+	private VoterGroupToVoterGroupVo voterGroupToVoterGroupVo;
 
 	@Override
 	public long createVoterGroup(VoterGroup voterGroup) {

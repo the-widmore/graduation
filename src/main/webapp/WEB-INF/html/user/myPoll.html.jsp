@@ -144,7 +144,7 @@
 									</c:forEach></td>
 
 								<%-- <td>${vote.tags }</td> --%>
-								<td>${vote.inDate }	至  ${vote.endDate }</td>
+								<td>${vote.inDate }</td>
 							</tr>
 						</c:forEach>
 

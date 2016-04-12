@@ -29,11 +29,11 @@ public class AuthorContentCounterBuilder implements Builder<Long, AuthorContentC
 
 		for (VoteCountByCategory voteCategoryCount : voteCategoryCounts) {
 			String category = voteCategoryCount.getCategory();
-			if (category.equals(VoteResource.Category.vote.toString())) {
+			if (category.equals(VoteResource.VoteCategory.vote.toString())) {
 				vote = voteCategoryCount.getCounter();
-			} else if (category.equals(VoteResource.Category.poll.toString())) {
+			} else if (category.equals(VoteResource.VoteCategory.poll.toString())) {
 				poll = voteCategoryCount.getCounter();
-			} else if (category.equals(VoteResource.Category.info.toString())) {
+			} else if (category.equals(VoteResource.VoteCategory.info.toString())) {
 				info = voteCategoryCount.getCounter();
 			}
 		}

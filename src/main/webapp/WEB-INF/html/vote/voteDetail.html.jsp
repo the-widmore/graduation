@@ -8,11 +8,12 @@
 <title>投票:详细情</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
+
 </head>
 <body>
 
 	<nav class="navbar navbar-default">
-	<div class="container">
+	<div class="container content">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar" aria-expanded="false"

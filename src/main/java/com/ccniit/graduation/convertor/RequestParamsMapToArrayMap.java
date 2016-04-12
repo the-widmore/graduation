@@ -14,7 +14,7 @@ public class RequestParamsMapToArrayMap implements Converter<Map<String, String[
 	@Override
 	public Map<String, List<String>> convert(Map<String, String[]> source) {
 
-		Map<String, List<String>> resultMap = new HashMap<>();
+		Map<String, List<String>> resultMap = new HashMap<>(source.size());
 		for (Map.Entry<String, String[]> param : source.entrySet()) {
 			resultMap.put(param.getKey(), Arrays.asList(param.getValue()));
 		}

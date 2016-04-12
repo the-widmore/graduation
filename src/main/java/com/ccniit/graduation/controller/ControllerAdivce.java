@@ -19,9 +19,9 @@ public class ControllerAdivce {
 		return UserController.VIEW_USER_UNAUTHORIZED;
 	}
 
-	@ExceptionHandler(NullPointerException.class)
+	/*@ExceptionHandler(NullPointerException.class)
 	public String notFound() {
 		return ErrorController.NOT_FOUND;
-	}
+	}*/
 
 }

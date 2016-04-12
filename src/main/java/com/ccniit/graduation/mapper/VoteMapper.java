@@ -58,6 +58,16 @@ public interface VoteMapper {
 	Integer updateVoteEndDate(@Param("vote") long vote, @Param("endDate") Date endDate);
 
 	/**
+	 * 设置Vote 的授权方式
+	 * 
+	 * @param authType
+	 * 			@see com.ccniit.graduation.pojo.db.Vote.AuthType
+	 * @param  vote Vote.id
+	 */
+	@Update("UPDATE vote SET auth=#{authType} WHERE id=#{vote}")
+	Integer updateVoteAuthType(@Param("vote") long vote, @Param("authType") Vote.AuthType authType);
+
+	/**
 	 * 查询Vote的tableName
 	 * 
 	 * @param vote(Long)
@@ -72,7 +82,7 @@ public interface VoteMapper {
 	 * @param Vote.id
 	 * @return Vote {@link com.ccniit.graduation.pojo.db.Vote}
 	 */
-	@Select("SELECT id,tableName,category,author,title,progress,inDate,predictDate,endDate FROM vote WHERE id=#{vote}")
+	@Select("SELECT id,url,tableName,category,title,progress,auth,inDate,predictDate,endDate,cover FROM vote WHERE id=#{vote}")
 	Vote selectVoteById(long vote);
 
 	/**

@@ -1,10 +1,8 @@
 package com.ccniit.graduation.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -18,14 +16,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
+import com.ccniit.graduation.exception.CannotDoException;
 import com.ccniit.graduation.exception.IException;
-import com.ccniit.graduation.pojo.doc.PrivateVoteData;
+import com.ccniit.graduation.exception.PermissionException;
+import com.ccniit.graduation.pojo.db.VoteContent;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
+import com.ccniit.graduation.pojo.qo.VotePublishVo;
+import com.ccniit.graduation.pojo.vo.VoterGroupVo;
+import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.PermissionService;
 import com.ccniit.graduation.service.PermissionService.ResourceType;
+import com.ccniit.graduation.service.VoteContentService;
 import com.ccniit.graduation.service.VoteService;
+import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.ShiroUtils;
+import com.ccniit.graduation.util.SpringMVCUtils;
 
 @Controller
 public class VoteController {
@@ -33,9 +39,13 @@ public class VoteController {
 	private static final Logger DEV = LoggerUtils.getDev();
 
 	@Resource
-	VoteService voteService;
+	private VoteService voteService;
 	@Resource
-	PermissionService permissionService;
+	private PermissionService permissionService;
+	@Resource
+	private VoteContentService voteContentService;
+	@Resource
+	private VoterGroupService voterGroupService;
 
 	public static final String VIEW_VOTE = "/vote/startVote.html";
 
@@ -85,9 +95,22 @@ public class VoteController {
 	public static final String EDIT_VOTE_BY_HTML_URL = "/vote/editVoteByHTML/{voteId}";
 
 	@RequestMapping(value = { EDIT_VOTE_BY_HTML_URL }, method = { RequestMethod.GET, RequestMethod.POST })
-	public String editVote(@PathVariable("voteId") Long voteId) throws IException {
+	public String editVote(@PathVariable("voteId") Long voteId, ModelMap modelMap) throws IException {
 		// TODO 权限检查、进度检查、账号检查
-		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
+		boolean havePermission = permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
+		if (!havePermission) {
+			throw new PermissionException("你没有访问该资源的权限");
+		}
+
+		int progress = voteService.selectVote(voteId).getProgress();
+		if (VoteResource.EDITED == progress || VoteResource.CREATED == progress) {
+
+		} else {
+			throw new CannotDoException("你不能进行此操作");
+		}
+
+		modelMap.addAttribute("voteContent", voteContentService.loadVoteContent(voteId));
+		modelMap.addAttribute("voteId", voteId);
 
 		return VIEW_EDIT_VOTE;
 	}
@@ -104,46 +127,101 @@ public class VoteController {
 	}
 
 	@Resource
-	MongoTemplate mongoTemplate;
+	private MongoTemplate mongoTemplate;
 	@Resource
-	RequestParamsMapToArrayMap requestParamsMapToArrayMap;
+	private RequestParamsMapToArrayMap requestParamsMapToArrayMap;
 
-	public static final String FROM_VOTE_SUBMIT = "/vote/submitVote.html";
+	public static final String FROM_VOTE_SUBMIT = "/vote/submitVote.do";
 	public static final String FROM_VOTE_SUBMIT_SUCCESS = "/vote/voteSubmitSuccess.html";
 
+	// 提交
 	@RequestMapping(value = { FROM_VOTE_SUBMIT }, method = RequestMethod.POST)
-	public String submitVoteAction(HttpServletRequest request) {
-		// TODO
-		Map<String, String[]> paramaterMap = request.getParameterMap();
+	public String submitVoteAction(@ModelAttribute("content") VoteContent content, ModelMap modelMap) {
 
-		PrivateVoteData voteData = new PrivateVoteData();
-		Map<String, List<String>> arrayMap = requestParamsMapToArrayMap.convert(paramaterMap);
-
-		voteData.setData(arrayMap);
-
-		mongoTemplate.insert(voteData);
-
-		int questionCounter = paramaterMap.size();
-
-		DEV.info("questionCounter:{}", questionCounter);
-
-		for (Map.Entry<String, String[]> entry : paramaterMap.entrySet()) {
-			System.out.println(entry.getKey());
-			String[] values = entry.getValue();
-			for (int i = 0; i < values.length; i++) {
-				DEV.info(values[i]);
-			}
-		}
+		voteContentService.updateVoteContent(content);
+		modelMap.addAttribute("voteId", content.getId());
 
 		return FROM_VOTE_SUBMIT_SUCCESS;
 	}
 
 	protected static final String VOTE_SUMMARY_URL = "/vote/summary/{voteId}";
+	protected static final String VOTE_SUMMARY_VIEW = "/vote/voteSummary.html";
 
 	@RequestMapping(value = VOTE_SUMMARY_URL, method = RequestMethod.GET)
 	public String getVoteSummaty(ModelMap modelMap) {
 		// TODO Auto generated method stub
-		return null;
+		return VOTE_SUMMARY_VIEW;
+	}
+
+	protected static final String VOTE_ACTION_URL = "/vote/action/{voteId}";
+
+	// 根据vote的进度，进行不同的操作
+	@RequestMapping(value = VOTE_ACTION_URL, method = RequestMethod.GET)
+	public String voteAction(@PathVariable("voteId") long voteId) throws IException {
+
+		boolean havePermission = permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
+		if (!havePermission) {
+			throw new PermissionException("你们有访问该资源的权限");
+		}
+
+		int progress = voteService.selectVote(voteId).getProgress();
+
+		String targetUrl = null;
+		switch (progress) {
+		// 在创建后发布前都是编辑
+		case VoteResource.CREATED:
+		case VoteResource.EDITED:
+			targetUrl = EDIT_VOTE_BY_HTML_URL.replace("\\{voteId\\}", String.valueOf(voteId));
+			break;
+		// 处于发布状态
+		case VoteResource.PUBLISTED:
+			targetUrl = VOTE_SUMMARY_URL.replace("\\{voteId\\}", String.valueOf(voteId));
+			break;
+
+		// 应经结束的
+		case VoteResource.FINISHED:
+			// TODO
+			break;
+		}
+
+		DEV.debug(targetUrl);
+
+		// TODO Auto generated method stub
+		return SpringMVCUtils.redirect(targetUrl);
+	}
+
+	protected static final String PUBLISH_VOTE_URL = "/vote/publish/{voteId}";
+	protected static final String PUBLISH_VOTE_CONFIG = "vote/publishVote.html";
+
+	@RequestMapping(value = PUBLISH_VOTE_URL, method = RequestMethod.GET)
+	public String publishVote(@PathVariable("voteId") long voteId, ModelMap modelMap) throws IException {
+
+		boolean havePermission = permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
+
+		if (!havePermission) {
+			throw new PermissionException("权限错误");
+		}
+
+		String title = voteService.selectVote(voteId).getTitle();
+		modelMap.addAttribute("title", title);
+
+		List<VoterGroupVo> voterGroupVos = voterGroupService.getVoterGroups(ShiroUtils.getUserId());
+		modelMap.addAttribute("voterGroupVos", voterGroupVos);
+
+		// 结束时间
+		// TODO Auto generated method stub
+		return PUBLISH_VOTE_CONFIG;
+	}
+
+	protected static final String PUBLISH_VOTE_DO = "/vote/publish.do";
+
+	@RequestMapping(value = PUBLISH_VOTE_DO, method = RequestMethod.POST)
+	public String doPublish(ModelMap modelMap, @ModelAttribute("publishVo") VotePublishVo publishVo) {
+
+		voteService.updateVoteByPublish(publishVo);
+
+		// TODO update vote
+		return SpringMVCUtils.redirect(VOTE_SUMMARY_URL.replace("{voteId}", String.valueOf(publishVo.getVoteId())));
 	}
 
 }

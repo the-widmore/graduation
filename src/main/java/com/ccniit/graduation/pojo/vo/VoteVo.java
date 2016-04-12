@@ -12,6 +12,7 @@ public class VoteVo implements Serializable {
 	private Long id;
 	private String title;
 	private String progress;
+	private String action;
 	private List<String> tags;
 	private String inDate;
 
@@ -39,6 +40,14 @@ public class VoteVo implements Serializable {
 		this.progress = progress;
 	}
 
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String actions) {
+		this.action = actions;
+	}
+
 	public List<String> getTags() {
 		return tags;
 	}
@@ -53,6 +62,12 @@ public class VoteVo implements Serializable {
 
 	public void setInDate(String inDate) {
 		this.inDate = inDate;
+	}
+
+	@Override
+	public String toString() {
+		return "VoteVo [id=" + id + ", title=" + title + ", progress=" + progress + ", action=" + action + ", tags="
+				+ tags + ", inDate=" + inDate + "]";
 	}
 
 }

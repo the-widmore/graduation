@@ -131,23 +131,24 @@
 					<thead class="bg-info">
 						<tr>
 							<td>标题</td>
+							<td>操作</td>
 							<td>进度</td>
 							<td>标签</td>
-							<td>时间</td>
+							<td>创建时间</td>
 						</tr>
 					</thead>
 					<tbody>
 
 						<c:forEach items="${voteVos }" var="vote">
 							<tr>
+								<td>${vote.title }</td>
 								<td><a
-									href="${pageContext.request.contextPath}/vote/summary/${vote.id }">${vote.title }</a></td>
+									href="${pageContext.request.contextPath}/vote/action/${vote.id}">${vote.action }</a></td>
 								<td>${vote.progress }</td>
 								<td><c:forEach items="${vote.tags }" var="tag">
 										<a href="#"><span class="label label-default">${tag }</span></a>
 									</c:forEach></td>
 
-								<%-- <td>${vote.tags }</td> --%>
 								<td>${vote.inDate }</td>
 							</tr>
 						</c:forEach>

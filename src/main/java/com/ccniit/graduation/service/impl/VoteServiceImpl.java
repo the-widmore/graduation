@@ -16,8 +16,10 @@ import com.ccniit.graduation.dao.mysql.VoteDao;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.ServerException;
 import com.ccniit.graduation.pojo.db.Vote;
+import com.ccniit.graduation.pojo.db.Vote.AuthType;
 import com.ccniit.graduation.pojo.qo.PagedQuery;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
+import com.ccniit.graduation.pojo.qo.VotePublishVo;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.resource.VoteResource;
@@ -55,7 +57,7 @@ public class VoteServiceImpl implements VoteService {
 
 		// random and unique value
 		vote.setTableName(StringUtils._getUUID());
-		vote.setCategory(VoteResource.Category.vote.toString());
+		vote.setCategory(VoteResource.VoteCategory.vote.toString());
 
 		// other default value(inDate,progress,auth)
 
@@ -74,6 +76,12 @@ public class VoteServiceImpl implements VoteService {
 
 	@Cacheable(cacheNames = CacheNames.VOTE, key = "#voteId")
 	@Override
+	public Vote selectVote(long voteId) throws IException {
+		return voteDao.selectVoteById(voteId);
+	}
+
+	@Cacheable(cacheNames = CacheNames.VOTE_VO, key = "#voteId")
+	@Override
 	public VoteVo selectVoteVo(long voteId) {
 		Vote vote = voteDao.selectVoteById(voteId);
 
@@ -90,6 +98,15 @@ public class VoteServiceImpl implements VoteService {
 			voteVos.add(selectVoteVo(voteId));
 		}
 		return voteVos;
+	}
+
+	@Override
+	public Integer updateVoteByPublish(VotePublishVo publishVo) {
+		Long vote = publishVo.getVoteId();
+		voteDao.updateVotePredictDate(vote, publishVo.getEndDate());
+		voteDao.updateVoteProgress(vote, VoteResource.PUBLISTED);
+		voteDao.updateVoteAuthType(vote, AuthType.valueOf(publishVo.getAuthType()));
+		return null;
 	}
 
 }

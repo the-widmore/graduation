@@ -31,8 +31,8 @@ public class VoteDaoTest extends BaseTest {
 	@Rollback(true)
 	public void testInsertVote() {
 		String tableName = StringUtils.getUUID();
-		Vote vote = new Vote(tableName, VoteResource.Category.info.toString(), 1, "vote title",
-				DateUtils.getAfterDate(null, DateUtils.model_week, 2));
+		Vote vote = new Vote(tableName, VoteResource.VoteCategory.info.toString(), 1, "vote title",
+				DateUtils.getAfterDate(null, DateUtils.MODEL_WEEK, 2));
 		voteDao.insertVote(vote);
 		assertNotEquals(vote.getId(), new Long(0));
 	}
@@ -49,7 +49,7 @@ public class VoteDaoTest extends BaseTest {
 	@Transactional
 	@Rollback(true)
 	public void testUpdateVoteEndDate() {
-		Integer result = voteDao.updateVoteEndDate(4, DateUtils.getAfterDate(null, DateUtils.model_week, 1));
+		Integer result = voteDao.updateVoteEndDate(4, DateUtils.getAfterDate(null, DateUtils.MODEL_WEEK, 1));
 		assertEquals(1, result.intValue());
 	}
 
@@ -67,7 +67,7 @@ public class VoteDaoTest extends BaseTest {
 
 	@Test
 	public void testSelectAuthorVotes() {
-		VoteQueryByCategory query = new VoteQueryByCategory(1L, VoteResource.Category.info.toString());
+		VoteQueryByCategory query = new VoteQueryByCategory(1L, VoteResource.VoteCategory.info.toString());
 		List<Long> votes = voteDao.selectAuthorVotesId(query);
 		assertEquals(2, votes.size());
 	}

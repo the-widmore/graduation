@@ -15,20 +15,25 @@ import com.ccniit.graduation.util.DateUtils;
 public class VoteToVoteVo implements Converter<Vote, VoteVo> {
 
 	@Resource
-	VoteTagService voteTagService;
+	private VoteTagService voteTagService;
 
 	@Override
 	public VoteVo convert(Vote vote) {
 		VoteVo voteVo = new VoteVo();
 
-		//id
+		int progress = vote.getProgress();
+
+		// id
 		voteVo.setId(vote.getId());
 
 		// title
 		voteVo.setTitle(vote.getTitle());
 
 		// progress
-		voteVo.setProgress(VoteResource.getProgressMsg(vote.getProgress()));
+		voteVo.setProgress(VoteResource.getProgressMsg(progress));
+
+		// set action
+		voteVo.setAction(VoteResource.getAction(progress));
 
 		// tags
 		voteVo.setTags(voteTagService.selectTagsToArray(vote.getId()));

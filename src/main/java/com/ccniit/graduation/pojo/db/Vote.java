@@ -5,7 +5,8 @@ import java.util.Date;
 
 public class Vote implements Serializable {
 
-	public static enum Auth {
+	// 授权方式
+	public static enum AuthType {
 		PUBLIC, PROTECTED, PRIVATE
 	}
 
@@ -19,7 +20,7 @@ public class Vote implements Serializable {
 	private String category;
 	private long author;
 	private String title;
-	private int progress;
+	private Integer progress;
 	private String auth;// 授权方式
 	private Date inDate;
 	private Date predictDate;
@@ -93,11 +94,11 @@ public class Vote implements Serializable {
 		this.title = title;
 	}
 
-	public int getProgress() {
+	public Integer getProgress() {
 		return progress;
 	}
 
-	public void setProgress(int progress) {
+	public void setProgress(Integer progress) {
 		this.progress = progress;
 	}
 
@@ -139,6 +140,13 @@ public class Vote implements Serializable {
 
 	public void setCover(String cover) {
 		this.cover = cover;
+	}
+
+	@Override
+	public String toString() {
+		return "Vote [id=" + id + ", url=" + url + ", tableName=" + tableName + ", category=" + category + ", author="
+				+ author + ", title=" + title + ", progress=" + progress + ", auth=" + auth + ", inDate=" + inDate
+				+ ", predictDate=" + predictDate + ", endDate=" + endDate + ", cover=" + cover + "]";
 	}
 
 }

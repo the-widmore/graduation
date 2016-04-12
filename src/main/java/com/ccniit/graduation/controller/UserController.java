@@ -45,7 +45,7 @@ import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.Commons;
-import com.ccniit.graduation.resource.VoteResource.Category;
+import com.ccniit.graduation.resource.VoteResource.VoteCategory;
 import com.ccniit.graduation.service.AuthorCountService;
 import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.service.PermissionService;
@@ -140,7 +140,7 @@ public class UserController {
 	@RequestMapping(value = { VIEW_USER_MY_POLL }, method = RequestMethod.GET)
 	public ModelAndView myPoll(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
 			ModelMap modelMap) throws IException {
-		return getVoteVos(Category.poll, page);
+		return getVoteVos(VoteCategory.poll, page);
 	}
 
 	public static final String VIEW_USER_MY_INFO_GATHER = "/user/myInfoGather.html";
@@ -148,7 +148,7 @@ public class UserController {
 	@RequestMapping(value = { VIEW_USER_MY_INFO_GATHER }, method = RequestMethod.GET)
 	public ModelAndView myInfoGather(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
 			ModelMap modelMap) throws IException {
-		return getVoteVos(Category.info, page);
+		return getVoteVos(VoteCategory.info, page);
 	}
 
 	public static final String VIEW_USER_MY_VOTE = "/user/myVote.html";
@@ -156,10 +156,10 @@ public class UserController {
 	@RequestMapping(value = { VIEW_USER_MY_VOTE }, method = RequestMethod.GET)
 	public ModelAndView myVote(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
 			ModelMap modelMap) throws IException {
-		return getVoteVos(Category.vote, page);
+		return getVoteVos(VoteCategory.vote, page);
 	}
 
-	private ModelAndView getVoteVos(Category category, int page) throws IException {
+	private ModelAndView getVoteVos(VoteCategory category, int page) throws IException {
 		if (page < 0) {
 			throw new ParamsException("参数page不能小于0");
 		}

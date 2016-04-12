@@ -34,8 +34,8 @@ public class VoteServiceImplTest extends BaseTest {
 
 	@Test
 	public void testCreateVoteByVote() {
-		Vote vote = new Vote("tableName", VoteResource.Category.info.toString(), 1, "title",
-				DateUtils.getAfterDate(null, DateUtils.model_day, 20));
+		Vote vote = new Vote("tableName", VoteResource.VoteCategory.info.toString(), 1, "title",
+				DateUtils.getAfterDate(null, DateUtils.MODEL_DAY, 20));
 		long voteId = voteService.createVote(vote);
 		assertNotEquals(0, voteId);
 	}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -54,13 +55,93 @@
 	</nav>
 
 	<div class="container content">
-		<div class="page-hander">
-			<h3>预览的的投票</h3>
-		</div>
+		<form:form class="form-horizontal" role="form"
+			action="${pageContext.request.contextPath}/vote/publish.do"
+			method="POST">
+
+			<div class="form-group">
+				<label class="col-md-2 control-label"></label>
+
+				<div class="col-sm-4">
+					<input type="hidden" name="voteId" value="${voteId }">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label">标题</label>
+
+				<div class="col-sm-4">
+					<input type="text" class="form-control" name="title"
+						value="${title }" readonly>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label">结束时间</label>
+
+				<div class="col-sm-4">
+					<input type="datetime" name="endDate" class="form-control"
+						placeholder="yyyy-MM-dd hh:mm">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label">封面</label>
+
+				<div class="col-sm-4">
+					<input type="file" name="cover" class="form-control"
+						accept="image/jpeg,image/png">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-md-2 control-label">授权方式</label>
+
+				<div class="col-sm-4">
+					<select name="authType" class="form-control" id="auth">
+						<option value="PUBLIC">公开</option>
+						<option value="PROTECTED">保护</option>
+						<option value="PRIVATE">私有</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group" id="voteGroup">
+				<label class="col-md-2 control-label">联系人组</label>
+				<div class="col-sm-6">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>选择</th>
+								<th>组描述</th>
+								<th>人数</th>
+								<th>时间</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<c:forEach items="${voterGroupVos }" var="voterGroup">
+								<tr>
+									<td><input type="checkbox" name="voteGroup"></td>
+									<td>${voterGroup.description }</td>
+									<td>${voterGroup.quantity }</td>
+									<td>${voterGroup.inDate}</td>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-md-2"></div>
+				<input type="submit" value="发布" class="btn btn-primary">
+			</div>
+
+		</form:form>
 	</div>
 
-	<br>
-	<br>
 	<footer class="footer">
 	<div class="col-md-1"></div>
 	<div class="col-md-2">
@@ -86,12 +167,31 @@
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			CKEDITOR.replace('editor', {
-				customConfig : '../../resources/ckeditor/config-vote.js'
-			});
-		});
+
+	<script type="application/javascript">
+		
+		
+	$(document).ready(function(){
+        $("#voteGroup").hide();
+        $("#auth").change(function(){
+            var checked=$("#auth").val();
+            if("PRIVATE"==checked){
+                $("#voteGroup").show();
+            }else{
+                $("#voteGroup").hide();
+            }
+        });
+    });
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	</script>
 </body>
 </html>

@@ -77,10 +77,11 @@ public class VoteController {
 	public String createVote(@ModelAttribute("creater") VoteCreater creater, ModelMap modelMap) throws IException {
 
 		creater.setAuthor(ShiroUtils.getUserId());
+		voteService.createVote(creater);
 
 		// 编辑模式 选择
 
-		return UserController.VIEW_USER_MY_VOTE;
+		return SpringMVCUtils.redirect(UserController.VIEW_USER_MY_VOTE);
 	}
 
 	public static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";
@@ -221,7 +222,7 @@ public class VoteController {
 		voteService.updateVoteByPublish(publishVo);
 
 		// TODO update vote
-		return SpringMVCUtils.redirect(VOTE_SUMMARY_URL.replace("{voteId}", String.valueOf(publishVo.getVoteId())));
+		return SpringMVCUtils.redirect(VOTE_SUMMARY_URL.replace("\\{voteId\\}", String.valueOf(publishVo.getVoteId())));
 	}
 
 }

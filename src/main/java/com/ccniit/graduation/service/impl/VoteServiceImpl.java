@@ -17,12 +17,14 @@ import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.ServerException;
 import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.db.Vote.AuthType;
+import com.ccniit.graduation.pojo.db.VoteContent;
 import com.ccniit.graduation.pojo.qo.PagedQuery;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
 import com.ccniit.graduation.pojo.qo.VotePublishVo;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.resource.VoteResource;
+import com.ccniit.graduation.service.VoteContentService;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoteTagService;
 import com.ccniit.graduation.util.LoggerUtils;
@@ -34,16 +36,20 @@ public class VoteServiceImpl implements VoteService {
 	private static final Logger DEV = LoggerUtils.getDev();
 
 	@Resource
-	VoteDao voteDao;
+	private VoteDao voteDao;
 	@Resource
-	VoteTagService voteTagService;
+	private VoteTagService voteTagService;
 	@Resource
-	VoteToVoteVo voteToVoteVo;
+	private VoteToVoteVo voteToVoteVo;
+	@Resource
+	private VoteContentService voteContentService;
 
 	@Override
 	public Long createVote(Vote vote) {
 		voteDao.insertVote(vote);
-		return vote.getId();
+		Long voteId = vote.getId();
+		voteContentService.createVoteContent(new VoteContent(voteId));
+		return voteId;
 	}
 
 	@Transactional(propagation = Propagation.NESTED)

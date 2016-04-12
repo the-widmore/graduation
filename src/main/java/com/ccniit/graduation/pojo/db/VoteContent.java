@@ -17,6 +17,11 @@ public class VoteContent implements Serializable {
 	private Long id;
 	private String content;
 
+	public VoteContent(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public VoteContent() {
 		super();
 	}

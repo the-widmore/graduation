@@ -115,10 +115,14 @@
 	<script
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+		//customConfig : '../../resources/ckeditor/config-vote.js',
 		$(function() {
 			CKEDITOR.replace('editor', {
-				/* customConfig : '../../staticFile/ckeditor/config-advance.js' */
-				customConfig : '../../resources/ckeditor/config-vote.js'
+				allowedContent : 'input[*]',
+				customConfig : '../../resources/ckeditor/config-vote.js',
+			});
+			editor.on('instanceReady', function() {
+				console.log(editor.filter.allowedContent);
 			});
 		});
 	</script>

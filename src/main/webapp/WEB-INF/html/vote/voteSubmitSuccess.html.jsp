@@ -62,7 +62,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-default" role="button"
 				href="${pageContext.request.contextPath}/user/myLinkman.html">上传联系人</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			<a class="btn btn-default" role="button"
-				href="${pageContext.request.contextPath}/vote/editeditVoteByHTML/${voteId }">继续编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;
+				href="${pageContext.request.contextPath}/vote/editVoteByHTML/${voteId }">继续编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;
 
 		</p>
 	</div>

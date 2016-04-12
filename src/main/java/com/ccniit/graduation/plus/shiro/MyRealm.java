@@ -22,7 +22,7 @@ public class MyRealm extends AuthorizingRealm {
 	private static final Logger LOG_AUTH = LoggerUtils.getAuth();
 
 	@Resource
-	AuthorAuthService authorAuthService;
+	private AuthorAuthService authorAuthService;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {

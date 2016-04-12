@@ -56,7 +56,7 @@
 	<div class="container content">
 		<form:form class="form-horizontal" role="form"
 			action="${pageContext.request.contextPath}/vote/publish.do"
-			method="POST">
+			enctype="multipart/form-data" method="POST">
 
 			<div class="form-group">
 				<label class="col-md-2 control-label"></label>
@@ -170,6 +170,7 @@
 	<script type="application/javascript">
 		
 		
+		
 	$(document).ready(function(){
         $("#voteGroup").hide();
         $("#auth").change(function(){
@@ -182,6 +183,7 @@
         });
     });
 
+	
 	
 	
 	

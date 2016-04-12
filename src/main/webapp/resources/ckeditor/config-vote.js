@@ -3,7 +3,6 @@
  */
 
 CKEDITOR.editorConfig = function(config) {
-
 	config.height = 450;
 	config.toolbar = [ {
 		name : 'document',
@@ -21,4 +20,5 @@ CKEDITOR.editorConfig = function(config) {
 		name : 'forms',
 		items : [ 'Checkbox', 'Radio', 'Select' ]
 	} ];
+	config.allowedContent = true;
 };

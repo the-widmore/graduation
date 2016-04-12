@@ -30,7 +30,6 @@
 				<li><a href="../../index.html">首页</a></li>
 				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li><a href="../vote/startVote.html">投票</a></li>
-				<li><a href="../poll/startPoll.html">问卷</a></li>
 				<li><a href="../user/selfCenter.html">个人</a></li>
 				<li><a href="../demo/demo.html">演示</a></li>
 				<li><a href="../help/help.html">帮助</a></li>

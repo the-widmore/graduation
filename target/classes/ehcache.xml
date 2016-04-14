@@ -17,7 +17,11 @@
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
 
-	<cache name="VoteCache" eternal="false" maxElementsInMemory="10240"
+	<cache name="VoteCache" eternal="false" maxElementsInMemory="102400"
+		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
+		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
+
+	<cache name="VoteTagCache" eternal="false" maxElementsInMemory="10240"
 		overflowToDisk="false" diskPersistent="false" timeToIdleSeconds="0"
 		timeToLiveSeconds="3600" memoryStoreEvictionPolicy="LRU" />
 

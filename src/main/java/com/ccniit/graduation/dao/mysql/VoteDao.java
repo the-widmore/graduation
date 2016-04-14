@@ -51,13 +51,18 @@ public class VoteDao implements VoteMapper {
 	}
 
 	@Override
-	public Vote selectVoteByTableName(String tableName) {
+	public Long selectVoteByTableName(String tableName) {
 		return voteMapper.selectVoteByTableName(tableName);
 	}
 
 	@Override
 	public String selectVoteTableName(long vote) {
 		return voteMapper.selectVoteTableName(vote);
+	}
+
+	@Override
+	public Long selectVoteByUrl(String url) {
+		return voteMapper.selectVoteByUrl(url);
 	}
 
 	@Override

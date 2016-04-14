@@ -6,11 +6,13 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ccniit.graduation.dao.mysql.VoteTagDao;
+import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.service.TagService;
 import com.ccniit.graduation.service.VoteTagService;
 import com.ccniit.graduation.util.LoggerUtils;
@@ -51,6 +53,7 @@ public class VoteTagServiceImpl implements VoteTagService {
 		return voteTagDao.selectVoteTagsToString(vote);
 	}
 
+	@Cacheable(cacheNames = CacheNames.VOTE_TAG, key = "#vote")
 	@Override
 	public List<String> selectTagsToArray(long vote) {
 		return voteTagDao.selectVoteTagsToArray(vote);

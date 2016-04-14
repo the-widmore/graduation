@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import com.ccniit.graduation.exception.IException;
-import com.ccniit.graduation.pojo.common.AjaxResponseBody;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.Voter.VoterField;
 import com.ccniit.graduation.service.PermissionService;
@@ -52,10 +51,7 @@ public class VoterController {
 		final Voter.VoterField field = Voter.voterField(voterInfo[2]);
 
 		// 权限检查
-		boolean havePermission = permissionService.voterHavePermission(ShiroUtils.getUserId(), voterId);
-		if (!havePermission) {
-			return "You have not permission!";
-		}
+		permissionService.voterHavePermission(ShiroUtils.getUserId(), voterId);
 
 		boolean isValidated = false;
 		switch (field) {
@@ -84,8 +80,6 @@ public class VoterController {
 		return voterService.updateVoterField(field, voterId, value);
 	}
 
-	// AbstractDispatcherServletInitializer
-
 	@RequestMapping(value = "/loadVoterField", method = { RequestMethod.GET, RequestMethod.POST })
 	public String loadVoterEmail(@RequestParam("id") String id, @RequestParam("value") String value, WebRequest request)
 			throws IException {
@@ -96,13 +90,9 @@ public class VoterController {
 		VoterField voterField = Voter.voterField(voterInfo[2]);
 		long voterId = Long.parseLong(voterInfo[1]);
 
+		permissionService.voterHavePermission(ShiroUtils.getUserId(), voterId);
+
 		return voterService.getVoterField(voterField, voterId);
-	}
-
-	@RequestMapping(value = "saveVoteField", method = { RequestMethod.POST })
-	public AjaxResponseBody saveVoterField() {
-
-		return null;
 	}
 
 }

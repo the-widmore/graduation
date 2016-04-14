@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
 import com.ccniit.graduation.exception.CannotDoException;
 import com.ccniit.graduation.exception.IException;
-import com.ccniit.graduation.exception.PermissionException;
 import com.ccniit.graduation.pojo.db.VoteContent;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
 import com.ccniit.graduation.pojo.qo.VotePublishVo;
@@ -37,6 +37,7 @@ import com.ccniit.graduation.util.SpringMVCUtils;
 public class VoteController {
 
 	private static final Logger DEV = LoggerUtils.getDev();
+	private static final Logger BUS = LoggerUtils.getBus();
 
 	@Resource
 	private VoteService voteService;
@@ -98,10 +99,7 @@ public class VoteController {
 	@RequestMapping(value = { EDIT_VOTE_BY_HTML_URL }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String editVote(@PathVariable("voteId") Long voteId, ModelMap modelMap) throws IException {
 		// TODO 权限检查、进度检查、账号检查
-		boolean havePermission = permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
-		if (!havePermission) {
-			throw new PermissionException("你没有访问该资源的权限");
-		}
+		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
 
 		int progress = voteService.selectVote(voteId).getProgress();
 		if (VoteResource.EDITED == progress || VoteResource.CREATED == progress) {
@@ -160,10 +158,7 @@ public class VoteController {
 	@RequestMapping(value = VOTE_ACTION_URL, method = RequestMethod.GET)
 	public String voteAction(@PathVariable("voteId") long voteId) throws IException {
 
-		boolean havePermission = permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
-		if (!havePermission) {
-			throw new PermissionException("你们有访问该资源的权限");
-		}
+		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
 
 		int progress = voteService.selectVote(voteId).getProgress();
 
@@ -185,8 +180,6 @@ public class VoteController {
 			break;
 		}
 
-		DEV.debug(targetUrl);
-
 		// TODO Auto generated method stub
 		return SpringMVCUtils.redirect(targetUrl);
 	}
@@ -197,11 +190,7 @@ public class VoteController {
 	@RequestMapping(value = PUBLISH_VOTE_URL, method = RequestMethod.GET)
 	public String publishVote(@PathVariable("voteId") long voteId, ModelMap modelMap) throws IException {
 
-		boolean havePermission = permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
-
-		if (!havePermission) {
-			throw new PermissionException("权限错误");
-		}
+		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
 
 		String title = voteService.selectVote(voteId).getTitle();
 		modelMap.addAttribute("title", title);
@@ -216,6 +205,7 @@ public class VoteController {
 
 	protected static final String PUBLISH_VOTE_DO = "/vote/publish.do";
 
+	@RequiresAuthentication()
 	@RequestMapping(value = PUBLISH_VOTE_DO, method = RequestMethod.POST)
 	public String doPublish(ModelMap modelMap, @ModelAttribute("publishVo") VotePublishVo publishVo) {
 

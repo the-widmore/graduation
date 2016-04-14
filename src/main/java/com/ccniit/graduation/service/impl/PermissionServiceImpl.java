@@ -1,5 +1,7 @@
 package com.ccniit.graduation.service.impl;
 
+import java.text.MessageFormat;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -7,6 +9,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.dao.mysql.ResourceDao;
+import com.ccniit.graduation.exception.IException;
+import com.ccniit.graduation.exception.PermissionException;
 import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.service.PermissionService;
 import com.ccniit.graduation.util.LoggerUtils;
@@ -38,9 +42,11 @@ public class PermissionServiceImpl implements PermissionService {
 		return chechPermission(author, voterGroup, owner);
 	}
 
+	private static final String NO_PERMISSION_MESSAGE_TEMPLATE = "用户id为{0}，没有访问资源类型是{1}的id为{2}资源!";
+
 	@Cacheable(cacheNames = CacheNames.AUTHOR_VOTE_COUNT, keyGenerator = "permissionCacheKeyGenerator")
 	@Override
-	public boolean havePermission(ResourceType type, long author, long resource) {
+	public boolean havePermission(ResourceType type, long author, long resource) throws IException {
 		boolean havePermission = false;
 		switch (type) {
 		case vote:
@@ -55,6 +61,12 @@ public class PermissionServiceImpl implements PermissionService {
 		default:
 			break;
 		}
+		if (!havePermission) {
+			String noPermissionMessage = MessageFormat.format(NO_PERMISSION_MESSAGE_TEMPLATE, author, type.toString(),
+					resource);
+			AUTH.warn(noPermissionMessage);
+			throw new PermissionException(noPermissionMessage);
+		}
 		return havePermission;
 	}
 
@@ -68,7 +80,6 @@ public class PermissionServiceImpl implements PermissionService {
 	 */
 	private boolean chechPermission(Long author, Long resource, Long owner) {
 		if (null == resource || null == owner) {
-			AUTH.warn("要查找的资源");
 			return false;
 		}
 

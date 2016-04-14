@@ -61,7 +61,7 @@ public class VoteServiceImplTest extends BaseTest {
 	}
 
 	@Test
-	public void testSelectVoteVos() {
+	public void testSelectVoteVos() throws IException {
 		VoteQueryByCategory query = new VoteQueryByCategory(1L, "info");
 		query.setPageSize(Commons.VOTE_PAGE_SIZE);
 		query.setOffset(Commons.VOTE_PAGE_SIZE * 0);

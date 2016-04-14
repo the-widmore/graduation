@@ -52,7 +52,7 @@ public class ShiroUtils {
 		return session.getAttribute(sessionKey);
 	}
 
-	public static long getUserId() throws IException {
+	public static Long getUserId() throws IException {
 		Object object = getSessionValue(Commons.SESSION_KEY_AUTHOR_ID);
 
 		if (null == object) {

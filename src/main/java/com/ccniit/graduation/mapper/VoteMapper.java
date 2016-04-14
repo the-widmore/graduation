@@ -61,8 +61,9 @@ public interface VoteMapper {
 	 * 设置Vote 的授权方式
 	 * 
 	 * @param authType
-	 * 			@see com.ccniit.graduation.pojo.db.Vote.AuthType
-	 * @param  vote Vote.id
+	 * @see com.ccniit.graduation.pojo.db.Vote.AuthType
+	 * @param vote
+	 *            Vote.id
 	 */
 	@Update("UPDATE vote SET auth=#{authType} WHERE id=#{vote}")
 	Integer updateVoteAuthType(@Param("vote") long vote, @Param("authType") Vote.AuthType authType);
@@ -86,13 +87,23 @@ public interface VoteMapper {
 	Vote selectVoteById(long vote);
 
 	/**
-	 * 按照tableName查询Vote
+	 * 按照tableName查询Vote.id
 	 * 
 	 * @param Vote.tableName
-	 * @return Vote
+	 * @return Vote.id
 	 */
-	@Select("SELECT id,tableName,category,author,title,progress,inDate,predictDate,endDate FROM vote WHERE tableName=#{tableName}")
-	Vote selectVoteByTableName(String tableName);
+	@Select("SELECT id FROM vote WHERE tableName=#{tableName}")
+	Long selectVoteByTableName(String tableName);
+
+	/**
+	 * 按照url查询Vote.id
+	 * 
+	 * @param url
+	 *            sortURL
+	 * @return Vote.ur
+	 */
+	@Select("SELECT id FROM vote WHERE url=#{url}")
+	Long selectVoteByUrl(String url);
 
 	/**
 	 * 按照author和Vote.category查询多个Vote的id。采用倒叙

@@ -1,5 +1,7 @@
 package com.ccniit.graduation.service;
 
+import com.ccniit.graduation.exception.IException;
+
 /**
  * 提供权限的检查接口（vote,voter,voterGroup）
  */
@@ -15,6 +17,6 @@ public interface PermissionService {
 
 	boolean voterGroupHavePermission(long author, long voterGroup);
 
-	boolean havePermission(ResourceType type, long author, long resource);
+	boolean havePermission(ResourceType type, long author, long resource) throws IException;
 
 }

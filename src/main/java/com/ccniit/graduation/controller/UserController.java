@@ -83,7 +83,7 @@ public class UserController {
 	@RequestMapping(value = { VIEW_USER_SELF_CENTER, VIEW_USER })
 	public String selfCenter(ModelMap modelMap) throws IException {
 		if (null == ShiroUtils.getSessionValue("authorContentCounter")) {
-			AuthorContentCounter authorContentCounter = authorCountService.getAuthorCounters(getAuthorId());
+			AuthorContentCounter authorContentCounter = authorCountService.getAuthorCounters(ShiroUtils.getUserId());
 			ShiroUtils.addAttribute("authorContentCounter", authorContentCounter);
 		}
 		return VIEW_USER_SELF_CENTER;
@@ -130,8 +130,8 @@ public class UserController {
 	public static final String VIEW_USER_MY_LINKMAN = "/user/myLinkman.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_LINKMAN }, method = RequestMethod.GET)
-	public String myLinkman(ModelMap modelMap) {
-		modelMap.addAttribute("voterGroups", voterGroupService.getVoterGroups(getAuthorId()));
+	public String myLinkman(ModelMap modelMap) throws IException {
+		modelMap.addAttribute("voterGroups", voterGroupService.getVoterGroups(ShiroUtils.getUserId()));
 		return VIEW_USER_MY_LINKMAN;
 	}
 
@@ -180,7 +180,7 @@ public class UserController {
 			break;
 		}
 
-		VoteQueryByCategory qurey = new VoteQueryByCategory(getAuthorId(), category.toString());
+		VoteQueryByCategory qurey = new VoteQueryByCategory(ShiroUtils.getUserId(), category.toString());
 		qurey.setPageSize(Commons.VOTE_PAGE_SIZE);
 		qurey.setOffset(Commons.VOTE_PAGE_SIZE * (page - 1));
 
@@ -236,9 +236,7 @@ public class UserController {
 			throw new ServerException("");
 		}
 
-		long id = getAuthorId();
-
-		Author author = authorService.findAuthorById(id);
+		Author author = authorService.findAuthorById(ShiroUtils.getUserId());
 		baseUpdater = authorToAuthorBaseUpdater.convert(author);
 
 		// TODO set userDetailInfo value
@@ -272,7 +270,7 @@ public class UserController {
 			@RequestParam(required = true, value = "page", defaultValue = "1") int page, Model model)
 					throws IException {
 		// 权限验证
-		long author = getAuthorId();
+		long author = ShiroUtils.getUserId();
 		boolean havePermisssion = permissionService.voterGroupHavePermission(author, voterGroup);
 
 		if (!havePermisssion) {
@@ -400,7 +398,7 @@ public class UserController {
 	@RequestMapping(value = { FORM_UPDATE_USER_BASE_INFO }, method = RequestMethod.POST)
 	public String updateUserBaseInfoAction(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater, Model model)
 			throws IException {
-		baseUpdater.setId(getAuthorId());
+		baseUpdater.setId(ShiroUtils.getUserId());
 		int result = authorService.updateAuthorBase(baseUpdater);
 
 		DEV.debug("更新结果：{}", result);
@@ -429,16 +427,6 @@ public class UserController {
 		// TODO
 
 		return VIEW_USER_PROFILE;
-	}
-
-	private Long getAuthorId() {
-		long authorId = -1L;
-		try {
-			authorId = ShiroUtils.getUserId();
-		} catch (IException e) {
-			DEV.error("获取Author.id错误", e);
-		}
-		return authorId;
 	}
 
 }

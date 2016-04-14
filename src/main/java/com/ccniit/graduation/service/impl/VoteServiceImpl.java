@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -27,13 +26,10 @@ import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.VoteContentService;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoteTagService;
-import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.StringUtils;
 
 @Service("voteService")
 public class VoteServiceImpl implements VoteService {
-
-	private static final Logger DEV = LoggerUtils.getDev();
 
 	@Resource
 	private VoteDao voteDao;
@@ -88,20 +84,19 @@ public class VoteServiceImpl implements VoteService {
 
 	@Cacheable(cacheNames = CacheNames.VOTE_VO, key = "#voteId")
 	@Override
-	public VoteVo selectVoteVo(long voteId) {
-		Vote vote = voteDao.selectVoteById(voteId);
-
-		DEV.debug("{}:{}", voteId, vote);
-
-		return voteToVoteVo.convert(vote);
+	public VoteVo selectVoteVo(long voteId) throws IException {
+		Vote vote = selectVote(voteId);
+		VoteVo voteVo = voteToVoteVo.convert(vote);
+		return voteVo;
 	}
 
 	@Override
-	public List<VoteVo> selectVoteVos(PagedQuery query) {
+	public List<VoteVo> selectVoteVos(PagedQuery query) throws IException {
 		List<Long> voteIds = voteDao.selectAuthorVotesId(query);
 		List<VoteVo> voteVos = new ArrayList<>(voteIds.size());
 		for (Long voteId : voteIds) {
-			voteVos.add(selectVoteVo(voteId));
+			VoteVo vo = selectVoteVo(voteId);
+			voteVos.add(vo);
 		}
 		return voteVos;
 	}
@@ -111,8 +106,7 @@ public class VoteServiceImpl implements VoteService {
 		Long vote = publishVo.getVoteId();
 		voteDao.updateVotePredictDate(vote, publishVo.getEndDate());
 		voteDao.updateVoteProgress(vote, VoteResource.PUBLISTED);
-		voteDao.updateVoteAuthType(vote, AuthType.valueOf(publishVo.getAuthType()));
-		return null;
+		return voteDao.updateVoteAuthType(vote, AuthType.valueOf(publishVo.getAuthType()));
 	}
 
 }

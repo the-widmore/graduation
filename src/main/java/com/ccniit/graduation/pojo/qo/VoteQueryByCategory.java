@@ -9,7 +9,7 @@ public class VoteQueryByCategory extends PagedQuery {
 	 * 
 	 */
 	private static final long serialVersionUID = -6795647002666502748L;
-	private long author;
+	private Long author;
 	private String category;
 
 	public VoteQueryByCategory() {
@@ -26,11 +26,11 @@ public class VoteQueryByCategory extends PagedQuery {
 		this.category = category;
 	}
 
-	public long getAuthor() {
+	public Long getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(long author) {
+	public void setAuthor(Long author) {
 		this.author = author;
 	}
 

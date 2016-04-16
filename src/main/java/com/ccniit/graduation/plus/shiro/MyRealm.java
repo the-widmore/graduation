@@ -11,12 +11,14 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.vo.EmailToken;
 import com.ccniit.graduation.service.AuthorAuthService;
 import com.ccniit.graduation.util.LoggerUtils;
 
+@Component("myRealm")
 public class MyRealm extends AuthorizingRealm {
 
 	private static final Logger LOG_AUTH = LoggerUtils.getAuth();

@@ -69,15 +69,6 @@ public interface VoteMapper {
 	Integer updateVoteAuthType(@Param("vote") long vote, @Param("authType") Vote.AuthType authType);
 
 	/**
-	 * 查询Vote的tableName
-	 * 
-	 * @param vote(Long)
-	 * @return Vote.tableName
-	 */
-	@Select("SELECT tableName FROM vote WHERE id=#{vote}")
-	String selectVoteTableName(long vote);
-
-	/**
 	 * 按照id查询Vote
 	 * 
 	 * @param Vote.id
@@ -85,6 +76,15 @@ public interface VoteMapper {
 	 */
 	@Select("SELECT id,url,tableName,category,title,progress,auth,inDate,predictDate,endDate,cover FROM vote WHERE id=#{vote}")
 	Vote selectVoteById(long vote);
+
+	/**
+	 * 查询Vote的tableName
+	 * 
+	 * @param vote(Long)
+	 * @return Vote.tableName
+	 */
+	@Select("SELECT tableName FROM vote WHERE id=#{vote}")
+	String selectVoteTableName(long vote);
 
 	/**
 	 * 按照tableName查询Vote.id

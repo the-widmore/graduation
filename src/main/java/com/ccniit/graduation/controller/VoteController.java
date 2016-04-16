@@ -16,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ccniit.graduation.builder.VoteSummaryVoBuilder;
 import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
 import com.ccniit.graduation.exception.CannotDoException;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.VoteContent;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
 import com.ccniit.graduation.pojo.qo.VotePublishVo;
+import com.ccniit.graduation.pojo.vo.VoteSummaryVo;
 import com.ccniit.graduation.pojo.vo.VoterGroupVo;
 import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.PermissionService;
@@ -32,6 +34,7 @@ import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.ShiroUtils;
 import com.ccniit.graduation.util.SpringMVCUtils;
+import com.ccniit.graduation.util.SystemUtils;
 
 @Controller
 public class VoteController {
@@ -47,6 +50,8 @@ public class VoteController {
 	private VoteContentService voteContentService;
 	@Resource
 	private VoterGroupService voterGroupService;
+	@Resource
+	private VoteSummaryVoBuilder voteSummaryVoBuilder;
 
 	public static final String VIEW_VOTE = "/vote/startVote.html";
 
@@ -147,8 +152,12 @@ public class VoteController {
 	protected static final String VOTE_SUMMARY_VIEW = "/vote/voteSummary.html";
 
 	@RequestMapping(value = VOTE_SUMMARY_URL, method = RequestMethod.GET)
-	public String getVoteSummaty(ModelMap modelMap) {
+	public String getVoteSummaty(@PathVariable("voteId") Long voteId, ModelMap modelMap) {
 		// TODO Auto generated method stub
+
+		VoteSummaryVo voteSummaryVo = voteSummaryVoBuilder.build(voteId);
+		modelMap.addAttribute("voteSummaryVo", voteSummaryVo);
+
 		return VOTE_SUMMARY_VIEW;
 	}
 
@@ -167,11 +176,11 @@ public class VoteController {
 		// 在创建后发布前都是编辑
 		case VoteResource.CREATED:
 		case VoteResource.EDITED:
-			targetUrl = EDIT_VOTE_BY_HTML_URL.replace("\\{voteId\\}", String.valueOf(voteId));
+			targetUrl = SystemUtils.replaceVoteId(EDIT_VOTE_BY_HTML_URL, voteId);
 			break;
 		// 处于发布状态
 		case VoteResource.PUBLISTED:
-			targetUrl = VOTE_SUMMARY_URL.replace("\\{voteId\\}", String.valueOf(voteId));
+			targetUrl = SystemUtils.replaceVoteId(VOTE_SUMMARY_URL, voteId);
 			break;
 
 		// 应经结束的
@@ -189,13 +198,13 @@ public class VoteController {
 
 	@RequestMapping(value = PUBLISH_VOTE_URL, method = RequestMethod.GET)
 	public String publishVote(@PathVariable("voteId") long voteId, ModelMap modelMap) throws IException {
-
-		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
+		Long userId = ShiroUtils.getUserId();
+		permissionService.havePermission(ResourceType.vote, userId, voteId);
 
 		String title = voteService.selectVote(voteId).getTitle();
 		modelMap.addAttribute("title", title);
 
-		List<VoterGroupVo> voterGroupVos = voterGroupService.getVoterGroups(ShiroUtils.getUserId());
+		List<VoterGroupVo> voterGroupVos = voterGroupService.getVoterGroups(userId);
 		modelMap.addAttribute("voterGroupVos", voterGroupVos);
 
 		// 结束时间
@@ -207,12 +216,16 @@ public class VoteController {
 
 	@RequiresAuthentication()
 	@RequestMapping(value = PUBLISH_VOTE_DO, method = RequestMethod.POST)
-	public String doPublish(ModelMap modelMap, @ModelAttribute("publishVo") VotePublishVo publishVo) {
+	public String doPublish(@ModelAttribute() VotePublishVo publishVo, ModelMap modelMap) throws IException {
 
-		voteService.updateVoteByPublish(publishVo);
+		DEV.debug(publishVo.toString());
+
+		voteService.updateVoteByPublish(publishVo, ShiroUtils.getUserId());
 
 		// TODO update vote
-		return SpringMVCUtils.redirect(VOTE_SUMMARY_URL.replace("\\{voteId\\}", String.valueOf(publishVo.getVoteId())));
+		Long voteId = publishVo.getVoteId();
+		modelMap.addAttribute("voteId", voteId);
+		return SpringMVCUtils.redirect(SystemUtils.replaceVoteId(VOTE_SUMMARY_URL, voteId));
 	}
 
 }

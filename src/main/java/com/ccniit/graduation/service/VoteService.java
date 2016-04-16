@@ -14,6 +14,10 @@ import com.ccniit.graduation.pojo.vo.VoteVo;
  */
 public interface VoteService {
 
+	public static enum VoteSelectCondition {
+		tableName, url
+	}
+
 	/**
 	 * 创建一个新的投票
 	 * 
@@ -36,6 +40,16 @@ public interface VoteService {
 	Vote selectVote(long vote) throws IException;
 
 	/**
+	 * Vote查询使用Mongodb集合名/url
+	 * 
+	 * @param condition
+	 * @see com.ccniit.graduation.service.VoteService.VoteSelectCondition;
+	 * @param param
+	 *            tableName/url
+	 */
+	Vote selectVote(VoteSelectCondition condition, String param) throws IException;
+
+	/**
 	 * 查询一个VoteVo,使用缓存
 	 * 
 	 * @param Vote.id
@@ -54,6 +68,6 @@ public interface VoteService {
 	 */
 	List<VoteVo> selectVoteVos(PagedQuery query) throws IException;
 
-	Integer updateVoteByPublish(VotePublishVo publishVo);
+	Integer updateVoteByPublish(VotePublishVo publishVo, Long author) throws IException;
 
 }

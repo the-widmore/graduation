@@ -2,7 +2,7 @@ package com.ccniit.graduation.pojo.qo;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 public class VotePublishVo implements Serializable {
 
@@ -10,18 +10,19 @@ public class VotePublishVo implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 8671484106740580604L;
-	private long voteId;
+	private Long voteId;
 	private String title;
-	// private String endDate;
-	private Date endDate;
-	private String authType;
+	private String endDate;
 	private File cover;
+	private String authType;
+
+	private List<Long> voteGroup;
 
 	public VotePublishVo() {
 		super();
 	}
 
-	public VotePublishVo(long voteId, String title, Date endDate, String authType, File cover) {
+	public VotePublishVo(long voteId, String title, String endDate, String authType, File cover) {
 		super();
 		this.voteId = voteId;
 		this.endDate = endDate;
@@ -29,11 +30,11 @@ public class VotePublishVo implements Serializable {
 		this.cover = cover;
 	}
 
-	public long getVoteId() {
+	public Long getVoteId() {
 		return voteId;
 	}
 
-	public void setVoteId(long voteId) {
+	public void setVoteId(Long voteId) {
 		this.voteId = voteId;
 	}
 
@@ -45,11 +46,11 @@ public class VotePublishVo implements Serializable {
 		this.title = title;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 
@@ -67,6 +68,14 @@ public class VotePublishVo implements Serializable {
 
 	public void setCover(File cover) {
 		this.cover = cover;
+	}
+
+	public List<Long> getVoteGroup() {
+		return voteGroup;
+	}
+
+	public void setVoteGroup(List<Long> voteGroup) {
+		this.voteGroup = voteGroup;
 	}
 
 	@Override

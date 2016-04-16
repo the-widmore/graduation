@@ -17,7 +17,7 @@ import com.ccniit.graduation.pojo.vo.VoteSearchResult;
 public class VoteDao implements VoteMapper {
 
 	@Resource
-	VoteMapper voteMapper;
+	private VoteMapper voteMapper;
 
 	@Override
 	public Long insertVote(Vote vote) {

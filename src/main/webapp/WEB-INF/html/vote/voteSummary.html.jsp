@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,6 +25,7 @@
 	background-color: #52d689;
 	border-radius: 20px;
 	text-align: center;
+	height: 30px;
 }
 </style>
 </head>
@@ -44,20 +46,26 @@
 			<ul class="nav navbar-nav">
 				<li><a href="../../index.html">首页</a></li>
 				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
-				<li class="active"><a href="../vote/startVote.html">投票</a></li>
-				<li><a href="../user/selfCenter.html">个人</a></li>
-				<li><a href="../demo/demo.html">演示</a></li>
-				<li><a href="../help/help.html">帮助</a></li>
-				<li><a href="../about/about.html">关于</a></li>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="../more/activity.html">活动</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
 						<li class="divider"></li>
 						<li class="dropdown-header">隐私政策</li>
-						<li><a href="../more/userData.html">用户数据</a></li>
-						<li><a href="../more/platformPolicy.html">平台政策</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -134,7 +142,14 @@
 				<div class="bg-info">
 					<p style="text-align: center">授权方式</p>
 
-					<div class="voteInfo">2384-34-34 34:45</div>
+					<div class="voteInfo">
+						<p>${authType }</p>
+						<c:choose>
+							<c:when test="${authType=='PROTECTED' }">
+								<p>${auth }</p>
+							</c:when>
+						</c:choose>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-2"></div>

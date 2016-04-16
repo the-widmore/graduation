@@ -56,7 +56,7 @@
 	<div class="container content">
 		<form:form class="form-horizontal" role="form"
 			action="${pageContext.request.contextPath}/vote/publish.do"
-			enctype="multipart/form-data" method="POST">
+			method="POST">
 
 			<div class="form-group">
 				<label class="col-md-2 control-label"></label>
@@ -79,19 +79,19 @@
 				<label class="col-md-2 control-label">结束时间</label>
 
 				<div class="col-sm-4">
-					<input type="datetime" name="endDate" class="form-control"
+					<input type="text" name="endDate" class="form-control"
 						placeholder="yyyy-MM-dd hh:mm">
 				</div>
 			</div>
 
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<label class="col-md-2 control-label">封面</label>
 
 				<div class="col-sm-4">
 					<input type="file" name="cover" class="form-control"
 						accept="image/jpeg,image/png">
 				</div>
-			</div>
+			</div> -->
 
 			<div class="form-group">
 				<label class="col-md-2 control-label">授权方式</label>
@@ -121,7 +121,8 @@
 						<tbody>
 							<c:forEach items="${voterGroupVos }" var="voterGroup">
 								<tr>
-									<td><input type="checkbox" name="voteGroup"></td>
+									<td><input type="checkbox" name="voteGroup"
+										value="${ voterGroup.id}"></td>
 									<td>${voterGroup.description }</td>
 									<td>${voterGroup.quantity }</td>
 									<td>${voterGroup.inDate}</td>
@@ -171,6 +172,7 @@
 		
 		
 		
+		
 	$(document).ready(function(){
         $("#voteGroup").hide();
         $("#auth").change(function(){
@@ -183,6 +185,7 @@
         });
     });
 
+	
 	
 	
 	

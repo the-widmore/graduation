@@ -14,6 +14,7 @@ import com.ccniit.graduation.convertor.VoteToVoteVo;
 import com.ccniit.graduation.dao.mysql.VoteDao;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.ServerException;
+import com.ccniit.graduation.exception.VoteNotExistException;
 import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.db.Vote.AuthType;
 import com.ccniit.graduation.pojo.db.VoteContent;
@@ -23,9 +24,13 @@ import com.ccniit.graduation.pojo.qo.VotePublishVo;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.resource.VoteResource;
+import com.ccniit.graduation.service.PermissionService;
+import com.ccniit.graduation.service.PermissionService.ResourceType;
 import com.ccniit.graduation.service.VoteContentService;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoteTagService;
+import com.ccniit.graduation.service.VoteVoterGroupService;
+import com.ccniit.graduation.util.DateUtils;
 import com.ccniit.graduation.util.StringUtils;
 
 @Service("voteService")
@@ -39,6 +44,10 @@ public class VoteServiceImpl implements VoteService {
 	private VoteToVoteVo voteToVoteVo;
 	@Resource
 	private VoteContentService voteContentService;
+	@Resource
+	private PermissionService permissionService;
+	@Resource
+	private VoteVoterGroupService voterGroupService;
 
 	@Override
 	public Long createVote(Vote vote) {
@@ -79,7 +88,31 @@ public class VoteServiceImpl implements VoteService {
 	@Cacheable(cacheNames = CacheNames.VOTE, key = "#voteId")
 	@Override
 	public Vote selectVote(long voteId) throws IException {
-		return voteDao.selectVoteById(voteId);
+		Vote vote = voteDao.selectVoteById(voteId);
+		if (null == vote) {
+			throw new VoteNotExistException(String.format("没有找到id为{0}的Vote", voteId));
+		}
+		return vote;
+	}
+
+	@Override
+	public Vote selectVote(VoteSelectCondition condition, String param) throws IException {
+		Long voteId = 0L;
+		switch (condition) {
+		case tableName:
+			voteId = voteDao.selectVoteByTableName(param);
+			break;
+		case url:
+			voteId = voteDao.selectVoteByUrl(param);
+			break;
+		default:
+			break;
+		}
+		if (null == voteId) {
+			throw new VoteNotExistException("无法找到该vote");
+		}
+
+		return selectVote(voteId);
 	}
 
 	@Cacheable(cacheNames = CacheNames.VOTE_VO, key = "#voteId")
@@ -102,11 +135,24 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@Override
-	public Integer updateVoteByPublish(VotePublishVo publishVo) {
+	public Integer updateVoteByPublish(VotePublishVo publishVo, Long author) throws IException {
+		String authType = publishVo.getAuthType();
 		Long vote = publishVo.getVoteId();
-		voteDao.updateVotePredictDate(vote, publishVo.getEndDate());
+		voteDao.updateVotePredictDate(vote, DateUtils.parseDate(publishVo.getEndDate()));
 		voteDao.updateVoteProgress(vote, VoteResource.PUBLISTED);
-		return voteDao.updateVoteAuthType(vote, AuthType.valueOf(publishVo.getAuthType()));
+		voteDao.updateVoteAuthType(vote, AuthType.valueOf(authType));
+
+		//
+		if (Vote.AuthType.PRIVATE.toString().equals(authType)) {
+			List<Long> voteGroups = publishVo.getVoteGroup();
+			for (Long voteGroup : voteGroups) {
+				permissionService.havePermission(ResourceType.voterGroup, author, voteGroup);
+			}
+
+			voterGroupService.insertVoterGroups(vote, voteGroups.toArray(new Long[] {}));
+		}
+
+		return new Integer(1);
 	}
 
 }

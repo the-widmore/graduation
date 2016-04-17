@@ -1,5 +1,6 @@
 package com.ccniit.graduation.service;
 
+import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.VoteContent;
 
 /**
@@ -27,7 +28,9 @@ public interface VoteContentService {
 
 	/**
 	 * 更新问题定义
+	 * 
+	 * @throws IException
 	 */
-	Integer updateVoteContent(VoteContent content);
+	void updateVoteContent(VoteContent content) throws IException;
 
 }

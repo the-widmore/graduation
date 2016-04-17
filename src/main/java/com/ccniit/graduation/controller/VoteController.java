@@ -131,22 +131,24 @@ public class VoteController {
 	}
 
 	protected static final String FROM_VOTE_SUBMIT = "/vote/submitVote.do";
-	protected static final String FROM_VOTE_SUBMIT_SUCCESS = "/vote/voteSubmitSuccess.html";
-	protected static final String FROM_VOTE_SUBMIT_FAILED = "/vote/voteSubmitFailed.html";
+	protected static final String VOTE_SUBMIT_SUCCESS = "/vote/voteSubmitSuccess.html";
+	protected static final String VOTE_SUBMIT_FAILED = "/vote/voteSubmitFailed.html";
 
 	// 提交
 	@RequestMapping(value = { FROM_VOTE_SUBMIT }, method = RequestMethod.POST)
-	public String submitVoteAction(@ModelAttribute("content") VoteContent content, ModelMap modelMap) {
+	public String submitVoteAction(@ModelAttribute() VoteContent content, ModelMap modelMap) throws IException {
 
-		Integer updated = voteContentService.updateVoteContent(content);
+		voteContentService.updateVoteContent(content);
 
-		if (1 == updated) {
-			modelMap.addAttribute("voteId", content.getId());
-			return SpringMVCUtils.redirect(FROM_VOTE_SUBMIT_SUCCESS);
-		} else {
-			return SpringMVCUtils.redirect(FROM_VOTE_SUBMIT_FAILED);
-		}
+		modelMap.addAttribute("voteId", content.getId());
+		return SpringMVCUtils.redirect(VOTE_SUBMIT_SUCCESS);
 
+	}
+
+	@RequestMapping(value = VOTE_SUBMIT_SUCCESS, method = RequestMethod.GET)
+	public String submitVoteSuccess(ModelMap modelMap, @RequestParam("voteId") Long voteId) {
+		modelMap.addAttribute("voteId", voteId);
+		return VOTE_SUBMIT_SUCCESS;
 	}
 
 	protected static final String VOTE_ACTION_URL = "/vote/action/{voteId}";

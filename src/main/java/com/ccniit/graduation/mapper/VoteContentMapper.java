@@ -20,6 +20,6 @@ public interface VoteContentMapper {
 	String selectVoteContent(long vote);
 
 	@Select("UPDATE vote_content SET content=#{content} WHERE id=#{id}")
-	Integer updateVoteContent(VoteContent newContent);
+	void updateVoteContent(VoteContent newContent);
 
 }

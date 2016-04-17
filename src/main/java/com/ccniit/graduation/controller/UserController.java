@@ -63,22 +63,22 @@ public class UserController {
 	private static final Logger DEV = LoggerUtils.getDev();
 
 	@Resource
-	AuthorService authorService;
+	private AuthorService authorService;
 	@Resource
-	AuthorCountService authorCountService;
+	private AuthorCountService authorCountService;
 	@Resource
-	VoterService voterService;
+	private VoterService voterService;
 	@Resource
-	VoteService voteService;
+	private VoteService voteService;
 	@Resource
-	VoterGroupService voterGroupService;
+	private VoterGroupService voterGroupService;
 	@Resource
-	PermissionService permissionService;
+	private PermissionService permissionService;
 	@Resource
-	AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
+	private AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
 
-	public static final String VIEW_USER = "/user";
-	public static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
+	protected static final String VIEW_USER = "/user";
+	protected static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
 
 	@RequestMapping(value = { VIEW_USER_SELF_CENTER, VIEW_USER })
 	public String selfCenter(ModelMap modelMap) throws IException {
@@ -89,7 +89,7 @@ public class UserController {
 		return VIEW_USER_SELF_CENTER;
 	}
 
-	public static final String VIEW_USER_CREATE_LINKMAN_BUILD = "/user/createLinkmanBuild.html";
+	protected static final String VIEW_USER_CREATE_LINKMAN_BUILD = "/user/createLinkmanBuild.html";
 
 	@RequestMapping(value = { VIEW_USER_CREATE_LINKMAN_BUILD }, method = RequestMethod.GET)
 	public String createLinkmanBuild(ModelMap modelMap) {
@@ -119,7 +119,7 @@ public class UserController {
 		return null;
 	}
 
-	public static final String VIEW_USER_LINKMAN_DETAIL = "/user/linkmanDetail.html";
+	protected static final String VIEW_USER_LINKMAN_DETAIL = "/user/linkmanDetail.html";
 
 	@RequestMapping(value = { VIEW_USER_LINKMAN_DETAIL }, method = RequestMethod.GET)
 	public String linkmanDetail(ModelMap modelMap) {
@@ -127,7 +127,7 @@ public class UserController {
 		return VIEW_USER_LINKMAN_DETAIL;
 	}
 
-	public static final String VIEW_USER_MY_LINKMAN = "/user/myLinkman.html";
+	protected static final String VIEW_USER_MY_LINKMAN = "/user/myLinkman.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_LINKMAN }, method = RequestMethod.GET)
 	public String myLinkman(ModelMap modelMap) throws IException {
@@ -135,7 +135,7 @@ public class UserController {
 		return VIEW_USER_MY_LINKMAN;
 	}
 
-	public static final String VIEW_USER_MY_POLL = "/user/myPoll.html";
+	protected static final String VIEW_USER_MY_POLL = "/user/myPoll.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_POLL }, method = RequestMethod.GET)
 	public ModelAndView myPoll(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
@@ -143,7 +143,7 @@ public class UserController {
 		return getVoteVos(VoteCategory.poll, page);
 	}
 
-	public static final String VIEW_USER_MY_INFO_GATHER = "/user/myInfoGather.html";
+	protected static final String VIEW_USER_MY_INFO_GATHER = "/user/myInfoGather.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_INFO_GATHER }, method = RequestMethod.GET)
 	public ModelAndView myInfoGather(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
@@ -151,7 +151,7 @@ public class UserController {
 		return getVoteVos(VoteCategory.info, page);
 	}
 
-	public static final String VIEW_USER_MY_VOTE = "/user/myVote.html";
+	protected static final String VIEW_USER_MY_VOTE = "/user/myVote.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_VOTE }, method = RequestMethod.GET)
 	public ModelAndView myVote(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
@@ -193,7 +193,7 @@ public class UserController {
 		return modelAndView;
 	}
 
-	public static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";
+	protected static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";
 
 	@RequestMapping(value = { VIEW_USER_USER_ACCOUNT }, method = RequestMethod.GET)
 	public String userAccount(ModelMap modelMap) {
@@ -201,7 +201,7 @@ public class UserController {
 		return VIEW_USER_USER_ACCOUNT;
 	}
 
-	public static final String VIEW_USER_CONSLOE = "/user/userConsole.html";
+	protected static final String VIEW_USER_CONSLOE = "/user/userConsole.html";
 
 	@RequestMapping(value = { VIEW_USER_CONSLOE }, method = RequestMethod.GET)
 	public String userConsole(ModelMap modelMap) {
@@ -209,7 +209,7 @@ public class UserController {
 		return VIEW_USER_CONSLOE;
 	}
 
-	public static final String VIEW_USER_LOG_DEVIN = "/user/userLogin.html";
+	protected static final String VIEW_USER_LOG_DEVIN = "/user/userLogin.html";
 
 	@RequestMapping(value = { VIEW_USER_LOG_DEVIN }, method = RequestMethod.GET)
 	public String userLogin(Model model) {
@@ -217,7 +217,7 @@ public class UserController {
 		return VIEW_USER_LOG_DEVIN;
 	}
 
-	public static final String VIEW_USER_ORDER = "/user/userOrder.html";
+	protected static final String VIEW_USER_ORDER = "/user/userOrder.html";
 
 	@RequestMapping(value = { VIEW_USER_ORDER }, method = RequestMethod.GET)
 	public String userOrder(ModelMap model) {
@@ -225,7 +225,7 @@ public class UserController {
 		return VIEW_USER_ORDER;
 	}
 
-	public static final String VIEW_USER_PROFILE = "/user/userProfile.html";
+	protected static final String VIEW_USER_PROFILE = "/user/userProfile.html";
 
 	@RequestMapping(value = { VIEW_USER_PROFILE }, method = RequestMethod.GET)
 	public String userProfile(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater,
@@ -247,7 +247,7 @@ public class UserController {
 		return VIEW_USER_PROFILE;
 	}
 
-	public static final String VIEW_USER_SIGN_IN = "/user/userSignIn.html";
+	protected static final String VIEW_USER_SIGN_IN = "/user/userSignIn.html";
 
 	@RequestMapping(value = { VIEW_USER_SIGN_IN }, method = RequestMethod.GET)
 	public String userSignIn(ModelMap modelMap) {
@@ -255,7 +255,7 @@ public class UserController {
 		return VIEW_USER_SIGN_IN;
 	}
 
-	public static final String VIEW_USER_UNAUTHORIZED = "/user/userUnauthorized.html";
+	protected static final String VIEW_USER_UNAUTHORIZED = "/user/userUnauthorized.html";
 
 	@RequestMapping(value = { VIEW_USER_UNAUTHORIZED }, method = RequestMethod.GET)
 	public String userUnauthorized(ModelMap modelMap) {
@@ -263,7 +263,7 @@ public class UserController {
 		return VIEW_USER_UNAUTHORIZED;
 	}
 
-	public static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroup}";
+	protected static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroup}";
 
 	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_URL }, method = RequestMethod.GET)
 	public String linkmanDetail(@PathVariable("voterGroup") int voterGroup,
@@ -290,8 +290,8 @@ public class UserController {
 
 	//////////////////////////////////////////////////////////////////////////////////
 
-	public static final String FORM_USER_SIGN_IN = "/user/userSignIn.do";
-	public static final String USER_SIGN_IN_RESULT = "/user/signInSuccess.html";
+	protected static final String FORM_USER_SIGN_IN = "/user/userSignIn.do";
+	protected static final String USER_SIGN_IN_RESULT = "/user/signInSuccess.html";
 
 	@RequestMapping(value = { FORM_USER_SIGN_IN }, method = RequestMethod.POST)
 	public String signInAction(@ModelAttribute("userRegister") UserRegister userRegister, BindingResult result,
@@ -325,8 +325,8 @@ public class UserController {
 		return USER_SIGN_IN_RESULT;
 	}
 
-	public static final String VIEW_USER_LOGIN = "/user/userLogin.do";
-	public static final String AUTHOR_LOGIN_RESULT = "/user/selfCenter.html";
+	protected static final String VIEW_USER_LOGIN = "/user/userLogin.do";
+	protected static final String AUTHOR_LOGIN_RESULT = "/user/selfCenter.html";
 
 	@RequestMapping(value = { VIEW_USER_LOGIN }, method = RequestMethod.POST)
 	public String loginAction(@ModelAttribute("userToken") UserToken userToken, BindingResult result, Model model)
@@ -355,8 +355,8 @@ public class UserController {
 		}
 	}
 
-	public static final String ACTION_LOG_DEVOUT_URL = "/user/logout.do";
-	public static final String ACTION_LOG_DEVOUT_RESULT = "../index";
+	protected static final String ACTION_LOG_DEVOUT_URL = "/user/logout.do";
+	protected static final String ACTION_LOG_DEVOUT_RESULT = "../index";
 
 	@RequestMapping(value = { ACTION_LOG_DEVOUT_URL }, method = RequestMethod.GET)
 	public String logoutAction(ModelMap modelMap) {
@@ -373,7 +373,7 @@ public class UserController {
 		return SpringMVCUtils.redirect(ACTION_LOG_DEVOUT_RESULT);
 	}
 
-	public static final String ACTION_CREATE_LINKMAN_BY_EXCEL = "/user/createLinkmanBuildByExcel.do";
+	protected static final String ACTION_CREATE_LINKMAN_BY_EXCEL = "/user/createLinkmanBuildByExcel.do";
 
 	@RequestMapping(value = { ACTION_CREATE_LINKMAN_BY_EXCEL }, method = RequestMethod.POST)
 	public String createLinkmanByExcelAction(@RequestParam(value = "file", required = true) MultipartFile file,
@@ -384,8 +384,8 @@ public class UserController {
 		return VIEW_USER_MY_LINKMAN;
 	}
 
-	public static final String ACTION_CREATE_LINKMAN_BY_TEXT = "/user/createLinkmanBuildByText.do";
-	public static final String VIEW_LINKMAN_FORMAT_ERROR = "/help/linkmanCreateFormate.html";
+	protected static final String ACTION_CREATE_LINKMAN_BY_TEXT = "/user/createLinkmanBuildByText.do";
+	protected static final String VIEW_LINKMAN_FORMAT_ERROR = "/help/linkmanCreateFormate.html";
 
 	@RequestMapping(value = { ACTION_CREATE_LINKMAN_BY_TEXT }, method = RequestMethod.POST)
 	public String createLinkmanByTextAction(BindingResult result, Model model) {
@@ -393,7 +393,7 @@ public class UserController {
 		return VIEW_USER_MY_LINKMAN;
 	}
 
-	public static final String FORM_UPDATE_USER_BASE_INFO = "/user/updateUserBaseInfo.do";
+	protected static final String FORM_UPDATE_USER_BASE_INFO = "/user/updateUserBaseInfo.do";
 
 	@RequestMapping(value = { FORM_UPDATE_USER_BASE_INFO }, method = RequestMethod.POST)
 	public String updateUserBaseInfoAction(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater, Model model)
@@ -419,7 +419,7 @@ public class UserController {
 		return SpringMVCUtils.redirect(VIEW_USER_PROFILE);
 	}
 
-	public static final String FORM_UPDATE_USER_DETAIL_INFO = "/user/updateUserDetailInfo.do";
+	protected static final String FORM_UPDATE_USER_DETAIL_INFO = "/user/updateUserDetailInfo.do";
 
 	@RequestMapping(value = FORM_UPDATE_USER_DETAIL_INFO, method = RequestMethod.POST)
 	public String updateDetailProfile(Model model) {

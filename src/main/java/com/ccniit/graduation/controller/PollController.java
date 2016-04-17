@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class PollController {
 
-	public static final String VIEW_POLL = "/poll/startPoll.html";
+	protected static final String VIEW_POLL = "/poll/startPoll.html";
 
 	@RequestMapping(value = { VIEW_POLL }, method = RequestMethod.GET)
 	public String poll(ModelMap modelMap) {
@@ -16,7 +16,7 @@ public class PollController {
 		return VIEW_POLL;
 	}
 
-	public static final String VIEW_POII_CREATE_POLL = "/poll/createPoll.html";
+	protected static final String VIEW_POII_CREATE_POLL = "/poll/createPoll.html";
 
 	@RequestMapping(value = { VIEW_POII_CREATE_POLL }, method = RequestMethod.GET)
 	public String createPoll(ModelMap modelMap) {

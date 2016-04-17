@@ -18,7 +18,7 @@ public class VoteContentDao implements VoteContentMapper {
 		voteContentMapper.insertVoteContent(content);
 		return content.getId();
 	}
-	
+
 	@Override
 	public String selectVoteContent(long vote) {
 		return voteContentMapper.selectVoteContent(vote);
@@ -26,6 +26,7 @@ public class VoteContentDao implements VoteContentMapper {
 
 	@Override
 	public Integer updateVoteContent(VoteContent newContent) {
+		
 		return voteContentMapper.updateVoteContent(newContent);
 	}
 

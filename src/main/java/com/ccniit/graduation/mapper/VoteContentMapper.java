@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.SelectKey;
 
 import com.ccniit.graduation.pojo.db.VoteContent;
 
+/**
+ * 提供问题定义的Create/Update/Select
+ */
 public interface VoteContentMapper {
 
 	@Insert("INSERT INTO vote_content(id,content) VALUES(#{id},#{content})")

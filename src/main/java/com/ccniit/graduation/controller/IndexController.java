@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class IndexController {
 
-	public static final String VIEW_INDEX = "../index";
+	protected static final String VIEW_INDEX = "../index";
 
-	@RequestMapping(value = { "/", "index.jsp", "index" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "index", "index.html", "home" }, method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
-
 		return VIEW_INDEX;
 	}
 

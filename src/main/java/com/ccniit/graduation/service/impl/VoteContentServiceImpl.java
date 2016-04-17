@@ -12,7 +12,7 @@ import com.ccniit.graduation.service.VoteContentService;
 public class VoteContentServiceImpl implements VoteContentService {
 
 	@Resource
-	VoteContentDao voteContentDao;
+	protected VoteContentDao voteContentDao;
 
 	@Override
 	public Long createVoteContent(VoteContent content) {

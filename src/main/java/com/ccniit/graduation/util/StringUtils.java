@@ -56,4 +56,15 @@ public class StringUtils {
 		return RandomStringUtils.random(length, WORDS_CHARS);
 	}
 
+	public static String getPassword(int length) {
+		if (length > 18) {
+			length = 18;
+		}
+
+		if (length < 6) {
+			length = 6;
+		}
+		return getRandomString(length);
+	}
+
 }

@@ -1,4 +1,4 @@
-*.class
+# Log Files #
 *.log
 
 # Package Files #

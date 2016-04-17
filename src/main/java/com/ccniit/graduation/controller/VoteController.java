@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.slf4j.Logger;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ccniit.graduation.builder.VoteSummaryVoBuilder;
-import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
 import com.ccniit.graduation.exception.CannotDoException;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.VoteContent;
@@ -40,7 +38,6 @@ import com.ccniit.graduation.util.SystemUtils;
 public class VoteController {
 
 	private static final Logger DEV = LoggerUtils.getDev();
-	private static final Logger BUS = LoggerUtils.getBus();
 
 	@Resource
 	private VoteService voteService;
@@ -53,15 +50,25 @@ public class VoteController {
 	@Resource
 	private VoteSummaryVoBuilder voteSummaryVoBuilder;
 
-	public static final String VIEW_VOTE = "/vote/startVote.html";
+	// ### start Vote介绍
+	protected static final String VIEW_VOTE = "/vote/startVote.html";
 
 	@RequestMapping(value = { VIEW_VOTE }, method = RequestMethod.GET)
 	public String vote(ModelMap modelMap) {
-
 		return VIEW_VOTE;
 	}
+	// end Vote介绍 ###
 
-	public static final String VIEW_CREATE_VOTE_FROM_FLIE = "/vote/createVoteFromFile.html";
+	// start Vote 创建
+
+	protected static final String VIEW_CREATE_VOTE = "/vote/createVote.html";
+
+	@RequestMapping(value = { VIEW_CREATE_VOTE }, method = RequestMethod.GET)
+	public String createVote(ModelMap modelMap) {
+		return VIEW_CREATE_VOTE;
+	}
+
+	protected static final String VIEW_CREATE_VOTE_FROM_FLIE = "/vote/createVoteFromFile.html";
 
 	@RequestMapping(value = { VIEW_CREATE_VOTE_FROM_FLIE }, method = RequestMethod.GET)
 	public String createVoteFromFile(ModelMap modelMap) {
@@ -69,15 +76,7 @@ public class VoteController {
 		return VIEW_CREATE_VOTE_FROM_FLIE;
 	}
 
-	public static final String VIEW_CREATE_VOTE = "/vote/createVote.html";
-
-	@RequestMapping(value = { VIEW_CREATE_VOTE }, method = RequestMethod.GET)
-	public String createVote(ModelMap modelMap) {
-
-		return VIEW_CREATE_VOTE;
-	}
-
-	private static final String CREATE_VOTE_DO = "/vote/createVote.do";
+	protected static final String CREATE_VOTE_DO = "/vote/createVote.do";
 
 	@RequestMapping(value = CREATE_VOTE_DO, method = RequestMethod.POST)
 	public String createVote(@ModelAttribute("creater") VoteCreater creater, ModelMap modelMap) throws IException {
@@ -90,16 +89,17 @@ public class VoteController {
 		return SpringMVCUtils.redirect(UserController.VIEW_USER_MY_VOTE);
 	}
 
-	public static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";
+	protected static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";
 
 	@RequestMapping(value = { VIEW_CREATE_ADVANCE_VOTE }, method = RequestMethod.GET)
 	public String createAdvanceVote(ModelMap modelMap) {
 		return VIEW_CREATE_ADVANCE_VOTE;
 	}
+	// end Vote 创建 ###
 
 	// HTML编辑模式 TODO 添加 visible(可视化编辑模式)
-	public static final String VIEW_EDIT_VOTE = "/vote/editVoteByHTML.html";
-	public static final String EDIT_VOTE_BY_HTML_URL = "/vote/editVoteByHTML/{voteId}";
+	protected static final String VIEW_EDIT_VOTE = "/vote/editVoteByHTML.html";
+	protected static final String EDIT_VOTE_BY_HTML_URL = "/vote/editVoteByHTML/{voteId}";
 
 	@RequestMapping(value = { EDIT_VOTE_BY_HTML_URL }, method = { RequestMethod.GET, RequestMethod.POST })
 	public String editVote(@PathVariable("voteId") Long voteId, ModelMap modelMap) throws IException {
@@ -110,7 +110,7 @@ public class VoteController {
 		if (VoteResource.EDITED == progress || VoteResource.CREATED == progress) {
 
 		} else {
-			throw new CannotDoException("你不能进行此操作");
+			throw new CannotDoException("该资源应经发布了，无法再进行编辑了。");
 		}
 
 		modelMap.addAttribute("voteContent", voteContentService.loadVoteContent(voteId));
@@ -119,8 +119,8 @@ public class VoteController {
 		return VIEW_EDIT_VOTE;
 	}
 
-	public static final String FROM_VOTE_PREVIEW = "/vote/previewVote.do";
-	public static final String VIEW_VOTE_PREVIEW = "/vote/previewVote.html";
+	protected static final String FROM_VOTE_PREVIEW = "/vote/previewVote.do";
+	protected static final String VIEW_VOTE_PREVIEW = "/vote/previewVote.html";
 
 	@RequestMapping(value = { FROM_VOTE_PREVIEW }, method = RequestMethod.POST)
 	public String previewVoteAction(@RequestParam("voteText") String voteText, Model model) {
@@ -130,35 +130,23 @@ public class VoteController {
 		return VIEW_VOTE_PREVIEW;
 	}
 
-	@Resource
-	private MongoTemplate mongoTemplate;
-	@Resource
-	private RequestParamsMapToArrayMap requestParamsMapToArrayMap;
-
-	public static final String FROM_VOTE_SUBMIT = "/vote/submitVote.do";
-	public static final String FROM_VOTE_SUBMIT_SUCCESS = "/vote/voteSubmitSuccess.html";
+	protected static final String FROM_VOTE_SUBMIT = "/vote/submitVote.do";
+	protected static final String FROM_VOTE_SUBMIT_SUCCESS = "/vote/voteSubmitSuccess.html";
+	protected static final String FROM_VOTE_SUBMIT_FAILED = "/vote/voteSubmitFailed.html";
 
 	// 提交
 	@RequestMapping(value = { FROM_VOTE_SUBMIT }, method = RequestMethod.POST)
 	public String submitVoteAction(@ModelAttribute("content") VoteContent content, ModelMap modelMap) {
 
-		voteContentService.updateVoteContent(content);
-		modelMap.addAttribute("voteId", content.getId());
+		Integer updated = voteContentService.updateVoteContent(content);
 
-		return FROM_VOTE_SUBMIT_SUCCESS;
-	}
+		if (1 == updated) {
+			modelMap.addAttribute("voteId", content.getId());
+			return SpringMVCUtils.redirect(FROM_VOTE_SUBMIT_SUCCESS);
+		} else {
+			return SpringMVCUtils.redirect(FROM_VOTE_SUBMIT_FAILED);
+		}
 
-	protected static final String VOTE_SUMMARY_URL = "/vote/summary/{voteId}";
-	protected static final String VOTE_SUMMARY_VIEW = "/vote/voteSummary.html";
-
-	@RequestMapping(value = VOTE_SUMMARY_URL, method = RequestMethod.GET)
-	public String getVoteSummaty(@PathVariable("voteId") Long voteId, ModelMap modelMap) {
-		// TODO Auto generated method stub
-
-		VoteSummaryVo voteSummaryVo = voteSummaryVoBuilder.build(voteId);
-		modelMap.addAttribute("voteSummaryVo", voteSummaryVo);
-
-		return VOTE_SUMMARY_VIEW;
 	}
 
 	protected static final String VOTE_ACTION_URL = "/vote/action/{voteId}";
@@ -178,14 +166,10 @@ public class VoteController {
 		case VoteResource.EDITED:
 			targetUrl = SystemUtils.replaceVoteId(EDIT_VOTE_BY_HTML_URL, voteId);
 			break;
-		// 处于发布状态
+		// 处于发布状态 /应经结束的
 		case VoteResource.PUBLISTED:
-			targetUrl = SystemUtils.replaceVoteId(VOTE_SUMMARY_URL, voteId);
-			break;
-
-		// 应经结束的
 		case VoteResource.FINISHED:
-			// TODO
+			targetUrl = SystemUtils.replaceVoteId(VOTE_SUMMARY_URL, voteId);
 			break;
 		}
 
@@ -193,6 +177,7 @@ public class VoteController {
 		return SpringMVCUtils.redirect(targetUrl);
 	}
 
+	// ### start Vote发布
 	protected static final String PUBLISH_VOTE_URL = "/vote/publish/{voteId}";
 	protected static final String PUBLISH_VOTE_CONFIG = "vote/publishVote.html";
 
@@ -227,5 +212,21 @@ public class VoteController {
 		modelMap.addAttribute("voteId", voteId);
 		return SpringMVCUtils.redirect(SystemUtils.replaceVoteId(VOTE_SUMMARY_URL, voteId));
 	}
+	// end Vote发布 ###
+
+	// ### 查看Vote
+	protected static final String VOTE_SUMMARY_URL = "/vote/summary/{voteId}";
+	protected static final String VOTE_SUMMARY_VIEW = "/vote/voteSummary.html";
+
+	@RequestMapping(value = VOTE_SUMMARY_URL, method = RequestMethod.GET)
+	public String getVoteSummaty(@PathVariable("voteId") Long voteId, ModelMap modelMap) {
+		// TODO Auto generated method stub
+
+		VoteSummaryVo voteSummaryVo = voteSummaryVoBuilder.build(voteId);
+		modelMap.addAttribute("voteSummaryVo", voteSummaryVo);
+
+		return VOTE_SUMMARY_VIEW;
+	}
+	// ###
 
 }

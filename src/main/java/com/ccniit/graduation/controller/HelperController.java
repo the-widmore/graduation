@@ -19,15 +19,7 @@ public class HelperController {
 	 */
 	@RequestMapping(value = GENERATE_PASSWORD_URL, method = RequestMethod.GET)
 	public @ResponseBody String generatePassword(@RequestParam("length") int length) {
-		if (length > 18) {
-			length = 18;
-		}
-
-		if (length < 6) {
-			length = 6;
-		}
-
-		return StringUtils.getRandomString(length);
+		return StringUtils.getPassword(length);
 	}
 
 }

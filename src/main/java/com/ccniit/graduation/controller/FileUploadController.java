@@ -24,11 +24,10 @@ public class FileUploadController {
 
 	private static final Logger DEV = LoggerUtils.getDev();
 
-	public static final long FILE_UPLOAD_LIMIT = 5400000;
-	public static final String FILE_UPLOAD_TEMP_DIR = "/WEB-INF/fileUpload/temp/";
-	public static final String FILE_UPLOAD_DIR = "WEB-INF/fileUpload/";
-	public static final String FORM_FILE_UPLOAD = "/user/fileUpload.do";
-	public static final String VIEW_FILE_UPLOAD_SUCCESS = "/user/fileUploadSuccess.html";
+	private static final long FILE_UPLOAD_LIMIT = 5400000;
+	private static final String FILE_UPLOAD_TEMP_DIR = "/WEB-INF/fileUpload/temp/";
+	private static final String FORM_FILE_UPLOAD = "/user/fileUpload.do";
+	protected static final String VIEW_FILE_UPLOAD_SUCCESS = "/user/fileUploadSuccess.html";
 
 	@RequestMapping(value = { FORM_FILE_UPLOAD }, method = RequestMethod.POST)
 	public String fileUploadAction(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {

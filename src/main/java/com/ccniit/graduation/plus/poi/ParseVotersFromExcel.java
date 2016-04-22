@@ -99,7 +99,7 @@ public class ParseVotersFromExcel implements VoterParse {
 			String phone = com.ccniit.graduation.util.StringUtils.formatDecimal(originalPhone);
 
 			// 电话格式正确才设值
-			if (stringVaildateFactory.vaildate(StringVaildateType.TEL, phone)) {
+			if (stringVaildateFactory.vaildate(StringVaildateType.PHONE, phone)) {
 				voter.setPhone(phone);
 			}
 

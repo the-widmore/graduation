@@ -14,9 +14,9 @@ public class TagDao implements TagMapper {
 	TagMapper tagMapper;
 
 	@Override
-	public Long insertTag(VoteTag tag) {
-		tagMapper.insertTag(tag);
-		return tag.getId();
+	public Long insertTag(VoteTag voteTag) {
+		tagMapper.insertTag(voteTag);
+		return voteTag.getId();
 	}
 
 	@Override

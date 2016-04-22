@@ -8,11 +8,12 @@
 <title>投票:详细情</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
+
 </head>
 <body>
 
 	<nav class="navbar navbar-default">
-	<div class="container">
+	<div class="container content">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
@@ -26,7 +27,6 @@
 			<ul class="nav navbar-nav">
 				<li><a href="/index.html">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li class="active"><a href="../vote/startVote.html">投票</a></li>
-				<li><a href="../poll/startPoll.html">问卷</a></li>
 				<li><a href="../user/selfCenter.html">个人</a></li>
 				<li><a href="../demo/demo.html">演示</a></li>
 				<li><a href="../help/help.html">帮助</a></li>

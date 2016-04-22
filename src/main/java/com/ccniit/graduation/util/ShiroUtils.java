@@ -6,8 +6,10 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ccniit.graduation.exception.CastException;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.NotFoundSessionException;
+import com.ccniit.graduation.exception.NotLoginException;
 import com.ccniit.graduation.resource.Commons;
 
 public class ShiroUtils {
@@ -50,18 +52,18 @@ public class ShiroUtils {
 		return session.getAttribute(sessionKey);
 	}
 
-	public static long getUserId() throws IException {
+	public static Long getUserId() throws IException {
 		Object object = getSessionValue(Commons.SESSION_KEY_AUTHOR_ID);
 
 		if (null == object) {
-			return 0L;
+			throw new NotLoginException("用户必须登录");
 		}
 
 		if (object instanceof Long) {
 			return (Long) object;
 		} else {
-			LOG.error("Session typs:{} value:{}", object.getClass().getName(), object);
-			return -1L;
+			LOG.error("type:{},value:{}", object.getClass(), object.toString());
+			throw new CastException("");
 		}
 
 	}

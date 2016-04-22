@@ -9,6 +9,16 @@
 - Eclipse
 - WebStorm
 
+=======
+
+> 成都东软-2016届软件工程05班-陈治均(12310320505)
+
+## Environment ##
+#### IDE ####
+- Eclipse
+- WebStorm
+
+>>>>>>> desinger
 #### Hardware ####
 - PC
 
@@ -18,6 +28,8 @@
 - MongoDB
 - Tomcat
 - Nginx
+=======
+>>>>>>> desinger
 
 ## Core ##
 #### Technology ####

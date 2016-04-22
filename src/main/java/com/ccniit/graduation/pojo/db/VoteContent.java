@@ -17,12 +17,23 @@ public class VoteContent implements Serializable {
 	private Long id;
 	private String content;
 
+	public VoteContent(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public VoteContent() {
 		super();
 	}
 
 	public VoteContent(String content) {
 		super();
+		this.content = content;
+	}
+
+	public VoteContent(Long id, String content) {
+		super();
+		this.id = id;
 		this.content = content;
 	}
 

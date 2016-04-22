@@ -14,10 +14,10 @@ public interface TagMapper {
 	 * @param tag
 	 * @return Tag.id
 	 */
-	@Insert("INSERT INTO tag(tag) VALUES(#{tag})")
-	@SelectKey(before = false, keyProperty = "", resultType = Long.class, statement = {
+	@Insert("INSERT INTO tag(tag) VALUES (#{tag})")
+	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
-	Long insertTag(VoteTag tag);
+	Long insertTag(VoteTag VoteTag);
 
 	/**
 	 * 查询tag的id
@@ -25,7 +25,7 @@ public interface TagMapper {
 	 * @param tag
 	 * @return id
 	 */
-	@Select("SELECT id FROM tag WHERE tag=#{tag}")
+	@Select("SELECT id FROM tag WHERE tag.tag=#{tag}")
 	Long selectTagId(String tag);
 
 }

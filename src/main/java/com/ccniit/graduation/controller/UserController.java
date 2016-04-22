@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ccniit.graduation.convertor.AuthorToAuthorBaseUpdater;
 import com.ccniit.graduation.exception.IException;
@@ -44,11 +45,10 @@ import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.Commons;
-import com.ccniit.graduation.resource.VoteResource;
-import com.ccniit.graduation.resource.VoteResource.Category;
+import com.ccniit.graduation.resource.VoteResource.VoteCategory;
 import com.ccniit.graduation.service.AuthorCountService;
 import com.ccniit.graduation.service.AuthorService;
-import com.ccniit.graduation.service.ResourcePermissionService;
+import com.ccniit.graduation.service.PermissionService;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.service.VoterService;
@@ -63,33 +63,33 @@ public class UserController {
 	private static final Logger DEV = LoggerUtils.getDev();
 
 	@Resource
-	AuthorService authorService;
+	private AuthorService authorService;
 	@Resource
-	AuthorCountService authorCountService;
+	private AuthorCountService authorCountService;
 	@Resource
-	VoterService voterService;
+	private VoterService voterService;
 	@Resource
-	VoteService voteService;
+	private VoteService voteService;
 	@Resource
-	VoterGroupService voterGroupService;
+	private VoterGroupService voterGroupService;
 	@Resource
-	ResourcePermissionService resourcePermissionService;
+	private PermissionService permissionService;
 	@Resource
-	AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
+	private AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
 
-	public static final String VIEW_USER = "/user";
-	public static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
+	protected static final String VIEW_USER = "/user";
+	protected static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
 
 	@RequestMapping(value = { VIEW_USER_SELF_CENTER, VIEW_USER })
 	public String selfCenter(ModelMap modelMap) throws IException {
 		if (null == ShiroUtils.getSessionValue("authorContentCounter")) {
-			AuthorContentCounter authorContentCounter = authorCountService.getAuthorCounters(getAuthorId());
+			AuthorContentCounter authorContentCounter = authorCountService.getAuthorCounters(ShiroUtils.getUserId());
 			ShiroUtils.addAttribute("authorContentCounter", authorContentCounter);
 		}
 		return VIEW_USER_SELF_CENTER;
 	}
 
-	public static final String VIEW_USER_CREATE_LINKMAN_BUILD = "/user/createLinkmanBuild.html";
+	protected static final String VIEW_USER_CREATE_LINKMAN_BUILD = "/user/createLinkmanBuild.html";
 
 	@RequestMapping(value = { VIEW_USER_CREATE_LINKMAN_BUILD }, method = RequestMethod.GET)
 	public String createLinkmanBuild(ModelMap modelMap) {
@@ -119,7 +119,7 @@ public class UserController {
 		return null;
 	}
 
-	public static final String VIEW_USER_LINKMAN_DETAIL = "/user/linkmanDetail.html";
+	protected static final String VIEW_USER_LINKMAN_DETAIL = "/user/linkmanDetail.html";
 
 	@RequestMapping(value = { VIEW_USER_LINKMAN_DETAIL }, method = RequestMethod.GET)
 	public String linkmanDetail(ModelMap modelMap) {
@@ -127,72 +127,73 @@ public class UserController {
 		return VIEW_USER_LINKMAN_DETAIL;
 	}
 
-	public static final String VIEW_USER_MY_LINKMAN = "/user/myLinkman.html";
+	protected static final String VIEW_USER_MY_LINKMAN = "/user/myLinkman.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_LINKMAN }, method = RequestMethod.GET)
-	public String myLinkman(ModelMap modelMap) {
-		modelMap.addAttribute("voterGroups", voterGroupService.getVoterGroups(getAuthorId()));
+	public String myLinkman(ModelMap modelMap) throws IException {
+		modelMap.addAttribute("voterGroups", voterGroupService.getVoterGroups(ShiroUtils.getUserId()));
 		return VIEW_USER_MY_LINKMAN;
 	}
 
-	public static final String VIEW_USER_MY_POLL = "/user/myPoll.html";
+	protected static final String VIEW_USER_MY_POLL = "/user/myPoll.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_POLL }, method = RequestMethod.GET)
-	public String myPoll(@RequestParam(value = "page", defaultValue = "1", required = true) int page, ModelMap modelMap)
-			throws IException {
-
-		if (page < 0) {
-			throw new ParamsException("参数Page不能小于0");
-		}
-
-		VoteQueryByCategory query = new VoteQueryByCategory(getAuthorId(), VoteResource.Category.poll.toString());
-
-		query.setPageSize(com.ccniit.graduation.resource.Commons.VOTE_PAGE_SIZE);
-		query.setOffset(com.ccniit.graduation.resource.Commons.VOTE_PAGE_SIZE * (page - 1));
-
-		List<VoteVo> voteVos = voteService.selectVoteVos(query);
-		modelMap.addAttribute("voteVos", voteVos);
-		return VIEW_USER_MY_POLL;
+	public ModelAndView myPoll(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
+			ModelMap modelMap) throws IException {
+		return getVoteVos(VoteCategory.poll, page);
 	}
 
-	public static final String VIEW_USER_MY_INFO_GATHER = "/user/myInfoGather.html";
+	protected static final String VIEW_USER_MY_INFO_GATHER = "/user/myInfoGather.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_INFO_GATHER }, method = RequestMethod.GET)
-	public String myInfoGather(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
+	public ModelAndView myInfoGather(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
 			ModelMap modelMap) throws IException {
-
-		List<VoteVo> voteVos = getVoteVos(Category.info, page);
-		modelMap.addAttribute("voteVos", voteVos);
-
-		return VIEW_USER_MY_INFO_GATHER;
+		return getVoteVos(VoteCategory.info, page);
 	}
 
-	public static final String VIEW_USER_MY_VOTE = "/user/myVote.html";
+	protected static final String VIEW_USER_MY_VOTE = "/user/myVote.html";
 
 	@RequestMapping(value = { VIEW_USER_MY_VOTE }, method = RequestMethod.GET)
-	public String myVote(@RequestParam(value = "page", defaultValue = "1", required = true) int page, ModelMap modelMap)
-			throws IException {
-
-		List<VoteVo> voteVos = getVoteVos(Category.vote, page);
-		modelMap.addAttribute("voteVos", voteVos);
-
-		return VIEW_USER_MY_VOTE;
+	public ModelAndView myVote(@RequestParam(value = "page", defaultValue = "1", required = true) int page,
+			ModelMap modelMap) throws IException {
+		return getVoteVos(VoteCategory.vote, page);
 	}
 
-	private List<VoteVo> getVoteVos(Category category, int page) throws IException {
+	private ModelAndView getVoteVos(VoteCategory category, int page) throws IException {
 		if (page < 0) {
 			throw new ParamsException("参数page不能小于0");
 		}
 
-		VoteQueryByCategory qurey = new VoteQueryByCategory(getAuthorId(), category.toString());
+		String resultPage = null;
+
+		switch (category) {
+		case poll:
+			resultPage = VIEW_USER_MY_POLL;
+			break;
+		case vote:
+			resultPage = VIEW_USER_MY_VOTE;
+			break;
+		case info:
+			resultPage = VIEW_USER_MY_INFO_GATHER;
+			break;
+		default:
+			break;
+		}
+
+		VoteQueryByCategory qurey = new VoteQueryByCategory(ShiroUtils.getUserId(), category.toString());
 		qurey.setPageSize(Commons.VOTE_PAGE_SIZE);
 		qurey.setOffset(Commons.VOTE_PAGE_SIZE * (page - 1));
 
 		List<VoteVo> voteVos = voteService.selectVoteVos(qurey);
-		return voteVos;
+
+		ModelAndView modelAndView = new ModelAndView(resultPage);
+		modelAndView.addObject("voteVos", voteVos);
+		modelAndView.addObject("currentPage", page);
+
+		return modelAndView;
 	}
 
-	public static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";
+	protected static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";
 
 	@RequestMapping(value = { VIEW_USER_USER_ACCOUNT }, method = RequestMethod.GET)
 	public String userAccount(ModelMap modelMap) {
@@ -200,7 +201,7 @@ public class UserController {
 		return VIEW_USER_USER_ACCOUNT;
 	}
 
-	public static final String VIEW_USER_CONSLOE = "/user/userConsole.html";
+	protected static final String VIEW_USER_CONSLOE = "/user/userConsole.html";
 
 	@RequestMapping(value = { VIEW_USER_CONSLOE }, method = RequestMethod.GET)
 	public String userConsole(ModelMap modelMap) {
@@ -208,7 +209,7 @@ public class UserController {
 		return VIEW_USER_CONSLOE;
 	}
 
-	public static final String VIEW_USER_LOG_DEVIN = "/user/userLogin.html";
+	protected static final String VIEW_USER_LOG_DEVIN = "/user/userLogin.html";
 
 	@RequestMapping(value = { VIEW_USER_LOG_DEVIN }, method = RequestMethod.GET)
 	public String userLogin(Model model) {
@@ -216,7 +217,7 @@ public class UserController {
 		return VIEW_USER_LOG_DEVIN;
 	}
 
-	public static final String VIEW_USER_ORDER = "/user/userOrder.html";
+	protected static final String VIEW_USER_ORDER = "/user/userOrder.html";
 
 	@RequestMapping(value = { VIEW_USER_ORDER }, method = RequestMethod.GET)
 	public String userOrder(ModelMap model) {
@@ -224,7 +225,7 @@ public class UserController {
 		return VIEW_USER_ORDER;
 	}
 
-	public static final String VIEW_USER_PROFILE = "/user/userProfile.html";
+	protected static final String VIEW_USER_PROFILE = "/user/userProfile.html";
 
 	@RequestMapping(value = { VIEW_USER_PROFILE }, method = RequestMethod.GET)
 	public String userProfile(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater,
@@ -235,9 +236,7 @@ public class UserController {
 			throw new ServerException("");
 		}
 
-		long id = getAuthorId();
-
-		Author author = authorService.findAuthorById(id);
+		Author author = authorService.findAuthorById(ShiroUtils.getUserId());
 		baseUpdater = authorToAuthorBaseUpdater.convert(author);
 
 		// TODO set userDetailInfo value
@@ -248,7 +247,7 @@ public class UserController {
 		return VIEW_USER_PROFILE;
 	}
 
-	public static final String VIEW_USER_SIGN_IN = "/user/userSignIn.html";
+	protected static final String VIEW_USER_SIGN_IN = "/user/userSignIn.html";
 
 	@RequestMapping(value = { VIEW_USER_SIGN_IN }, method = RequestMethod.GET)
 	public String userSignIn(ModelMap modelMap) {
@@ -256,7 +255,7 @@ public class UserController {
 		return VIEW_USER_SIGN_IN;
 	}
 
-	public static final String VIEW_USER_UNAUTHORIZED = "/user/userUnauthorized.html";
+	protected static final String VIEW_USER_UNAUTHORIZED = "/user/userUnauthorized.html";
 
 	@RequestMapping(value = { VIEW_USER_UNAUTHORIZED }, method = RequestMethod.GET)
 	public String userUnauthorized(ModelMap modelMap) {
@@ -264,21 +263,19 @@ public class UserController {
 		return VIEW_USER_UNAUTHORIZED;
 	}
 
-	public static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroup}";
+	protected static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroup}";
 
 	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_URL }, method = RequestMethod.GET)
 	public String linkmanDetail(@PathVariable("voterGroup") int voterGroup,
 			@RequestParam(required = true, value = "page", defaultValue = "1") int page, Model model)
 					throws IException {
 		// 权限验证
-		long author = getAuthorId();
-		boolean havePermisssion = resourcePermissionService.voterGroupHavePermission(author, voterGroup);
+		long author = ShiroUtils.getUserId();
+		boolean havePermisssion = permissionService.voterGroupHavePermission(author, voterGroup);
 
 		if (!havePermisssion) {
 			throw new PermissionException("你没有访问该资源的权限");
 		}
-		
-		
 
 		VoterQuery voterQuery = new VoterQuery(author, voterGroup);
 		voterQuery.setPageSize(Commons.LINKMAN_PAGE_SIZE);
@@ -293,8 +290,8 @@ public class UserController {
 
 	//////////////////////////////////////////////////////////////////////////////////
 
-	public static final String FORM_USER_SIGN_IN = "/user/userSignIn.do";
-	public static final String USER_SIGN_IN_RESULT = "/user/signInSuccess.html";
+	protected static final String FORM_USER_SIGN_IN = "/user/userSignIn.do";
+	protected static final String USER_SIGN_IN_RESULT = "/user/signInSuccess.html";
 
 	@RequestMapping(value = { FORM_USER_SIGN_IN }, method = RequestMethod.POST)
 	public String signInAction(@ModelAttribute("userRegister") UserRegister userRegister, BindingResult result,
@@ -328,8 +325,8 @@ public class UserController {
 		return USER_SIGN_IN_RESULT;
 	}
 
-	public static final String VIEW_USER_LOGIN = "/user/userLogin.do";
-	public static final String AUTHOR_LOGIN_RESULT = "/user/selfCenter.html";
+	protected static final String VIEW_USER_LOGIN = "/user/userLogin.do";
+	protected static final String AUTHOR_LOGIN_RESULT = "/user/selfCenter.html";
 
 	@RequestMapping(value = { VIEW_USER_LOGIN }, method = RequestMethod.POST)
 	public String loginAction(@ModelAttribute("userToken") UserToken userToken, BindingResult result, Model model)
@@ -358,8 +355,8 @@ public class UserController {
 		}
 	}
 
-	public static final String ACTION_LOG_DEVOUT_URL = "/user/logout.do";
-	public static final String ACTION_LOG_DEVOUT_RESULT = "../index";
+	protected static final String ACTION_LOG_DEVOUT_URL = "/user/logout.do";
+	protected static final String ACTION_LOG_DEVOUT_RESULT = "../index";
 
 	@RequestMapping(value = { ACTION_LOG_DEVOUT_URL }, method = RequestMethod.GET)
 	public String logoutAction(ModelMap modelMap) {
@@ -376,7 +373,7 @@ public class UserController {
 		return SpringMVCUtils.redirect(ACTION_LOG_DEVOUT_RESULT);
 	}
 
-	public static final String ACTION_CREATE_LINKMAN_BY_EXCEL = "/user/createLinkmanBuildByExcel.do";
+	protected static final String ACTION_CREATE_LINKMAN_BY_EXCEL = "/user/createLinkmanBuildByExcel.do";
 
 	@RequestMapping(value = { ACTION_CREATE_LINKMAN_BY_EXCEL }, method = RequestMethod.POST)
 	public String createLinkmanByExcelAction(@RequestParam(value = "file", required = true) MultipartFile file,
@@ -387,8 +384,8 @@ public class UserController {
 		return VIEW_USER_MY_LINKMAN;
 	}
 
-	public static final String ACTION_CREATE_LINKMAN_BY_TEXT = "/user/createLinkmanBuildByText.do";
-	public static final String VIEW_LINKMAN_FORMAT_ERROR = "/help/linkmanCreateFormate.html";
+	protected static final String ACTION_CREATE_LINKMAN_BY_TEXT = "/user/createLinkmanBuildByText.do";
+	protected static final String VIEW_LINKMAN_FORMAT_ERROR = "/help/linkmanCreateFormate.html";
 
 	@RequestMapping(value = { ACTION_CREATE_LINKMAN_BY_TEXT }, method = RequestMethod.POST)
 	public String createLinkmanByTextAction(BindingResult result, Model model) {
@@ -396,12 +393,12 @@ public class UserController {
 		return VIEW_USER_MY_LINKMAN;
 	}
 
-	public static final String FORM_UPDATE_USER_BASE_INFO = "/user/updateUserBaseInfo.do";
+	protected static final String FORM_UPDATE_USER_BASE_INFO = "/user/updateUserBaseInfo.do";
 
 	@RequestMapping(value = { FORM_UPDATE_USER_BASE_INFO }, method = RequestMethod.POST)
 	public String updateUserBaseInfoAction(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater, Model model)
 			throws IException {
-		baseUpdater.setId(getAuthorId());
+		baseUpdater.setId(ShiroUtils.getUserId());
 		int result = authorService.updateAuthorBase(baseUpdater);
 
 		DEV.debug("更新结果：{}", result);
@@ -422,7 +419,7 @@ public class UserController {
 		return SpringMVCUtils.redirect(VIEW_USER_PROFILE);
 	}
 
-	public static final String FORM_UPDATE_USER_DETAIL_INFO = "/user/updateUserDetailInfo.do";
+	protected static final String FORM_UPDATE_USER_DETAIL_INFO = "/user/updateUserDetailInfo.do";
 
 	@RequestMapping(value = FORM_UPDATE_USER_DETAIL_INFO, method = RequestMethod.POST)
 	public String updateDetailProfile(Model model) {
@@ -430,16 +427,6 @@ public class UserController {
 		// TODO
 
 		return VIEW_USER_PROFILE;
-	}
-
-	private Long getAuthorId() {
-		long authorId = -1L;
-		try {
-			authorId = ShiroUtils.getUserId();
-		} catch (IException e) {
-			DEV.error("获取Author.id错误", e);
-		}
-		return authorId;
 	}
 
 }

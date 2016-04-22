@@ -13,18 +13,16 @@ import com.ccniit.graduation.pojo.qo.AuthorInfoUpdater;
  */
 public interface AuthorInfoMapper {
 
-	// TODO
-
 	@Insert("INSERT INTO author_info(id) VALUES(#{author})")
 	Integer insertEmptyAuthorInfo(long author);
 
-	@Update("")
+	@Update("UPDATE author_info SET address=#{address},work=#{work},company=#{company},descriptionSelf=#{descriptionSelf} WHERE id=#{id}")
 	Integer updateAuthorInfo(AuthorInfoUpdater updater);
 
-	@Update("")
+	@Update("UPDATE author_info SET setLinkmanNotify=#{setLinkmanNotify},setVoteFinishNotify=#{setVoteFinishNotify},setDataExpireNotify=#{setDataExpireNotify},setPrimaryNofify=#{setPrimaryNofify} WHERE id=1;")
 	Integer updateAuthorConfig(AuthorConfigUpdater updater);
 
-	@Select("")
+	@Select("SELECT * FROM author WHERE id=#{author}")
 	AuthorInfo selectAuthorInfo(long author);
 
 }

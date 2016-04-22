@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import com.ccniit.graduation.BaseTest;
-import com.ccniit.graduation.pojo.common.VoteCategoryCount;
+import com.ccniit.graduation.pojo.common.VoteCountByCategory;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.service.AuthorCountService;
 
@@ -20,10 +20,10 @@ public class AuthorCountServiceImplTest extends BaseTest {
 
 	@Test
 	public void testCountAuthorVote() {
-		List<VoteCategoryCount> list1 = authorCountService.countAuthorVote(1);
+		List<VoteCountByCategory> list1 = authorCountService.countAuthorVote(1);
 		System.out.println(Arrays.toString(list1.toArray()));
 
-		List<VoteCategoryCount> list = authorCountService.countAuthorVote(1);
+		List<VoteCountByCategory> list = authorCountService.countAuthorVote(1);
 		System.out.println(Arrays.toString(list.toArray()));
 	}
 

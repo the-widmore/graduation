@@ -3,6 +3,7 @@ package com.ccniit.graduation.validator;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.resource.SpringScope;
 
 @Component("stringVaildateFactory")
@@ -10,17 +11,17 @@ import com.ccniit.graduation.resource.SpringScope;
 public class StringVaildateFactory {
 
 	public static enum StringVaildateType {
-		TEL, EMAIL, URL
+		PHONE, EMAIL, URL
 	}
 
 	private static final StringVaildator TEL_VAILDATOT = new TELVaildator();
 	private static final StringVaildator EMAIL_VAILDATOT = new EmailVaildator();
 
-	// impl othor
-	public boolean vaildate(StringVaildateType type, String source) {
+	// TODO other
+	public boolean vaildate(StringVaildateType type, String source) throws IException {
 		StringVaildator vaildator = null;
 		switch (type) {
-		case TEL:
+		case PHONE:
 			vaildator = TEL_VAILDATOT;
 			break;
 		case EMAIL:

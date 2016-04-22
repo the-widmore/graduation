@@ -1,7 +1,6 @@
 package com.ccniit.graduation.pojo.vo;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 public class VoteVo implements Serializable {
@@ -10,11 +9,20 @@ public class VoteVo implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2913879808020120607L;
+	private Long id;
 	private String title;
 	private String progress;
+	private String action;
 	private List<String> tags;
 	private String inDate;
-	private String endDate;// 预计结束时间OR真实结束时间
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -30,6 +38,14 @@ public class VoteVo implements Serializable {
 
 	public void setProgress(String progress) {
 		this.progress = progress;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String actions) {
+		this.action = actions;
 	}
 
 	public List<String> getTags() {
@@ -48,18 +64,10 @@ public class VoteVo implements Serializable {
 		this.inDate = inDate;
 	}
 
-	public String getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-
 	@Override
 	public String toString() {
-		return "VoteVo [title=" + title + ", progress=" + progress + ", tags=" + Arrays.toString(tags.toArray())
-				+ ", inDate=" + inDate + ", endDate=" + endDate + "]";
+		return "VoteVo [id=" + id + ", title=" + title + ", progress=" + progress + ", action=" + action + ", tags="
+				+ tags + ", inDate=" + inDate + "]";
 	}
 
 }

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,16 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.WebUtils;
 
+import com.ccniit.graduation.util.LoggerUtils;
+
 @Controller
 public class FileUploadController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(FileUploadController.class);
+	private static final Logger DEV = LoggerUtils.getDev();
 
-	public static final long FILE_UPLOAD_LIMIT = 5400000;
-	public static final String FILE_UPLOAD_TEMP_DIR = "/WEB-INF/fileUpload/temp/";
-	public static final String FILE_UPLOAD_DIR = "WEB-INF/fileUpload/";
-	public static final String FORM_FILE_UPLOAD = "/user/fileUpload.do";
-	public static final String VIEW_FILE_UPLOAD_SUCCESS = "/user/fileUploadSuccess.html";
+	private static final long FILE_UPLOAD_LIMIT = 5400000;
+	private static final String FILE_UPLOAD_TEMP_DIR = "/WEB-INF/fileUpload/temp/";
+	private static final String FORM_FILE_UPLOAD = "/user/fileUpload.do";
+	protected static final String VIEW_FILE_UPLOAD_SUCCESS = "/user/fileUploadSuccess.html";
 
 	@RequestMapping(value = { FORM_FILE_UPLOAD }, method = RequestMethod.POST)
 	public String fileUploadAction(@RequestParam("file") MultipartFile file, Model model, HttpServletRequest request) {
@@ -54,7 +54,7 @@ public class FileUploadController {
 			String fileName = realPath + file.getOriginalFilename();
 			File targetFile = new File(fileName);
 
-			LOG.info(targetFile.getAbsolutePath());
+			DEV.info(targetFile.getAbsolutePath());
 
 			FileOutputStream fos = new FileOutputStream(targetFile);
 			BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -65,7 +65,7 @@ public class FileUploadController {
 			// rename file name TODO
 
 		} catch (Exception e) {
-			LOG.error(e.getMessage());
+			DEV.error(e.getMessage());
 		}
 
 		return VIEW_FILE_UPLOAD_SUCCESS;

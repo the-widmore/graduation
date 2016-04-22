@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="zh-CN">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>EasyVote::投票:创建</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
@@ -23,13 +26,16 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
-				<li class="active"><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
-				<li><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+				<li class="active"><a
+					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
 				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
-				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">更多 <span class="caret"></span></a>
@@ -63,13 +69,16 @@
 					</h3>
 				</div>
 
-				<form class="form-horizontal" action="#" method="POST">
+				<form:form class="form-horizontal"
+					action="createVote.do"
+					method="POST">
 
 					<div class="form-group">
 						<label class="control-label col-md-2" for="voteTitleInput">投票标题</label>
 
 						<div class="col-md-6">
-							<input type="text" class="form-control" id="voteTitleInput">
+							<input type="text" class="form-control" id="voteTitleInput"
+								name="title" required>
 						</div>
 					</div>
 
@@ -78,16 +87,7 @@
 
 						<div class="col-md-6">
 							<input type="text" class="form-control" id="voteTagInput"
-								placeholder="使用分号,逗号,空格分割 最多5个">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="control-label col-md-2" for="endTimeInput">结束时间</label>
-
-						<div class="col-md-6">
-							<input type="datetime-local" class="form-control"
-								id="endTimeInput" placeholder="使用分号,逗号,空格分割 最多5个">
+								placeholder="使用分号,逗号,空格分割 最多5个" name="tags">
 						</div>
 					</div>
 
@@ -95,22 +95,22 @@
 						<label class="control-label col-md-2">编辑模式</label>
 
 						<div class="col-md-6">
-							<select class="form-control">
-								<option>拖拽编辑</option>
-								<option>HTML模式</option>
+							<select class="form-control" name="editMode">
+								<option value="html">HTML模式</option>
+								<option value="visible">拖拽编辑</option>
 							</select>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<div class="col-md-6 col-md-offset-2">
-							<a href="editVote.html">创建并编辑</a>
-							<!--<input type="submit" role="button" class="btn btn-primary" value="创建并编辑">-->
+							<input type="submit" role="button" class="btn btn-primary"
+								value="创建并编辑">
 						</div>
 					</div>
 
 
-				</form>
+				</form:form>
 
 			</div>
 
@@ -140,7 +140,10 @@
 	</div>
 	</footer>
 
-	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 </html>

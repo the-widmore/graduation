@@ -1,13 +1,13 @@
 package com.ccniit.graduation.service;
 
+import com.ccniit.graduation.pojo.db.VoteTag;
+
 public interface TagService {
 
-	/**
-	 * 插入投票的标签，返回该记录的id
-	 * 
-	 * @param 一个标签
-	 * @return Tag.id
-	 */
-	int insertTagForVote(String tag);
+	Long insertTag(VoteTag voteTag);
+
+	Long selectTag(String tag);
+
+	Long[] getTagsId(String[] tags);
 
 }

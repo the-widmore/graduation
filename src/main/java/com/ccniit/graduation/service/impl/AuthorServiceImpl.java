@@ -16,7 +16,7 @@ import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.qo.AuthorBaseUpdater;
 import com.ccniit.graduation.pojo.qo.AuthorInfoUpdater;
 import com.ccniit.graduation.pojo.vo.EmailToken;
-import com.ccniit.graduation.resource.CacheNams;
+import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.service.AuthorAuthService;
 import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.util.LoggerUtils;
@@ -98,7 +98,7 @@ public class AuthorServiceImpl implements AuthorService {
 		return 1 == authorDao.countByEmail(email) ? true : false;
 	}
 
-	@Cacheable(cacheNames = CacheNams.AUTHOR, key = "#authorId")
+	@Cacheable(cacheNames = CacheNames.AUTHOR, key = "#authorId")
 	@Override
 	public Author findAuthorById(long authorId) {
 		return authorDao.selectById(authorId);

@@ -21,7 +21,7 @@ public interface VoteMapper {
 	 * @param VoteResource
 	 * @return Vote.id
 	 */
-	@Insert("INSERT INTO vote(tableName,category,author,title,inDate,endDate)VALUES(#{tableName},#{category},#{author},#{title},#{inDate},#{endDate})")
+	@Insert("INSERT INTO vote(tableName,category,author,title)VALUES(#{tableName},#{category},#{author},#{title})")
 	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
 	Long insertVote(Vote vote);
@@ -37,6 +37,16 @@ public interface VoteMapper {
 	Integer updateVoteProgress(@Param("vote") long vote, @Param("progress") int progress);
 
 	/**
+	 * 更新进度Vote.预计结束时间
+	 * 
+	 * @param Vpte.id
+	 * @param Vote.predictDate
+	 * @return successful updated recode
+	 */
+	@Update("UPDATE vote SET predictDate=#{predictDate} WHERE id=#{vote}")
+	Integer updateVotePredictDate(@Param("vote") long vote, @Param("predictDate") Date predictDate);
+
+	/**
 	 * 
 	 * 更新结束时间 Vote.endDate
 	 * 
@@ -48,6 +58,26 @@ public interface VoteMapper {
 	Integer updateVoteEndDate(@Param("vote") long vote, @Param("endDate") Date endDate);
 
 	/**
+	 * 设置Vote 的授权方式
+	 * 
+	 * @param authType
+	 * @see com.ccniit.graduation.pojo.db.Vote.AuthType
+	 * @param vote
+	 *            Vote.id
+	 */
+	@Update("UPDATE vote SET auth=#{authType} WHERE id=#{vote}")
+	Integer updateVoteAuthType(@Param("vote") long vote, @Param("authType") Vote.AuthType authType);
+
+	/**
+	 * 按照id查询Vote
+	 * 
+	 * @param Vote.id
+	 * @return Vote {@link com.ccniit.graduation.pojo.db.Vote}
+	 */
+	@Select("SELECT id,url,tableName,category,title,progress,auth,inDate,predictDate,endDate,cover FROM vote WHERE id=#{vote}")
+	Vote selectVoteById(long vote);
+
+	/**
 	 * 查询Vote的tableName
 	 * 
 	 * @param vote(Long)
@@ -57,30 +87,31 @@ public interface VoteMapper {
 	String selectVoteTableName(long vote);
 
 	/**
-	 * 按照id查询Vote
-	 * 
-	 * @param Vote.id
-	 * @return Vote {@link com.ccniit.graduation.pojo.db.Vote}
-	 */
-	@Select("SELECT id,tableName,category,author,title,progress,inDate,predictDate,endDate FROM vote WHERE id=#{vote}")
-	Vote selectVoteById(long vote);
-
-	/**
-	 * 按照tableName查询Vote
+	 * 按照tableName查询Vote.id
 	 * 
 	 * @param Vote.tableName
-	 * @return Vote
+	 * @return Vote.id
 	 */
-	@Select("SELECT id,tableName,category,author,title,progress,inDate,predictDate,endDate FROM vote WHERE tableName=#{tableName}")
-	Vote selectVoteByTableName(String tableName);
+	@Select("SELECT id FROM vote WHERE tableName=#{tableName}")
+	Long selectVoteByTableName(String tableName);
 
 	/**
-	 * 按照author和Vote.category查询多个Vote的id
+	 * 按照url查询Vote.id
+	 * 
+	 * @param url
+	 *            sortURL
+	 * @return Vote.ur
+	 */
+	@Select("SELECT id FROM vote WHERE url=#{url}")
+	Long selectVoteByUrl(String url);
+
+	/**
+	 * 按照author和Vote.category查询多个Vote的id。采用倒叙
 	 * 
 	 * @param VoteQueryByCategory(offset,pageSize,author,category)
 	 * @return List<Long>
 	 */
-	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} LIMIT #{offset},#{pageSize}")
+	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} ORDER BY id DESC LIMIT #{offset},#{pageSize}")
 	List<Long> selectAuthorVotesId(PagedQuery query);
 
 	// TODO

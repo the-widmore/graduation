@@ -30,8 +30,6 @@
 				<li><a
 					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
-				<li><a
 					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
 				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>

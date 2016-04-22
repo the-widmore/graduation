@@ -29,7 +29,6 @@
 				<li><a href="../../index.html">首页</a></li>
 				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li class="active"><a href="../vote/startVote.html">投票</a></li>
-				<li><a href="../poll/startPoll.html">问卷</a></li>
 				<li><a href="../user/selfCenter.html">个人</a></li>
 				<li><a href="../demo/demo.html">演示</a></li>
 				<li><a href="../help/help.html">帮助</a></li>
@@ -52,7 +51,20 @@
 	</div>
 	</nav>
 	<div class="container content">
-		<div class="">${voteText }</div>
+		<div class="alert-success">
+			你应经成功的提交要问题，接下来你可以发布它，邀请其他人来参加问题填写。在发布时你要选取一种授权方式（公开的/保护的/私有的）。
+			公有的：既不需要授权。人人都可以参加。保护的：我们会生成一个安全密码，在填写前我们会要求输入这个密码。只有密码正确才能进入填写。
+			私有的：它是在使用联系人的情况，为每个受邀请的联系人生成一个密码，只有正确输入得联系方式和密码才能填写，且无法进行多次提交。如果，使用私用的授权方式，
+			请先上传，要使用的联系人。 在发布之前，请记得先自己预览一下。</div>
+		<p>
+			<a class="btn btn-primary" role="button"
+				href="${pageContext.request.contextPath}/vote/publish/${voteId }">发布</a>
+			&nbsp;&nbsp;&nbsp;&nbsp; <a class="btn btn-default" role="button"
+				href="${pageContext.request.contextPath}/user/myLinkman.html">上传联系人</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="btn btn-default" role="button"
+				href="${pageContext.request.contextPath}/vote/editVoteByHTML/${voteId }">继续编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;
+
+		</p>
 	</div>
 
 </body>

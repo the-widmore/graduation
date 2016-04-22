@@ -31,8 +31,6 @@
 				<li><a href="${pageContext.request.contextPath}/">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
@@ -120,7 +118,7 @@
 							<td>标题</td>
 							<td>进度</td>
 							<td>标签</td>
-							<td>时间</td>
+							<td>创建时间</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -134,7 +132,7 @@
 									</c:forEach></td>
 
 								<%-- <td>${vote.tags }</td> --%>
-								<td>${vote.inDate }至${vote.endDate }</td>
+								<td>${vote.inDate }</td>
 							</tr>
 						</c:forEach>
 

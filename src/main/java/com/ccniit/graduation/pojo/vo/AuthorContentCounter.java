@@ -14,20 +14,20 @@ public class AuthorContentCounter implements Serializable {
 	private long id;
 	private int linkmanCount;// 联系人组个数
 
-	private int voteCount;// 投票个数
 	private int pollCount;// 问卷个数
+	private int voteCount;// 投票个数
 	private int infoCount;// 信息收集个数
 
 	public AuthorContentCounter() {
 		super();
 	}
 
-	public AuthorContentCounter(long id, int linkmanCount, int voteCount, int pollCount, int infoCount) {
+	public AuthorContentCounter(long id, int linkmanCount, int pollCount, int voteCount, int infoCount) {
 		super();
 		this.id = id;
 		this.linkmanCount = linkmanCount;
-		this.voteCount = voteCount;
 		this.pollCount = pollCount;
+		this.voteCount = voteCount;
 		this.infoCount = infoCount;
 	}
 

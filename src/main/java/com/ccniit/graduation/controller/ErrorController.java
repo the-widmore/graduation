@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ErrorController {
 
-	public static final String NOT_AUTH = "/error/403";
-	public static final String NOT_FOUND = "/error/404";
+	protected static final String NOT_AUTH = "/error/403";
+	protected static final String NOT_FOUND = "/error/404";
 
 	@RequestMapping(value = NOT_FOUND, method = RequestMethod.GET)
 	public String notFound(Object model) {

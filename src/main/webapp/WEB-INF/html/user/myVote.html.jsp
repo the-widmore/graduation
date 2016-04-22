@@ -14,7 +14,6 @@
 </head>
 <body>
 
-
 	<nav class="navbar navbar-default">
 	<div class="container">
 		<div class="navbar-header">
@@ -28,11 +27,10 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
@@ -122,7 +120,7 @@
 			<div class="col-sm-9">
 				<div class="page-header">
 					<h3>
-						<i class="glyphicon glyphicon-stats"></i>我的问卷
+						<i class="glyphicon glyphicon-stats"></i>我的投票
 					</h3>
 				</div>
 
@@ -130,9 +128,10 @@
 					<thead class="bg-info">
 						<tr>
 							<td>标题</td>
+							<td>操作</td>
 							<td>进度</td>
 							<td>标签</td>
-							<td>时间</td>
+							<td>创建时间</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -140,13 +139,14 @@
 						<c:forEach items="${voteVos }" var="vote">
 							<tr>
 								<td>${vote.title }</td>
+								<td><a
+									href="${pageContext.request.contextPath}/vote/action/${vote.id}">${vote.action }</a></td>
 								<td>${vote.progress }</td>
 								<td><c:forEach items="${vote.tags }" var="tag">
 										<a href="#"><span class="label label-default">${tag }</span></a>
 									</c:forEach></td>
 
-								<%-- <td>${vote.tags }</td> --%>
-								<td>${vote.inDate }至${vote.endDate }</td>
+								<td>${vote.inDate }</td>
 							</tr>
 						</c:forEach>
 

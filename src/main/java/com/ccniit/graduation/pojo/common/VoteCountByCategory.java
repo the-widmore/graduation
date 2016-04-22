@@ -2,7 +2,7 @@ package com.ccniit.graduation.pojo.common;
 
 import java.io.Serializable;
 
-public class VoteCategoryCount implements Serializable {
+public class VoteCountByCategory implements Serializable {
 
 	/**
 	 * 
@@ -11,11 +11,11 @@ public class VoteCategoryCount implements Serializable {
 	private String category;
 	private int counter;
 
-	public VoteCategoryCount() {
+	public VoteCountByCategory() {
 		super();
 	}
 
-	public VoteCategoryCount(String category, int counter) {
+	public VoteCountByCategory(String category, int counter) {
 		super();
 		this.category = category;
 		this.counter = counter;

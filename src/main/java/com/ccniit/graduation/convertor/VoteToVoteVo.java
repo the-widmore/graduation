@@ -1,7 +1,5 @@
 package com.ccniit.graduation.convertor;
 
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.springframework.core.convert.converter.Converter;
@@ -17,32 +15,31 @@ import com.ccniit.graduation.util.DateUtils;
 public class VoteToVoteVo implements Converter<Vote, VoteVo> {
 
 	@Resource
-	VoteTagService voteTagService;
+	private VoteTagService voteTagService;
 
 	@Override
 	public VoteVo convert(Vote vote) {
 		VoteVo voteVo = new VoteVo();
 
+		int progress = vote.getProgress();
+
+		// id
+		voteVo.setId(vote.getId());
+
 		// title
 		voteVo.setTitle(vote.getTitle());
 
 		// progress
-		voteVo.setProgress(VoteResource.getProgressMsg(vote.getProgress()));
+		voteVo.setProgress(VoteResource.getProgressMsg(progress));
+
+		// set action
+		voteVo.setAction(VoteResource.getAction(progress));
 
 		// tags
 		voteVo.setTags(voteTagService.selectTagsToArray(vote.getId()));
 
 		// inDate
 		voteVo.setInDate(DateUtils.y4M2d2h2m2(vote.getInDate()));
-
-		// endDate
-		Date endDate = new Date();
-		if (VoteResource.FINISHED == vote.getProgress()) {
-			endDate = vote.getEndDate();
-		} else {
-			endDate = vote.getPredictDate();
-		}
-		voteVo.setEndDate(DateUtils.y4M2d2h2m2(endDate));
 
 		return voteVo;
 	}

@@ -19,6 +19,6 @@ public interface VoterService {
 
 	String getVoterField(Voter.VoterField field, long voterId);
 
-	String updateVoterField(Voter.VoterField field, long voterId);
+	String updateVoterField(Voter.VoterField field, long voterId, String value);
 
 }

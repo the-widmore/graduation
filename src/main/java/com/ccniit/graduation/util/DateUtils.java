@@ -1,6 +1,7 @@
 package com.ccniit.graduation.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,19 +14,39 @@ public class DateUtils {
 	private static DateFormat _y4M2d2 = new SimpleDateFormat("yyyy-MM-dd");
 	private static DateFormat _y4M2d2h2m2 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
-	public static final int model_second = 1;
-	public static final int model_minute = model_second * 60;
-	public static final int model_hour = model_minute * 60;
-	public static final int model_day = model_hour * 24;
-	public static final int model_week = model_day * 7;
-
 	// 一秒钟的毫秒数
 	private static final int MS = 1000;
 
-	public static Date getAfterDate(Date date, int mode, long after) {
+	public static final int MODEL_SECOND = 1;
+	public static final int MODEL_MINUTE = MODEL_SECOND * 60;
+	public static final int MODEL_HOUR = MODEL_MINUTE * 60;
+	public static final int MODEL_DAY = MODEL_HOUR * 24;
+	public static final int MODEL_WEEK = MODEL_DAY * 7;
+
+	/**
+	 * @param date
+	 *            基础时间
+	 * @param before
+	 *            是否是之前时间
+	 * @param mode
+	 *            模式
+	 * @param much
+	 *            好久
+	 */
+	// 获取一个时间的好多(秒、分、小时、天、周)之前/之后的时间
+	public static Date getDate(Date date, boolean before, int mode, long much) {
+		long target = 0L;
 		long fastTime = checkDate(date).getTime();
-		long target = fastTime + mode * after * MS;
+		if (before) {
+			target = fastTime - (mode * much + MS);
+		} else {
+			target = fastTime + mode * much * MS;
+		}
 		return new Date(target);
+	}
+
+	public static Date getAfterDate(Date date, int mode, long much) {
+		return getDate(date, false, mode, much);
 	}
 
 	public static String y4M2d2(Date date) {
@@ -42,6 +63,16 @@ public class DateUtils {
 		} else {
 			return date;
 		}
+	}
+
+	public static Date parseDate(String endDate) {
+		Date date = null;
+		try {
+			date = _y4M2d2h2m2.parse(endDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
 	}
 
 }

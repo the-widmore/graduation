@@ -10,7 +10,7 @@ import com.ccniit.graduation.service.VoteTagService;
 
 public class VoteTagServiceImplTest extends BaseTest {
 
-	private static final String TAGS = "One Twn,  Other; Double, ; M_M ; , NotInsert";
+	private static final String TAGS = "Tag1;;Tag2, Tag3 ;,; Tag4, Tag5;, tag6;,;";
 
 	@Resource
 	VoteTagService voteTagService;

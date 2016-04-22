@@ -3,15 +3,17 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:cache="http://www.springframework.org/schema/cache"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.8.xsd">
 
 	<!-- bean scan -->
+	<context:annotation-config />
 	<context:component-scan base-package="com.ccniit.graduation" />
 
 	<!-- JDBC -->
@@ -50,7 +52,6 @@
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="cacheManagerFactory" />
 	</bean>
-
 	<!-- end cache -->
 
 	<!-- transaction -->
@@ -61,11 +62,10 @@
 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="NESTED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="select*" propagation="NOT_SUPPORTED"
-				read-only="true" />
+			<tx:method name="select*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
 
@@ -92,10 +92,10 @@
 	<!-- Shiro -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
 
-	<bean id="defaultRealm" class="com.ccniit.graduation.plus.shiro.DefaultRealm"></bean>
+	<bean id="myReal" class="com.ccniit.graduation.plus.shiro.MyRealm"></bean>
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<property name="realm" ref="defaultRealm" />
+		<property name="realm" ref="myReal" />
 	</bean>
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -113,7 +113,6 @@
 			</value>
 		</property>
 	</bean>
-
 	<!-- end Shiro -->
 
 	<bean id="defaultKaptcha" class="com.google.code.kaptcha.impl.DefaultKaptcha">

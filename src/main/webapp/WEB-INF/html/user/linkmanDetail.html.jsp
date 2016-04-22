@@ -34,8 +34,6 @@
 				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
@@ -90,10 +88,10 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${voters}" var="voter">
-							<tr id="voter_${voter.id }">
-								<td><div class="voter_email" id="voter_${voter.id }_email">${voter.email }</div></td>
-								<td><div class="voter_phone">${voter.phone }</div></td>
-								<td><div class="voter_alias">${voter.alias }</div></td>
+							<tr>
+								<td><div id="voter_${voter.id }_email" class="voterInfo">${voter.email }</div></td>
+								<td><div id="voter_${voter.id }_phone" class="voterInfo">${voter.phone }</div></td>
+								<td><div id="voter_${voter.id }_alias" class="voterInfo">${voter.alias }</div></td>
 								<td><a
 									href="${pageContext.request.contextPath}/user/linkmanDel/${voter.id }">删除</a></td>
 							</tr>
@@ -150,34 +148,16 @@
 	<!-- TODO editable JS -->
 	<script type="application/javascript">
 		
-		
-		
-		$(document).ready(
-						function() {
-							$(".voter_email")
-									.editable(
-											'http://localhost:8080/graduation/voter/updateEmail?id=voter_1_email&value=NewEmail',
-											{
-												type:"textarea",
-												submit : "Ok",
-												 tooltip   : 'Click to edit email...',
-													callback : function(value, settings) {
-											         console.log(value);
-											     }
-											});
-						});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	 $(document).ready(function () {
+	        $(".voterInfo").editable("http://localhost:8080/graduation/voter/updateVoterField", {
+	            submit: "Ok",
+	            tooltip: "Click to edit ...",
+/* 	            callback: function (value, settings) {
+	                console.log("value:" + value)
+	                console.log("settings:" + settings)
+	            } */
+	        });
+	    });
 	
 	</script>
 </body>

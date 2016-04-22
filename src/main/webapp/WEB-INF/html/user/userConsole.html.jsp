@@ -29,11 +29,10 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+				<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
 				<li class="active"><a
 					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
@@ -133,88 +132,50 @@
 				</div>
 
 				<form action="#" method="POST">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-sm-4 text-right">
-								<label>联系人上传通知</label>
-							</div>
-							<div class="switch" data-on="info" data-off="success">
-								<input id="linkmanUploadNotify" type="checkbox" checked />
+
+					<div class="row form-group">
+						<div class="col-lg-4">联系人解析完成通知</div>
+						<div class="col-lg-6">
+							<input type="checkbox" name="">
+						</div>
+						<div class="col-lg-2"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-lg-4">投票/问卷完成通知</div>
+						<div class="col-lg-6">
+							<input type="checkbox" name="">
+						</div>
+						<div class="col-lg-2"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-lg-4">数据过期通知</div>
+						<div class="col-lg-6">
+							<input type="checkbox" name="">
+						</div>
+						<div class="col-lg-2"></div>
+					</div>
+
+					<div class="row form-group">
+						<div class="col-lg-3">通知方式</div>
+
+						<div class="col-lg-6">
+							<div class="btn-group" role="group">
+								<button type="button" class="btn btn-default">邮箱</button>
+								<button type="button" class="btn btn-default">邮箱和短息</button>
+								<button type="button" class="btn btn-default">短信</button>
 							</div>
 						</div>
+						<div class="col-lg-3"></div>
 
-						<div class="row">
-							<div class="col-sm-4 text-right">
-								<label>投票/问卷成功发起通知</label>
-							</div>
-							<div class="col-sm-3">
-								<div class="switch-button" id="voteOrPollSuccessStartNotify"></div>
-							</div>
-						</div>
+					</div>
 
-						<div class="row">
-							<div class="col-sm-4 text-right">
-								<label>投票/问卷完成通知</label>
-							</div>
-							<div class="col-sm-4">
-								<div class="switch-button" id="voteOrPollEndNotify"></div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-4 text-right">
-								<label>数据过期通知</label>
-							</div>
-							<div class="col-sm-4">
-								<div class="switch-button" id="dataExpireNotify"></div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-4 text-right">
-								<label>优先的通知方式</label>
-							</div>
-
-							<div class="col-sm-4">
-								<div class="radio">
-									<label> <input type="radio" name="primaryNotifyWay"
-										value="emailPrimary" checked> 邮箱优先
-									</label>
-								</div>
-
-								<div class="radio">
-									<label> <input type="radio" name="primaryNotifyWay"
-										value="telPrimary"> 电话优先
-									</label>
-								</div>
-
-								<div class="radio">
-									<label> <input type="radio" name="primaryNotifyWay"
-										value="emailAndTelPrimary"> 邮箱和电话
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-4 text-right">
-								<label>启用二级密码</label>
-							</div>
-							<div class="col-sm-2">
-								<div class="switch-button" id="secondLavaPasswordAble"></div>
-							</div>
-							<div class="col-sm-4">
-								<a href="userProfile.html#baseInfo" role="button"
-									class="btn btn-sm btn-success">前去设置</a>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-2 col-md-offset-4">
-								<input type="submit" class="btn btn-primary" value="修改设置">
-							</div>
+					<div class="row">
+						<div class="col-lg-3"></div>
+						<div class="col-lg-4">
+							<input type="submit" value="修改">
 						</div>
 					</div>
+
 				</form>
 			</div>
 

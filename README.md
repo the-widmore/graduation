@@ -17,6 +17,7 @@
 - MySQL
 - MongoDB
 - Tomcat
+- Nginx
 
 ## Core ##
 #### Technology ####

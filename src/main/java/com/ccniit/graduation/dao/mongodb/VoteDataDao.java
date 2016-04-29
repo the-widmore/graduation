@@ -1,5 +1,6 @@
 package com.ccniit.graduation.dao.mongodb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -33,10 +34,11 @@ public class VoteDataDao implements IVoteDataDao {
 		DBCollection collection = mongoTemplate.getCollection(tableName);
 		DBCursor cursor = collection.find();
 		List<DBObject> list = cursor.toArray();
+		List<BaseVoteData> voteDates = new ArrayList<>(cursor.count());
 		for (DBObject dbObject : list) {
-			System.out.println(dbObject.toString());
+			voteDates.add((BaseVoteData) dbObject);
 		}
-		return null;
+		return voteDates;
 	}
 
 }

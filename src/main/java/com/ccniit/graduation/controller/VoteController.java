@@ -60,21 +60,12 @@ public class VoteController {
 	// end Vote介绍 ###
 
 	// start Vote 创建
-
-	protected static final String VIEW_CREATE_VOTE = "/vote/createVote.html";
-
 	@RequestMapping(value = { VIEW_CREATE_VOTE }, method = RequestMethod.GET)
 	public String createVote(ModelMap modelMap) {
 		return VIEW_CREATE_VOTE;
 	}
 
-	protected static final String VIEW_CREATE_VOTE_FROM_FLIE = "/vote/createVoteFromFile.html";
-
-	@RequestMapping(value = { VIEW_CREATE_VOTE_FROM_FLIE }, method = RequestMethod.GET)
-	public String createVoteFromFile(ModelMap modelMap) {
-
-		return VIEW_CREATE_VOTE_FROM_FLIE;
-	}
+	protected static final String VIEW_CREATE_VOTE = "/vote/createVote.html";
 
 	protected static final String CREATE_VOTE_DO = "/vote/createVote.do";
 
@@ -87,6 +78,14 @@ public class VoteController {
 		// 编辑模式 选择
 
 		return SpringMVCUtils.redirect(UserController.VIEW_USER_MY_VOTE);
+	}
+
+	protected static final String VIEW_CREATE_VOTE_FROM_FLIE = "/vote/createVoteFromFile.html";
+
+	@RequestMapping(value = { VIEW_CREATE_VOTE_FROM_FLIE }, method = RequestMethod.GET)
+	public String createVoteFromFile(ModelMap modelMap) {
+
+		return VIEW_CREATE_VOTE_FROM_FLIE;
 	}
 
 	protected static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";

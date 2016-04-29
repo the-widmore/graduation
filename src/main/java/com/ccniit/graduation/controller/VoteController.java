@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,34 +17,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ccniit.graduation.convertor.RequestParamsMapToArrayMap;
 import com.ccniit.graduation.pojo.doc.PrivateVoteData;
+import com.ccniit.graduation.util.LoggerUtils;
 
 @Controller
 public class VoteController {
 
-	private static final Logger LOG = LoggerFactory.getLogger(VoteController.class);
+	private static final Logger LOG = LoggerUtils.getDev();
 
-	public static final String VIEW_VOTE = "/vote/startVote.html";
+	protected static final String VIEW_VOTE = "/vote/startVote.html";
 
 	@RequestMapping(value = { VIEW_VOTE }, method = RequestMethod.GET)
 	public String vote(ModelMap modelMap) {
-
 		return VIEW_VOTE;
 	}
 
-	public static final String VIEW_CREATE_VOTE_FROM_FLIE = "/vote/createVoteFromFile.html";
-
-	@RequestMapping(value = { VIEW_CREATE_VOTE_FROM_FLIE }, method = RequestMethod.GET)
-	public String createVoteFromFile(ModelMap modelMap) {
-
-		return VIEW_CREATE_VOTE_FROM_FLIE;
-	}
-
-	public static final String VIEW_CREATE_VOTE = "/vote/createVote.html";
+	protected static final String VIEW_CREATE_VOTE = "/vote/createVote.html";
 
 	@RequestMapping(value = { VIEW_CREATE_VOTE }, method = RequestMethod.GET)
 	public String createVote(ModelMap modelMap) {
 
 		return VIEW_CREATE_VOTE;
+	}
+
+	protected static final String VIEW_CREATE_VOTE_FROM_FLIE = "/vote/createVoteFromFile.html";
+
+	@RequestMapping(value = { VIEW_CREATE_VOTE_FROM_FLIE }, method = RequestMethod.GET)
+	public String createVoteFromFile(ModelMap modelMap) {
+
+		return VIEW_CREATE_VOTE_FROM_FLIE;
 	}
 
 	public static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";

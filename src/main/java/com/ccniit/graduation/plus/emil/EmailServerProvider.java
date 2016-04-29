@@ -10,7 +10,6 @@ public class EmailServerProvider {
 	protected String hostName;
 	protected int smtpPort;
 	protected Authenticator authenticator;
-	//
 	protected String from;
 	protected String name;
 

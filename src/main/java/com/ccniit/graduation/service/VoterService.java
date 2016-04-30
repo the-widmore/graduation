@@ -1,6 +1,7 @@
 package com.ccniit.graduation.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
@@ -20,5 +21,7 @@ public interface VoterService {
 	String getVoterField(Voter.VoterField field, long voterId);
 
 	String updateVoterField(Voter.VoterField field, long voterId, String value);
+
+	Set<String> distinctVoteVoter(Long vote);
 
 }

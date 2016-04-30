@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.AuthorInfoMapper;
 import com.ccniit.graduation.pojo.db.AuthorInfo;
-import com.ccniit.graduation.pojo.qo.AuthorConfigUpdater;
 import com.ccniit.graduation.pojo.qo.AuthorInfoUpdater;
+import com.ccniit.graduation.pojo.qo.AuthorSettingUpdater;
 
 @Repository("authorInfoDao")
 public class AuthorInfoDao implements AuthorInfoMapper {
@@ -31,8 +31,8 @@ public class AuthorInfoDao implements AuthorInfoMapper {
 	}
 
 	@Override
-	public Integer updateAuthorConfig(AuthorConfigUpdater updater) {
-		return authorInfoMapper.updateAuthorConfig(updater);
+	public Integer updateAuthorSetting(AuthorSettingUpdater updater) {
+		return authorInfoMapper.updateAuthorSetting(updater);
 	}
 
 }

@@ -16,6 +16,10 @@ public class AuthorInfo implements Serializable {
 	private boolean setDataExpireNotify;
 	private String setPrimaryNofify;
 
+	public static enum PrimaryNofify {
+		EMAIL, PHONE, BOTH
+	}
+
 	public AuthorInfo() {
 		super();
 	}

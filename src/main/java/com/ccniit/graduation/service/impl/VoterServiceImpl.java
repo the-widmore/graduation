@@ -1,6 +1,7 @@
 package com.ccniit.graduation.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -13,13 +14,16 @@ import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.Voter.VoterField;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.resource.CacheNames;
+import com.ccniit.graduation.service.VoteVoterGroupService;
 import com.ccniit.graduation.service.VoterService;
 
 @Service("voterService")
 public class VoterServiceImpl implements VoterService {
 
 	@Resource
-	VoterDao voterDao;
+	private VoterDao voterDao;
+	@Resource
+	private VoteVoterGroupService voterGroupService;
 
 	@Override
 	public long insertVoter(Voter voter) {
@@ -94,6 +98,13 @@ public class VoterServiceImpl implements VoterService {
 		}
 
 		return getVoterField(field, voterId);
+	}
+
+	@Override
+	public Set<String> distinctVoteVoter(Long vote) {
+		List<Long> voterGroups = voterGroupService.selectVoteVoterGroups(vote);
+		// TODO
+		return null;
 	}
 
 }

@@ -22,8 +22,7 @@ public class VoteVoterGroupDao implements VoteVoterGroupMapper {
 
 	@Override
 	public List<Long> selectVoteGroupByVote(long vote) {
-		// TODO Auto-generated method stub
-		return null;
+		return voteVoterGroupMapper.selectVoteGroupByVote(vote);
 	}
 
 }

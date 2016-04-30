@@ -75,4 +75,26 @@ public class DateUtils {
 		return date;
 	}
 
+	public static String betweenDistance(Date begain, Date end) {
+		StringBuilder builder = new StringBuilder();
+
+		// 如果时间相距大于一天
+		Long between = end.getTime() - begain.getTime();
+		if (between > (MODEL_DAY * MS)) {
+			builder.append(between / (MODEL_DAY * MS)).append("天");
+			builder.append((between % (MODEL_DAY * MS)) / (MODEL_HOUR * MS)).append("小时");
+			return builder.toString();
+		}
+		int MINUTE_MS = MODEL_HOUR * MS;
+		int hour = (int) (between / MINUTE_MS);
+		int minute = (int) (between % MINUTE_MS) / (MODEL_MINUTE * MS);
+		builder.append(hour).append("小时").append(minute).append("分钟");
+
+		return builder.toString();
+	}
+
+	public static String betweenNow(Date date) {
+		return betweenDistance(date, date);
+	}
+
 }

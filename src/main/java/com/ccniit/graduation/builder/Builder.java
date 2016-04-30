@@ -1,5 +1,7 @@
 package com.ccniit.graduation.builder;
 
+import com.ccniit.graduation.exception.IException;
+
 /**
  * 对象构建接口
  * 
@@ -12,6 +14,6 @@ public interface Builder<B, T> {
 	 * @param B构建的依据
 	 * @return 构建的对象
 	 */
-	T build(B by);
+	T build(B by) throws IException;
 
 }

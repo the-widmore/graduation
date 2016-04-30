@@ -41,4 +41,10 @@ public class VoteDataDao implements IVoteDataDao {
 		return voteDates;
 	}
 
+	@Override
+	public Integer counterVoteSubmitTimes(String tableName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -12,4 +12,6 @@ public interface IVoteDataDao {
 
 	List<BaseVoteData> selectVote(String tableName);
 
+	Integer counterVoteSubmitTimes(String tableName);
+
 }

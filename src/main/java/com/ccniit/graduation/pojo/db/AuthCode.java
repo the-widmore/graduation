@@ -8,57 +8,57 @@ public class AuthCode implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -7942143450502855049L;
-	private long id;
-	private long vote;
-	private long voter;
-	private int code;
+	private Long id;
+	private Long vote;
+	private Long voter;
+	private String code;
 	private boolean used;
 
 	public AuthCode() {
 		super();
 	}
 
-	public AuthCode(long vote) {
+	public AuthCode(Long vote) {
 		super();
 		this.vote = vote;
 	}
 
-	public AuthCode(long vote, long voter, int code) {
+	public AuthCode(Long vote, Long voter, String code) {
 		super();
 		this.vote = vote;
 		this.voter = voter;
 		this.code = code;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public long getVote() {
+	public Long getVote() {
 		return vote;
 	}
 
-	public void setVote(long vote) {
+	public void setVote(Long vote) {
 		this.vote = vote;
 	}
 
-	public long getVoter() {
+	public Long getVoter() {
 		return voter;
 	}
 
-	public void setVoter(long voter) {
+	public void setVoter(Long voter) {
 		this.voter = voter;
 	}
 
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 

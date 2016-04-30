@@ -5,10 +5,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ccniit.graduation.convertor.VoteToVoteVo;
 import com.ccniit.graduation.dao.mysql.VoteDao;
@@ -24,6 +23,7 @@ import com.ccniit.graduation.pojo.qo.VotePublishVo;
 import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.resource.VoteResource;
+import com.ccniit.graduation.service.AuthCodeService;
 import com.ccniit.graduation.service.PermissionService;
 import com.ccniit.graduation.service.PermissionService.ResourceType;
 import com.ccniit.graduation.service.VoteContentService;
@@ -48,6 +48,8 @@ public class VoteServiceImpl implements VoteService {
 	private PermissionService permissionService;
 	@Resource
 	private VoteVoterGroupService voterGroupService;
+	@Resource
+	private AuthCodeService authCodeService;
 
 	@Override
 	public Long createVote(Vote vote) {
@@ -57,7 +59,7 @@ public class VoteServiceImpl implements VoteService {
 		return voteId;
 	}
 
-	@Transactional(propagation = Propagation.NESTED)
+	@CacheEvict(cacheNames = CacheNames.AUTHOR_VOTE_COUNT, key = "#author")
 	@Override
 	public Long createVote(VoteCreater creater) throws IException {
 		Vote vote = new Vote();
@@ -139,20 +141,27 @@ public class VoteServiceImpl implements VoteService {
 		String authType = publishVo.getAuthType();
 		Long vote = publishVo.getVoteId();
 		voteDao.updateVotePredictDate(vote, DateUtils.parseDate(publishVo.getEndDate()));
-		voteDao.updateVoteProgress(vote, VoteResource.PUBLISTED);
 		voteDao.updateVoteAuthType(vote, AuthType.valueOf(authType));
+		voteDao.updateVoteProgress(vote, VoteResource.PUBLISTED);
 
 		//
+		if (Vote.AuthType.PROTECTED.toString().equals(authType)) {
+
+		}
+
 		if (Vote.AuthType.PRIVATE.toString().equals(authType)) {
 			List<Long> voteGroups = publishVo.getVoteGroup();
 			for (Long voteGroup : voteGroups) {
 				permissionService.havePermission(ResourceType.voterGroup, author, voteGroup);
 			}
 
-			voterGroupService.insertVoterGroups(vote, voteGroups.toArray(new Long[] {}));
+			Integer inserted = voterGroupService.insertVoterGroups(vote, voteGroups.toArray(new Long[] {}));
+			if (inserted == voteGroups.size()) {
+				return 1;
+			}
 		}
 
-		return new Integer(1);
+		return 0;
 	}
 
 }

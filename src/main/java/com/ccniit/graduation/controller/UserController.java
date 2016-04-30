@@ -39,6 +39,7 @@ import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.qo.AuthorBaseUpdater;
 import com.ccniit.graduation.pojo.qo.AuthorInfoUpdater;
+import com.ccniit.graduation.pojo.qo.AuthorSettingUpdater;
 import com.ccniit.graduation.pojo.qo.VoteQueryByCategory;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
@@ -427,6 +428,14 @@ public class UserController {
 		// TODO
 
 		return VIEW_USER_PROFILE;
+	}
+
+	protected static final String UPDATE_USER_SET_DO = "";
+
+	@RequestMapping(value = UPDATE_USER_SET_DO, method = RequestMethod.GET)
+	public String updateSetting(@ModelAttribute() AuthorSettingUpdater updater, Model model) {
+
+		return null;
 	}
 
 }

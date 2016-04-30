@@ -1,9 +1,9 @@
 package com.ccniit.graduation.service;
 
-import com.ccniit.graduation.pojo.qo.AuthorConfigUpdater;
+import com.ccniit.graduation.pojo.qo.AuthorSettingUpdater;
 
 public interface AuthorInfoService {
 
-	Integer updateAuthorConfig(AuthorConfigUpdater updater);
+	Integer updateAuthorSetting(AuthorSettingUpdater updater);
 
 }

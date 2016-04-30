@@ -220,7 +220,7 @@ public class VoteController {
 	protected static final String VOTE_SUMMARY_VIEW = "/vote/voteSummary.html";
 
 	@RequestMapping(value = VOTE_SUMMARY_URL, method = RequestMethod.GET)
-	public String getVoteSummaty(@PathVariable("voteId") Long voteId, ModelMap modelMap) {
+	public String getVoteSummaty(@PathVariable("voteId") Long voteId, ModelMap modelMap) throws IException {
 		// TODO Auto generated method stub
 
 		VoteSummaryVo voteSummaryVo = voteSummaryVoBuilder.build(voteId);

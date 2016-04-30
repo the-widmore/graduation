@@ -14,7 +14,7 @@ public class PermissionCacheKeyGenerator implements KeyGenerator {
 
 	@Override
 	public Object generate(Object target, Method method, Object... params) {
-		return Arrays.toString(params);
+		return Arrays.toString(params).hashCode();
 	}
 
 }

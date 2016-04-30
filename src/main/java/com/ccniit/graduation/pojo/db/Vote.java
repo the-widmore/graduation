@@ -10,6 +10,11 @@ public class Vote implements Serializable {
 		PUBLIC, PROTECTED, PRIVATE
 	}
 
+	// 类型
+	public static enum VoteCategory {
+		vote, poll, info
+	}
+
 	/**
 	 * 
 	 */

@@ -14,14 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.pojo.db.Vote;
+import com.ccniit.graduation.pojo.db.Vote.VoteCategory;
 import com.ccniit.graduation.pojo.qo.VoteQueryByCategory;
-import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.util.DateUtils;
 import com.ccniit.graduation.util.StringUtils;
 
 public class VoteDaoTest extends BaseTest {
 
-	private final Logger LOG = getLog();
+	private final Logger LOG = org.slf4j.LoggerFactory.getLogger("VoteDaoTest");
 
 	@Resource
 	VoteDao voteDao;
@@ -31,7 +31,7 @@ public class VoteDaoTest extends BaseTest {
 	@Rollback(true)
 	public void testInsertVote() {
 		String tableName = StringUtils.getUUID();
-		Vote vote = new Vote(tableName, VoteResource.VoteCategory.info.toString(), 1, "vote title",
+		Vote vote = new Vote(tableName, VoteCategory.info.toString(), 1, "vote title",
 				DateUtils.getAfterDate(null, DateUtils.MODEL_WEEK, 2));
 		voteDao.insertVote(vote);
 		assertNotEquals(vote.getId(), new Long(0));
@@ -67,9 +67,9 @@ public class VoteDaoTest extends BaseTest {
 
 	@Test
 	public void testSelectAuthorVotes() {
-		VoteQueryByCategory query = new VoteQueryByCategory(1L, VoteResource.VoteCategory.info.toString());
+		VoteQueryByCategory query = new VoteQueryByCategory(1L, VoteCategory.vote.toString());
 		List<Long> votes = voteDao.selectAuthorVotesId(query);
-		assertEquals(2, votes.size());
+		assertNotEquals(0, votes.size());
 	}
 
 }

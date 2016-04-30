@@ -2,7 +2,6 @@ package com.ccniit.graduation.plus.emil;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -29,25 +28,22 @@ public class SimpleEmailSenderImpl implements SimpleEmailSender {
 
 	@Override
 	public void send(EmailTemplate template) throws EmailException {
-		email.addTo(template.getTo());
+		email.addTo(template.getTo().get(0));
 		email.setSubject(template.getSubject());
 		email.setMsg(template.getContent());
 		email.send();
 	}
 
 	@Override
-	public void sendAll(EmailTemplate template, List<String> tos) throws EmailException {
-		String mainEmail = template.getTo();
+	public void sendAll(EmailTemplate template) throws EmailException {
+		List<String> allEmail = template.getTo();
+		email.setSubject(template.getSubject());
+		email.setMsg(template.getContent());
 
-		if (StringUtils.isNotBlank(mainEmail)) {
-			email.addTo(mainEmail);
-		}
-		for (String emailAddress : tos) {
+		for (String emailAddress : allEmail) {
 			email.addTo(emailAddress);
 		}
 
-		email.setSubject(template.getSubject());
-		email.setMsg(template.getContent());
 		email.send();
 	}
 

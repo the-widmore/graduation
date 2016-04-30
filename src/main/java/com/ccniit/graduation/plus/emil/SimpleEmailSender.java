@@ -1,7 +1,5 @@
 package com.ccniit.graduation.plus.emil;
 
-import java.util.List;
-
 import org.apache.commons.mail.EmailException;
 
 public interface SimpleEmailSender {
@@ -15,6 +13,6 @@ public interface SimpleEmailSender {
 	 */
 	void send(EmailTemplate template) throws EmailException;
 
-	void sendAll(EmailTemplate template, List<String> tos) throws EmailException;
+	void sendAll(EmailTemplate template) throws EmailException;
 
 }

@@ -21,8 +21,10 @@ public class SimpleEmailSenderImplTest extends BaseTest {
 	public void testSend() throws EmailException {
 		simpleEmailSender.build(emailProvider163);
 		EmailTemplate template = new EmailTemplate("测试邮件", "邮件内容");
+		List<String> to = new ArrayList<>();
+		to.add("qq1174310485@163.com");
+		template.setTo(to);
 		simpleEmailSender.send(template);
-
 	}
 
 	@Test
@@ -34,7 +36,9 @@ public class SimpleEmailSenderImplTest extends BaseTest {
 		receivers.add("18681714595@163.com");
 		receivers.add("qq1174310485@163.com");
 		receivers.add("7rnkdr3osg155v@my10minutemail.com");
-		simpleEmailSender.sendAll(new EmailTemplate("测试邮件", "邮件内容", "1174310485@qq.com"), receivers);
+		EmailTemplate emailTemplate = new EmailTemplate("测试邮件", "邮件内容");
+		emailTemplate.setTo(receivers);
+		simpleEmailSender.sendAll(emailTemplate);
 	}
 
 }

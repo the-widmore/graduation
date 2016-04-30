@@ -14,16 +14,12 @@ public class VoteResource {
 		PROGRESS_MAP.put(new Integer(VoteResource.EDITED), VoteResource.EDITED_MSG);
 		PROGRESS_MAP.put(new Integer(VoteResource.PUBLISTED), VoteResource.PUBLISTED_MSG);
 		PROGRESS_MAP.put(new Integer(VoteResource.FINISHED), VoteResource.FINISHED_MSG);
+
 		// Action
 		ACTIONS_MAP.put(new Integer(VoteResource.CREATED), VoteResource.CREATED_ACTION);
 		ACTIONS_MAP.put(new Integer(VoteResource.EDITED), VoteResource.EDITED_ACTION);
 		ACTIONS_MAP.put(new Integer(VoteResource.PUBLISTED), VoteResource.PUBLISHED_ACTION);
 		ACTIONS_MAP.put(new Integer(VoteResource.FINISHED), VoteResource.FINISHED_ACTION);
-
-	}
-
-	public static enum VoteCategory {
-		vote, poll, info
 	}
 
 	// 进度

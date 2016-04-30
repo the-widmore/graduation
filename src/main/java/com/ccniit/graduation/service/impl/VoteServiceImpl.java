@@ -16,6 +16,7 @@ import com.ccniit.graduation.exception.ServerException;
 import com.ccniit.graduation.exception.VoteNotExistException;
 import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.db.Vote.AuthType;
+import com.ccniit.graduation.pojo.db.Vote.VoteCategory;
 import com.ccniit.graduation.pojo.db.VoteContent;
 import com.ccniit.graduation.pojo.qo.PagedQuery;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
@@ -70,7 +71,7 @@ public class VoteServiceImpl implements VoteService {
 
 		// random and unique value
 		vote.setTableName(StringUtils._getUUID());
-		vote.setCategory(VoteResource.VoteCategory.vote.toString());
+		vote.setCategory(VoteCategory.vote.toString());
 
 		// other default value(inDate,progress,auth)
 

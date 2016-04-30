@@ -1,6 +1,6 @@
 package com.ccniit.graduation.validator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import javax.annotation.Resource;
 
@@ -17,13 +17,19 @@ public class ObjectFieldNullChecherTest extends BaseTest {
 	ObjectFieldNullChecher objectFieldNullChecher;
 
 	@Test
-	public void testCheck() throws IException {
+	public void testCheck() {
 		Address address = new Address("priv", "city", null);
 		User user = new User("Carbon", address);
-		boolean addressIsNull = objectFieldNullChecher.check(user, "address");
-		assertEquals(false, addressIsNull);
-		boolean streetIsNull = objectFieldNullChecher.check(user, "address.street");
-		assertEquals(true, streetIsNull);
+		try {
+			boolean addressIsNull = objectFieldNullChecher.check(user, "address");
+			boolean streetIsNull = objectFieldNullChecher.check(user, "address.street");
+			assertEquals(false, addressIsNull);
+			assertEquals(true, streetIsNull);
+		} catch (IException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

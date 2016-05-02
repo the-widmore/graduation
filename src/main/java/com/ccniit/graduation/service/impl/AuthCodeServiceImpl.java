@@ -41,8 +41,7 @@ public class AuthCodeServiceImpl implements AuthCodeService {
 
 	@Override
 	public String getProtectedAuthCode(Long voteId) {
-		// TODO Auto-generated method stub
-		return null;
+		return authCodeDao.selectProtectedVoteAuthCode(voteId);
 	}
 
 }

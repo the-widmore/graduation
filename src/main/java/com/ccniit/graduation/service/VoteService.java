@@ -68,6 +68,15 @@ public interface VoteService {
 	 */
 	List<VoteVo> selectVoteVos(PagedQuery query) throws IException;
 
+	/**
+	 * 根据Vote的URL查找Vote的id
+	 * 
+	 * @param url
+	 *            sorted URL
+	 * @return vote.id
+	 */
+	Long selectVoteIdByURL(String url);
+
 	Integer updateVoteByPublish(VotePublishVo publishVo, Long author) throws IException;
 
 }

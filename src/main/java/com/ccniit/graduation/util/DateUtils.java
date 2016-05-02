@@ -94,7 +94,7 @@ public class DateUtils {
 	}
 
 	public static String betweenNow(Date date) {
-		return betweenDistance(date, date);
+		return betweenDistance(new Date(), date);
 	}
 
 }

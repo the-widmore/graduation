@@ -267,11 +267,11 @@ public class UserController {
 	protected static final String VIEW_LINKMAN_DETAIL_URL = "/user/linkmanDetail/{voterGroup}";
 
 	@RequestMapping(value = { VIEW_LINKMAN_DETAIL_URL }, method = RequestMethod.GET)
-	public String linkmanDetail(@PathVariable("voterGroup") int voterGroup,
+	public String linkmanDetail(@PathVariable("voterGroup") Long voterGroup,
 			@RequestParam(required = true, value = "page", defaultValue = "1") int page, Model model)
 					throws IException {
 		// 权限验证
-		long author = ShiroUtils.getUserId();
+		Long author = ShiroUtils.getUserId();
 		boolean havePermisssion = permissionService.voterGroupHavePermission(author, voterGroup);
 
 		if (!havePermisssion) {

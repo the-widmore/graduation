@@ -18,9 +18,9 @@ public class PermissionServiceImplTest extends BaseTest {
 	public void testHavePermission() {
 		for (int i = 0; i < 5; i++) {
 			try {
-				System.out.println(permissionService.havePermission(ResourceType.vote, 1, 11));
-				System.out.println(permissionService.havePermission(ResourceType.voter, 1, 1));
-				System.out.println(permissionService.havePermission(ResourceType.voterGroup, 1, 1));
+				System.out.println(permissionService.havePermission(ResourceType.vote, 1L, 11L));
+				System.out.println(permissionService.havePermission(ResourceType.voter, 1L, 1L));
+				System.out.println(permissionService.havePermission(ResourceType.voterGroup, 1L, 1L));
 			} catch (IException e) {
 				// TODO Auto-generated catch block
 			}

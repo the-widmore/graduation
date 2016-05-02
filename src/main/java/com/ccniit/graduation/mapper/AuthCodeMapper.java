@@ -46,6 +46,9 @@ public interface AuthCodeMapper {
 	@Select("SELECT code FROM auth_code WHERE vote=#{vote} AND voter=#{voter}")
 	String selectAuthCode(@Param("vote") long vote, @Param("voter") long voter);
 
+	@Select("SELECT code FROM auth_code WHERE vote=#{vote}")
+	String selectProtectedVoteAuthCode(@Param("vote") long vote);
+
 	/**
 	 * 将一个验证码设置为使用过
 	 * 

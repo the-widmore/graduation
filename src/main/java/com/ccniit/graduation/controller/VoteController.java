@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ccniit.graduation.builder.VoteSummaryVoBuilder;
 import com.ccniit.graduation.exception.CannotDoException;
@@ -22,6 +23,7 @@ import com.ccniit.graduation.pojo.db.VoteContent;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
 import com.ccniit.graduation.pojo.qo.VotePublishVo;
 import com.ccniit.graduation.pojo.vo.VoteSummaryVo;
+import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.pojo.vo.VoterGroupVo;
 import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.PermissionService;
@@ -154,7 +156,7 @@ public class VoteController {
 
 	// 根据vote的进度，进行不同的操作
 	@RequestMapping(value = VOTE_ACTION_URL, method = RequestMethod.GET)
-	public String voteAction(@PathVariable("voteId") long voteId) throws IException {
+	public String voteAction(@PathVariable("voteId") Long voteId) throws IException {
 
 		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
 
@@ -224,10 +226,44 @@ public class VoteController {
 		// TODO Auto generated method stub
 
 		VoteSummaryVo voteSummaryVo = voteSummaryVoBuilder.build(voteId);
-		modelMap.addAttribute("voteSummaryVo", voteSummaryVo);
+		VoteVo vote = voteService.selectVoteVo(voteId);
+
+		modelMap.addAttribute("vote", vote);
+		modelMap.addAttribute("voteSummary", voteSummaryVo);
 
 		return VOTE_SUMMARY_VIEW;
 	}
 	// ###
+
+	protected static final String WRITE_VOTE_ID = "/vote/write/{voteId}";
+	protected static final String WRIET_VOTE_SORTED = "/s/{url}";
+
+	@RequestMapping(value = WRITE_VOTE_ID, method = RequestMethod.GET)
+	public ModelAndView writeById(@PathVariable("voteId") Long voteId) throws IException {
+		return loadVote(voteId);
+	}
+
+	@RequestMapping(value = WRIET_VOTE_SORTED, method = RequestMethod.GET)
+	public ModelAndView writeByUrl(@PathVariable("url") String url) throws IException {
+		return loadVote(voteService.selectVoteIdByURL(url));
+	}
+
+	protected static final String VOTE_VIEW = "/vote/vote.html";
+
+	private ModelAndView loadVote(Long voteId) throws IException {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName(VOTE_VIEW);
+
+		VoteVo voteVo = voteService.selectVoteVo(voteId);
+
+		DEV.debug(voteVo.toString());
+		String voteContent = voteContentService.loadVoteContent(voteId);
+
+		modelAndView.addObject("title", voteVo.getTitle());
+		modelAndView.addObject("tags", voteVo.getTags());
+		modelAndView.addObject("voteContent", voteContent);
+
+		return modelAndView;
+	}
 
 }

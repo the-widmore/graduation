@@ -42,9 +42,8 @@ public class VoteDataDao implements IVoteDataDao {
 	}
 
 	@Override
-	public Integer counterVoteSubmitTimes(String tableName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long counterVoteSubmitTimes(String tableName) {
+		return mongoTemplate.getCollection(tableName).count();
 	}
 
 }

@@ -1,26 +1,35 @@
 package com.ccniit.graduation.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ccniit.graduation.service.VoteSearchService;
 
 @Controller
 public class SearchController {
 
-	private static final String SEARCH_URL = "search";
-	private static final String SEARCH_RESULT = "search/search.html";
 
-	@RequestMapping(value = SEARCH_URL, method = RequestMethod.GET)
-	public String get(Object model) {
-		return SEARCH_RESULT;
+	
+	@Resource
+	VoteSearchService voteSearchService;
+
+	private static final String SEARCH_VIEW = "search/search.html";
+
+	@RequestMapping(value = SEARCH_VIEW, method = RequestMethod.GET)
+	public String searchPage(Object model) {
+		return SEARCH_VIEW;
 	}
 
-	protected static final String SEARCH_TAG = "search/tag";
+	private static final String SEARCH_DO = "/search/searche.do";
 
-	@RequestMapping(value = SEARCH_TAG, method = RequestMethod.GET)
-	public String searchByTag(Object model) {
+	@RequestMapping(value = SEARCH_DO, method = RequestMethod.POST)
+	public String search(@RequestParam("by") String by, @RequestParam("keyWords") String keyWords) {
 
-		return SEARCH_TAG;
+		return SEARCH_VIEW;
 	}
 
 }

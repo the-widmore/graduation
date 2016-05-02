@@ -37,14 +37,23 @@ public interface VoteMapper {
 	Integer updateVoteProgress(@Param("vote") long vote, @Param("progress") int progress);
 
 	/**
-	 * 更新进度Vote.预计结束时间
+	 * 更新Vote到发布状态，需要更新预计结束时间、授权没类型、进度、URL
 	 * 
-	 * @param Vpte.id
-	 * @param Vote.predictDate
-	 * @return successful updated recode
+	 * @param redictDate
+	 *            预计结束时间
+	 * @param auth
+	 *            授权方式
+	 * @param progress
+	 *            进度
+	 * @param url
+	 *            生成的段URL
+	 * @param id
+	 *            vote的id
+	 * @return 更新的条数(1=success)
 	 */
-	@Update("UPDATE vote SET predictDate=#{predictDate} WHERE id=#{vote}")
-	Integer updateVotePredictDate(@Param("vote") long vote, @Param("predictDate") Date predictDate);
+	@Update("UPDATE vote SET predictDate=#{predictDate},auth=#{auth},progress=#{progress},url=#{url} WHERE id=#{id}")
+	Integer updateVoteToPublish(@Param("predictDate") Date predictDate, @Param("auth") String auth,
+			@Param("progress") int progress, @Param("url") String url, @Param("id") long id);
 
 	/**
 	 * 
@@ -58,23 +67,12 @@ public interface VoteMapper {
 	Integer updateVoteEndDate(@Param("vote") long vote, @Param("endDate") Date endDate);
 
 	/**
-	 * 设置Vote 的授权方式
-	 * 
-	 * @param authType
-	 * @see com.ccniit.graduation.pojo.db.Vote.AuthType
-	 * @param vote
-	 *            Vote.id
-	 */
-	@Update("UPDATE vote SET auth=#{authType} WHERE id=#{vote}")
-	Integer updateVoteAuthType(@Param("vote") long vote, @Param("authType") Vote.AuthType authType);
-
-	/**
 	 * 按照id查询Vote
 	 * 
 	 * @param Vote.id
 	 * @return Vote {@link com.ccniit.graduation.pojo.db.Vote}
 	 */
-	@Select("SELECT id,url,tableName,category,title,progress,auth,inDate,predictDate,endDate,cover FROM vote WHERE id=#{vote}")
+	@Select("SELECT id,url,tableName,category,title,progress,auth,inDate,predictDate,endDate,cover FROM vote WHERE id=#{vote} and removed=0;")
 	Vote selectVoteById(long vote);
 
 	/**
@@ -93,7 +91,7 @@ public interface VoteMapper {
 	 * @return Vote.id
 	 */
 	@Select("SELECT id FROM vote WHERE tableName=#{tableName}")
-	Long selectVoteByTableName(String tableName);
+	Long selectVoteIdByTableName(String tableName);
 
 	/**
 	 * 按照url查询Vote.id
@@ -103,7 +101,7 @@ public interface VoteMapper {
 	 * @return Vote.ur
 	 */
 	@Select("SELECT id FROM vote WHERE url=#{url}")
-	Long selectVoteByUrl(String url);
+	Long selectVoteIdByUrl(String url);
 
 	/**
 	 * 按照author和Vote.category查询多个Vote的id。采用倒叙
@@ -111,7 +109,7 @@ public interface VoteMapper {
 	 * @param VoteQueryByCategory(offset,pageSize,author,category)
 	 * @return List<Long>
 	 */
-	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} ORDER BY id DESC LIMIT #{offset},#{pageSize}")
+	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} AND removed=0 ORDER BY id DESC LIMIT #{offset},#{pageSize}")
 	List<Long> selectAuthorVotesId(PagedQuery query);
 
 	// TODO

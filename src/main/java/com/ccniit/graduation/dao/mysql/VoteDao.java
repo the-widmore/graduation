@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import com.ccniit.graduation.mapper.VoteMapper;
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.pojo.db.Vote.AuthType;
 import com.ccniit.graduation.pojo.qo.PagedQuery;
 import com.ccniit.graduation.pojo.vo.VoteSearchResult;
 
@@ -31,8 +30,8 @@ public class VoteDao implements VoteMapper {
 	}
 
 	@Override
-	public Integer updateVotePredictDate(long vote, Date predictDate) {
-		return voteMapper.updateVotePredictDate(vote, predictDate);
+	public Integer updateVoteToPublish(Date predictDate, String auth, int progress, String url, long id) {
+		return voteMapper.updateVoteToPublish(predictDate, auth, progress, url, id);
 	}
 
 	@Override
@@ -41,28 +40,23 @@ public class VoteDao implements VoteMapper {
 	}
 
 	@Override
-	public Integer updateVoteAuthType(long vote, AuthType authType) {
-		return voteMapper.updateVoteAuthType(vote, authType);
-	}
-
-	@Override
 	public Vote selectVoteById(long vote) {
 		return voteMapper.selectVoteById(vote);
 	}
 
 	@Override
-	public Long selectVoteByTableName(String tableName) {
-		return voteMapper.selectVoteByTableName(tableName);
+	public Long selectVoteIdByTableName(String tableName) {
+		return voteMapper.selectVoteIdByTableName(tableName);
+	}
+
+	@Override
+	public Long selectVoteIdByUrl(String url) {
+		return voteMapper.selectVoteIdByUrl(url);
 	}
 
 	@Override
 	public String selectVoteTableName(long vote) {
 		return voteMapper.selectVoteTableName(vote);
-	}
-
-	@Override
-	public Long selectVoteByUrl(String url) {
-		return voteMapper.selectVoteByUrl(url);
 	}
 
 	@Override

@@ -1,10 +1,12 @@
 package com.ccniit.graduation.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,6 @@ import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.ServerException;
 import com.ccniit.graduation.exception.VoteNotExistException;
 import com.ccniit.graduation.pojo.db.Vote;
-import com.ccniit.graduation.pojo.db.Vote.AuthType;
 import com.ccniit.graduation.pojo.db.Vote.VoteCategory;
 import com.ccniit.graduation.pojo.db.VoteContent;
 import com.ccniit.graduation.pojo.qo.PagedQuery;
@@ -32,10 +33,13 @@ import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoteTagService;
 import com.ccniit.graduation.service.VoteVoterGroupService;
 import com.ccniit.graduation.util.DateUtils;
+import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.StringUtils;
 
 @Service("voteService")
 public class VoteServiceImpl implements VoteService {
+
+	private static final Logger ERR = LoggerUtils.getErr();
 
 	@Resource
 	private VoteDao voteDao;
@@ -93,7 +97,7 @@ public class VoteServiceImpl implements VoteService {
 	public Vote selectVote(long voteId) throws IException {
 		Vote vote = voteDao.selectVoteById(voteId);
 		if (null == vote) {
-			throw new VoteNotExistException(String.format("没有找到id为{0}的Vote", voteId));
+			throw new VoteNotExistException(String.format("没有找到id为{}的Vote", voteId));
 		}
 		return vote;
 	}
@@ -103,10 +107,10 @@ public class VoteServiceImpl implements VoteService {
 		Long voteId = 0L;
 		switch (condition) {
 		case tableName:
-			voteId = voteDao.selectVoteByTableName(param);
+			voteId = voteDao.selectVoteIdByTableName(param);
 			break;
 		case url:
-			voteId = voteDao.selectVoteByUrl(param);
+			voteId = voteDao.selectVoteIdByUrl(param);
 			break;
 		default:
 			break;
@@ -127,27 +131,26 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@Override
-	public List<VoteVo> selectVoteVos(PagedQuery query) throws IException {
-		List<Long> voteIds = voteDao.selectAuthorVotesId(query);
-		List<VoteVo> voteVos = new ArrayList<>(voteIds.size());
-		for (Long voteId : voteIds) {
-			VoteVo vo = selectVoteVo(voteId);
-			voteVos.add(vo);
-		}
-		return voteVos;
-	}
-
-	@Override
 	public Integer updateVoteByPublish(VotePublishVo publishVo, Long author) throws IException {
-		String authType = publishVo.getAuthType();
+
 		Long vote = publishVo.getVoteId();
-		voteDao.updateVotePredictDate(vote, DateUtils.parseDate(publishVo.getEndDate()));
-		voteDao.updateVoteAuthType(vote, AuthType.valueOf(authType));
-		voteDao.updateVoteProgress(vote, VoteResource.PUBLISTED);
+		permissionService.havePermission(ResourceType.vote, author, vote);
 
-		//
+		String authType = publishVo.getAuthType();
+		Date predictDate = DateUtils.parseDate(publishVo.getEndDate());
+		String url = StringUtils.getRandomString(4);
+
+		try {
+			voteDao.updateVoteToPublish(predictDate, publishVo.getAuthType(), VoteResource.PUBLISTED, url, vote);
+		} catch (Exception e) {
+			ERR.error("发布Vote失败", e);
+		}
+
+		// 预计结束时间、授权没类型、进度、URL
+
+		// 根据不同的授权方式来处理
 		if (Vote.AuthType.PROTECTED.toString().equals(authType)) {
-
+			authCodeService.generateVoteAuthCode(vote);
 		}
 
 		if (Vote.AuthType.PRIVATE.toString().equals(authType)) {
@@ -160,9 +163,27 @@ public class VoteServiceImpl implements VoteService {
 			if (inserted == voteGroups.size()) {
 				return 1;
 			}
+
+			// 添加voter到邮件队列 TODO
 		}
 
 		return 0;
+	}
+
+	@Override
+	public Long selectVoteIdByURL(String url) {
+		return voteDao.selectVoteIdByUrl(url);
+	}
+
+	@Override
+	public List<VoteVo> selectVoteVos(PagedQuery query) throws IException {
+		List<Long> voteIds = voteDao.selectAuthorVotesId(query);
+		List<VoteVo> voteVos = new ArrayList<>(voteIds.size());
+		for (Long voteId : voteIds) {
+			VoteVo vo = selectVoteVo(voteId);
+			voteVos.add(vo);
+		}
+		return voteVos;
 	}
 
 }

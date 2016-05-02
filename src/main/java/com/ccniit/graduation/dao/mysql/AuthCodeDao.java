@@ -38,6 +38,11 @@ public class AuthCodeDao implements AuthCodeMapper {
 	}
 
 	@Override
+	public String selectProtectedVoteAuthCode(long vote) {
+		return authCodeMapper.selectProtectedVoteAuthCode(vote);
+	}
+
+	@Override
 	public Integer setAuthCodeUsed(long vote, long voter) {
 		return authCodeMapper.setAuthCodeUsed(vote, voter);
 	}

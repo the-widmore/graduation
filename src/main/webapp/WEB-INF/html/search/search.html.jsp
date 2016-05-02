@@ -64,18 +64,16 @@
 		<div class="row">
 			<div class="col-lg-1"></div>
 			<div class="col-lg-6">
-				<form class="form-search">
+				<form class="form-search" action="" method="POST">
 					<div class="input-group" style="margin-top: 30px">
-						<span class="input-group-addon"><select>
-								<option>按标签</option>
-								<option>标题</option>
-								<option>标签个标题</option>
-						</select></span> <input type="text" class="form-control" placeholder="Key Words">
-						<span class="input-group-addon"><input type="submit"
-							value="Search"></span>
+						<span class="input-group-addon"> <select name="by">
+								<option value="TITLE">按标题</option>
+								<option value="TAG">按标签</option>
+								<option value="CONTENT">按内容</option>
+						</select></span> <input type="text" class="form-control" placeholder="Key Words"
+							name="keyWords"> <span class="input-group-addon"><input
+							type="submit" value="Search"></span>
 					</div>
-					<!--<input class="input-medium search-query" type="text"/>
-                <button type="submit" class="btn">查找</button>-->
 				</form>
 			</div>
 			<div class="col-lg-4">

@@ -11,12 +11,12 @@ public interface PermissionService {
 		vote, voter, voterGroup
 	}
 
-	boolean voteHavePermission(long author, long vote);
+	boolean voteHavePermission(Long author, Long vote);
 
-	boolean voterHavePermission(long author, long voter);
+	boolean voterHavePermission(Long author, Long voter);
 
-	boolean voterGroupHavePermission(long author, long voterGroup);
+	boolean voterGroupHavePermission(Long author, Long voterGroup);
 
-	boolean havePermission(ResourceType type, long author, long resource) throws IException;
+	boolean havePermission(ResourceType type, Long author, Long resource) throws IException;
 
 }

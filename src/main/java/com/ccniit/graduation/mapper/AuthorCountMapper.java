@@ -21,7 +21,7 @@ public interface AuthorCountMapper {
 	 * 
 	 * @param auhtor.id
 	 */
-	@Select("SELECT category,COUNT(id) AS counter FROM vote WHERE author=#{authorId} GROUP BY category")
+	@Select("SELECT category,COUNT(id) AS counter FROM vote WHERE author=#{authorId} AND removed=0 GROUP BY category")
 	List<VoteCountByCategory> countAuthorVote(long authorId);
 
 }

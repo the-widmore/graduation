@@ -77,17 +77,15 @@
 
 	<div class="container content">
 
-		<div class="title">标题</div>
+		<div class="title">${vote.title }</div>
 
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-1 text-right">标签</div>
 			<div class="col-md-6">
-				<span class="label label-default">AAA</span> <span
-					class="label label-default">AAA</span> <span
-					class="label label-default">AAA</span> <span
-					class="label label-default">AAA</span> <span
-					class="label label-default">AAA</span>
+				<c:forEach items="${vote.tags }" var="tag">
+					<span class="label label-default">${tag }</span>
+				</c:forEach>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
@@ -98,7 +96,7 @@
 				<div class="bg-info">
 					<p style="text-align: center">创建时间</p>
 
-					<div class="voteInfo">2384-34-34 34:45</div>
+					<div class="voteInfo">${voteSummary.createTime }</div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -106,7 +104,7 @@
 				<div class="bg-info">
 					<p style="text-align: center">剩余时间</p>
 
-					<div class="voteInfo">X天Y小时Z分钟</div>
+					<div class="voteInfo">${voteSummary.surplusTime }</div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -114,7 +112,7 @@
 				<div class="bg-info">
 					<p style="text-align: center">结束时间</p>
 
-					<div class="voteInfo">2016-04-18 12:00</div>
+					<div class="voteInfo">${voteSummary.endTime }</div>
 				</div>
 			</div>
 			<div class="col-md-2"></div>
@@ -134,7 +132,7 @@
 				<div class="bg-info">
 					<p style="text-align: center">提交次数</p>
 
-					<div class="voteInfo">456/500</div>
+					<div class="voteInfo">${voteSummary.submitTimes }</div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -142,14 +140,7 @@
 				<div class="bg-info">
 					<p style="text-align: center">授权方式</p>
 
-					<div class="voteInfo">
-						<p>${authType }</p>
-						<c:choose>
-							<c:when test="${authType=='PROTECTED' }">
-								<p>${auth }</p>
-							</c:when>
-						</c:choose>
-					</div>
+					<div class="voteInfo">${voteSummary.auth }</div>
 				</div>
 			</div>
 			<div class="col-md-2"></div>

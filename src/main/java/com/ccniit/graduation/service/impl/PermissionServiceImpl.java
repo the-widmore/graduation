@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.dao.mysql.ResourceDao;
 import com.ccniit.graduation.exception.IException;
+import com.ccniit.graduation.exception.ParamsException;
 import com.ccniit.graduation.exception.PermissionException;
 import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.service.PermissionService;
@@ -24,20 +25,20 @@ public class PermissionServiceImpl implements PermissionService {
 	ResourceDao resourceDao;
 
 	@Override
-	public boolean voteHavePermission(long author, long vote) {
+	public boolean voteHavePermission(Long author, Long vote) {
 		Long owner = resourceDao.selectAuthorIdFromVote(vote);
 		return chechPermission(author, vote, owner);
 	}
 
 	@Override
-	public boolean voterHavePermission(long author, long voter) {
+	public boolean voterHavePermission(Long author, Long voter) {
 		Long owner = resourceDao.selectAuthorIdFromVoter(voter);
 		return chechPermission(author, voter, owner);
 
 	}
 
 	@Override
-	public boolean voterGroupHavePermission(long author, long voterGroup) {
+	public boolean voterGroupHavePermission(Long author, Long voterGroup) {
 		Long owner = resourceDao.selectAuthorIdFromVoterGroup(voterGroup);
 		return chechPermission(author, voterGroup, owner);
 	}
@@ -46,7 +47,12 @@ public class PermissionServiceImpl implements PermissionService {
 
 	@Cacheable(cacheNames = CacheNames.AUTHOR_VOTE_COUNT, keyGenerator = "permissionCacheKeyGenerator")
 	@Override
-	public boolean havePermission(ResourceType type, long author, long resource) throws IException {
+	public boolean havePermission(ResourceType type, Long author, Long resource) throws IException {
+
+		if (null == type || null == author || null == resource) {
+			throw new ParamsException("参数type,author,resource不能有空值！");
+		}
+
 		boolean havePermission = false;
 		switch (type) {
 		case vote:
@@ -83,7 +89,7 @@ public class PermissionServiceImpl implements PermissionService {
 			return false;
 		}
 
-		if (author == owner) {
+		if (author.longValue() == owner.longValue()) {
 			return true;
 		}
 		return false;

@@ -15,6 +15,13 @@ public class ErrorController {
 		return NOT_FOUND;
 	}
 
+	protected static final String VOTE_NOT_FOUND = "/error/voteNotFound";
+
+	@RequestMapping(value = VOTE_NOT_FOUND, method = RequestMethod.GET)
+	public String voteNotFound(Exception exception) {
+		return VOTE_NOT_FOUND;
+	}
+
 	protected static final String NOT_AUTH = "/error/403";
 
 	@RequestMapping(value = NOT_AUTH, method = RequestMethod.GET)

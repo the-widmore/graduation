@@ -12,16 +12,15 @@ import com.ccniit.graduation.service.VoteSearchService;
 @Controller
 public class SearchController {
 
-
-	
 	@Resource
 	VoteSearchService voteSearchService;
 
-	private static final String SEARCH_VIEW = "search/search.html";
+	private static final String SEARCH_VIEW_1 = "/search/";
+	private static final String SEARCH_VIEW_2 = "/search/search.html";
 
-	@RequestMapping(value = SEARCH_VIEW, method = RequestMethod.GET)
+	@RequestMapping(value = { SEARCH_VIEW_1, SEARCH_VIEW_2 }, method = RequestMethod.GET)
 	public String searchPage(Object model) {
-		return SEARCH_VIEW;
+		return SEARCH_VIEW_2;
 	}
 
 	private static final String SEARCH_DO = "/search/searche.do";
@@ -29,7 +28,7 @@ public class SearchController {
 	@RequestMapping(value = SEARCH_DO, method = RequestMethod.POST)
 	public String search(@RequestParam("by") String by, @RequestParam("keyWords") String keyWords) {
 
-		return SEARCH_VIEW;
+		return SEARCH_VIEW_2;
 	}
 
 }

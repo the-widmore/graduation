@@ -1,6 +1,7 @@
 package com.ccniit.graduation.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -14,12 +15,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ccniit.graduation.builder.VoteSummaryVoBuilder;
+import com.ccniit.graduation.dao.mongodb.VoteDataDao;
 import com.ccniit.graduation.exception.CannotDoException;
 import com.ccniit.graduation.exception.IException;
+import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.db.VoteContent;
+import com.ccniit.graduation.pojo.doc.BaseVoteData;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
 import com.ccniit.graduation.pojo.qo.VotePublishVo;
 import com.ccniit.graduation.pojo.vo.VoteSummaryVo;
@@ -51,73 +56,25 @@ public class VoteController {
 	private VoterGroupService voterGroupService;
 	@Resource
 	private VoteSummaryVoBuilder voteSummaryVoBuilder;
+	@Resource
+	private VoteDataDao voteDataDao;
 
 	// ### start Vote介绍
-	protected static final String VIEW_VOTE = "/vote/startVote.html";
+	protected static final String VOTE_URL = "/vote";
+	protected static final String VOTE_START_URL_AND_VIEW = "/vote/startVote.html";
 
-	@RequestMapping(value = { VIEW_VOTE }, method = RequestMethod.GET)
+	@RequestMapping(value = { VOTE_URL, VOTE_START_URL_AND_VIEW }, method = RequestMethod.GET)
 	public String vote(ModelMap modelMap) {
-		return VIEW_VOTE;
+		return VOTE_START_URL_AND_VIEW;
 	}
 	// end Vote介绍 ###
 
+	protected static final String VOTE_CREATE_VIEW = "/vote/createVote.html";
+
 	// start Vote 创建
-	@RequestMapping(value = { VIEW_CREATE_VOTE }, method = RequestMethod.GET)
+	@RequestMapping(value = { VOTE_CREATE_VIEW }, method = RequestMethod.GET)
 	public String createVote(ModelMap modelMap) {
-		return VIEW_CREATE_VOTE;
-	}
-
-	protected static final String VIEW_CREATE_VOTE = "/vote/createVote.html";
-
-	protected static final String CREATE_VOTE_DO = "/vote/createVote.do";
-
-	@RequestMapping(value = CREATE_VOTE_DO, method = RequestMethod.POST)
-	public String createVote(@ModelAttribute("creater") VoteCreater creater, ModelMap modelMap) throws IException {
-
-		creater.setAuthor(ShiroUtils.getUserId());
-		voteService.createVote(creater);
-
-		// 编辑模式 选择
-
-		return SpringMVCUtils.redirect(UserController.VIEW_USER_MY_VOTE);
-	}
-
-	protected static final String VIEW_CREATE_VOTE_FROM_FLIE = "/vote/createVoteFromFile.html";
-
-	@RequestMapping(value = { VIEW_CREATE_VOTE_FROM_FLIE }, method = RequestMethod.GET)
-	public String createVoteFromFile(ModelMap modelMap) {
-
-		return VIEW_CREATE_VOTE_FROM_FLIE;
-	}
-
-	protected static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";
-
-	@RequestMapping(value = { VIEW_CREATE_ADVANCE_VOTE }, method = RequestMethod.GET)
-	public String createAdvanceVote(ModelMap modelMap) {
-		return VIEW_CREATE_ADVANCE_VOTE;
-	}
-	// end Vote 创建 ###
-
-	// HTML编辑模式 TODO 添加 visible(可视化编辑模式)
-	protected static final String VIEW_EDIT_VOTE = "/vote/editVoteByHTML.html";
-	protected static final String EDIT_VOTE_BY_HTML_URL = "/vote/editVoteByHTML/{voteId}";
-
-	@RequestMapping(value = { EDIT_VOTE_BY_HTML_URL }, method = { RequestMethod.GET, RequestMethod.POST })
-	public String editVote(@PathVariable("voteId") Long voteId, ModelMap modelMap) throws IException {
-		// TODO 权限检查、进度检查、账号检查
-		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
-
-		int progress = voteService.selectVote(voteId).getProgress();
-		if (VoteResource.EDITED == progress || VoteResource.CREATED == progress) {
-
-		} else {
-			throw new CannotDoException("该资源应经发布了，无法再进行编辑了。");
-		}
-
-		modelMap.addAttribute("voteContent", voteContentService.loadVoteContent(voteId));
-		modelMap.addAttribute("voteId", voteId);
-
-		return VIEW_EDIT_VOTE;
+		return VOTE_CREATE_VIEW;
 	}
 
 	protected static final String FROM_VOTE_PREVIEW = "/vote/previewVote.do";
@@ -167,7 +124,7 @@ public class VoteController {
 		// 在创建后发布前都是编辑
 		case VoteResource.CREATED:
 		case VoteResource.EDITED:
-			targetUrl = SystemUtils.replaceVoteId(EDIT_VOTE_BY_HTML_URL, voteId);
+			targetUrl = SystemUtils.replaceVoteId(VoteEditController.EDIT_VOTE_BY_HTML_URL, voteId);
 			break;
 		// 处于发布状态 /应经结束的
 		case VoteResource.PUBLISTED:
@@ -248,11 +205,11 @@ public class VoteController {
 		return loadVote(voteService.selectVoteIdByURL(url));
 	}
 
-	protected static final String VOTE_VIEW = "/vote/vote.html";
+	protected static final String VOTE_VIEW_URL = "/vote/vote.html";
 
 	private ModelAndView loadVote(Long voteId) throws IException {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName(VOTE_VIEW);
+		modelAndView.setViewName(VOTE_VIEW_URL);
 
 		VoteVo voteVo = voteService.selectVoteVo(voteId);
 
@@ -262,8 +219,31 @@ public class VoteController {
 		modelAndView.addObject("title", voteVo.getTitle());
 		modelAndView.addObject("tags", voteVo.getTags());
 		modelAndView.addObject("voteContent", voteContent);
+		modelAndView.addObject("vid", voteVo.getId());
 
 		return modelAndView;
+	}
+
+	private static final String WRITE_VOTE_DO = "/vote/write.do";
+	protected static final String WRITE_SUCCESS = "/vote/vrite/success.html";
+	protected static final String WRITE_SUCCESS_VIEW = "/vote/writeSuccess.html";
+
+	@RequestMapping(value = WRITE_SUCCESS_VIEW, method = RequestMethod.GET)
+	public String writeSuccess(Object model) {
+		return WRITE_SUCCESS_VIEW;
+	}
+
+	@RequestMapping(value = WRITE_VOTE_DO, method = RequestMethod.POST)
+	public String write(@RequestParam(value = "vid", required = true) final Long voteId, WebRequest request)
+			throws IException {
+
+		Vote vote = voteService.selectVote(voteId);
+		String tableName = vote.getTableName();
+
+		DEV.debug(tableName);
+		Map<String, String[]> data = request.getParameterMap();
+		voteDataDao.insertVoteData(tableName, new BaseVoteData(data));
+		return SpringMVCUtils.redirect(WRITE_SUCCESS_VIEW);
 	}
 
 }

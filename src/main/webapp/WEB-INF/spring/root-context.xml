@@ -107,10 +107,9 @@
 			<value>
 				/user/userSignIn.html=anon
 				/user/userLogin.do=anon
-				/vote/write/**=anon
+				/vote/creater/**=authc
+				/vote/edit/**=authc
 				/user/**=authc
-				/vote/**=authc
-				/poll/**=authc
 			</value>
 		</property>
 	</bean>

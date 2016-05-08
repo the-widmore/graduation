@@ -1,8 +1,6 @@
 package com.ccniit.graduation.dao.mongodb;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -67,19 +65,18 @@ public class MongoConfigurationTest extends BaseTest {
 
 	}
 
-	private Map<String, List<String>> random() {
-		Map<String, List<String>> data = new HashMap<>();
+	private Map<String, String[]> random() {
+		Map<String, String[]> data = new HashMap<>();
 		Random random = new Random();
 		for (int i = 0; i < 20; i++) {
 
 			int valueSize = random.nextInt(3);
-
-			List<String> value = new ArrayList<>();
-			for (int j = 0; j < valueSize; j++) {
-				value.add(RandomStringUtils.random(1, CHARS));
+			String[] set = new String[valueSize];
+			for (int j = 0; j < set.length; j++) {
+				set[i] = RandomStringUtils.random(1, CHARS);
 			}
 
-			data.put(String.valueOf(i), value);
+			data.put("q" + i, set);
 		}
 		return data;
 	}

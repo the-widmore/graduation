@@ -97,7 +97,7 @@ public class VoteServiceImpl implements VoteService {
 	public Vote selectVote(long voteId) throws IException {
 		Vote vote = voteDao.selectVoteById(voteId);
 		if (null == vote) {
-			throw new VoteNotExistException(String.format("没有找到id为{}的Vote", voteId));
+			throw new VoteNotExistException(String.format("没有找到id为%s的Vote", voteId));
 		}
 		return vote;
 	}

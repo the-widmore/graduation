@@ -63,8 +63,11 @@
 			</c:forEach>
 		</div>
 
-		<form action="" method="POST">
-			<div style="margin:30px 50px;border: 2px solid #9d77ff;padding: 20px 30px;min-height: 400px">${voteContent }</div>
+		<form
+			action="${pageContext.request.contextPath}/vote/write.do?vid=${vid }"
+			method="POST">
+			<div
+				style="margin: 30px 50px; border: 2px solid #9d77ff; padding: 20px 30px; min-height: 400px">${voteContent }</div>
 			<input type="submit" value="提	交" class="btn btn-primary">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="reset"
 				value="重	置" class="btn btn-warning">

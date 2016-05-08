@@ -1,7 +1,6 @@
 package com.ccniit.graduation.pojo.doc;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
 public class BaseVoteData implements Serializable {
@@ -10,7 +9,7 @@ public class BaseVoteData implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4162660588463836506L;
-	protected Map<String, List<String>> data;
+	protected Map<String, String[]> data;
 	protected long inDate;
 
 	public BaseVoteData() {
@@ -19,17 +18,17 @@ public class BaseVoteData implements Serializable {
 
 	}
 
-	public BaseVoteData(Map<String, List<String>> data) {
+	public BaseVoteData(Map<String, String[]> data) {
 		super();
 		this.data = data;
 		this.inDate = System.currentTimeMillis();
 	}
 
-	public Map<String, List<String>> getData() {
+	public Map<String, String[]> getData() {
 		return data;
 	}
 
-	public void setData(Map<String, List<String>> data) {
+	public void setData(Map<String, String[]> data) {
 		this.data = data;
 	}
 

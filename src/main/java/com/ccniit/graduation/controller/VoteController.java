@@ -1,6 +1,7 @@
 package com.ccniit.graduation.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -14,12 +15,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ccniit.graduation.builder.VoteSummaryVoBuilder;
+import com.ccniit.graduation.dao.mongodb.VoteDataDao;
 import com.ccniit.graduation.exception.CannotDoException;
 import com.ccniit.graduation.exception.IException;
+import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.db.VoteContent;
+import com.ccniit.graduation.pojo.doc.BaseVoteData;
 import com.ccniit.graduation.pojo.qo.VoteCreater;
 import com.ccniit.graduation.pojo.qo.VotePublishVo;
 import com.ccniit.graduation.pojo.vo.VoteSummaryVo;
@@ -51,6 +56,8 @@ public class VoteController {
 	private VoterGroupService voterGroupService;
 	@Resource
 	private VoteSummaryVoBuilder voteSummaryVoBuilder;
+	@Resource
+	private VoteDataDao voteDataDao;
 
 	// ### start Vote介绍
 	protected static final String VIEW_VOTE = "/vote/startVote.html";
@@ -262,8 +269,31 @@ public class VoteController {
 		modelAndView.addObject("title", voteVo.getTitle());
 		modelAndView.addObject("tags", voteVo.getTags());
 		modelAndView.addObject("voteContent", voteContent);
+		modelAndView.addObject("vid", voteVo.getId());
 
 		return modelAndView;
+	}
+
+	private static final String WRITE_VOTE_DO = "/vote/write.do";
+	protected static final String WRITE_SUCCESS = "/vote/vrite/success.html";
+	protected static final String WRITE_SUCCESS_VIEW = "/vote/writeSuccess.html";
+
+	@RequestMapping(value = WRITE_SUCCESS_VIEW, method = RequestMethod.GET)
+	public String writeSuccess(Object model) {
+		return WRITE_SUCCESS_VIEW;
+	}
+
+	@RequestMapping(value = WRITE_VOTE_DO, method = RequestMethod.POST)
+	public String write(@RequestParam(value = "vid", required = true) final Long voteId, WebRequest request)
+			throws IException {
+
+		Vote vote = voteService.selectVote(voteId);
+		String tableName = vote.getTableName();
+
+		DEV.debug(tableName);
+		Map<String, String[]> data = request.getParameterMap();
+		voteDataDao.insertVoteData(tableName, new BaseVoteData(data));
+		return SpringMVCUtils.redirect(WRITE_SUCCESS_VIEW);
 	}
 
 }

@@ -107,6 +107,7 @@
 			<value>
 				/user/userSignIn.html=anon
 				/user/userLogin.do=anon
+				/vote/creater/**=authc
 				/user/**=authc
 			</value>
 		</property>

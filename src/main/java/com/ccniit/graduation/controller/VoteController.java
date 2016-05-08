@@ -61,8 +61,9 @@ public class VoteController {
 
 	// ### start Vote介绍
 	protected static final String VIEW_VOTE = "/vote/startVote.html";
+	protected static final String VIEW_VOTE2 = "/vote/";
 
-	@RequestMapping(value = { VIEW_VOTE }, method = RequestMethod.GET)
+	@RequestMapping(value = { VIEW_VOTE, VIEW_VOTE2 }, method = RequestMethod.GET)
 	public String vote(ModelMap modelMap) {
 		return VIEW_VOTE;
 	}
@@ -89,13 +90,7 @@ public class VoteController {
 		return SpringMVCUtils.redirect(UserController.VIEW_USER_MY_VOTE);
 	}
 
-	protected static final String VIEW_CREATE_VOTE_FROM_FLIE = "/vote/createVoteFromFile.html";
 
-	@RequestMapping(value = { VIEW_CREATE_VOTE_FROM_FLIE }, method = RequestMethod.GET)
-	public String createVoteFromFile(ModelMap modelMap) {
-
-		return VIEW_CREATE_VOTE_FROM_FLIE;
-	}
 
 	protected static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";
 

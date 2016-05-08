@@ -17,11 +17,11 @@ public class StringUtils {
 		return uuid.toString().replace("-", "");
 	}
 
-	private static final String _ = "_";
+	private static final String _STRING = "_";
 
 	// 获取一个带开始为下划线的UUID
 	public static String _getUUID() {
-		return _.concat(getUUID());
+		return _STRING.concat(getUUID());
 	}
 
 	// 获取系统换行符，兼容不同平台

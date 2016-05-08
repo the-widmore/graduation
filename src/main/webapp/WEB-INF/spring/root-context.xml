@@ -108,7 +108,10 @@
 				/user/userSignIn.html=anon
 				/user/userLogin.do=anon
 				/vote/creater/**=authc
+<<<<<<< HEAD
 				/vote/edit/**=authc
+=======
+>>>>>>> 74448e523cfc90de8ffc6c98a5c2f04960540e75
 				/user/**=authc
 			</value>
 		</property>

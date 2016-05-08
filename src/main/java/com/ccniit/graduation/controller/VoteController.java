@@ -74,7 +74,52 @@ public class VoteController {
 	// start Vote 创建
 	@RequestMapping(value = { VOTE_CREATE_VIEW }, method = RequestMethod.GET)
 	public String createVote(ModelMap modelMap) {
-		return VOTE_CREATE_VIEW;
+		return VIEW_CREATE_VOTE;
+	}
+
+	protected static final String VIEW_CREATE_VOTE = "/vote/createVote.html";
+
+	protected static final String CREATE_VOTE_DO = "/vote/createVote.do";
+
+	@RequestMapping(value = CREATE_VOTE_DO, method = RequestMethod.POST)
+	public String createVote(@ModelAttribute("creater") VoteCreater creater, ModelMap modelMap) throws IException {
+
+		creater.setAuthor(ShiroUtils.getUserId());
+		voteService.createVote(creater);
+
+		// 编辑模式 选择
+
+		return SpringMVCUtils.redirect(UserController.VIEW_USER_MY_VOTE);
+	}
+
+	protected static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";
+
+	@RequestMapping(value = { VIEW_CREATE_ADVANCE_VOTE }, method = RequestMethod.GET)
+	public String createAdvanceVote(ModelMap modelMap) {
+		return VIEW_CREATE_ADVANCE_VOTE;
+	}
+	// end Vote 创建 ###
+
+	// HTML编辑模式 TODO 添加 visible(可视化编辑模式)
+	protected static final String VIEW_EDIT_VOTE = "/vote/editVoteByHTML.html";
+	protected static final String EDIT_VOTE_BY_HTML_URL = "/vote/editVoteByHTML/{voteId}";
+
+	@RequestMapping(value = { EDIT_VOTE_BY_HTML_URL }, method = { RequestMethod.GET, RequestMethod.POST })
+	public String editVote(@PathVariable("voteId") Long voteId, ModelMap modelMap) throws IException {
+		// TODO 权限检查、进度检查、账号检查
+		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
+
+		int progress = voteService.selectVote(voteId).getProgress();
+		if (VoteResource.EDITED == progress || VoteResource.CREATED == progress) {
+
+		} else {
+			throw new CannotDoException("该资源应经发布了，无法再进行编辑了。");
+		}
+
+		modelMap.addAttribute("voteContent", voteContentService.loadVoteContent(voteId));
+		modelMap.addAttribute("voteId", voteId);
+
+		return VIEW_EDIT_VOTE;
 	}
 
 	protected static final String FROM_VOTE_PREVIEW = "/vote/previewVote.do";

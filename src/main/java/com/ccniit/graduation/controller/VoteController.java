@@ -89,7 +89,7 @@ public class VoteController {
 
 		// 编辑模式 选择
 
-		return SpringMVCUtils.redirect(UserController.VIEW_USER_MY_VOTE);
+		return SpringMVCUtils.redirect(UserContentController.VIEW_USER_MY_VOTE);
 	}
 
 	protected static final String VIEW_CREATE_ADVANCE_VOTE = "/vote/createAdvanceVote.html";

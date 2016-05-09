@@ -29,5 +29,7 @@ public class HelpController {
 	public String createVoteFormFile() {
 		return VIEW_HELP_CREATE_VOTE_FROM_FILE;
 	}
+	
+	protected static final String VIEW_LINKMAN_FORMAT_ERROR = "/help/linkmanCreateFormate.html";
 
 }

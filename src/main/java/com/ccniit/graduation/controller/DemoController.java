@@ -56,12 +56,12 @@ public class DemoController {
 		return VIEW_DEMO_PHONE_DEMO;
 	}
 
-	protected static final String VIEW_DEMO_POLL_RESULT_SHARE = "/demo/pollResultShare.html";
+	protected static final String VIEW_DEMO_VIEW_RESULT_SHARE = "/demo/pollResultShare.html";
 
-	@RequestMapping(value = { VIEW_DEMO_POLL_RESULT_SHARE }, method = RequestMethod.GET)
+	@RequestMapping(value = { VIEW_DEMO_VIEW_RESULT_SHARE }, method = RequestMethod.GET)
 	public String pollResultShare(ModelMap modelMap) {
 
-		return VIEW_DEMO_POLL_RESULT_SHARE;
+		return VIEW_DEMO_VIEW_RESULT_SHARE;
 	}
 
 	protected static final String VIEW_DEMO_POLL_TYPE = "/demo/pollType.html";

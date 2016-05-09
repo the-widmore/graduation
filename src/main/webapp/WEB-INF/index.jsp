@@ -33,7 +33,7 @@
 					href="${pageContext.request.contextPath}/">首页</a></li>
 				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/poll/startPoll.html">问卷</a></li>
+					href="${pageContext.request.contextPath}/vote/startVote.html">问卷</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
 				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>

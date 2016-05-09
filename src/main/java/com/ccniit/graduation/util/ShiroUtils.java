@@ -34,9 +34,18 @@ public class ShiroUtils {
 
 	public static void addAttribute(Object key, Object value) {
 		Session session = getSession();
+
 		// if session not exist create
 		if (null == session) {
 			session = createSession();
+		}
+
+		if (session.getAttributeKeys().contains(key)) {
+			if (value.equals(session.getAttribute(value))) {
+				return;
+			} else {
+				LOG.warn("session have different value for key {}", key);
+			}
 		}
 
 		session.setAttribute(key, value);

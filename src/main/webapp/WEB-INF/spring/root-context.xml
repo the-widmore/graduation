@@ -105,13 +105,11 @@
 		<property name="unauthorizedUrl" value="/user/userUnauthorized.html" />
 		<property name="filterChainDefinitions">
 			<value>
-				/user/userSignIn.html=anon
 				/user/userLogin.do=anon
-				/vote/creater/**=authc
-<<<<<<< HEAD
-				/vote/edit/**=authc
-=======
->>>>>>> 74448e523cfc90de8ffc6c98a5c2f04960540e75
+				/user/userSignIn.html=anon
+				/vote/startVote.html=anon
+				/vote=anon
+				/vote/**=authc
 				/user/**=authc
 			</value>
 		</property>

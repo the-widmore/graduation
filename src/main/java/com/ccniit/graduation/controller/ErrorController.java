@@ -31,9 +31,23 @@ public class ErrorController {
 
 	protected static final String SERVER_ERROR = "/error/server";
 
+	/**
+	 * 服务器异常页面
+	 */
 	@RequestMapping(value = SERVER_ERROR, method = RequestMethod.GET)
 	public String serverError(ModelMap modelMap, Exception exception) {
 		return SERVER_ERROR;
+	}
+
+	protected static final String VIEW_USER_UNAUTHORIZED = "/error/userUnauthorized";
+
+	/**
+	 * 用户访问的资源没有授权错误页面
+	 */
+	@RequestMapping(value = { VIEW_USER_UNAUTHORIZED }, method = RequestMethod.GET)
+	public String userUnauthorized(ModelMap modelMap) {
+
+		return VIEW_USER_UNAUTHORIZED;
 	}
 
 }

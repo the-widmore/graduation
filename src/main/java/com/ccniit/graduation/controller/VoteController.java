@@ -162,7 +162,7 @@ public class VoteController {
 
 		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
 
-		int progress = voteService.selectVote(voteId).getProgress();
+		Integer progress = voteService.selectVote(voteId).getProgress();
 
 		String targetUrl = null;
 		switch (progress) {
@@ -172,7 +172,7 @@ public class VoteController {
 			targetUrl = SystemUtils.replaceVoteId(VoteEditController.EDIT_VOTE_BY_HTML_URL, voteId);
 			break;
 		// 处于发布状态 /应经结束的
-		case VoteResource.PUBLISTED:
+		case VoteResource.PUBLISHED:
 		case VoteResource.FINISHED:
 			targetUrl = SystemUtils.replaceVoteId(VOTE_SUMMARY_URL, voteId);
 			break;

@@ -141,7 +141,7 @@ public class VoteServiceImpl implements VoteService {
 		String url = StringUtils.getRandomString(4);
 
 		try {
-			voteDao.updateVoteToPublish(predictDate, publishVo.getAuthType(), VoteResource.PUBLISTED, url, vote);
+			voteDao.updateVoteToPublish(predictDate, publishVo.getAuthType(), VoteResource.PUBLISHED, url, vote);
 		} catch (Exception e) {
 			ERR.error("发布Vote失败", e);
 		}

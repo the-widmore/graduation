@@ -20,6 +20,7 @@ import com.ccniit.graduation.convertor.AuthorToAuthorBaseUpdater;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
+import com.ccniit.graduation.pojo.qo.AuthorBaseUpdater;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.resource.Commons;
@@ -57,6 +58,7 @@ public class UserController {
 	@Resource
 	private AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
 
+	// 注册、登录、注销##############################
 	protected static final String VIEW_USER_SIGN_IN = "/user/userSignIn.html";
 
 	/**
@@ -69,9 +71,8 @@ public class UserController {
 	}
 
 	protected static final String FORM_USER_SIGN_IN = "/user/userSignIn.do";
-	/**
-	 * 注册成功
-	 */
+
+	// 注册成功
 	protected static final String USER_SIGN_IN_RESULT = "/user/signInSuccess.html";
 
 	/**
@@ -115,9 +116,8 @@ public class UserController {
 	 * 用户登录页面
 	 */
 	@RequestMapping(value = { VIEW_USER_LOG_DEVIN }, method = RequestMethod.GET)
-	public String userLogin(Model model) throws IException {
-		model.addAttribute("lastURL", ShiroUtils.getSessionValue(Commons.SESSION_KEY_LAST_URL));
-		model.addAttribute("userToken", new UserToken());
+	public String userLogin(ModelMap modelMap) throws IException {
+		modelMap.addAttribute("userToken", new UserToken());
 
 		return VIEW_USER_LOG_DEVIN;
 	}
@@ -173,6 +173,9 @@ public class UserController {
 		return SpringMVCUtils.redirect(ACTION_LOG_DEVOUT_RESULT);
 	}
 
+	// ############################## 注册、登录、注销
+
+	// User self center ##############################
 	protected static final String VIEW_USER = "/user";
 	protected static final String VIEW_USER_SELF_CENTER = "/user/selfCenter.html";
 
@@ -188,6 +191,34 @@ public class UserController {
 		return VIEW_USER_SELF_CENTER;
 	}
 
+	// ############################## User self center
+
+	protected static final String FORM_UPDATE_USER_BASE_INFO = "/user/updateUserBaseInfo.do";
+
+	@RequestMapping(value = { FORM_UPDATE_USER_BASE_INFO }, method = RequestMethod.POST)
+	public String updateUserBaseInfoAction(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater, Model model)
+			throws IException {
+		baseUpdater.setId(ShiroUtils.getUserId());
+		int result = authorService.updateAuthorBase(baseUpdater);
+
+		DEV.debug("更新结果：{}", result);
+
+		switch (result) {
+		case AuthorService.PASSWORD_ERROR:
+			model.addAttribute("msg", "密码错误");
+			break;
+		case AuthorService.UPDATE_SUCCESS:
+			model.addAttribute("msg", "成功");
+			return SpringMVCUtils.redirect(UserAccountController.VIEW_USER_PROFILE);
+		case AuthorService.PASSWORD_NOT_SAME:
+			model.addAttribute("msg", "新密码和确认不一致");
+			break;
+		default:
+			break;
+		}
+		return SpringMVCUtils.redirect(UserAccountController.VIEW_USER_PROFILE);
+	}
+
 	protected static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";
 
 	/**
@@ -195,7 +226,6 @@ public class UserController {
 	 */
 	@RequestMapping(value = { VIEW_USER_USER_ACCOUNT }, method = RequestMethod.GET)
 	public String userAccount(ModelMap modelMap) {
-
 		return VIEW_USER_USER_ACCOUNT;
 	}
 
@@ -206,8 +236,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = { VIEW_USER_CONSLOE }, method = RequestMethod.GET)
 	public String userConsole(ModelMap modelMap) {
-
-		return VIEW_USER_CONSLOE;
+		return UserAccountController.VIEW_USER_PROFILE;
 	}
 
 	protected static final String VIEW_USER_ORDER = "/user/userOrder.html";
@@ -217,7 +246,6 @@ public class UserController {
 	 */
 	@RequestMapping(value = { VIEW_USER_ORDER }, method = RequestMethod.GET)
 	public String userOrder(ModelMap model) {
-
 		return VIEW_USER_ORDER;
 	}
 

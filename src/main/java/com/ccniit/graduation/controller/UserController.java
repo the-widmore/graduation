@@ -20,7 +20,6 @@ import com.ccniit.graduation.convertor.AuthorToAuthorBaseUpdater;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
-import com.ccniit.graduation.pojo.qo.AuthorBaseUpdater;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.resource.Commons;
@@ -192,61 +191,5 @@ public class UserController {
 	}
 
 	// ############################## User self center
-
-	protected static final String FORM_UPDATE_USER_BASE_INFO = "/user/updateUserBaseInfo.do";
-
-	@RequestMapping(value = { FORM_UPDATE_USER_BASE_INFO }, method = RequestMethod.POST)
-	public String updateUserBaseInfoAction(@ModelAttribute("baseUpdater") AuthorBaseUpdater baseUpdater, Model model)
-			throws IException {
-		baseUpdater.setId(ShiroUtils.getUserId());
-		int result = authorService.updateAuthorBase(baseUpdater);
-
-		DEV.debug("更新结果：{}", result);
-
-		switch (result) {
-		case AuthorService.PASSWORD_ERROR:
-			model.addAttribute("msg", "密码错误");
-			break;
-		case AuthorService.UPDATE_SUCCESS:
-			model.addAttribute("msg", "成功");
-			return SpringMVCUtils.redirect(UserAccountController.VIEW_USER_PROFILE);
-		case AuthorService.PASSWORD_NOT_SAME:
-			model.addAttribute("msg", "新密码和确认不一致");
-			break;
-		default:
-			break;
-		}
-		return SpringMVCUtils.redirect(UserAccountController.VIEW_USER_PROFILE);
-	}
-
-	protected static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";
-
-	/**
-	 * 用户关联账号
-	 */
-	@RequestMapping(value = { VIEW_USER_USER_ACCOUNT }, method = RequestMethod.GET)
-	public String userAccount(ModelMap modelMap) {
-		return VIEW_USER_USER_ACCOUNT;
-	}
-
-	protected static final String VIEW_USER_CONSLOE = "/user/userConsole.html";
-
-	/**
-	 * 用户控制台
-	 */
-	@RequestMapping(value = { VIEW_USER_CONSLOE }, method = RequestMethod.GET)
-	public String userConsole(ModelMap modelMap) {
-		return UserAccountController.VIEW_USER_PROFILE;
-	}
-
-	protected static final String VIEW_USER_ORDER = "/user/userOrder.html";
-
-	/**
-	 * 用户订单(增值服务购买记录)
-	 */
-	@RequestMapping(value = { VIEW_USER_ORDER }, method = RequestMethod.GET)
-	public String userOrder(ModelMap model) {
-		return VIEW_USER_ORDER;
-	}
 
 }

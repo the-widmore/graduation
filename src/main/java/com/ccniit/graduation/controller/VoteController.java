@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ccniit.graduation.builder.VoteSummaryVoBuilder;
@@ -40,6 +41,7 @@ import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.ShiroUtils;
 import com.ccniit.graduation.util.SpringMVCUtils;
 import com.ccniit.graduation.util.SystemUtils;
+import com.ccniit.graduation.validator.StringVaildator;
 
 @Controller
 public class VoteController {
@@ -58,6 +60,8 @@ public class VoteController {
 	private VoteSummaryVoBuilder voteSummaryVoBuilder;
 	@Resource
 	private VoteDataDao voteDataDao;
+	@Resource
+	private StringVaildator voteCreateFormFileChecker;
 
 	// ### start Vote介绍
 	protected static final String VOTE_URL = "/vote";
@@ -68,6 +72,30 @@ public class VoteController {
 		return VOTE_START_URL_AND_VIEW;
 	}
 	// end Vote介绍 ###
+
+	protected static final String VOTE_CREATE_FROM_FILE_URL = "/vote/createVoteFromFile.html";
+
+	@RequestMapping(value = VOTE_CREATE_FROM_FILE_URL, method = RequestMethod.GET)
+	public String creatVoteFromFile() {
+
+		return null;
+	}
+
+	protected static final String VOTE_CREATE_FROM_FILE_DO = "/vote/createVoteFromFile.do";
+
+	@RequestMapping(value = VOTE_CREATE_FROM_FILE_DO, method = RequestMethod.POST)
+	public String uploadVoteFile(MultipartFile[] files) throws IException {
+		// TODO 文件后缀检查（.）
+
+		for (int i = 0; i < files.length; i++) {
+			String fileName = files[i].getOriginalFilename();
+			if (voteCreateFormFileChecker.chech(fileName)) {
+				// TODO 文件上传
+			}
+		}
+
+		return null;
+	}
 
 	protected static final String VOTE_CREATE_VIEW = "/vote/createVote.html";
 

@@ -38,4 +38,5 @@
 ## About ##
 #### Issue ####
 1. CKEditor will filter value where load document.
-2. Cache hit
+2. Cache hit.
+3. SQL need update.

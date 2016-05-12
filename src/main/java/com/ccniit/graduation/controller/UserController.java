@@ -183,10 +183,13 @@ public class UserController {
 	 */
 	@RequestMapping(value = { VIEW_USER_SELF_CENTER, VIEW_USER })
 	public String selfCenter(ModelMap modelMap) throws IException {
+
 		if (null == ShiroUtils.getSessionValue("authorContentCounter")) {
 			AuthorContentCounter authorContentCounter = authorCountService.getAuthorCounters(ShiroUtils.getUserId());
 			ShiroUtils.addAttribute("authorContentCounter", authorContentCounter);
 		}
+
+		DEV.debug("in self center");
 		return VIEW_USER_SELF_CENTER;
 	}
 

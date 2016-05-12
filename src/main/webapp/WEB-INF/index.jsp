@@ -282,7 +282,7 @@
 		</div>
 	</div>
 
-	<%@ include file="../reusable/footer.jsp" %>
+	<%@ include file="html/reusable/footer.jsp" %>
 
 	<script
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>

@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head lang="zh-CN">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
@@ -48,32 +48,11 @@
     </div>
 </nav>
 
-<div class="content container">
+<div class="content">
 
 </div>
 
-<footer class="footer">
-    <div class="col-md-1">
-    </div>
-    <div class="col-md-2">
-        <h2>EasyVote</h2>
-        <ul>
-            <li><a href="">版权声明</a></li>
-            <li><a href="">使用须知</a></li>
-            <li><a href="">隐私策略</a></li>
-            <li><a href="">关于我们</a></li>
-        </ul>
-    </div>
-    <div class="col-md-1">
-    </div>
-    <div class="col-md-2">
-        <br>
-
-        <p>网站备案</p>
-
-        <p>京201510-34534****</p>
-    </div>
-</footer>
+<%@ include file="../reusable/footer.jsp" %>
 
 <script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>

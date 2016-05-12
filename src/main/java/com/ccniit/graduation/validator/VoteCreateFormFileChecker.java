@@ -14,7 +14,7 @@ import com.ccniit.graduation.util.FileUtils;
  * Vote由上传文件创建，文件类型检查
  */
 @Component("voteCreateFormFileChecker")
-@Scope(SpringScope.SESSION)
+@Scope(SpringScope.SINGLETON)
 public class VoteCreateFormFileChecker implements StringVaildator {
 
 	/**

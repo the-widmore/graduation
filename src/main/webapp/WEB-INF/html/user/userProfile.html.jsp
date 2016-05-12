@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head lang="zh-CN">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
@@ -299,26 +299,7 @@
 		</div>
 	</div>
 
-	<footer class="footer">
-	<div class="col-md-1"></div>
-	<div class="col-md-2">
-		<h2>EasyVote</h2>
-		<ul>
-			<li><a href="">版权声明</a></li>
-			<li><a href="">使用须知</a></li>
-			<li><a href="">隐私策略</a></li>
-			<li><a href="">关于我们</a></li>
-		</ul>
-	</div>
-	<div class="col-md-1"></div>
-	<div class="col-md-2">
-		<br>
-
-		<h3>网站备案</h3>
-
-		<p>京201510-34534****</p>
-	</div>
-	</footer>
+<%@ include file="../reusable/footer.jsp" %>
 
 	<script
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>

@@ -1,17 +1,16 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<meta http-equiv="x-ua-compatible" content="IE=edge">
-<title>关于:安全</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>收集结果</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/main.css">
+	href="../../../resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../../resources/main.css">
+
 </head>
 <body>
 
-	<nav class="navbar navbar-default ">
+	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -26,7 +25,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="${pageContext.request.contextPath}/">首页</a></li>
 					<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
-					<li><a
+					<li class="active"><a
 						href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
@@ -34,34 +33,65 @@
 						href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
-					<li class="active"><a
+					<li><a
 						href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">更多 <span class="caret"></span></a>
+						aria-expanded="false">更多<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="../more/activity.html">活动</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
 							<li class="divider"></li>
 							<li class="dropdown-header">隐私政策</li>
-							<li><a href="../more/userData.html">用户数据</a></li>
-							<li><a href="../more/platformPolicy.html">平台政策</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
 						</ul></li>
 				</ul>
-
 				<ul class="nav navbar-nav navbar-right">
-					<%@include file="../user/userBar.jsp"%>
+
 				</ul>
 			</div>
 		</div>
 	</nav>
 
-	<div class="content"></div>
+	<div class="jumbotron" style="margin: 20px 5%"></div>
 
-	<%@ include file="../reusable/footer.jsp"%>
+	<!-- 容器-->
+	<div class="content">
 
-	<script
-		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+		<div class="row">
+
+			<div class="col-md-1 col-lg-1"></div>
+
+			<div class="col-sm-8 col-md-6 col-lg-6">
+				<pre class="pre-scrollable" style="max-height: 1000px">
+            <div style="min-height: 900px">
+                //replace content
+            </div>
+
+        </pre>
+			</div>
+
+			<div class="col-md-1 col-lg-1"></div>
+
+			<div class="col-sm-4 col-md-3 col-lg-3">
+				<pre class="pre-scrollable" style="max-height: 1000px">
+
+
+        </pre>
+			</div>
+
+			<div class="col-md-1 col-lg-1"></div>
+
+		</div>
+
+	</div>
+
+	<%@ include file="../reusable/footer.jsp" %>
+
+	<script src="../../../resources/easyui/jquery.min.js"></script>
+	<script src="../../../resources/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

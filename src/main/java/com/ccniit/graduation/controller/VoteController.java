@@ -63,7 +63,7 @@ public class VoteController {
 	@Resource
 	private StringVaildator voteCreateFormFileChecker;
 
-	// ### start Vote介绍
+	// ### start Vote介绍  slimScrollDiv
 	protected static final String VOTE_URL = "/vote";
 	protected static final String VOTE_START_URL_AND_VIEW = "/vote/startVote.html";
 
@@ -71,7 +71,7 @@ public class VoteController {
 	public String vote(ModelMap modelMap) {
 		return VOTE_START_URL_AND_VIEW;
 	}
-	// end Vote介绍 ###
+	// end Vote介绍 ### fileUpload
 
 	protected static final String VOTE_CREATE_FROM_FILE_URL = "/vote/createVoteFromFile.html";
 

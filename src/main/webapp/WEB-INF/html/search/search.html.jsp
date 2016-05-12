@@ -70,9 +70,9 @@
 								<option value="TITLE">按标题</option>
 								<option value="TAG">按标签</option>
 								<option value="CONTENT">按内容</option>
-						</select></span> <input type="text" class="form-control" placeholder="Key Words"
+						</select></span> <input type="text" class="input-lg form-control" placeholder="Key Words"
 							name="keyWords"> <span class="input-group-addon"><input
-							type="submit" value="Search"></span>
+							type="submit" value="Search" class="btn btn-circle btn-primary"></span>
 					</div>
 				</form>
 			</div>
@@ -96,48 +96,51 @@
 			</div>
 			<div class="col-lg-1"></div>
 		</div>
-
-		<div style="margin: 20px 0;">
-			<div class="btn-group col-lg-push-2">
-				<button class="btn btn-default">时间排序</button>
-				<button class="btn btn-default">热度排序</button>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-1"></div>
-			<div class="col-lg-8">
-				<div class="media well">
-					<a class="pull-left" href="#"><img
-						class="media-object thumbnail"
-						src="${pageContext.request.contextPath}/resources/image/defaultCover.jpg"
-						alt='' /></a>
-
-					<div class="media-body">
-						<h4 class="media-heading">title</h4>
-					</div>
-				</div>
-				<div class="media well">
-					<a class="pull-left" href="#"><img
-						class="media-object thumbnail"
-						src="${pageContext.request.contextPath}/resources/image/defaultCover.jpg"
-						alt='' /></a>
-
-					<div class="media-body">
-						<h4 class="media-heading">
-							<b>【标题 】</b>${vote.title }</h4>
-						<p>【作者】：${vote.authorName }</p>
-						<p>【标签】：${vote.tags }</p>
-						<p>【时间】：${vote.startTime } - ${vote.endTime }</p>
-						<p>【热度】：${vote.hot }</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3">
-				<h2>Top list</h2>
-			</div>
-		</div>
 	</div>
+
+	<div class="content">
+	<div style="margin: 20px 0;">
+	<div class="btn-group col-lg-push-2">
+	<button class="btn btn-default">时间排序</button>
+	<button class="btn btn-default">热度排序</button>
+	</div>
+	</div>
+
+	<div class="row">
+	<div class="col-lg-1"></div>
+	<div class="col-lg-8">
+	<div class="media well">
+	<a class="pull-left" href="#"><img
+	class="media-object thumbnail"
+	src="${pageContext.request.contextPath}/resources/image/defaultCover.jpg"
+	alt='' /></a>
+
+	<div class="media-body">
+	<h4 class="media-heading">title</h4>
+	</div>
+	</div>
+	<div class="media well">
+	<a class="pull-left" href="#"><img
+	class="media-object thumbnail"
+	src="${pageContext.request.contextPath}/resources/image/defaultCover.jpg"
+	alt='' /></a>
+
+	<div class="media-body">
+	<h4 class="media-heading">
+	<b>【标题 】</b>${vote.title }</h4>
+	<p>【作者】：${vote.authorName }</p>
+	<p>【标签】：${vote.tags }</p>
+	<p>【时间】：${vote.startTime } - ${vote.endTime }</p>
+	<p>【热度】：${vote.hot }</p>
+	</div>
+	</div>
+	</div>
+	<div class="col-lg-3">
+	<h2>Top list</h2>
+	</div>
+	</div></div>
+	
+	<%@ include file="../reusable/footer.jsp" %>
 	<script type="application/javascript"
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
 	<script type="application/javascript"

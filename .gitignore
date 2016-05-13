@@ -5,10 +5,6 @@
 *.jar
 *.war
 *.ear
-<<<<<<< HEAD
-target/
-.idea/
-=======
 
 # Compiled file
 target/
@@ -16,8 +12,3 @@ target/
 # IDE setting
 .idea/
 .settings/
-
-# workspace setting
-.*
-!.gitignore
->>>>>>> 4640d3e56b9dd3b5e0c2a9cbfd5d47440937b289

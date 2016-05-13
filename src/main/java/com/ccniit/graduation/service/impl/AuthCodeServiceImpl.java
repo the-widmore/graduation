@@ -44,4 +44,10 @@ public class AuthCodeServiceImpl implements AuthCodeService {
 		return authCodeDao.selectProtectedVoteAuthCode(voteId);
 	}
 
+	@Override
+	public String getPrivatedAuthCode(Long voteId, String email) throws IException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

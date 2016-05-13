@@ -43,8 +43,7 @@ public class VoterGruopServiceImpl implements VoterGroupService {
 
 	@Override
 	public VoterGroup getVoterGroup(long voterGroupId) {
-		// TODO Auto-generated method stub
-		return null;
+		return voterGroupDao.selectVoterGroup(voterGroupId);
 	}
 
 }

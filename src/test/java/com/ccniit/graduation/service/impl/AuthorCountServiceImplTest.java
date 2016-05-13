@@ -11,12 +11,12 @@ import org.junit.Test;
 import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.pojo.common.VoteCountByCategory;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
-import com.ccniit.graduation.service.AuthorCountService;
+import com.ccniit.graduation.service.AuthorContentCountService;
 
 public class AuthorCountServiceImplTest extends BaseTest {
 
 	@Resource
-	AuthorCountService authorCountService;
+	AuthorContentCountService authorCountService;
 
 	@Test
 	public void testCountAuthorVote() {

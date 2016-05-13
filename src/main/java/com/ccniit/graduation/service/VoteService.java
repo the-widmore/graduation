@@ -77,6 +77,20 @@ public interface VoteService {
 	 */
 	Long selectVoteIdByURL(String url);
 
+	/**
+	 * 修改Vote到发布状态
+	 * 
+	 * @param publishVo
+	 *            发布时的一些信息
+	 * @param author
+	 *            Author.id
+	 */
 	Integer updateVoteByPublish(VotePublishVo publishVo, Long author) throws IException;
+
+	/**
+	 * 删除Vote,Vote定义、Vote的Tag、Vote的发布信息（包括vote授权码、联系人组）收集到的数据、
+	 * @throws IException 
+	 */
+	Integer deleteVote(Long vote, Long author) throws IException;
 
 }

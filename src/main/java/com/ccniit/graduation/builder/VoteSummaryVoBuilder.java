@@ -42,7 +42,7 @@ public class VoteSummaryVoBuilder implements Builder<Long, VoteSummaryVo> {
 		return voteSummaryVo;
 	}
 
-	private String getVoteAuthInfo(Vote vote) {
+	private String getVoteAuthInfo(Vote vote) throws IException {
 		String auth = vote.getAuth();
 		AuthType authEnum = AuthType.valueOf(auth);
 

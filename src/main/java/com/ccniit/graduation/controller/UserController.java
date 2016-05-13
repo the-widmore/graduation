@@ -23,7 +23,7 @@ import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.resource.Commons;
-import com.ccniit.graduation.service.AuthorCountService;
+import com.ccniit.graduation.service.AuthorContentCountService;
 import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.service.PermissionService;
 import com.ccniit.graduation.service.VoteService;
@@ -45,7 +45,7 @@ public class UserController {
 	@Resource
 	private AuthorService authorService;
 	@Resource
-	private AuthorCountService authorCountService;
+	private AuthorContentCountService authorCountService;
 	@Resource
 	private VoterService voterService;
 	@Resource

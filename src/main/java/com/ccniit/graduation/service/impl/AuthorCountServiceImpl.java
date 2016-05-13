@@ -13,11 +13,11 @@ import com.ccniit.graduation.dao.mysql.AuthorCountDao;
 import com.ccniit.graduation.pojo.common.VoteCountByCategory;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.resource.CacheNames;
-import com.ccniit.graduation.service.AuthorCountService;
+import com.ccniit.graduation.service.AuthorContentCountService;
 import com.ccniit.graduation.util.ShiroUtils;
 
 @Service("authorCountService")
-public class AuthorCountServiceImpl implements AuthorCountService {
+public class AuthorCountServiceImpl implements AuthorContentCountService {
 
 	@Resource
 	AuthorCountDao authorCountDao;

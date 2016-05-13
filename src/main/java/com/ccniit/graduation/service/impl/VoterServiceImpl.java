@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.dao.mysql.VoterDao;
+import com.ccniit.graduation.pojo.common.Page;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.Voter.VoterField;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
@@ -53,6 +54,16 @@ public class VoterServiceImpl implements VoterService {
 
 	@Override
 	public List<Voter> selectVoterFromVoterGroup(VoterQuery voterQuery) {
+		return voterDao.selectVoterFromVoterGroup(voterQuery);
+	}
+
+	@Override
+	public List<Voter> selectVoterFromVoterGroup(Page page, Long author, Long voterGroup) {
+		int pageSize = page.getPageSize();
+
+		VoterQuery voterQuery = new VoterQuery(author, voterGroup);
+		voterQuery.setPageSize(pageSize);
+		voterQuery.setOffset((page.getCurrentPage() - 1) * pageSize);
 		return voterDao.selectVoterFromVoterGroup(voterQuery);
 	}
 
@@ -102,9 +113,7 @@ public class VoterServiceImpl implements VoterService {
 
 	@Override
 	public Set<String> distinctVoteVoter(Long vote) {
-		List<Long> voterGroups = voterGroupService.selectVoteVoterGroups(vote);
-		// TODO
-		return null;
+		return voterDao.selectAllVoterEmailByVote(vote);
 	}
 
 }

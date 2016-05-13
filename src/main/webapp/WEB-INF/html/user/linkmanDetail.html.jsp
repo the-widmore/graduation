@@ -99,15 +99,12 @@
 					</tbody>
 				</table>
 				<!-- pager TODO -->
-				<ul class="pagination">
-					<li><a href="#">&laquo;</a></li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#">&raquo;</a></li>
-				</ul>
+
+				<div >
+					<ul class="pagination" id="linkmanDetail-pagination">
+					</ul>
+				</div>
+
 			</div>
 
 			<div class="col-sm-3"></div>
@@ -116,30 +113,35 @@
 
 	<%@ include file="../reusable/footer.jsp" %>
 
-	<script
-		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/easyui/jquery.easyui.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/easyui/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/jeditable/jquery.jeditable.js"></script>
-	<!-- TODO editable JS -->
-	<script type="application/javascript">
-		
+	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/jeditable/jquery.jeditable.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap-paginator/js/bootstrap-paginator.min.js"></script>
+
+	<script type="text/javascript">
+
 	 $(document).ready(function () {
-	        $(".voterInfo").editable("http://localhost:8080/graduation/voter/updateVoterField", {
-	            submit: "Ok",
-	            tooltip: "Click to edit ...",
-/* 	            callback: function (value, settings) {
-	                console.log("value:" + value)
-	                console.log("settings:" + settings)
-	            } */
-	        });
+        $(".voterInfo").editable("/graduation/voter/updateVoterField", {
+                submit: "Ok",
+                tooltip: "Click to edit ...",
+        });
+
+        var option = {
+                bootstrapMajorVersion:3,
+                currentPage: "${currentPage}",
+               // numberOfPages: 3,
+                totalPages: "${totalPages}",
+                pageUrl: function (type, page) {
+                        return "/user/myLinkman.html?p=" + page;
+                }
+        };
+
+        $(function () {
+                $("#linkman-paginator").bootstrapPaginator(option);
+        });
+
 	    });
-	
+
 	</script>
 </body>
 </html>

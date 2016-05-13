@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.ccniit.graduation.pojo.common.VoteCountByCategory;
 import com.ccniit.graduation.pojo.db.Vote.VoteCategory;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
-import com.ccniit.graduation.service.AuthorCountService;
+import com.ccniit.graduation.service.AuthorContentCountService;
 
 /**
  * 根据Author的Id构建AuthorContentCounter
@@ -18,7 +18,7 @@ import com.ccniit.graduation.service.AuthorCountService;
 public class AuthorContentCounterBuilder implements Builder<Long, AuthorContentCounter> {
 
 	@Resource
-	AuthorCountService authorCountService;
+	AuthorContentCountService authorCountService;
 
 	@Override
 	public AuthorContentCounter build(Long authorId) {

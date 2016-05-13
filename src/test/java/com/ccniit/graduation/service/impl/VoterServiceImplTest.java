@@ -1,5 +1,7 @@
 package com.ccniit.graduation.service.impl;
 
+import java.util.Set;
+
 import javax.annotation.Resource;
 
 import org.junit.Assert;
@@ -52,6 +54,12 @@ public class VoterServiceImplTest extends BaseTest {
 
 		int size = voterService.selectVoterFromVoterGroup(voterQuery).size();
 		System.out.println(size);
+	}
+
+	@Test
+	public void testDistinctVoteVoter() {
+		Set<String> emails = voterService.distinctVoteVoter(1L);
+		Assert.assertNotEquals(0, emails.size());
 	}
 
 }

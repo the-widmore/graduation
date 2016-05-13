@@ -1,6 +1,7 @@
 package com.ccniit.graduation.dao.mysql;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -54,6 +55,11 @@ public class VoterDao implements VoterMapper {
 	@Override
 	public Voter selectVoteById(long voterId) {
 		return voterMapper.selectVoteById(voterId);
+	}
+
+	@Override
+	public Set<String> selectAllVoterEmailByVote(Long vote) {
+		return voterMapper.selectAllVoterEmailByVote(vote);
 	}
 
 }

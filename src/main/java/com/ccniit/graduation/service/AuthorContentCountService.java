@@ -5,7 +5,10 @@ import java.util.List;
 import com.ccniit.graduation.pojo.common.VoteCountByCategory;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 
-public interface AuthorCountService {
+/**
+ * 内容计数器，包括(联系人组，Vote(vote,poll,info))
+ */
+public interface AuthorContentCountService {
 
 	int countAuthorLinkmanGroup(long authorId);
 

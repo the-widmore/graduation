@@ -26,6 +26,7 @@ import com.ccniit.graduation.pojo.vo.VoteVo;
 import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.AuthCodeService;
+import com.ccniit.graduation.service.AuthorContentCountService;
 import com.ccniit.graduation.service.PermissionService;
 import com.ccniit.graduation.service.PermissionService.ResourceType;
 import com.ccniit.graduation.service.VoteContentService;
@@ -55,12 +56,17 @@ public class VoteServiceImpl implements VoteService {
 	private VoteVoterGroupService voterGroupService;
 	@Resource
 	private AuthCodeService authCodeService;
+	@Resource
+	private AuthorContentCountService authorCountService;
 
 	@Override
 	public Long createVote(Vote vote) {
 		voteDao.insertVote(vote);
 		Long voteId = vote.getId();
+		// 添加空内容
 		voteContentService.createVoteContent(new VoteContent(voteId));
+		// 更新计数器
+		authorCountService.updateAuthorContentCounter(vote.getAuthor());
 		return voteId;
 	}
 
@@ -79,6 +85,7 @@ public class VoteServiceImpl implements VoteService {
 
 		// other default value(inDate,progress,auth)
 
+		// 保存数据库
 		Long voteId = createVote(vote);
 		if (0 == voteId) {
 			throw new ServerException("insert vote error");
@@ -184,6 +191,16 @@ public class VoteServiceImpl implements VoteService {
 			voteVos.add(vo);
 		}
 		return voteVos;
+	}
+
+	@Override
+	public Integer deleteVote(Long vote, Long author) throws IException {
+		permissionService.havePermission(ResourceType.vote, author, vote);
+
+		// TODO
+		// 更新计数器
+		authorCountService.updateAuthorContentCounter(author);
+		return null;
 	}
 
 }

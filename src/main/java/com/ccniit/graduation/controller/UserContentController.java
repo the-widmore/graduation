@@ -127,11 +127,7 @@ public class UserContentController {
 			throws IException {
 		// 权限验证
 		Long author = ShiroUtils.getUserId();
-		boolean havePermisssion = permissionService.voterGroupHavePermission(author, voterGroup);
-
-		if (!havePermisssion) {
-			throw new PermissionException("你没有访问该资源的权限");
-		}
+		permissionService.voterGroupHavePermission(author, voterGroup);
 
 		VoterQuery voterQuery = new VoterQuery(author, voterGroup);
 		voterQuery.setPageSize(Commons.LINKMAN_PAGE_SIZE);

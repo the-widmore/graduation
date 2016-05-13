@@ -25,17 +25,27 @@ public class AuthorContentCounterBuilder implements Builder<Long, AuthorContentC
 		List<VoteCountByCategory> voteCategoryCounts = authorCountService.countAuthorVote(authorId);
 
 		int linkman = authorCountService.countAuthorLinkmanGroup(authorId);
-		int vote = 0, poll = 0, info = 0;
+		int vote = 0;
+		int poll = 0;
+		int info = 0;
 
 		for (VoteCountByCategory voteCategoryCount : voteCategoryCounts) {
-			String category = voteCategoryCount.getCategory();
-			if (category.equals(VoteCategory.vote.toString())) {
+			VoteCategory category = VoteCategory.valueOf(voteCategoryCount.getCategory());
+
+			switch (category) {
+			case vote:
 				vote = voteCategoryCount.getCounter();
-			} else if (category.equals(VoteCategory.poll.toString())) {
+				break;
+			case poll:
 				poll = voteCategoryCount.getCounter();
-			} else if (category.equals(VoteCategory.info.toString())) {
+				break;
+			case info:
 				info = voteCategoryCount.getCounter();
+				break;
+			default:
+				break;
 			}
+
 		}
 
 		AuthorContentCounter authorContentCounter = new AuthorContentCounter(authorId, linkman, vote, poll, info);

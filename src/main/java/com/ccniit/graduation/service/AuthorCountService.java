@@ -13,4 +13,9 @@ public interface AuthorCountService {
 
 	AuthorContentCounter getAuthorCounters(long authorId);
 
+	/**
+	 * 更新计数器Cache，同时更新Session value
+	 */
+	void updateAuthorContentCounter(long authorId);
+
 }

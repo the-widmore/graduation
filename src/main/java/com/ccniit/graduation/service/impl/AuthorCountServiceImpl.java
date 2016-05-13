@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import com.ccniit.graduation.pojo.common.VoteCountByCategory;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.service.AuthorCountService;
+import com.ccniit.graduation.util.ShiroUtils;
 
 @Service("authorCountService")
 public class AuthorCountServiceImpl implements AuthorCountService {
@@ -37,4 +39,12 @@ public class AuthorCountServiceImpl implements AuthorCountService {
 	public AuthorContentCounter getAuthorCounters(long authorId) {
 		return authorContentCounterBuilder.build(authorId);
 	}
+
+	@CacheEvict(cacheNames = CacheNames.AUTHOR_VOTE_COUNT, key = "#authorId")
+	@Override
+	public void updateAuthorContentCounter(long authorId) {
+		AuthorContentCounter newAuthorContentCounter = getAuthorCounters(authorId);
+		ShiroUtils.addAttribute("authorContentCounter", newAuthorContentCounter);
+	}
+
 }

@@ -5,5 +5,5 @@
 *.jar
 *.war
 *.ear
-/target
-/.idea
+target/
+.idea/

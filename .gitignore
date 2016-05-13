@@ -5,5 +5,7 @@
 *.jar
 *.war
 *.ear
+
+# Compiled file
 /target
-/.idea
+

@@ -52,7 +52,7 @@
 	</div>
 	</nav>
 
-	<div class="content">
+	<div class="content container">
 		<div class="jumbotron">
 			<b>EasyVote</b>是一个网上投票和信息收集平台。我有强大的功能、安全的设计、简单的操作。
 		</div>

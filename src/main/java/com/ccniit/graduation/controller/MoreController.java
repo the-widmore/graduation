@@ -16,4 +16,18 @@ public class MoreController {
 		return VIEW_MORE_ACTIVITY;
 	}
 
+	protected static final String USER_DATA_URL_AND_VIEW = "/more/userData.html";
+
+	@RequestMapping(value = USER_DATA_URL_AND_VIEW, method = RequestMethod.GET)
+	public String userData(Object model) {
+		return USER_DATA_URL_AND_VIEW;
+	}
+
+	protected static final String PLATFORM_POLICY_URL_AND_VIEW = "/more/platformPolicy.html";
+
+	@RequestMapping(value = PLATFORM_POLICY_URL_AND_VIEW, method = RequestMethod.GET)
+	public String platformPolicy(Object model) {
+		return PLATFORM_POLICY_URL_AND_VIEW;
+	}
+
 }

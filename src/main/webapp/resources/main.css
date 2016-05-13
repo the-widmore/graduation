@@ -1,9 +1,10 @@
-body{
-	min-height: 1080px;
+body {
+	min-height: 900px;
+	padding-bottom: 70px;
 }
 
 .content {
-	min-height: 90%;
+	min-height: 900px;
 }
 
 li {
@@ -19,6 +20,7 @@ li {
 }
 
 footer {
+	margin-bottom: 1px;
 	min-height: 150px;
-	margin-top:30px;
+	margin-top: 30px;
 }

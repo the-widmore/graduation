@@ -1,0 +1,18 @@
+# Log Files #
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Compiled file
+target/
+
+# IDE setting
+.idea/
+.settings/
+
+# workspace setting
+.*
+!.gitignore

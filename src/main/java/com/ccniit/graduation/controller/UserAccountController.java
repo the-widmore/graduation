@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -101,6 +102,30 @@ public class UserAccountController {
 	public String updateSetting(@ModelAttribute() AuthorSettingUpdater updater, Model model) {
 
 		return null;
+	}
+
+	protected static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";
+
+	@RequestMapping(value = { VIEW_USER_USER_ACCOUNT }, method = RequestMethod.GET)
+	public String userAccount(ModelMap modelMap) {
+
+		return VIEW_USER_USER_ACCOUNT;
+	}
+
+	protected static final String VIEW_USER_CONSLOE = "/user/userConsole.html";
+
+	@RequestMapping(value = { VIEW_USER_CONSLOE }, method = RequestMethod.GET)
+	public String userConsole(ModelMap modelMap) {
+
+		return VIEW_USER_CONSLOE;
+	}
+
+	protected static final String VIEW_USER_ORDER = "/user/userOrder.html";
+
+	@RequestMapping(value = { VIEW_USER_ORDER }, method = RequestMethod.GET)
+	public String userOrder(ModelMap model) {
+
+		return VIEW_USER_ORDER;
 	}
 
 }

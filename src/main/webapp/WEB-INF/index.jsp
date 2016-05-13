@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head lang="zh-CN">
@@ -6,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="EasyVote是一个信息收集和简单分析的网站。">
 <meta name="author" content="Carbon.ken">
-        <meta charset="utf-8">
+<meta charset="utf-8">
 <meta name="keyWords" content="EasyVote,Vote,Poll,">
 <title>EasyVote首页</title>
 <link rel="stylesheet"
@@ -17,48 +18,50 @@
 <body>
 
 	<nav class="navbar navbar-default">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-				aria-controls="navbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a
+						href="${pageContext.request.contextPath}/">首页</a></li>
+					<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/vote/startVote.html">问卷</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">更多<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a
+								href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
+							<li class="divider"></li>
+							<li class="dropdown-header">隐私政策</li>
+							<li><a
+								href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<%@ include file="html/user/userBar.jsp"%>
+				</ul>
+			</div>
 		</div>
-		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li class="active"><a
-					href="${pageContext.request.contextPath}/">首页</a></li>
-				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/vote/startVote.html">问卷</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
-				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
-				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">更多<span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a
-							href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
-						<li class="divider"></li>
-						<li class="dropdown-header">隐私政策</li>
-						<li><a
-							href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
-						<li><a
-							href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
-					</ul></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<%@ include file="html/user/userBar.jsp"%>
-			</ul>
-		</div>
-	</div>
 	</nav>
 
 	<div class="container">
@@ -282,7 +285,7 @@
 		</div>
 	</div>
 
-	<%@ include file="../reusable/footer.jsp" %>
+	<%@ include file="html/reusable/footer.jsp"%>
 
 	<script
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>

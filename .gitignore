@@ -9,3 +9,10 @@
 # Compiled file
 /target
 
+# IDE setting
+/.idea
+/.settings
+
+# start with .
+^\\.
+

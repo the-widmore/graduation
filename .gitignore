@@ -7,12 +7,10 @@
 *.ear
 
 # Compiled file
-/target
+target/
 
 # IDE setting
-/.idea
-/.settings
+.idea/
+.settings/
 
-# start with .
-^\\.
 

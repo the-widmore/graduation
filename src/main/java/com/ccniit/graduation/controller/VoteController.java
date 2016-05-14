@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ccniit.graduation.builder.VoteSummaryVoBuilder;
 import com.ccniit.graduation.dao.mongodb.VoteDataDao;
-import com.ccniit.graduation.exception.CannotDoException;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.db.VoteContent;
@@ -63,7 +62,7 @@ public class VoteController {
 	@Resource
 	private StringVaildator voteCreateFormFileChecker;
 
-	// ### start Vote介绍  slimScrollDiv
+	// ### start Vote介绍 slimScrollDiv
 	protected static final String VOTE_URL = "/vote";
 	protected static final String VOTE_START_URL_AND_VIEW = "/vote/startVote.html";
 
@@ -127,28 +126,6 @@ public class VoteController {
 		return VIEW_CREATE_ADVANCE_VOTE;
 	}
 	// end Vote 创建 ###
-
-	// HTML编辑模式 TODO 添加 visible(可视化编辑模式)
-	protected static final String VIEW_EDIT_VOTE = "/vote/editVoteByHTML.html";
-	protected static final String EDIT_VOTE_BY_HTML_URL = "/vote/editVoteByHTML/{voteId}";
-
-	@RequestMapping(value = { EDIT_VOTE_BY_HTML_URL }, method = { RequestMethod.GET, RequestMethod.POST })
-	public String editVote(@PathVariable("voteId") Long voteId, ModelMap modelMap) throws IException {
-		// TODO 权限检查、进度检查、账号检查
-		permissionService.havePermission(ResourceType.vote, ShiroUtils.getUserId(), voteId);
-
-		int progress = voteService.selectVote(voteId).getProgress();
-		if (VoteResource.EDITED == progress || VoteResource.CREATED == progress) {
-
-		} else {
-			throw new CannotDoException("该资源应经发布了，无法再进行编辑了。");
-		}
-
-		modelMap.addAttribute("voteContent", voteContentService.loadVoteContent(voteId));
-		modelMap.addAttribute("voteId", voteId);
-
-		return VIEW_EDIT_VOTE;
-	}
 
 	protected static final String FROM_VOTE_PREVIEW = "/vote/previewVote.do";
 	protected static final String VIEW_VOTE_PREVIEW = "/vote/previewVote.html";
@@ -298,7 +275,7 @@ public class VoteController {
 	}
 
 	private static final String WRITE_VOTE_DO = "/vote/write.do";
-	protected static final String WRITE_SUCCESS = "/vote/vrite/success.html";
+	protected static final String WRITE_SUCCESS = "/vote/write/success.html";
 	protected static final String WRITE_SUCCESS_VIEW = "/vote/writeSuccess.html";
 
 	@RequestMapping(value = WRITE_SUCCESS_VIEW, method = RequestMethod.GET)

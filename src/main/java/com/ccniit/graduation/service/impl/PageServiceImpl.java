@@ -3,30 +3,26 @@
  */
 package com.ccniit.graduation.service.impl;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import com.ccniit.graduation.pojo.common.Page;
-import com.ccniit.graduation.service.PageService;
-
-/**
- * @Title: PageServiceImpl.java
- * @Description: TODO
- * @author chen.zhijun
- * @date 2016年5月13日 下午2:14:58
- * @version V1.0
- */
+import com.ccniit.graduation.pojo.common.PageInfo;
+import com.ccniit.graduation.pojo.db.Vote.VoteCategory;
+import com.ccniit.graduation.resource.CacheNames;
+import com.ccniit.graduation.service.PageInfoService;
 
 @Service("pageService")
-public class PageServiceImpl implements PageService {
+public class PageServiceImpl implements PageInfoService {
 
+	@Cacheable(cacheNames = CacheNames.PAGE_INFO,key="")
 	@Override
-	public Page getVotePage(Long author) {
+	public PageInfo getVotePage(Long author, VoteCategory category) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Page getVoterPage(Long voterGroup) {
+	public PageInfo getVoterPage(Long voterGroup) {
 		// TODO Auto-generated method stub
 		return null;
 	}

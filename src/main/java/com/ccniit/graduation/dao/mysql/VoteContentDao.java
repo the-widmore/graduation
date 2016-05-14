@@ -1,7 +1,5 @@
 package com.ccniit.graduation.dao.mysql;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
@@ -29,11 +27,6 @@ public class VoteContentDao implements VoteContentMapper {
 	@Override
 	public void updateVoteContent(VoteContent newContent) {
 		voteContentMapper.updateVoteContent(newContent);
-	}
-
-	@Override
-	public List<VoteContent> selectAll() {
-		return voteContentMapper.selectAll();
 	}
 
 }

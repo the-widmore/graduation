@@ -24,9 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.exception.ParamsException;
-import com.ccniit.graduation.exception.PermissionException;
-import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.db.Vote.VoteCategory;
+import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.qo.VoteQueryByCategory;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
 import com.ccniit.graduation.pojo.vo.VoteVo;

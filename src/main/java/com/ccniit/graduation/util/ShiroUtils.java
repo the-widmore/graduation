@@ -41,10 +41,12 @@ public class ShiroUtils {
 		}
 
 		if (session.getAttributeKeys().contains(key)) {
-			if (value.equals(session.getAttribute(key))) {
+			Object oldValue = session.getAttribute(key);
+			if (value.equals(oldValue)) {
 				return;
 			} else {
-				LOG.warn("session have different value for key {}", key);
+				Object[] logParam = { key, oldValue, value };
+				LOG.debug("session have different value for key={},value={},new value={}", logParam);
 			}
 		}
 

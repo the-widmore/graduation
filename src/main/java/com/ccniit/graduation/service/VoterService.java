@@ -3,7 +3,6 @@ package com.ccniit.graduation.service;
 import java.util.List;
 import java.util.Set;
 
-import com.ccniit.graduation.pojo.common.Page;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.pojo.qo.VoterQuery;
 
@@ -16,8 +15,6 @@ public interface VoterService {
 	int deleteVoter(long voterId);
 
 	List<Voter> selectVoterFromVoterGroup(VoterQuery voterQuery);
-
-	List<Voter> selectVoterFromVoterGroup(Page page, Long author, Long voterGroup);
 
 	Voter getVoter(long voterId);
 

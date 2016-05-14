@@ -17,7 +17,7 @@ public interface AuthorMapper {
 	 * @param author
 	 * @return author.id
 	 */
-	@Insert("INSERT INTO author(email,password,nickname) VALUES(#{email},#{password},#{nickname})")
+	@Insert("INSERT INTO author(email,password,nickname) VALUES(#{email},#{password},#{nickname});")
 	@SelectKey(before = false, keyProperty = "id", resultType = Long.class, statement = {
 			"SELECT LAST_INSERT_ID() AS id" })
 	Long insertAuthor(Author author);
@@ -53,7 +53,7 @@ public interface AuthorMapper {
 	 * @return affected rows
 	 */
 	@Update("UPDATE author SET phone=#{phone},name=#{name},nickName=#{nickName},sex=#{sex} WHERE id=#{id}")
-	int updateAuthorWithoutPassword(Author author);
+	Integer updateAuthorWithoutPassword(Author author);
 
 	/**
 	 * 按照id更新一条Author的密码
@@ -62,7 +62,7 @@ public interface AuthorMapper {
 	 * @return affected rows
 	 */
 	@Update("UPDATE author SET password=#{password} WHERE id=#{id}")
-	int updateAuthorPassword(Author author);
+	Integer updateAuthorPassword(Author author);
 
 	/**
 	 * 按照id更新Author的二级密
@@ -71,7 +71,7 @@ public interface AuthorMapper {
 	 * @return affected rows
 	 */
 	@Update("UPDATE author SET secondPassword=#{secondPassword} WHERE id=#{id}")
-	int updateAuthorSecondPassword(Author author);
+	Integer updateAuthorSecondPassword(Author author);
 
 	/**
 	 * 统计Email在Author中的记录条数
@@ -79,8 +79,8 @@ public interface AuthorMapper {
 	 * @param email
 	 * @return email存在的条数
 	 */
-	@Select("SELECT COUNT(email) FROM author WHERE email=#{email}")
-	int countByEmail(String email);
+	@Select("SELECT COUNT(id) FROM author WHERE email=#{email}")
+	Integer countByEmail(String email);
 
 	/**
 	 * 查询Author的登录信息

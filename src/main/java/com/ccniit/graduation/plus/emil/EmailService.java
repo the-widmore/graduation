@@ -1,14 +1,13 @@
 package com.ccniit.graduation.plus.emil;
 
-import java.util.List;
-
 import org.apache.commons.mail.EmailException;
 
 public interface EmailService {
 
 	/**
 	 * 向单个邮箱发送邮件
-	 * @throws EmailException 
+	 * 
+	 * @throws EmailException
 	 */
 	void sendMessage(EmailTemplate template) throws EmailException;
 
@@ -17,6 +16,6 @@ public interface EmailService {
 	 * 
 	 * @throws EmailException
 	 */
-	void sendMessages(EmailTemplate template, List<String> receivers) throws EmailException;
+	void sendMessages(EmailTemplate template) throws EmailException;
 
 }

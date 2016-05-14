@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Select;
 import com.ccniit.graduation.pojo.qo.VoteQueryByTag;
 import com.ccniit.graduation.pojo.qo.VoteQueryByTitle;
 
+/**
+ * Vote搜索接口
+ */
 public interface VoteSearchMapper {
 
 	@Select("SELECT DISTINCT vote.id FROM vote WHERE title LIKE CONCAT('%',#{title},'%') AND removed=0 ORDER BY id DESC LIMIT #{offset},#{pageSize};")

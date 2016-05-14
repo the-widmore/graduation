@@ -17,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ccniit.graduation.convertor.AuthorToAuthorBaseUpdater;
+import com.ccniit.graduation.convertor.UserRegisterToAuthor;
 import com.ccniit.graduation.exception.IException;
+import com.ccniit.graduation.plus.emil.EmailService;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.resource.Commons;
+import com.ccniit.graduation.service.AuthorAuthService;
 import com.ccniit.graduation.service.AuthorContentCountService;
 import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.service.PermissionService;
@@ -32,6 +35,7 @@ import com.ccniit.graduation.service.VoterService;
 import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.ShiroUtils;
 import com.ccniit.graduation.util.SpringMVCUtils;
+import com.google.code.kaptcha.Constants;
 
 /**
  * 用户的基本控制器
@@ -56,6 +60,12 @@ public class UserController {
 	private PermissionService permissionService;
 	@Resource
 	private AuthorToAuthorBaseUpdater authorToAuthorBaseUpdater;
+	@Resource
+	private EmailService emailService;
+	@Resource
+	private UserRegisterToAuthor userRegisterToAuthor;
+	@Resource
+	private AuthorAuthService authorAuthService;
 
 	// 注册、登录、注销##############################
 	protected static final String VIEW_USER_SIGN_IN = "/user/userSignIn.html";
@@ -65,14 +75,14 @@ public class UserController {
 	 */
 	@RequestMapping(value = { VIEW_USER_SIGN_IN }, method = RequestMethod.GET)
 	public String userSignIn(ModelMap modelMap) {
-
+		// 开始回话跟踪
 		return VIEW_USER_SIGN_IN;
 	}
 
-	protected static final String FORM_USER_SIGN_IN = "/user/userSignIn.do";
-
 	// 注册成功
 	protected static final String USER_SIGN_IN_RESULT = "/user/signInSuccess.html";
+
+	protected static final String FORM_USER_SIGN_IN = "/user/userSignIn.do";
 
 	/**
 	 * 注册页面
@@ -81,30 +91,31 @@ public class UserController {
 	public String signInAction(@ModelAttribute("userRegister") UserRegister userRegister, BindingResult result,
 			Model model) throws Exception {
 
-		String verifyCode = (String) ShiroUtils.getSessionValue(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+		String verifyCode = (String) ShiroUtils.getSessionValue(Constants.KAPTCHA_SESSION_KEY);
 
 		DEV.info("verifyCode : " + verifyCode);
+		DEV.debug(userRegister.toString());
 
 		if (!verifyCode.equalsIgnoreCase(userRegister.getVerifyCode().trim())) {
-			model.addAttribute("errorMessageVerifyCode", "验证码错误");
-			return FORM_USER_SIGN_IN;
+			model.addAttribute("message", "验证码错误");
+			return SpringMVCUtils.redirect(VIEW_USER_SIGN_IN);
 		}
 
 		if (authorService.authorIsExist(userRegister.getEmail())) {
-			model.addAttribute("errorMessageEmail", "该邮箱已经注册");
-			return FORM_USER_SIGN_IN;
+			model.addAttribute("message", "该邮箱已经注册");
+			return SpringMVCUtils.redirect(VIEW_USER_SIGN_IN);
 		}
 
 		if (!userRegister.getPassword().equals(userRegister.getRePassword())) {
-			model.addAttribute("errorMessageRePassword", "两次密码不一致");
-			return FORM_USER_SIGN_IN;
+			model.addAttribute("message", "两次密码不一致");
+			return SpringMVCUtils.redirect(VIEW_USER_SIGN_IN);
 		}
 
-		Author author = new Author();
-		author.setEmail(userRegister.getEmail());
-		author.setPassword(userRegister.getPassword());
+		Author author = userRegisterToAuthor.convert(userRegister);
 
-		authorService.register(author);
+		authorService.insertAuthor(author);
+
+		// TODO 发送注册邮件
 
 		return USER_SIGN_IN_RESULT;
 	}
@@ -127,13 +138,14 @@ public class UserController {
 	public String loginAction(@ModelAttribute("userToken") UserToken userToken, BindingResult result, Model model)
 			throws IException {
 
-		UsernamePasswordToken token = new UsernamePasswordToken(userToken.getEmail(), userToken.getPassword());
+		String encodePassword = authorAuthService.encodePassword(userToken.getPassword());
+		UsernamePasswordToken token = new UsernamePasswordToken(userToken.getEmail(), encodePassword);
 		Subject currentUser = ShiroUtils.getSubject();
 		try {
 			currentUser.login(token);
 		} catch (AuthenticationException e) {
 			model.addAttribute("message", "account or password error!");
-			return VIEW_USER_LOG_DEVIN;
+			return SpringMVCUtils.redirect(VIEW_USER_LOG_DEVIN);
 		}
 
 		if (currentUser.isAuthenticated()) {
@@ -147,7 +159,7 @@ public class UserController {
 			return SpringMVCUtils.redirect(VIEW_USER_SELF_CENTER);
 		} else {
 			model.addAttribute("message", "account or password error!");
-			return VIEW_USER_LOG_DEVIN;
+			return SpringMVCUtils.redirect(VIEW_USER_LOG_DEVIN);
 		}
 	}
 

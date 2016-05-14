@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.dao.mysql.VoteContentDao;
-import com.ccniit.graduation.pojo.db.VoteContent;
 
 public class VoteContentIndexHandleTest extends BaseTest {
 
@@ -17,13 +16,6 @@ public class VoteContentIndexHandleTest extends BaseTest {
 	VoteContentIndexHandle voteContentIndexHandle;
 	@Resource
 	VoteContentDao voteContentDao;
-
-	@Test
-	public void testAddVoteContentToIndex() {
-		for (VoteContent voteContent : voteContentDao.selectAll()) {
-			voteContentIndexHandle.addVoteContentToIndex(voteContent);
-		}
-	}
 
 	@Test
 	public void testSearchVoteContentFromIndex() {

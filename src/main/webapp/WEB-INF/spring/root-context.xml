@@ -62,7 +62,7 @@
 
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="insert*" propagation="NESTED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
 			<tx:method name="select*" read-only="true" />
@@ -105,9 +105,12 @@
 		<property name="unauthorizedUrl" value="/user/userUnauthorized.html" />
 		<property name="filterChainDefinitions">
 			<value>
-				/user/userLogin.do=anon
 				/user/userSignIn.html=anon
+				/user/userSignIn.do=anon
+				/user/userLogin.do=anon
+				/user/signInSuccess.html=anon
 				/vote/startVote.html=anon
+				/vote/write/**=anon
 				/vote=anon
 				/vote/**=authc
 				/user/**=authc

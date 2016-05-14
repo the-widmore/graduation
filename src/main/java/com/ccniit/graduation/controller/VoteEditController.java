@@ -27,17 +27,8 @@ public class VoteEditController {
 	@Resource
 	private VoteContentService voteContentService;
 
-	protected static final String VOTE_EDIT_PREFIX = "/vote/edit";
-	protected static final String VOTE_EDIT_URL_AND_VIEW = "";
-
-	@RequestMapping(value = { VOTE_EDIT_PREFIX, VOTE_EDIT_URL_AND_VIEW }, method = RequestMethod.GET)
-	public String voteEdit(Object model) {
-		// TODO Auto generated method stub
-		return null;
-	}
-
 	// HTML编辑模式 TODO 添加 visible(可视化编辑模式)
-	protected static final String VIEW_EDIT_VOTE = "/vote/edit/byHTML.html";
+	protected static final String VIEW_EDIT_VOTE = "/vote/editVoteByHTML.html";
 	protected static final String EDIT_VOTE_BY_HTML_URL = "/vote/edit/byHTML/{voteId}";
 
 	@RequestMapping(value = { EDIT_VOTE_BY_HTML_URL }, method = { RequestMethod.GET, RequestMethod.POST })

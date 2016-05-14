@@ -1,7 +1,5 @@
 package com.ccniit.graduation.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
@@ -23,9 +21,5 @@ public interface VoteContentMapper {
 
 	@Select("UPDATE vote_content SET content=#{content} WHERE id=#{id}")
 	void updateVoteContent(VoteContent newContent);
-
-	// FIXME
-	@Select("SELECT id,content FROM vote_content")
-	List<VoteContent> selectAll();
 
 }

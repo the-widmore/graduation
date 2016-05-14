@@ -57,7 +57,7 @@
 
 	<div class="carousel-caption"></div>
 
-	<div class="content">
+	<div class="content container">
 
 		<div class="page-header">
 			<h3>

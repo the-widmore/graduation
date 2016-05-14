@@ -6,13 +6,13 @@ public class Author implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 386062764883300692L;
-	private long id;
+	private Long id;
 	private String email;
 	private String phone;
-	private String password;;
+	private String password;
 	private String secondPassword;
 	private String name;
-	private String nickName;
+	private String nickname;
 	private String sex;
 	private String status;
 
@@ -26,11 +26,18 @@ public class Author implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public long getId() {
+	public Author(String email, String password, String nickname) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.nickname = nickname;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -74,12 +81,12 @@ public class Author implements java.io.Serializable {
 		this.name = name;
 	}
 
-	public String getNickName() {
-		return nickName;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getSex() {
@@ -96,6 +103,11 @@ public class Author implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Author [id=" + id + ", email=" + email + ", nickName=" + nickname + ", status=" + status + "]";
 	}
 
 }

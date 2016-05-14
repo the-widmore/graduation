@@ -38,10 +38,10 @@ public class MyRealm extends AuthorizingRealm {
 
 		String username = usernamePasswordToken.getUsername();
 		char[] password = usernamePasswordToken.getPassword();
-		LOG_AUTH.info("Username:{} try login", username);
 
 		try {
-			if (authorAuthService.verifyByEmail(new EmailToken(username, new String(password)))) {
+			EmailToken emailToken = new EmailToken(username, new String(password));
+			if (authorAuthService.verifyByEmail(emailToken)) {
 				return new SimpleAuthenticationInfo(username, password, getName());
 			}
 		} catch (IException e) {

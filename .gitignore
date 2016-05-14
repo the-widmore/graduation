@@ -6,7 +6,7 @@
 *.war
 *.ear
 
-# Compiled file
+# Compiled files
 target/
 
 # IDE setting

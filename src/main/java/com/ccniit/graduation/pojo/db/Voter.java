@@ -8,7 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Voter implements Serializable {
 
 	public static enum VoterField {
-		email, phone, alias
+		/** 邮件 */
+		email,
+		/** 手机 */
+		phone,
+		/** 备注 */
+		alias
 	}
 
 	public static VoterField voterField(String field) throws ParamsException {

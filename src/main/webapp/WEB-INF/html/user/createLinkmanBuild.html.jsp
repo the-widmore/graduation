@@ -166,6 +166,6 @@
 	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
 	<script
-		src="${pageContext.request.contextPath}/staticFile/site/user/createLinkmanBuild-tab-switch.js"></script>
+		src="${pageContext.request.contextPath}/resources/site/user/createLinkmanBuild-tab-switch.js"></script>
 </body>
 </html>

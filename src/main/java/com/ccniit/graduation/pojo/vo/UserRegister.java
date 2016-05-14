@@ -1,30 +1,66 @@
 package com.ccniit.graduation.pojo.vo;
 
-public class UserRegister {
+import java.io.Serializable;
 
-	public String getVerifyCode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+/**
+ * 用户注册信息
+ */
+public class UserRegister implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5469126443286115471L;
+	private String email;
+	private String password;
+	private String nickname;
+	private String rePassword;
+	private String verifyCode;
 
 	public String getEmail() {
-		// TODO Auto-generated method stub
-		return null;
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getNickname() {
-		// TODO Auto-generated method stub
-		return null;
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getRePassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return rePassword;
+	}
+
+	public void setRePassword(String rePassword) {
+		this.rePassword = rePassword;
+	}
+
+	public String getVerifyCode() {
+		return verifyCode;
+	}
+
+	public void setVerifyCode(String verifyCode) {
+		this.verifyCode = verifyCode;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRegister [email=" + email + ", password=" + password + ", nickname=" + nickname + ", verifyCode="
+				+ verifyCode + "]";
 	}
 
 }

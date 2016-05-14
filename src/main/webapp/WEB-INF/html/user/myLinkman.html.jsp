@@ -154,9 +154,6 @@
 					</tbody>
 				</table>
 
-				<div >
-					<ul id="linkman-paginator"></ul>
-				</div>
 
 			</div>
 
@@ -166,25 +163,12 @@
 
 	<%@ include file="../reusable/footer.jsp"%>
 
-	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap-paginator/js/bootstrap-paginator.min.js"></script>
-
-	<script type="text/javascript">
-		var option = {
-			bootstrapMajorVersion:3,
-			currentPage: 1,
-			numberOfPages: 3,
-			totalPages: 11,
-			pageUrl: function (type, page) {
-		return "/user/myLinkman.html?p=" + page;
-		}
-	};
-
-	$(function () {
-		$("#linkman-paginator").bootstrapPaginator(option);
-	});
-	</script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap-paginator/js/bootstrap-paginator.min.js"></script>
 
 </body>
 </html>

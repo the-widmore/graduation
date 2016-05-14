@@ -17,7 +17,7 @@ public interface AuthorService {
 	 * @param author
 	 * @return author.id
 	 */
-	long register(Author author) throws IException;
+	Long insertAuthor(Author author) throws IException;
 
 	/**
 	 * 更新Author的基本信息
@@ -26,7 +26,7 @@ public interface AuthorService {
 	 * @return Integer，返回值对应的意义如下： 1 = 修改成功;-1=密码错误；-2=新密码和确认密码不一致；
 	 * @throws IException
 	 */
-	int updateAuthorBase(AuthorBaseUpdater authorUpdater) throws IException;
+	Integer updateAuthorBase(AuthorBaseUpdater authorUpdater) throws IException;
 
 	/**
 	 * 更新Author的扩展信息
@@ -35,12 +35,12 @@ public interface AuthorService {
 	 * @return affected rows(1 OR 0 success)
 	 * 
 	 */
-	int updateAuthorInfo(AuthorInfoUpdater authorUpdater) throws IException;
+	Integer updateAuthorInfo(AuthorInfoUpdater authorUpdater) throws IException;
 
 	/**
 	 * 
 	 * */
-	long getAuthorIdByEmail(String email) throws IException;
+	Long getAuthorIdByEmail(String email) throws IException;
 
 	/**
 	 * 判断邮箱是否注册过
@@ -48,7 +48,7 @@ public interface AuthorService {
 	 * @param 邮箱
 	 * @return 是否注册过
 	 */
-	boolean authorIsExist(String email) throws IException;
+	Boolean authorIsExist(String email) throws IException;
 
 	/**
 	 * 获取Author，忽略密码，使用缓存

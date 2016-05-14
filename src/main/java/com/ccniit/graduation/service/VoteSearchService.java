@@ -8,7 +8,12 @@ import java.util.List;
 public interface VoteSearchService {
 
 	public static enum SearchWay {
-		TITLE, TAG, CONTENT
+		/** 按照标题搜索 */
+		TITLE,
+		/** 按照标签搜索 */
+		TAG,
+		/** 按照内容搜索 */
+		CONTENT
 	}
 
 	/**
@@ -17,5 +22,11 @@ public interface VoteSearchService {
 	 * @return 搜索到的Vote的id列表
 	 */
 	public List<Long> search(SearchWay way, String keyWords);
+
+	public List<Long> searchByTitle(String keyword);
+
+	public List<Long> searchByTag(String keyword);
+
+	public List<Long> searchByContent(String keyword);
 
 }

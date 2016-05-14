@@ -38,22 +38,22 @@ public class AuthorDao implements AuthorMapper {
 	}
 
 	@Override
-	public int updateAuthorPassword(Author author) {
+	public Integer updateAuthorPassword(Author author) {
 		return authorMapper.updateAuthorPassword(author);
 	}
 
 	@Override
-	public int updateAuthorSecondPassword(Author author) {
+	public Integer updateAuthorSecondPassword(Author author) {
 		return authorMapper.updateAuthorSecondPassword(author);
 	}
 
 	@Override
-	public int updateAuthorWithoutPassword(Author author) {
+	public Integer updateAuthorWithoutPassword(Author author) {
 		return authorMapper.updateAuthorWithoutPassword(author);
 	}
 
 	@Override
-	public int countByEmail(String email) {
+	public Integer countByEmail(String email) {
 		return authorMapper.countByEmail(email);
 	}
 

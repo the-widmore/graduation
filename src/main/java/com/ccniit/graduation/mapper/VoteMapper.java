@@ -11,7 +11,6 @@ import org.apache.ibatis.annotations.Update;
 
 import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.pojo.qo.PagedQuery;
-import com.ccniit.graduation.pojo.vo.VoteSearchResult;
 
 public interface VoteMapper {
 
@@ -54,6 +53,9 @@ public interface VoteMapper {
 	@Update("UPDATE vote SET predictDate=#{predictDate},auth=#{auth},progress=#{progress},url=#{url} WHERE id=#{id}")
 	Integer updateVoteToPublish(@Param("predictDate") Date predictDate, @Param("auth") String auth,
 			@Param("progress") int progress, @Param("url") String url, @Param("id") long id);
+
+	// TODO
+	Integer updateVoteToEnd();
 
 	/**
 	 * 
@@ -111,8 +113,5 @@ public interface VoteMapper {
 	 */
 	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} AND removed=0 ORDER BY id DESC LIMIT #{offset},#{pageSize}")
 	List<Long> selectAuthorVotesId(PagedQuery query);
-
-	// TODO
-	List<VoteSearchResult> select();
 
 }

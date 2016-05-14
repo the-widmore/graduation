@@ -49,7 +49,7 @@
 	</div>
 	</nav>
 
-	<div class="content">
+	<div class="content container">
 		<div class="row">
 			<div class="col-md-10">
 				<div class="page-header" id="step01">

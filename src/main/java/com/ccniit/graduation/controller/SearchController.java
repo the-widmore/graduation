@@ -15,7 +15,7 @@ public class SearchController {
 	@Resource
 	VoteSearchService voteSearchService;
 
-	private static final String SEARCH_VIEW_1 = "/search/";
+	private static final String SEARCH_VIEW_1 = "/search";
 	private static final String SEARCH_VIEW_2 = "/search/search.html";
 
 	@RequestMapping(value = { SEARCH_VIEW_1, SEARCH_VIEW_2 }, method = RequestMethod.GET)

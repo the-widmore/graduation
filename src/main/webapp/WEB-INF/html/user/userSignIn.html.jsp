@@ -6,46 +6,57 @@
 <head lang="zh-CN">
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <title>用户:注册</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/main.css">
 </head>
 <body>
 
 	<nav class="navbar navbar-default">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-				aria-controls="navbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="${pageContext.request.contextPath}/">EasyVote</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="${pageContext.request.contextPath}/">首页</a></li>
+					<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+					<li class="active"><a
+						href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">更多 <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a
+								href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
+							<li class="divider"></li>
+							<li class="dropdown-header">隐私政策</li>
+							<li><a
+								href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<%@include file="../user/userBar.jsp"%>
+				</ul>
+			</div>
 		</div>
-		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/">首页</a></li><li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
-				<li><a href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li class="active"><a href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
-				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
-				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
-				<li><a href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">更多 <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
-						<li class="divider"></li>
-						<li class="dropdown-header">隐私政策</li>
-						<li><a href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
-						<li><a href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
-					</ul></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<%@include file="../user/userBar.jsp"%>
-			</ul>
-		</div>
-	</div>
 	</nav>
 
 	<div class="container content">
@@ -54,11 +65,10 @@
 				<h2>用户注册</h2>
 
 				<form:form class="form-horizontal" method="POST"
-					action="${pageContext.request.contextPath}/user/userSignIn.do" modelAttribute="userRegister"
+					action="${pageContext.request.contextPath}/user/userSignIn.do"
 					data-toggle="validator" role="form" id="signInForm">
 					<div class="form-group">
-						<label for="emailInput" class="col-md-2 control-label">邮箱
-							*</label>
+						<label for="emailInput" class="col-md-2 control-label">邮箱*</label>
 
 						<div class="col-sm-4">
 							<input type="email" class="form-control" id="emailInput"
@@ -68,8 +78,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="passwordInput" class="col-md-2 control-label">密码
-							*</label>
+						<label for="passwordInput" class="col-md-2 control-label">密码*</label>
 
 						<div class="col-sm-4">
 							<input type="password" class="form-control" id="passwordInput"
@@ -80,8 +89,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="rePasswordInput" class="col-md-2 control-label">重复密码
-							*</label>
+						<label for="rePasswordInput" class="col-md-2 control-label">重复密码*</label>
 
 						<div class="col-sm-4">
 							<input type="password" class="form-control" id="rePasswordInput"
@@ -92,21 +100,20 @@
 					</div>
 
 					<div class="form-group">
-						<label for="nickNameInput" class="col-md-2 control-label">昵称</label>
+						<label for="nicknameInput" class="col-md-2 control-label">昵称</label>
 
 						<div class="col-sm-4">
-							<input type="text" class="form-control" id="nickNameInput"
-								name="nickName" placeholder="输入你的昵称">
+							<input type="text" class="form-control" id="nicknameInput"
+								name="nickname" placeholder="输入你的昵称">
 						</div>
 					</div>
 
 					<div class="form-group">
-						<label for="verifyCodeInput" class="col-md-2 control-label">验证码
-							*</label>
+						<label for="verifyCodeInput" class="col-md-2 control-label">验证码*</label>
 
 						<div class="col-sm-4">
-							<img src="${pageContext.request.contextPath}/captchaImage" alt="验证码加载失败"
-								style="height: 50px; margin-bottom: 5px"
+							<img src="${pageContext.request.contextPath}/captchaImage"
+								alt="验证码加载失败" style="height: 50px; margin-bottom: 5px"
 								onclick="reloadVerifyCode()" id="kaptchaImage"> <input
 								type="text" class="form-control" placeholder="输入验证码" required
 								data-error="输入上面验证码" name="verifyCode">
@@ -132,22 +139,24 @@
 
 				<div class="col-md-2"></div>
 				<div class="col-md-6">
-					<textarea cols="50" rows="7" readonly style="resize: none;">
-                    注册协议
+					<pre class="pre-scrollable">
+	注册协议
 
-                    1.
-                    2.
-                    3.
-                    4.
-                    5.
-                    6.
-                    7.
-                    8.
-                    9.
-                    10.
+	1.
+	
+	2.
+	
+	3.
+	
+	4.
+	
+	5.
+	
+	6.
 
 
-                </textarea>
+					</pre>
+
 				</div>
 			</div>
 			<!-- end col-sm-8-->
@@ -161,11 +170,14 @@
 		</div>
 	</div>
 
-	<%@ include file="../reusable/footer.jsp" %>
-	
-	<script src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/staticFile/plus/validator.js"></script>
+	<%@ include file="../reusable/footer.jsp"%>
+
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/plus/validator.js"></script>
 
 	<script type="text/javascript">
 		$(function() {
@@ -174,7 +186,9 @@
 
 		function reloadVerifyCode() {
 			var verify = $("#kaptchaImage");
-			verify.attr('src', '${pageContext.request.contextPath}/captchaImage?' + Math.random());
+			verify.attr('src',
+					'${pageContext.request.contextPath}/captchaImage?'
+							+ Math.random());
 		}
 	</script>
 </body>

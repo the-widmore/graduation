@@ -96,14 +96,6 @@ public class UserAccountController {
 		return UserAccountController.VIEW_USER_PROFILE;
 	}
 
-	protected static final String UPDATE_USER_SET_DO = "";
-
-	@RequestMapping(value = UPDATE_USER_SET_DO, method = RequestMethod.GET)
-	public String updateSetting(@ModelAttribute() AuthorSettingUpdater updater, Model model) {
-
-		return null;
-	}
-
 	protected static final String VIEW_USER_USER_ACCOUNT = "/user/userAccount.html";
 
 	@RequestMapping(value = { VIEW_USER_USER_ACCOUNT }, method = RequestMethod.GET)
@@ -118,6 +110,14 @@ public class UserAccountController {
 	public String userConsole(ModelMap modelMap) {
 
 		return VIEW_USER_CONSLOE;
+	}
+
+	protected static final String UPDATE_USER_SET_DO = "/user/updateSetting.do";
+
+	@RequestMapping(value = UPDATE_USER_SET_DO, method = RequestMethod.POST)
+	public String updateSetting(@ModelAttribute("updater") AuthorSettingUpdater updater, Model model) {
+		// TOOD 修改用户设置
+		return null;
 	}
 
 	protected static final String VIEW_USER_ORDER = "/user/userOrder.html";

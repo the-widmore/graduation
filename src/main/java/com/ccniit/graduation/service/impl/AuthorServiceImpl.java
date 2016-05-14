@@ -39,9 +39,9 @@ public class AuthorServiceImpl implements AuthorService {
 	AuthorBaseUpdaterToAuthor authorBaseUpdaterToAuthor;
 
 	@Override
-	public long register(Author author) {
-		authorDao.insertAuthor(author);
-		long authorId = author.getId();
+	public Long insertAuthor(Author author) {
+
+		Long authorId = authorDao.insertAuthor(author);
 		authorInfoDao.insertEmptyAuthorInfo(authorId);
 
 		BUS.info("账户注册{}", author);
@@ -50,7 +50,7 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public int updateAuthorBase(AuthorBaseUpdater updater) throws IException {
+	public Integer updateAuthorBase(AuthorBaseUpdater updater) throws IException {
 
 		EmailToken userToken = new EmailToken(updater.getEmail(), updater.getOldPassword());
 		boolean isMatched = authorAuthService.verifyByEmail(userToken);
@@ -84,17 +84,17 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public int updateAuthorInfo(AuthorInfoUpdater authorUpdater) {
+	public Integer updateAuthorInfo(AuthorInfoUpdater authorUpdater) {
 		return authorInfoDao.updateAuthorInfo(authorUpdater);
 	}
 
 	@Override
-	public long getAuthorIdByEmail(String email) {
+	public Long getAuthorIdByEmail(String email) {
 		return authorDao.selectAuthorIdByEmail(email);
 	}
 
 	@Override
-	public boolean authorIsExist(String email) {
+	public Boolean authorIsExist(String email) {
 		return 1 == authorDao.countByEmail(email) ? true : false;
 	}
 

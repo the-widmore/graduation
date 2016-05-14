@@ -24,7 +24,7 @@ public class VoteTagServiceImpl implements VoteTagService {
 	private static final Logger DEV = LoggerUtils.getDev();
 
 	// Vote标签使用';'OR','分割
-	private static final String TAG_DIVISION = "[;|,]+";
+	private static final String TAG_DIVISION = "[;|,|；|，]+";
 
 	@Resource
 	VoteTagDao voteTagDao;

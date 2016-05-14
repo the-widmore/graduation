@@ -65,8 +65,7 @@
 			<tx:method name="insert*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="select*" propagation="NOT_SUPPORTED"
-				read-only="true" />
+			<tx:method name="select*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
 

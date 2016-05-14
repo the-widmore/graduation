@@ -35,9 +35,19 @@ public interface VoterMapper {
 	@Update("UPDATE voter SET alias=#{alias} WHERE id=#{id};")
 	Integer updateVoterAlias(@Param("id") long id, @Param("alias") String alias);
 
+	/**
+	 * 
+	 * */
 	@Select("SELECT id,email,phone,alias FROM voter WHERE voterGroup=#{voterGroup} LIMIT #{offset},#{pageSize};")
 	List<Voter> selectVoterFromVoterGroup(VoterQuery voterQuery);
 
+	/**
+	 * 按照voter的id查询单个voter
+	 * 
+	 * @param voterId
+	 *            voter的唯一id
+	 * @return Voter
+	 */
 	@Select("SELECT id,email,phone,alias FROM voter WHERE id=#{voterId};")
 	Voter selectVoteById(long voterId);
 

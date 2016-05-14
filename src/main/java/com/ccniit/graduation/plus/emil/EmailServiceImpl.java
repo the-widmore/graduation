@@ -1,7 +1,5 @@
 package com.ccniit.graduation.plus.emil;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.apache.commons.mail.EmailException;
@@ -22,8 +20,9 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendMessages(EmailTemplate template, List<String> receivers) throws EmailException {
+	public void sendMessages(EmailTemplate template) throws EmailException {
 		simpleEmailSender.build(emailProvider163);
+		simpleEmailSender.sendAll(template);
 	}
 
 }

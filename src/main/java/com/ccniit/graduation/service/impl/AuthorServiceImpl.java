@@ -52,7 +52,9 @@ public class AuthorServiceImpl implements AuthorService {
 	@Override
 	public Integer updateAuthorBase(AuthorBaseUpdater updater) throws IException {
 
-		EmailToken userToken = new EmailToken(updater.getEmail(), updater.getOldPassword());
+		EmailToken userToken = new EmailToken();
+		userToken.setEmail(updater.getEmail());
+		userToken.setPassword(authorAuthService.encodePassword(updater.getOldPassword()));
 		boolean isMatched = authorAuthService.verifyByEmail(userToken);
 
 		DEV.debug("passwordIsMatched{}", isMatched);

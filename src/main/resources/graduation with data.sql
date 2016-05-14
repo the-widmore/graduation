@@ -1,7 +1,7 @@
 /*
 Navicat MariaDB Data Transfer
 
-Source Server         : MySQL-LocalServer
+Source Server         : graduation
 Source Server Version : 100108
 Source Host           : localhost:3306
 Source Database       : graduation
@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100108
 File Encoding         : 65001
 
-Date: 2016-05-12 19:36:38
+Date: 2016-05-14 20:59:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,20 +26,21 @@ CREATE TABLE `author` (
   `password` char(40) NOT NULL,
   `secondPassword` char(40) DEFAULT NULL,
   `name` varchar(20) DEFAULT NULL,
-  `nickName` varchar(20) DEFAULT NULL,
+  `nickname` varchar(20) DEFAULT NULL,
   `sex` enum('男','女','未知') DEFAULT '未知',
   `status` enum('registered','activated','locked') NOT NULL DEFAULT 'registered',
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `email` (`email`),
   KEY `tel` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of author
 -- ----------------------------
-INSERT INTO `author` VALUES ('1', 'chenyiyuan00@163.com', '18681714595', '123456', '1234', 'Carbon', '灵馨儿', '女', 'registered');
-INSERT INTO `author` VALUES ('2', 'chenyiyuan00@gmail.com', '18681714595', '123456', null, null, null, '未知', 'registered');
+INSERT INTO `author` VALUES ('1', 'chenyiyuan00@163.com', '', '1e74c9a1e3504bb0c16044bd2900363eb30d3c0f', '1234', 'Carbon', '灵馨儿', '女', 'registered');
+INSERT INTO `author` VALUES ('2', 'chenyiyuan00@gmail.com', '', '1e74c9a1e3504bb0c16044bd2900363eb30d3c0f', null, null, null, '未知', 'registered');
+INSERT INTO `author` VALUES ('3', '1174310485@qq.com', null, '1e74c9a1e3504bb0c16044bd2900363eb30d3c0f', null, null, 'sq', '未知', 'registered');
 
 -- ----------------------------
 -- Table structure for author_info
@@ -65,6 +66,7 @@ CREATE TABLE `author_info` (
 -- ----------------------------
 INSERT INTO `author_info` VALUES ('1', null, null, null, null, '1', '1', '1', 'both');
 INSERT INTO `author_info` VALUES ('2', null, null, null, null, null, null, null, 'email');
+INSERT INTO `author_info` VALUES ('3', null, null, null, null, null, null, null, 'email');
 
 -- ----------------------------
 -- Table structure for auth_code
@@ -120,7 +122,7 @@ CREATE TABLE `tag` (
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `tag` (`tag`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tag
@@ -160,6 +162,11 @@ INSERT INTO `tag` VALUES ('65', '成都', '0');
 INSERT INTO `tag` VALUES ('66', null, '0');
 INSERT INTO `tag` VALUES ('67', null, '0');
 INSERT INTO `tag` VALUES ('68', null, '0');
+INSERT INTO `tag` VALUES ('69', '测试', '0');
+INSERT INTO `tag` VALUES ('70', '发布', '0');
+INSERT INTO `tag` VALUES ('71', null, '0');
+INSERT INTO `tag` VALUES ('72', null, '0');
+INSERT INTO `tag` VALUES ('73', null, '0');
 
 -- ----------------------------
 -- Table structure for vote
@@ -186,7 +193,7 @@ CREATE TABLE `vote` (
   KEY `sort_url` (`url`),
   KEY `id` (`id`) USING HASH,
   CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`author`) REFERENCES `author` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of vote
@@ -207,6 +214,7 @@ INSERT INTO `vote` VALUES ('53', null, '_a09db408c1f9446eb731997eb3fefafb', 'vot
 INSERT INTO `vote` VALUES ('54', null, 'tableName', 'info', '1', 'title', '0', 'PUBLIC', '2016-04-30 22:33:16', null, null, null, '1');
 INSERT INTO `vote` VALUES ('56', null, '_8a4d2057a260425381b6419f9e0b0cef', 'vote', '1', 'vote title', '0', 'PUBLIC', '2016-04-30 22:37:35', null, null, null, '1');
 INSERT INTO `vote` VALUES ('58', 'Xm7X', '_2872b9778f5a459c8705933c43c8f22d', 'vote', '1', '生活体验', '20', 'PUBLIC', '2016-05-02 18:06:02', '2016-05-30 23:59:00', null, null, '0');
+INSERT INTO `vote` VALUES ('59', 'TMic', '_2e2bc3160e6d4f26b09cecc8c2cbc9a4', 'vote', '1', '为了测试发布图片', '20', 'PUBLIC', '2016-05-13 22:44:55', '2016-05-30 23:59:00', null, null, '0');
 
 -- ----------------------------
 -- Table structure for voter
@@ -229,7 +237,7 @@ CREATE TABLE `voter` (
 -- Records of voter
 -- ----------------------------
 INSERT INTO `voter` VALUES ('1', '1', 'chenyiyuan00@163.com', '18651174063', 'GoodWid');
-INSERT INTO `voter` VALUES ('2', '1', '1174310485@qq.com', '13599004009', 'Lias');
+INSERT INTO `voter` VALUES ('2', '1', '1174310485@gmail.com', '13599004009', 'Lias');
 INSERT INTO `voter` VALUES ('3', '1', '1174310485@qq.com', '13551174063', 'Carbon');
 INSERT INTO `voter` VALUES ('4', '1', 'weufbeurf@12345.com', '18851174063', 'Gods');
 INSERT INTO `voter` VALUES ('5', '3', '1174310485@google.com', '18852343063', 'Good');
@@ -286,6 +294,7 @@ INSERT INTO `vote_content` VALUES ('54', null, '1');
 INSERT INTO `vote_content` VALUES ('56', null, '1');
 INSERT INTO `vote_content` VALUES ('57', null, '1');
 INSERT INTO `vote_content` VALUES ('58', '<p>1</p>\r\n\r\n<p>2</p>\r\n\r\n<p>3</p>\r\n', '1');
+INSERT INTO `vote_content` VALUES ('59', '<p>1.&nbsp;question1?</p>\r\n\r\n<p>A<input name=\"q1\" type=\"radio\" value=\"A\" />&nbsp;B<input name=\"q1\" type=\"radio\" value=\"B\" />&nbsp;C<input name=\"q1\" type=\"radio\" value=\"C\" /></p>\r\n\r\n<p>2. qetsion2?</p>\r\n', '1');
 
 -- ----------------------------
 -- Table structure for vote_content_temp
@@ -315,7 +324,7 @@ CREATE TABLE `vote_tag` (
   KEY `vote` (`vote`),
   KEY `tag` (`tag`),
   CONSTRAINT `vote_tag_ibfk_1` FOREIGN KEY (`vote`) REFERENCES `vote` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of vote_tag
@@ -370,6 +379,11 @@ INSERT INTO `vote_tag` VALUES ('178', '58', '65');
 INSERT INTO `vote_tag` VALUES ('179', '58', '66');
 INSERT INTO `vote_tag` VALUES ('180', '58', '67');
 INSERT INTO `vote_tag` VALUES ('181', '58', '68');
+INSERT INTO `vote_tag` VALUES ('182', '59', '69');
+INSERT INTO `vote_tag` VALUES ('183', '59', '70');
+INSERT INTO `vote_tag` VALUES ('184', '59', '71');
+INSERT INTO `vote_tag` VALUES ('185', '59', '72');
+INSERT INTO `vote_tag` VALUES ('186', '59', '73');
 
 -- ----------------------------
 -- Table structure for vote_voter_group

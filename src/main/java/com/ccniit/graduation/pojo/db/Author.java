@@ -107,7 +107,7 @@ public class Author implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Author [id=" + id + ", email=" + email + ", nickName=" + nickname + ", status=" + status + "]";
+		return "Author [id=" + id + ", email=" + email + ", nickname=" + nickname + ", status=" + status + "]";
 	}
 
 }

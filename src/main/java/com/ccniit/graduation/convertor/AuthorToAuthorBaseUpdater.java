@@ -16,7 +16,7 @@ public class AuthorToAuthorBaseUpdater implements Converter<Author, AuthorBaseUp
 		baseUpdater = new AuthorBaseUpdater();
 		baseUpdater.setEmail(author.getEmail());
 		baseUpdater.setName(author.getName());
-		baseUpdater.setNickName(author.getNickname());
+		baseUpdater.setNickname(author.getNickname());
 		baseUpdater.setSex(author.getSex());
 		baseUpdater.setPhone(author.getPhone());
 		return baseUpdater;

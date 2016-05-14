@@ -1,7 +1,7 @@
 /*
 Navicat MariaDB Data Transfer
 
-Source Server         : MySQL-LocalServer
+Source Server         : graduation
 Source Server Version : 100108
 Source Host           : localhost:3306
 Source Database       : graduation
@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100108
 File Encoding         : 65001
 
-Date: 2016-05-12 19:36:22
+Date: 2016-05-14 20:58:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,14 +26,14 @@ CREATE TABLE `author` (
   `password` char(40) NOT NULL,
   `secondPassword` char(40) DEFAULT NULL,
   `name` varchar(20) DEFAULT NULL,
-  `nickName` varchar(20) DEFAULT NULL,
+  `nickname` varchar(20) DEFAULT NULL,
   `sex` enum('男','女','未知') DEFAULT '未知',
   `status` enum('registered','activated','locked') NOT NULL DEFAULT 'registered',
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `email` (`email`),
   KEY `tel` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for author_info
@@ -92,7 +92,7 @@ CREATE TABLE `tag` (
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `tag` (`tag`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for vote
@@ -119,7 +119,7 @@ CREATE TABLE `vote` (
   KEY `sort_url` (`url`),
   KEY `id` (`id`) USING HASH,
   CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`author`) REFERENCES `author` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for voter
@@ -189,7 +189,7 @@ CREATE TABLE `vote_tag` (
   KEY `vote` (`vote`),
   KEY `tag` (`tag`),
   CONSTRAINT `vote_tag_ibfk_1` FOREIGN KEY (`vote`) REFERENCES `vote` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=182 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for vote_voter_group

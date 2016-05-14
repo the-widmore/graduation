@@ -11,7 +11,7 @@ public class AuthorBaseUpdater extends AuthorUpdater {
 	private static final long serialVersionUID = -2992520029775406342L;
 	private String email;
 	private String name;
-	private String nickName;
+	private String nickname;
 	private String sex;
 	private String phone;
 	private String oldPassword;
@@ -39,12 +39,14 @@ public class AuthorBaseUpdater extends AuthorUpdater {
 		this.name = name;
 	}
 
-	public String getNickName() {
-		return nickName;
+	
+
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getSex() {
@@ -97,7 +99,7 @@ public class AuthorBaseUpdater extends AuthorUpdater {
 
 	@Override
 	public String toString() {
-		return "AuthorBaseUpdater [email=" + email + ", name=" + name + ", nickName=" + nickName + ", sex=" + sex
+		return "AuthorBaseUpdater [email=" + email + ", name=" + name + ", nickname=" + nickname + ", sex=" + sex
 				+ ", phone=" + phone + ", oldPassword=" + oldPassword + ", newPassword=" + newPassword
 				+ ", confirmPassword=" + confirmPassword + ", secondPassword=" + secondPassword + "]";
 	}

@@ -28,7 +28,7 @@ public interface AuthorMapper {
 	 * @param author.id
 	 * @return author
 	 */
-	@Select("SELECT email,phone,name,nickName,sex,status FROM author WHERE id=#{id}")
+	@Select("SELECT email,phone,name,nickname,sex,status FROM author WHERE id=#{id}")
 	Author selectById(long id);
 
 	/**
@@ -43,7 +43,7 @@ public interface AuthorMapper {
 	 * @param author.email
 	 * @return author
 	 */
-	@Select("SELECT email,phone,name,nickName,sex,status FROM author WHERE email=#{email}")
+	@Select("SELECT email,phone,name,nickname,sex,status FROM author WHERE email=#{email}")
 	Author selectAuthorByEmail(String email);
 
 	/**
@@ -52,7 +52,7 @@ public interface AuthorMapper {
 	 * @param Author
 	 * @return affected rows
 	 */
-	@Update("UPDATE author SET phone=#{phone},name=#{name},nickName=#{nickName},sex=#{sex} WHERE id=#{id}")
+	@Update("UPDATE author SET phone=#{phone},name=#{name},nickname=#{nickname},sex=#{sex} WHERE id=#{id}")
 	Integer updateAuthorWithoutPassword(Author author);
 
 	/**

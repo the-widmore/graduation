@@ -154,8 +154,8 @@
 								<label class="col-md-2 control-label">昵称</label>
 
 								<div class="col-sm-4">
-									<input type="text" class="form-control" name="nickName"
-										value="${baseUpdater.nickName }">
+									<input type="text" class="form-control" name="nickname"
+										value="${baseUpdater.nickname }">
 								</div>
 							</div>
 

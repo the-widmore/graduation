@@ -33,13 +33,7 @@ public class DataController {
 		// FIXME remove
 		vote = 47L;
 
-		String collectionName = voteService.selectVote(vote).getTableName();
-		List<BaseVoteData> voteDatas = voteDataDao.selectVote(collectionName);
-
-		List<Map<String, Integer>> questionsCounter = new ArrayList<>();
-		for (BaseVoteData baseVoteData : voteDatas) {
-
-		}
+		
 
 		return null;
 	}

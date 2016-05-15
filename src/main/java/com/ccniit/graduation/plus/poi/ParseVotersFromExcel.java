@@ -9,11 +9,11 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +24,8 @@ import com.ccniit.graduation.pojo.common.VoterGroupData;
 import com.ccniit.graduation.pojo.db.Voter;
 import com.ccniit.graduation.resource.SpringScope;
 import com.ccniit.graduation.util.DateUtils;
+import com.ccniit.graduation.util.LoggerUtils;
+import com.ccniit.graduation.util.StreamUtils;
 import com.ccniit.graduation.validator.StringVaildateFactory;
 import com.ccniit.graduation.validator.StringVaildateFactory.StringVaildateType;
 
@@ -33,13 +35,14 @@ public class ParseVotersFromExcel implements VoterParse {
 
 	private static final int MAX_RECODE = 1002;
 
-	private static final Logger LOG = LoggerFactory.getLogger(VoterParse.class);
+	private static final Logger DEV = LoggerUtils.getDev();
+	private static final Logger ERR = LoggerUtils.getErr();
 
 	@Resource
 	StringVaildateFactory stringVaildateFactory;
 
 	@Override
-	public VoterGroupData parse(String[] params) throws IException {
+	public VoterGroupData parse(String... params) throws IException {
 		if (1 != params.length) {
 			throw new ParamsLengthException("参数个数错误！");
 		}
@@ -55,7 +58,7 @@ public class ParseVotersFromExcel implements VoterParse {
 			is = new FileInputStream(excelPath);
 			workbook = new HSSFWorkbook(is);
 		} catch (IOException e) {
-			LOG.error("Excel操作IO错误", e);
+			DEV.error("Excel操作IO错误", e);
 		}
 
 		int numberOfSheet = workbook.getNumberOfSheets();
@@ -64,64 +67,87 @@ public class ParseVotersFromExcel implements VoterParse {
 			throw new TemplateStructureUpdateException("联系人模版结构被改变！");
 		}
 
-		// get the first sheet
-		HSSFSheet sheet = workbook.getSheetAt(0);
-		if (null == sheet) {
-			return null;
-		}
-
-		// 获取联系人组描述
 		try {
-			voterGroupDescription = sheet.getRow(0).getCell(1).getStringCellValue();
-		} catch (NullPointerException e) {
-			voterGroupDescription = DateUtils.y4M2d2(null);
-		}
-
-		// get voter ,begin with 3th row
-		for (int rowNum = 2; rowNum <= MAX_RECODE; rowNum++) {
-			HSSFRow row = sheet.getRow(rowNum);
-			if (row == null) {
-				// 有空行，就结束
-				break;
+			// get the first sheet
+			HSSFSheet sheet = workbook.getSheetAt(0);
+			if (null == sheet) {
+				return null;
 			}
 
-			voter = new Voter();
-
-			String email = row.getCell(0).getStringCellValue();
-
-			// 如果邮箱格式不正确，抛弃该条数据
-			if (!stringVaildateFactory.vaildate(StringVaildateType.EMAIL, email)) {
-				continue;
-			}
-			voter.setEmail(email);
-
-			double originalPhone = row.getCell(1).getNumericCellValue();
-			String phone = com.ccniit.graduation.util.StringUtils.formatDecimal(originalPhone);
-
-			// 电话格式正确才设值
-			if (stringVaildateFactory.vaildate(StringVaildateType.PHONE, phone)) {
-				voter.setPhone(phone);
+			// 获取联系人组描述
+			try {
+				voterGroupDescription = sheet.getRow(0).getCell(1).getStringCellValue();
+			} catch (NullPointerException e) {
+				voterGroupDescription = DateUtils.y4M2d2(null);
 			}
 
-			String originalAlias = row.getCell(2).getStringCellValue();
-			if (StringUtils.isNotBlank(originalAlias)) {
-				String alias = com.ccniit.graduation.util.StringUtils.getLeftString(originalAlias, 10);
-				voter.setAlias(alias);
+			// get voter ,begin with 3th row
+			for (int rowNum = 2; rowNum <= MAX_RECODE; rowNum++) {
+				HSSFRow row = sheet.getRow(rowNum);
+				if (row == null) {
+					// 有空行，就结束
+					break;
+				}
+
+				voter = new Voter();
+
+				try {
+					String email = row.getCell(0).getStringCellValue();
+
+					// 如果邮箱格式不正确，抛弃该条数据
+					if (!stringVaildateFactory.vaildate(StringVaildateType.EMAIL, email)) {
+						continue;
+					}
+					voter.setEmail(email);
+
+					// 电话
+					HSSFCell phoneCell = row.getCell(1);
+					if (null == phoneCell) {
+
+					} else {
+						double originalPhone = phoneCell.getNumericCellValue();
+						String phone = com.ccniit.graduation.util.StringUtils.formatDecimal(originalPhone);
+						// 电话格式正确才设值
+						if (stringVaildateFactory.vaildate(StringVaildateType.PHONE, phone)) {
+							voter.setPhone(phone);
+						}
+					}
+
+					// 备注
+					HSSFCell aliasCell = row.getCell(2);
+					if (null == aliasCell) {
+						// 无备注
+						voter.setAlias(StringUtils.EMPTY);
+					} else {
+						String originalAlias = aliasCell.getStringCellValue();
+						if (StringUtils.isNotBlank(originalAlias)) {
+							String alias = com.ccniit.graduation.util.StringUtils.getLeftString(originalAlias, 10);
+							voter.setAlias(alias);
+						}
+					}
+
+				} catch (NullPointerException e) {
+					continue;
+				}
+
+				DEV.debug(voter.toString());
+				voters.add(voter);
 			}
-
-			LOG.debug(voter.toString());
-			voters.add(voter);
-		}
-
-		try {
-			workbook.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			ERR.error(e.getCause().getMessage(), e);
+		} finally {
+			StreamUtils.closeStream(workbook);
 		}
 
 		VoterGroupData voterGroupData = new VoterGroupData(voterGroupDescription, voters);
 
 		return voterGroupData;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

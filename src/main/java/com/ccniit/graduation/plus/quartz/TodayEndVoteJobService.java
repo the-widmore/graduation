@@ -22,12 +22,12 @@ import org.springframework.stereotype.Service;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.db.Vote;
 import com.ccniit.graduation.service.VoteService;
+import com.ccniit.graduation.util.DateUtils;
 import com.ccniit.graduation.util.LoggerUtils;
 
 /**
  * 今天结束的Vote任务
  */
-
 @Service("todayEndVoteJobService")
 public class TodayEndVoteJobService {
 
@@ -39,12 +39,10 @@ public class TodayEndVoteJobService {
 	SchedulerFactory schedulerFactory;
 
 	// 每天执行一次
-	// @Scheduled(cron = "0 0 0 1/1 * ? ")
-	@Scheduled(cron = "0 0/1 * * * ? ")
+	/** @Scheduled(cron = "0 0 0 1/1 * ? ") */
+	@Scheduled(cron = "0 0/1 * * * ? ") // 每分钟执行一次
 	public void getTodayEndVoteJob() throws IException, SchedulerException {
 		List<Long> todayWillEndVoteIds = voteService.selectTodayWillEndVote();
-
-		DEV.debug("have {} will in today end", todayWillEndVoteIds.size());
 
 		for (Long todayWillEndVoteId : todayWillEndVoteIds) {
 			addJob(todayWillEndVoteId);
@@ -67,8 +65,7 @@ public class TodayEndVoteJobService {
 		Trigger trigger = TriggerBuilder.newTrigger().startAt(vote.getPredictDate()).build();
 		scheduler.scheduleJob(jobDetail, trigger);
 
-		DEV.debug("add job {}", jobId);
-		DEV.debug("add trigger in {}", trigger.getStartTime());
+		DEV.debug("job {} will be trigger in {}", jobDetail.getDescription(), DateUtils.y4M2d2h2m2(null));
 	}
 
 }

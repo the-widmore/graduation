@@ -1,6 +1,7 @@
 package com.ccniit.graduation.util;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -167,6 +168,30 @@ public class CollectionUtils {
 		arrayToStringBuild.append(ARRAY_POSTFIX);
 
 		return arrayToStringBuild.toString();
+	}
+
+	/**
+	 * 对列表进行频率统计
+	 * 
+	 * @param <T>
+	 *            统计对象的类型
+	 * @param objects
+	 *            对象列表
+	 */
+	public static <T> Map<T, Integer> frequency(List<T> objects) {
+		Map<T, Integer> frequencyResule = new HashMap<>();
+
+		for (int i = 0; i < objects.size(); i++) {
+			T t = objects.get(i);
+
+			if (frequencyResule.containsKey(t)) {
+				frequencyResule.replace(t, frequencyResule.get(t) + 1);
+			} else {
+				frequencyResule.put(t, 1);
+			}
+		}
+
+		return frequencyResule;
 	}
 
 }

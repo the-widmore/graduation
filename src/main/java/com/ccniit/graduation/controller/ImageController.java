@@ -20,6 +20,9 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 
 @Controller
+/**
+ * 图像验证码生成
+ */
 public class ImageController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ImageController.class);
@@ -37,7 +40,7 @@ public class ImageController {
 		response.setContentType("image/jpeg");
 		String capText = defaultKaptcha.createText();
 
-		// TOPUT capText to session,use shiro
+		// put capText to session,use shiro
 		ShiroUtils.addAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
 
 		BufferedImage image = defaultKaptcha.createImage(capText);

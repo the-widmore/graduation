@@ -1,8 +1,6 @@
 package com.ccniit.graduation.plus.poi;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import javax.annotation.Resource;
 
@@ -10,52 +8,38 @@ import org.slf4j.Logger;
 
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.pojo.common.VoterGroupData;
+import com.ccniit.graduation.pojo.db.VoterGroup;
+import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.service.VoterService;
 import com.ccniit.graduation.util.LoggerUtils;
 
 public class ParseQueue {
 
-	private static final Logger LOG = LoggerUtils.getDev();
+	private static ConcurrentLinkedQueue<ExcelVoterParseTask> queue = new ConcurrentLinkedQueue<>();
 
-	// Thread safe
-	private volatile static List<String> queue = new LinkedList<>();
-	private static boolean parsing;
+	private static final Logger LOG = LoggerUtils.getDev();
 
 	@Resource
 	VoterParse parseVotersFromExcel;
 	@Resource
+	VoterGroupService voterGroupService;
+	@Resource
 	VoterService voterService;
 
-	public void add(String path) {
-		synchronized (queue) {
-			queue.add(path);
-		}
-	}
-
-	// TODO task
-	public void start() throws IException {
-
-		if (parsing) {
+	public void parse() throws IException {
+		if (queue.isEmpty()) {
 			return;
+		} else {
+			// 获取任务
+			ExcelVoterParseTask task = queue.poll();
+
+			VoterGroupData voterGroupData = parseVotersFromExcel.parse(task.getExcelPath());
+			VoterGroup voterGroup = new VoterGroup(task.getAuthor(), voterGroupData.getVoterGroupDescription());
+			Long voterGroupId = voterGroupService.createVoterGroup(voterGroup);
+			int voterCounter = voterService.insertVoters(voterGroupData.getVoters(), voterGroupId);
+
+			LOG.debug("{} have {} voters", task.getExcelPath(), voterCounter);
 		}
-
-		parsing = true;
-		for (Iterator<String> iterator = queue.iterator(); iterator.hasNext();) {
-			String path = iterator.next();
-
-			LOG.debug(path);
-
-			String[] params = { path };
-
-			VoterGroupData voterGroup = parseVotersFromExcel.parse(params);
-			// TODO
-			voterService.insertVoters(voterGroup.getVoters());
-		}
-
-		parsing = false;
-
-		// TODO
-
 	}
 
 }

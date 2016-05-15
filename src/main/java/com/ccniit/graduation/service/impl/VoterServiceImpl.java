@@ -31,11 +31,11 @@ public class VoterServiceImpl implements VoterService {
 	}
 
 	@Override
-	public int insertVoters(List<Voter> voters) {
+	public int insertVoters(List<Voter> voters, Long voterGroup) {
 		int successInsertRecode = 0;
 
 		for (Voter voter : voters) {
-			voter.setVoterGroupId(1);
+			voter.setVoterGroupId(voterGroup);
 			long voterId = insertVoter(voter);
 			if (0 < voterId) {
 				successInsertRecode += 1;

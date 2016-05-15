@@ -10,7 +10,7 @@ public interface VoterService {
 
 	long insertVoter(Voter voter);
 
-	int insertVoters(List<Voter> voters);
+	int insertVoters(List<Voter> voters, Long voterGroup);
 
 	int deleteVoter(long voterId);
 

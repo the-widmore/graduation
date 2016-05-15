@@ -21,6 +21,8 @@ public class VoterServiceImplTest extends BaseTest {
 
 	private static final String TEST_DOC = "K:/LinkmanUploadTemplate.xls";
 
+	private static final Long TEST_VOTER_GROUP_ID = 4L;
+
 	@Resource
 	VoterService voterService;
 	@Resource
@@ -33,8 +35,8 @@ public class VoterServiceImplTest extends BaseTest {
 		String[] params = { TEST_DOC };
 		VoterGroupData voterGroupData = parseVotersFromExcel.parse(params);
 
-		int inserted = voterService.insertVoters(voterGroupData.getVoters());
-		Assert.assertEquals(3, inserted);
+		int inserted = voterService.insertVoters(voterGroupData.getVoters(), TEST_VOTER_GROUP_ID);
+		Assert.assertNotEquals(0, inserted);
 	}
 
 	@Test

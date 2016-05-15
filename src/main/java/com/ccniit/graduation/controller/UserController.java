@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ccniit.graduation.convertor.AuthorToAuthorBaseUpdater;
@@ -22,11 +23,13 @@ import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.plus.emil.EmailService;
 import com.ccniit.graduation.pojo.common.UserToken;
 import com.ccniit.graduation.pojo.db.Author;
+import com.ccniit.graduation.pojo.db.AuthorInfo;
 import com.ccniit.graduation.pojo.vo.AuthorContentCounter;
 import com.ccniit.graduation.pojo.vo.UserRegister;
 import com.ccniit.graduation.resource.Commons;
 import com.ccniit.graduation.service.AuthorAuthService;
 import com.ccniit.graduation.service.AuthorContentCountService;
+import com.ccniit.graduation.service.AuthorInfoService;
 import com.ccniit.graduation.service.AuthorService;
 import com.ccniit.graduation.service.PermissionService;
 import com.ccniit.graduation.service.VoteService;
@@ -66,6 +69,8 @@ public class UserController {
 	private UserRegisterToAuthor userRegisterToAuthor;
 	@Resource
 	private AuthorAuthService authorAuthService;
+	@Resource
+	private AuthorInfoService authorInfoService;
 
 	// 注册、登录、注销##############################
 	protected static final String VIEW_USER_SIGN_IN = "/user/userSignIn.html";
@@ -118,6 +123,24 @@ public class UserController {
 		// TODO 发送注册邮件
 
 		return USER_SIGN_IN_RESULT;
+	}
+
+	protected static final String ACCOUNT_ACTIVATE = "/user/activate";
+
+	/**
+	 * 激活账号
+	 */
+	@RequestMapping(value = ACCOUNT_ACTIVATE, method = RequestMethod.GET)
+	public String accountActivate(@RequestParam(value = "author", required = true) long author,
+			@RequestParam(value = "inDate", required = true) long inDate,
+			@RequestParam(value = "signature", required = true) String signature) {
+
+		AuthorInfo authorInfo = authorInfoService.selectAuthorInfo(author);
+		if (authorInfo.getInDate().getTime() == inDate) {
+			// TODO 验证签名
+		}
+
+		return null;
 	}
 
 	protected static final String VIEW_USER_LOG_DEVIN = "/user/userLogin.html";

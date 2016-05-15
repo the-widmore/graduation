@@ -54,8 +54,11 @@ public interface VoteMapper {
 	Integer updateVoteToPublish(@Param("predictDate") Date predictDate, @Param("auth") String auth,
 			@Param("progress") int progress, @Param("url") String url, @Param("id") long id);
 
-	// TODO
-	Integer updateVoteToEnd();
+	/**
+	 * 更新Vote进度到结束
+	 */
+	@Update("UPDATE vote SET progress =30,endDate=NOW() WHERE id=#{vote};")
+	Integer updateVoteToEnd(Long vote);
 
 	/**
 	 * 
@@ -113,5 +116,11 @@ public interface VoteMapper {
 	 */
 	@Select("SELECT id FROM vote WHERE author=#{author} AND category=#{category} AND removed=0 ORDER BY id DESC LIMIT #{offset},#{pageSize}")
 	List<Long> selectAuthorVotesId(PagedQuery query);
+
+	/**
+	 * 查询预计今天结束的Vote FIXME(查询的其实是按天)
+	 */
+	@Select("SELECT id FROM vote WHERE MINUTE(predictDate)=MINUTE(NOW());")
+	List<Long> selectTodayWillEndVote();
 
 }

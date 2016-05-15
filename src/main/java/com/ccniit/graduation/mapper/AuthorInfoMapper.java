@@ -13,7 +13,8 @@ import com.ccniit.graduation.pojo.qo.AuthorSettingUpdater;
  */
 public interface AuthorInfoMapper {
 
-	@Insert("INSERT INTO author_info(id) VALUES(#{author})")
+	/** 插入空的AuthorInfo,包括插入时间 */
+	@Insert("INSERT INTO author_info(id,inDate) VALUES(#{author},NOW())")
 	Integer insertEmptyAuthorInfo(long author);
 
 	@Update("UPDATE author_info SET address=#{address},work=#{work},company=#{company},descriptionSelf=#{descriptionSelf} WHERE id=#{id}")

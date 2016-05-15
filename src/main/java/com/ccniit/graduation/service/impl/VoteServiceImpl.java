@@ -41,6 +41,7 @@ import com.ccniit.graduation.util.StringUtils;
 public class VoteServiceImpl implements VoteService {
 
 	private static final Logger ERR = LoggerUtils.getErr();
+	private static final Logger DEV = LoggerUtils.getDev();
 
 	@Resource
 	private VoteDao voteDao;
@@ -99,7 +100,8 @@ public class VoteServiceImpl implements VoteService {
 		return voteId;
 	}
 
-	@Cacheable(cacheNames = CacheNames.VOTE, key = "#voteId")
+	// @Cacheable(cacheNames = CacheNames.VOTE, key = "#voteId") //TODO 
+
 	@Override
 	public Vote selectVote(long voteId) throws IException {
 		Vote vote = voteDao.selectVoteById(voteId);
@@ -178,6 +180,12 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@Override
+	public Integer updateVoteToEnd(Long vote) {
+		DEV.debug("vote {} end in{}", vote, DateUtils.y4M2d2h2m2(null));
+		return voteDao.updateVoteToEnd(vote);
+	}
+
+	@Override
 	public Long selectVoteIdByURL(String url) {
 		return voteDao.selectVoteIdByUrl(url);
 	}
@@ -191,6 +199,11 @@ public class VoteServiceImpl implements VoteService {
 			voteVos.add(vo);
 		}
 		return voteVos;
+	}
+
+	@Override
+	public List<Long> selectTodayWillEndVote() {
+		return voteDao.selectTodayWillEndVote();
 	}
 
 	@Override

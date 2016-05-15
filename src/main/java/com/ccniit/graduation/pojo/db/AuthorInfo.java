@@ -1,8 +1,22 @@
 package com.ccniit.graduation.pojo.db;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class AuthorInfo implements Serializable {
+
+	/**
+	 * 通知优先方式
+	 */
+	public static enum PrimaryNofify {
+		/** 电子邮箱优先 */
+		EMAIL,
+		/** 手机短信优先 */
+		PHONE,
+		/** 电子邮箱和短信 */
+		BOTH
+	}
+
 	/**
 	 * 
 	 */
@@ -15,10 +29,7 @@ public class AuthorInfo implements Serializable {
 	private boolean setFinishNotify;
 	private boolean setDataExpireNotify;
 	private String setPrimaryNofify;
-
-	public static enum PrimaryNofify {
-		EMAIL, PHONE, BOTH
-	}
+	private Date inDate;
 
 	public AuthorInfo() {
 		super();
@@ -86,6 +97,14 @@ public class AuthorInfo implements Serializable {
 
 	public void setSetPrimaryNofify(String setPrimaryNofify) {
 		this.setPrimaryNofify = setPrimaryNofify;
+	}
+
+	public Date getInDate() {
+		return inDate;
+	}
+
+	public void setInDate(Date inDate) {
+		this.inDate = inDate;
 	}
 
 }

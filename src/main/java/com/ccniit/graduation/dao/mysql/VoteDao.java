@@ -34,9 +34,8 @@ public class VoteDao implements VoteMapper {
 	}
 
 	@Override
-	public Integer updateVoteToEnd() {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer updateVoteToEnd(Long vote) {
+		return voteMapper.updateVoteToEnd(vote);
 	}
 
 	@Override
@@ -67,6 +66,11 @@ public class VoteDao implements VoteMapper {
 	@Override
 	public List<Long> selectAuthorVotesId(PagedQuery query) {
 		return voteMapper.selectAuthorVotesId(query);
+	}
+
+	@Override
+	public List<Long> selectTodayWillEndVote() {
+		return voteMapper.selectTodayWillEndVote();
 	}
 
 }

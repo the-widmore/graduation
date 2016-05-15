@@ -88,8 +88,19 @@ public interface VoteService {
 	Integer updateVoteByPublish(VotePublishVo publishVo, Long author) throws IException;
 
 	/**
+	 * 修改到完结状态
+	 * 
+	 */
+	Integer updateVoteToEnd(Long vote);
+	
+	
+	/***/
+	List<Long> selectTodayWillEndVote();
+
+	/**
 	 * 删除Vote,Vote定义、Vote的Tag、Vote的发布信息（包括vote授权码、联系人组）收集到的数据、
-	 * @throws IException 
+	 * 
+	 * @throws IException
 	 */
 	Integer deleteVote(Long vote, Long author) throws IException;
 

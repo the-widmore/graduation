@@ -64,6 +64,13 @@
 			<version>1.2.3</version>
 		</dependency>
 
+		<!-- quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
 		<!-- ehcache -->
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
@@ -296,7 +303,7 @@
 
 	</dependencies>
 	<build>
-		<defaultGoal>build</defaultGoal>
+		<defaultGoal>compile</defaultGoal>
 		<plugins>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>

@@ -4,20 +4,26 @@
 	xmlns:cache="http://www.springframework.org/schema/cache"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd 
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd 
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.8.xsd">
 
 	<!-- bean scan -->
 	<context:annotation-config />
 	<context:component-scan base-package="com.ccniit.graduation" />
+	<task:annotation-driven />
 
 	<!-- JDBC -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<bean id="schedulerFactory" class="org.quartz.impl.StdSchedulerFactory"></bean>
+
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.drivere}" />
@@ -53,6 +59,7 @@
 		<property name="cacheManager" ref="cacheManagerFactory" />
 	</bean>
 	<!-- end cache -->
+
 
 	<!-- transaction -->
 	<bean id="transactionManager"

@@ -1,6 +1,7 @@
 package com.ccniit.graduation.dao.mongodb;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.ccniit.graduation.BaseTest;
+import com.ccniit.graduation.pojo.doc.BaseVoteData;
 import com.ccniit.graduation.pojo.doc.PrivateVoteData;
 import com.ccniit.graduation.util.LoggerUtils;
 import com.ccniit.graduation.util.StringUtils;
@@ -23,14 +25,22 @@ public class MongoConfigurationTest extends BaseTest {
 
 	@Resource
 	MongoTemplate mongoTemplate;
+	@Resource
+	IVoteDataDao voteDataDao;
 
 	@Test
 	public void mongoDBConfigTest() {
 		Set<String> collections = mongoTemplate.getCollectionNames();
 
 		for (String collectionName : collections) {
-			LOG.info(collectionName);
-			mongoTemplate.dropCollection(collectionName);
+			Long counter = voteDataDao.counterVoteSubmitTimes(collectionName);
+			LOG.debug("collection {} have {} documents", collectionName, counter);
+
+			List<BaseVoteData> voteDatas = voteDataDao.selectVote(collectionName);
+			for (BaseVoteData baseVoteData : voteDatas) {
+				LOG.debug("baseVoteData：{}", baseVoteData);
+			}
+
 		}
 
 	}

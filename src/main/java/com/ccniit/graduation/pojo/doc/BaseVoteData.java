@@ -40,4 +40,9 @@ public class BaseVoteData implements Serializable {
 		this.inDate = inDate;
 	}
 
+	@Override
+	public String toString() {
+		return "BaseVoteData [data=" + data + ", inDate=" + data + "]";
+	}
+
 }

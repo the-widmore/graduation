@@ -1,7 +1,6 @@
 package com.ccniit.graduation.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,18 +12,18 @@ import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.dao.mongodb.IVoteDataDao;
 import com.ccniit.graduation.exception.IException;
-import com.ccniit.graduation.plus.chart.VoteQuestionAnswerCounter;
+import com.ccniit.graduation.plus.chart.ChartData4C3Pie;
 import com.ccniit.graduation.pojo.doc.BaseVoteData;
-import com.ccniit.graduation.service.VoteDateService;
+import com.ccniit.graduation.service.VoteDataService;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.util.CollectionUtils;
+import com.ccniit.graduation.util.JSONUtils;
 import com.ccniit.graduation.util.LoggerUtils;
 
-@Service("voteDateService")
-public class VoteDateServiceImpl implements VoteDateService {
+@Service("voteDataService")
+public class VoteDateServiceImpl implements VoteDataService {
 
 	private static Logger DEV = LoggerUtils.getDev();
-	private static Logger ERR = LoggerUtils.getErr();
 
 	@Resource
 	VoteService voteService;
@@ -32,46 +31,73 @@ public class VoteDateServiceImpl implements VoteDateService {
 	IVoteDataDao voteDataDao;
 
 	@Override
-	public List<Map<String, Integer>> statisticsVoteData(Long vote) throws IException {
+	public Map<String, Map<String, Integer>> statisticsVoteData(Long vote) throws IException {
 		String collectionName = voteService.selectVote(vote).getTableName();
 		List<BaseVoteData> voteDatas = voteDataDao.selectVote(collectionName);
 
-		// List<Map<String, Integer>> questionsCounter = new ArrayList<>();
-
-		List<VoteQuestionAnswerCounter> questionAnswerCounters = new ArrayList<>();
+		Map<String, Map<String, Integer>> voetCounterMap = new HashMap<>();
 
 		for (BaseVoteData baseVoteData : voteDatas) {
+
 			Map<String, String[]> questionDataMap = baseVoteData.getData();
 			int question = questionDataMap.size();
-			for (int i = 1; i <= question; i++) {
-				String questionKey = "q" + i;
-				if (questionDataMap.containsKey(questionKey)) {
-					String[] answers = questionDataMap.get(questionKey);
-					VoteQuestionAnswerCounter voteQuestionAnswerCounter = questionAnswerCounters.get(i - 1);
-					if (null == voteQuestionAnswerCounter) {
-						Map<String, Integer> questionAnswerMap = CollectionUtils.frequency(Arrays.asList(answers));
-						voteQuestionAnswerCounter = new VoteQuestionAnswerCounter(questionKey, questionAnswerMap);
-					} else {
-						voteQuestionAnswerCounter.getAnswerCounter();
-					}
 
-					DEV.debug("{}:{}", "q" + i, answers);
+			DEV.debug("vid:{} ", baseVoteData.getData().get("vid"));
 
-				} else {
+			for (int i = 1; i < question; i++) {
+				String questionKey = QUESTION_PREFIX + i;
+				String[] answers = questionDataMap.get(questionKey);
+
+				if (null == answers || 0 == answers.length) {
+					DEV.debug("someone not answer the qid is {} question", questionKey);
 					continue;
 				}
 
+				DEV.debug("{}:{}", questionKey, answers);
+
+				Map<String, Integer> questionCountMap = null;
+				if (voetCounterMap.containsKey(questionKey)) {
+					questionCountMap = voetCounterMap.get(questionKey);
+					voetCounterMap.put(questionKey, CollectionUtils.frequency(answers, questionCountMap));
+				} else {
+					questionCountMap = CollectionUtils.frequency(answers);
+					voetCounterMap.put(questionKey, questionCountMap);
+				}
+
+				DEV.debug("questionCountMap:{}", questionCountMap);
 			}
-			// TODO
-			Map<String, Integer> questionMap = new HashMap<>();
-
 		}
 
-		for (VoteQuestionAnswerCounter voteQuestionAnswerCounter : questionAnswerCounters) {
-			DEV.debug(voteQuestionAnswerCounter.toString());
-		}
+		DEV.debug("voetCounterMap:{}", voetCounterMap);
 
-		return null;
+		return voetCounterMap;
+	}
+
+	@Override
+	public Map<String, Integer> getQuestionCountMap(long vote, int question) throws IException {
+
+		Map<String, Integer> questionCountMap = statisticsVoteData(vote).get(QUESTION_PREFIX + question);
+
+		return questionCountMap;
+	}
+
+	@Override
+	public ChartData4C3Pie toC3Pie(long vote, int question) throws IException {
+
+		Map<String, Integer> questionCountMap = getQuestionCountMap(vote, question);
+		ChartData4C3Pie chartData4C3Pie = new ChartData4C3Pie();
+		List<List<Object>> columns = new ArrayList<>();
+		for (Map.Entry<String, Integer> entry : questionCountMap.entrySet()) {
+			List<Object> dataArray = new ArrayList<>(2);
+			dataArray.add(0, entry.getKey());
+			dataArray.add(1, entry.getValue());
+			columns.add(dataArray);
+		}
+		chartData4C3Pie.setColumns(columns);
+
+		DEV.debug("chartData4C3Pie {}", JSONUtils.toJSON(chartData4C3Pie));
+
+		return chartData4C3Pie;
 	}
 
 }

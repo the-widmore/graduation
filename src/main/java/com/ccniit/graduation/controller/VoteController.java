@@ -263,7 +263,6 @@ public class VoteController {
 
 		VoteVo voteVo = voteService.selectVoteVo(voteId);
 
-		DEV.debug(voteVo.toString());
 		String voteContent = voteContentService.loadVoteContent(voteId);
 
 		modelAndView.addObject("title", voteVo.getTitle());

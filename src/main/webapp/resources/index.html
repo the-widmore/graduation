@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="c3/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="c3/c3.min.css">
+    <title>Title</title>
+
+    <style>
+       .chart{
+           max-height: 100px;
+       }
+
+    </style>
+</head>
+<body>
+
+<div class="container row">
+    <div class="col-lg-8">
+
+    </div>
+    <div class="col-lg-4">
+        <div id="chart_q1" class="chart"></div>
+        <div id="chart_q2" class="chart"></div>
+        <div id="chart_q3" class="chart"></div>
+        <div id="chart_q4" class="chart"></div>
+        <div id="chart_q5" class="chart"></div>
+    </div>
+
+</div>
+
+
+
+<script src="c3/d3.v3.min.js"></script>
+<script src="c3/c3.min.js"></script>
+<script type="application/javascript">
+    var chart_q1=c3.generate({
+        bindto:'#chart_q1',
+        data:{
+            columns:[
+                ['data1',354],
+                ['data2',124],
+                ['data3',38],
+                ['data4',259]
+            ],
+            type:'pie'
+        }
+    });
+
+    var chart_2=c3.generate({
+        bindto:'#chart_q2',
+        data:{
+            url:'/chart/data/url',
+            mimeType: 'json'
+        },
+        type:'pie'
+    });
+
+</script>
+</body>
+</html>

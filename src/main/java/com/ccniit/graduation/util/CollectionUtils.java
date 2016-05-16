@@ -178,11 +178,11 @@ public class CollectionUtils {
 	 * @param objects
 	 *            对象列表
 	 */
-	public static <T> Map<T, Integer> frequency(List<T> objects) {
+	public static <T> Map<T, Integer> frequency(T[] objects) {
 		Map<T, Integer> frequencyResule = new HashMap<>();
 
-		for (int i = 0; i < objects.size(); i++) {
-			T t = objects.get(i);
+		for (int i = 0; i < objects.length; i++) {
+			T t = objects[i];
 
 			if (frequencyResule.containsKey(t)) {
 				frequencyResule.replace(t, frequencyResule.get(t) + 1);
@@ -197,9 +197,9 @@ public class CollectionUtils {
 	/**
 	 * 
 	 * */
-	public static <T> Map<T, Integer> frequency(List<T> objects, Map<T, Integer> map) {
-		for (int i = 0; i < objects.size(); i++) {
-			T t = objects.get(i);
+	public static <T> Map<T, Integer> frequency(T[] objects, Map<T, Integer> map) {
+		for (int i = 0; i < objects.length; i++) {
+			T t = objects[i];
 
 			if (map.containsKey(t)) {
 				map.replace(t, map.get(t) + 1);

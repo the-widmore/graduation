@@ -73,7 +73,6 @@
 
 			<div class="col-sm-4 col-md-4 col-lg-4">
 				<pre class="pre-scrollable" style="min-height: 1000px">
-					<div id="chart_q1"></div>
 
 				</pre>
 			</div>
@@ -93,22 +92,17 @@
 	<script src="../../../resources/c3/d3.v3.min.js"></script>
 	<script src="../../../resources/c3/c3.min.js"></script>
 
-<script type="text/javascript">
-
-	$(function () {
-		var  chart_q1=c3.generate({
-			bindto:'chart_q1',
-			data:{
-				columns:[
-					['data1',1],
-					['data2',3]
-				],
-				type:'pie'
-			}
+	<script type="text/javascript">
+		$(function() {
+			var chart_q1 = c3.generate({
+				bindto : 'chart_q1',
+				data : {
+					url : '/chart/data/url',
+					mimeType : 'json',
+					type : 'pie'
+				}
+			});
 		});
-	});
-
-
-</script>
+	</script>
 </body>
 </html>

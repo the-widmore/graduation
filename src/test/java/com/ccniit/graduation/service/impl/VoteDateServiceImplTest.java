@@ -6,16 +6,24 @@ import org.junit.Test;
 
 import com.ccniit.graduation.BaseTest;
 import com.ccniit.graduation.exception.IException;
-import com.ccniit.graduation.service.VoteDateService;
+import com.ccniit.graduation.service.VoteDataService;
 
 public class VoteDateServiceImplTest extends BaseTest {
 
 	@Resource
-	VoteDateService voteDateService;
+	VoteDataService VoteDataService;
 
 	@Test
 	public void testStatisticsVoteData() throws IException {
-		voteDateService.statisticsVoteData(47L);
+		VoteDataService.statisticsVoteData(47L);
+	}
+
+	@Test
+	public void testToC3Pie() throws IException {
+
+		for (int i = 1; i < 4; i++) {
+			VoteDataService.toC3Pie(47L, i);
+		}
 	}
 
 }

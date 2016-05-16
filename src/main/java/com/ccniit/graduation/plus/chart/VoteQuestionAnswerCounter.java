@@ -33,4 +33,9 @@ public class VoteQuestionAnswerCounter {
 		this.answerCounter = answerCounter;
 	}
 
+	@Override
+	public String toString() {
+		return "VoteQuestionAnswerCounter [question=" + question + ", answerCounter=" + answerCounter + "]";
+	}
+
 }

@@ -6,6 +6,7 @@
 <link rel="stylesheet"
 	href="../../../resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="../../../resources/main.css">
+<link rel="stylesheet" href="../../../resources/c3/c3.min.css">
 
 </head>
 <body>
@@ -59,39 +60,55 @@
 	<div class="jumbotron" style="margin: 20px 5%"></div>
 
 	<!-- 容器-->
-	<div class="content">
+	<div class="content container">
 
 		<div class="row">
 
-			<div class="col-md-1 col-lg-1"></div>
 
-			<div class="col-sm-8 col-md-6 col-lg-6">
-				<pre class="pre-scrollable" style="max-height: 1000px">
-            <div style="min-height: 900px">
-                //replace content
-            </div>
-
-        </pre>
+			<div class="col-sm-8 col-md-8 col-lg-6">
+				<pre class="pre-scrollable" style="min-height: 1000px">
+				//replace content
+           		</pre>
 			</div>
 
-			<div class="col-md-1 col-lg-1"></div>
+			<div class="col-sm-4 col-md-4 col-lg-4">
+				<pre class="pre-scrollable" style="min-height: 1000px">
+					<div id="chart_q1"></div>
 
-			<div class="col-sm-4 col-md-3 col-lg-3">
-				<pre class="pre-scrollable" style="max-height: 1000px">
-
-
-        </pre>
+				</pre>
 			</div>
-
-			<div class="col-md-1 col-lg-1"></div>
 
 		</div>
 
+
 	</div>
 
-	<%@ include file="../reusable/footer.jsp" %>
+	<div class="col-md-1 col-lg-1"></div>
+
+
+	<!-- 	<%@ include file="../reusable/footer.jsp" %> -->
 
 	<script src="../../../resources/easyui/jquery.min.js"></script>
 	<script src="../../../resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../../../resources/c3/d3.v3.min.js"></script>
+	<script src="../../../resources/c3/c3.min.js"></script>
+
+<script type="text/javascript">
+
+	$(function () {
+		var  chart_q1=c3.generate({
+			bindto:'chart_q1',
+			data:{
+				columns:[
+					['data1',1],
+					['data2',3]
+				],
+				type:'pie'
+			}
+		});
+	});
+
+
+</script>
 </body>
 </html>

@@ -36,7 +36,7 @@ public class VoteDateServiceImpl implements VoteDateService {
 		String collectionName = voteService.selectVote(vote).getTableName();
 		List<BaseVoteData> voteDatas = voteDataDao.selectVote(collectionName);
 
-		List<Map<String, Integer>> questionsCounter = new ArrayList<>();
+		// List<Map<String, Integer>> questionsCounter = new ArrayList<>();
 
 		List<VoteQuestionAnswerCounter> questionAnswerCounters = new ArrayList<>();
 
@@ -46,10 +46,14 @@ public class VoteDateServiceImpl implements VoteDateService {
 			for (int i = 1; i <= question; i++) {
 				String questionKey = "q" + i;
 				if (questionDataMap.containsKey(questionKey)) {
-					VoteQuestionAnswerCounter voteQuestionAnswerCounter = new VoteQuestionAnswerCounter();
-					String[] answers = questionDataMap.get("q" + i);
-
-					CollectionUtils.frequency(Arrays.asList(answers));
+					String[] answers = questionDataMap.get(questionKey);
+					VoteQuestionAnswerCounter voteQuestionAnswerCounter = questionAnswerCounters.get(i - 1);
+					if (null == voteQuestionAnswerCounter) {
+						Map<String, Integer> questionAnswerMap = CollectionUtils.frequency(Arrays.asList(answers));
+						voteQuestionAnswerCounter = new VoteQuestionAnswerCounter(questionKey, questionAnswerMap);
+					} else {
+						voteQuestionAnswerCounter.getAnswerCounter();
+					}
 
 					DEV.debug("{}:{}", "q" + i, answers);
 
@@ -62,6 +66,11 @@ public class VoteDateServiceImpl implements VoteDateService {
 			Map<String, Integer> questionMap = new HashMap<>();
 
 		}
+
+		for (VoteQuestionAnswerCounter voteQuestionAnswerCounter : questionAnswerCounters) {
+			DEV.debug(voteQuestionAnswerCounter.toString());
+		}
+
 		return null;
 	}
 

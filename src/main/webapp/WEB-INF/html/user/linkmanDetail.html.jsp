@@ -126,7 +126,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$(".voterInfo").editable("/graduation/voter/updateVoterField", {
+			$(".voterInfo").editable("${pageContext.request.contextPath}/voter/updateVoterField", {
 				submit : "Ok",
 				tooltip : "Click to edit ...",
 			});

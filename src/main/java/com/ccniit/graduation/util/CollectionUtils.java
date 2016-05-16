@@ -194,4 +194,20 @@ public class CollectionUtils {
 		return frequencyResule;
 	}
 
+	/**
+	 * 
+	 * */
+	public static <T> Map<T, Integer> frequency(List<T> objects, Map<T, Integer> map) {
+		for (int i = 0; i < objects.size(); i++) {
+			T t = objects.get(i);
+
+			if (map.containsKey(t)) {
+				map.replace(t, map.get(t) + 1);
+			} else {
+				map.put(t, 1);
+			}
+		}
+		return map;
+	}
+
 }

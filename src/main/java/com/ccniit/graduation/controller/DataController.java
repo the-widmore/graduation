@@ -33,9 +33,7 @@ public class DataController {
 		// FIXME remove
 		vid = 47L;
 
-		voteDataService.getQuestionCountMap(vid, qid);
-
-		return null;
+		return voteDataService.toC3Pie(vid, qid);
 	}
 
 }

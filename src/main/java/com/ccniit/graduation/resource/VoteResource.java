@@ -5,9 +5,13 @@ import java.util.Map;
 
 public class VoteResource {
 
+	/** 刚被创建 */
 	public static final int CREATED = 0;
+	/** 被编辑过 */
 	public static final int EDITED = 10;
+	/** 被发不了 */
 	public static final int PUBLISHED = 20;
+	/** 已经结束 */
 	public static final int FINISHED = 30;
 
 	// Progress
@@ -38,16 +42,23 @@ public class VoteResource {
 	}
 
 	/**
+	 * get progress message
+	 * 
 	 * @param progress
 	 *            vote progress
 	 * @return progress message
 	 */
-	// get progress message
 	public static String getProgressMsg(int progress) {
 		return PROGRESS_MAP.get(progress);
 	}
 
-	// get action message
+	/**
+	 * get action message
+	 * 
+	 * @param progress
+	 *            vote progress
+	 * @return progress message
+	 */
 	public static String getAction(int progress) {
 		return ACTION_MAP.get(progress);
 	}

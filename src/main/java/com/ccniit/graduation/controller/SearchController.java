@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ccniit.graduation.service.VoteSearchService;
 
 @Controller
+/**
+ * Vote搜索
+ */
 public class SearchController {
 
 	@Resource

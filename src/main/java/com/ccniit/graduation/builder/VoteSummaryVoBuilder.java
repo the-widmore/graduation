@@ -16,6 +16,9 @@ import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.util.DateUtils;
 
 @Component("voteSummaryVoBuilder")
+/**
+ * 获取Vote的summary信息
+ */
 public class VoteSummaryVoBuilder implements Builder<Long, VoteSummaryVo> {
 
 	@Resource

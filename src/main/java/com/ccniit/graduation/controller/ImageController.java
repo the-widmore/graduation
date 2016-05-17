@@ -57,6 +57,9 @@ public class ImageController {
 
 	protected static final String VOTE_COVER_IMAGE_URL = "/vote/cover/{voteId}";
 
+	/**
+	 * Vote的封面图片
+	 */
 	@RequestMapping(value = VOTE_COVER_IMAGE_URL, method = RequestMethod.GET)
 	public String getVoteCover(@PathVariable("voteId") Long voteId) {
 		// TODO Auto generated method stub

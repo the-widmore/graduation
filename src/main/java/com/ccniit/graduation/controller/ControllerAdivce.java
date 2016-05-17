@@ -19,7 +19,7 @@ public class ControllerAdivce {
 	private static final String ERROR_MESSAGE_KEY = "errorMessage";
 
 	/**
-	 * 捕获最定义异常
+	 * 捕获自定义异常
 	 */
 	@ExceptionHandler(IException.class)
 	public String handleException(IException exception, ModelMap modelMap) {

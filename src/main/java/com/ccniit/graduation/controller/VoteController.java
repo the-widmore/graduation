@@ -176,10 +176,16 @@ public class VoteController {
 		case VoteResource.EDITED:
 			targetUrl = SystemUtils.replaceVoteId(VoteEditController.EDIT_VOTE_BY_HTML_URL, voteId);
 			break;
-		// 处于发布状态 /应经结束的
+
+		// 处于发布状态
 		case VoteResource.PUBLISHED:
-		case VoteResource.FINISHED:
 			targetUrl = SystemUtils.replaceVoteId(VOTE_SUMMARY_URL, voteId);
+			break;
+
+		// 应经结束的
+		case VoteResource.FINISHED:
+			// TODO
+			targetUrl = SystemUtils.replaceVoteId(VOTE_DATA_URL, voteId);
 			break;
 		}
 
@@ -293,6 +299,15 @@ public class VoteController {
 		Map<String, String[]> data = request.getParameterMap();
 		voteDataDao.insertVoteData(tableName, new BaseVoteData(data));
 		return SpringMVCUtils.redirect(WRITE_SUCCESS_VIEW);
+	}
+
+	protected static final String VOTE_DATA_URL = "/vote/data/{voteId}";
+	protected static final String VOTE_DATA_VIEW = "/vote/data/{voteId}";
+
+	@RequestMapping(value = VOTE_DATA_URL, method = RequestMethod.GET)
+	public String get(Object model) {
+		// FIXME Auto generated method stub
+		return VOTE_DATA_VIEW;
 	}
 
 }

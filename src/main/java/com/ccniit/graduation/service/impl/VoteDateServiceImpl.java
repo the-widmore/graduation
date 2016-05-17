@@ -8,16 +8,19 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.ccniit.graduation.dao.mongodb.IVoteDataDao;
 import com.ccniit.graduation.exception.IException;
 import com.ccniit.graduation.plus.chart.ChartData4C3Pie;
+import com.ccniit.graduation.plus.chart.VoteDataStatisticsResult;
 import com.ccniit.graduation.pojo.doc.BaseVoteData;
+import com.ccniit.graduation.resource.CacheNames;
 import com.ccniit.graduation.service.VoteDataService;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.util.CollectionUtils;
-import com.ccniit.graduation.util.JSONUtils;
 import com.ccniit.graduation.util.LoggerUtils;
 
 @Service("voteDataService")
@@ -30,9 +33,23 @@ public class VoteDateServiceImpl implements VoteDataService {
 	@Resource
 	IVoteDataDao voteDataDao;
 
+	@Cacheable(cacheNames = CacheNames.VOTE_STATISTICS, key = "#vote")
+	@Override
+	public VoteDataStatisticsResult getVoteDataStatisticsResult(long vote) throws IException {
+		VoteDataStatisticsResult result = new VoteDataStatisticsResult(vote, statisticsVoteData(vote));
+		return result;
+	}
+
+	@CacheEvict(cacheNames = CacheNames.VOTE_STATISTICS, key = "#vote")
+	@Override
+	public void cleanVoteDataStatisticsResult(long vote) {
+		
+	}
+
 	@Override
 	public Map<String, Map<String, Integer>> statisticsVoteData(Long vote) throws IException {
 		String collectionName = voteService.selectVote(vote).getTableName();
+		// 获取Vote的全部数据
 		List<BaseVoteData> voteDatas = voteDataDao.selectVote(collectionName);
 
 		Map<String, Map<String, Integer>> voetCounterMap = new HashMap<>();
@@ -76,9 +93,7 @@ public class VoteDateServiceImpl implements VoteDataService {
 	@Override
 	public Map<String, Integer> getQuestionCountMap(long vote, int question) throws IException {
 
-		Map<String, Integer> questionCountMap = statisticsVoteData(vote).get(QUESTION_PREFIX + question);
-
-		return questionCountMap;
+		return getVoteDataStatisticsResult(vote).getResult().get(QUESTION_PREFIX + question);
 	}
 
 	@Override
@@ -86,16 +101,14 @@ public class VoteDateServiceImpl implements VoteDataService {
 
 		Map<String, Integer> questionCountMap = getQuestionCountMap(vote, question);
 		ChartData4C3Pie chartData4C3Pie = new ChartData4C3Pie();
-		List<List<Object>> columns = new ArrayList<>();
+		List<Map<String, List<Object>>> columns = new ArrayList<>();
 		for (Map.Entry<String, Integer> entry : questionCountMap.entrySet()) {
-			List<Object> dataArray = new ArrayList<>(2);
-			dataArray.add(0, entry.getKey());
-			dataArray.add(1, entry.getValue());
-			columns.add(dataArray);
+			Map<String, List<Object>> answerCountMap = new HashMap<>();
+			List<Object> answerCount = new ArrayList<>(1);
+			answerCount.add(0, entry.getValue());
+			answerCountMap.put(entry.getKey(), answerCount);
 		}
-		// TODO FIXME
-		DEV.debug("chartData4C3Pie {}", JSONUtils.toJSON(chartData4C3Pie));
-
+		chartData4C3Pie.setColumns(columns);
 		return chartData4C3Pie;
 	}
 

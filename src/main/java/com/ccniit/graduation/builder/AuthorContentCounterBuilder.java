@@ -32,7 +32,7 @@ public class AuthorContentCounterBuilder implements Builder<Long, AuthorContentC
 		for (VoteCountByCategory voteCategoryCount : voteCategoryCounts) {
 			VoteCategory category = VoteCategory.valueOf(voteCategoryCount.getCategory());
 
-			// use switch peplace if(..)else if(..){..}
+			// use switch replace if(..)else if(..){..}
 			switch (category) {
 			case vote:
 				vote = voteCategoryCount.getCounter();

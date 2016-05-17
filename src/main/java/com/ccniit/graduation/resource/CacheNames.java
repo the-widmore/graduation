@@ -21,5 +21,7 @@ public interface CacheNames {
 	public static final String PERMISSION = "PermissionCache";
 	/** 分页信息缓存 */
 	public static final String PAGE_INFO = "PageInfo";
+	/** 统计结果缓存 */
+	public static final String VOTE_STATISTICS = "VoteStatistics";
 
 }

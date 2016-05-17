@@ -195,8 +195,16 @@ public class CollectionUtils {
 	}
 
 	/**
+	 * 对列表进行频率统计
 	 * 
-	 * */
+	 * @param <T>
+	 *            统计对象的类型
+	 * @param objects
+	 *            对象列表
+	 * @param map
+	 *            基础数据
+	 * 
+	 */
 	public static <T> Map<T, Integer> frequency(T[] objects, Map<T, Integer> map) {
 		for (int i = 0; i < objects.length; i++) {
 			T t = objects[i];

@@ -148,9 +148,18 @@
 
 		<div class="row">
 			<div class="col-md-8"></div>
-			<div class="col-md-4 btn-group">
-				<button class="btn btn-danger">清空数据</button>
-				<button class="btn btn-danger">现在结束</button>
+			<div class="col-md-4">
+
+				<div class="btn-group">
+					<button class="btn btn-primary">清空数据</button>
+					<button class="btn btn-primary">现在结束</button>
+				</div>
+
+				<div class="btn-group">
+					<button class="btn btn-danger">清空数据</button>
+					<button class="btn btn-danger">现在结束</button>
+				</div>
+
 			</div>
 		</div>
 

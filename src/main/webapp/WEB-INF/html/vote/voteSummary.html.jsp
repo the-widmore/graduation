@@ -151,13 +151,13 @@
 			<div class="col-md-4">
 
 				<div class="btn-group">
-					<button class="btn btn-primary">清空数据</button>
-					<button class="btn btn-primary">现在结束</button>
+					<a href="${pageContext.request.contextPath}/vote/seeDefine/${vote}" target="_blank" class="btn btn-primary">查看定义</a>
+					<a href="${pageContext.request.contextPath}/vote/seeData/${vote}" target="_blank" class="btn btn-primary">查看数据</a>
 				</div>
 
 				<div class="btn-group">
-					<button class="btn btn-danger">清空数据</button>
-					<button class="btn btn-danger">现在结束</button>
+					<a href="#" target="_blank" class="btn btn-primary">清空数据</a>
+					<a href="#" target="_blank" class="btn btn-primary">现在结束</a>
 				</div>
 
 			</div>

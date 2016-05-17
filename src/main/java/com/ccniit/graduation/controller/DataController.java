@@ -1,7 +1,6 @@
 package com.ccniit.graduation.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -30,7 +29,7 @@ public class DataController {
 	private static final String CHART_DATA_URL = "/data/chart/{vid}/{qid}";
 
 	@RequestMapping(value = CHART_DATA_URL, method = { RequestMethod.GET, RequestMethod.POST })
-	public List<Map<String, List<Object>>> getVoteChartData(@PathVariable("vid") long vid, @PathVariable("qid") int qid)
+	public List<List<Object>> getVoteChartData(@PathVariable("vid") long vid, @PathVariable("qid") int qid)
 			throws IException {
 		// FIXME remove
 		vid = 47L;

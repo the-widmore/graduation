@@ -37,13 +37,16 @@ public class VoteDateServiceImpl implements VoteDataService {
 	@Override
 	public VoteDataStatisticsResult getVoteDataStatisticsResult(long vote) throws IException {
 		VoteDataStatisticsResult result = new VoteDataStatisticsResult(vote, statisticsVoteData(vote));
+
+		DEV.debug("result:{}", result.getResult());
+
 		return result;
 	}
 
 	@CacheEvict(cacheNames = CacheNames.VOTE_STATISTICS, key = "#vote")
 	@Override
 	public void cleanVoteDataStatisticsResult(long vote) {
-		
+
 	}
 
 	@Override
@@ -93,22 +96,31 @@ public class VoteDateServiceImpl implements VoteDataService {
 	@Override
 	public Map<String, Integer> getQuestionCountMap(long vote, int question) throws IException {
 
-		return getVoteDataStatisticsResult(vote).getResult().get(QUESTION_PREFIX + question);
+		Map<String, Integer> questionCountMap = getVoteDataStatisticsResult(vote).getResult()
+				.get(QUESTION_PREFIX + question);
+
+		DEV.debug("questionCountMap:{}", questionCountMap);
+
+		return questionCountMap;
 	}
 
 	@Override
 	public ChartData4C3Pie toC3Pie(long vote, int question) throws IException {
 
 		Map<String, Integer> questionCountMap = getQuestionCountMap(vote, question);
-		ChartData4C3Pie chartData4C3Pie = new ChartData4C3Pie();
-		List<Map<String, List<Object>>> columns = new ArrayList<>();
+
+		DEV.debug("questionCountMap:{}", questionCountMap);
+
+		List<List<Object>> questionCounter = new ArrayList<>();
 		for (Map.Entry<String, Integer> entry : questionCountMap.entrySet()) {
-			Map<String, List<Object>> answerCountMap = new HashMap<>();
-			List<Object> answerCount = new ArrayList<>(1);
-			answerCount.add(0, entry.getValue());
-			answerCountMap.put(entry.getKey(), answerCount);
+			List<Object> answerCounter = new ArrayList<>();
+			answerCounter.add(entry.getKey());
+			answerCounter.add(entry.getValue());
+			questionCounter.add(answerCounter);
 		}
-		chartData4C3Pie.setColumns(columns);
+
+		ChartData4C3Pie chartData4C3Pie = new ChartData4C3Pie(questionCounter);
+
 		return chartData4C3Pie;
 	}
 

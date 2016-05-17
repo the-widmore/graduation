@@ -1,13 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<html>
+<head lang="zh-CN">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 <title>收集结果</title>
 <link rel="stylesheet"
-	href="../../../resources/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="../../../resources/main.css">
-<link rel="stylesheet" href="../../../resources/c3/c3.min.css">
-
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/main.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/c3/c3.min.css">
 </head>
 <body>
 
@@ -66,15 +73,19 @@
 
 
 			<div class="col-sm-8 col-md-8 col-lg-6">
-				<pre class="pre-scrollable" style="min-height: 1000px">
+				<pre class="pre-scrollable" style="min-height: 1000px"
+					voteId="${voteId }" id="voteContent">
 				//replace content
            		</pre>
 			</div>
 
 			<div class="col-sm-4 col-md-4 col-lg-4">
-				<pre class="pre-scrollable" style="min-height: 1000px">
-
-				</pre>
+				<div class="pre-scrollable" style="min-height: 1000px"
+					questions="${questions }" id="chart">
+					<c:forEach var="i" begin="1" end="${questions }">
+						<div class="chart" id="chart_q${i }"></div>
+					</c:forEach>
+				</div>
 			</div>
 
 		</div>
@@ -85,23 +96,35 @@
 	<div class="col-md-1 col-lg-1"></div>
 
 
-	<!-- 	<%@ include file="../reusable/footer.jsp" %> -->
+	<%@ include file="../reusable/footer.jsp"%>
 
-	<script src="../../../resources/easyui/jquery.min.js"></script>
-	<script src="../../../resources/bootstrap/js/bootstrap.min.js"></script>
-	<script src="../../../resources/c3/d3.v3.min.js"></script>
-	<script src="../../../resources/c3/c3.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/c3/d3.v3.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/c3/c3.min.js"></script>
 
 	<script type="text/javascript">
 		$(function() {
-			var chart_q1 = c3.generate({
-				bindto : 'chart_q1',
-				data : {
-					url : '/chart/data/url',
-					mimeType : 'json',
-					type : 'pie'
-				}
-			});
+			var voteId = $("#voteContent").attr("voteId");
+			var questions = $("#chart").attr("questions");
+			console.log("voteId:"+voteId);
+			console.log("questions:"+questions);
+			for (var i = 1; i <= questions; i++) {
+				var aurl ="http://localhost:8080/graduation/data/chart/"+voteId+'/'+i;
+				console.log("url:"+aurl);
+				c3.generate({
+					bindto : "#chart_q" + i,
+					data : {
+						url : 'http://localhost:8080/graduation/data/chart/'
+								+ voteId + '/' + i,
+						mimeType : 'json',
+						type : 'pie'
+					}
+				});
+			}
 		});
 	</script>
 </body>

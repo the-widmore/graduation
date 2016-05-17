@@ -36,4 +36,10 @@
 		timeToIdleSeconds="0" timeToLiveSeconds="36000"
 		memoryStoreEvictionPolicy="LRU" />
 
+	<!-- 权限 -->
+	<cache name="VoteStatistics" eternal="false"
+		maxElementsInMemory="10240" overflowToDisk="false" diskPersistent="false"
+		timeToIdleSeconds="0" timeToLiveSeconds="36000"
+		memoryStoreEvictionPolicy="LRU" />
+
 </ehcache>

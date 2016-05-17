@@ -34,6 +34,7 @@ import com.ccniit.graduation.resource.VoteResource;
 import com.ccniit.graduation.service.PermissionService;
 import com.ccniit.graduation.service.PermissionService.ResourceType;
 import com.ccniit.graduation.service.VoteContentService;
+import com.ccniit.graduation.service.VoteDataService;
 import com.ccniit.graduation.service.VoteService;
 import com.ccniit.graduation.service.VoterGroupService;
 import com.ccniit.graduation.util.LoggerUtils;
@@ -61,6 +62,8 @@ public class VoteController {
 	private VoteDataDao voteDataDao;
 	@Resource
 	private StringVaildator voteCreateFormFileChecker;
+	@Resource
+	private VoteDataService voteDataService;
 
 	// ### start Vote介绍 slimScrollDiv
 	protected static final String VOTE_URL = "/vote";
@@ -241,6 +244,7 @@ public class VoteController {
 		VoteSummaryVo voteSummaryVo = voteSummaryVoBuilder.build(voteId);
 		VoteVo vote = voteService.selectVoteVo(voteId);
 
+		modelMap.addAttribute("voteId", voteId);
 		modelMap.addAttribute("vote", vote);
 		modelMap.addAttribute("voteSummary", voteSummaryVo);
 
@@ -301,12 +305,25 @@ public class VoteController {
 		return SpringMVCUtils.redirect(WRITE_SUCCESS_VIEW);
 	}
 
+	protected static final String VOTE_DEFINDE_URL = "/vote/define/{voteId}";
+
+	protected static final String VOTE_DEFINE_VIEW = "/vote/voteDefine.html";
+
+	@RequestMapping(value = VOTE_DEFINDE_URL, method = RequestMethod.GET)
+	public String voteDefine(@PathVariable("voteId") long voteId, ModelMap model) throws IException {
+
+		return VOTE_DEFINE_VIEW;
+	}
+
 	protected static final String VOTE_DATA_URL = "/vote/data/{voteId}";
-	protected static final String VOTE_DATA_VIEW = "/vote/data/{voteId}";
+
+	protected static final String VOTE_DATA_VIEW = "/vote/voteData.html";
 
 	@RequestMapping(value = VOTE_DATA_URL, method = RequestMethod.GET)
-	public String get(Object model) {
-		// FIXME Auto generated method stub
+	public String voteData(@PathVariable("voteId") long voteId, ModelMap model) throws IException {
+		int questions = voteDataService.getVoteDataStatisticsResult(voteId).getResult().size();
+		model.addAttribute("voteId", voteId);
+		model.addAttribute("questions", questions);
 		return VOTE_DATA_VIEW;
 	}
 

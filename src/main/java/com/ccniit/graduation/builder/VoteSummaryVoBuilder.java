@@ -38,7 +38,7 @@ public class VoteSummaryVoBuilder implements Builder<Long, VoteSummaryVo> {
 		voteSummaryVo.setCreateTime(DateUtils.y4M2d2h2m2(vote.getInDate()));
 		voteSummaryVo.setSurplusTime(DateUtils.betweenNow(predictDate));
 		voteSummaryVo.setEndTime(DateUtils.y4M2d2h2m2(predictDate));
-		voteSummaryVo.setLastSubmitTime("last submit date");// TODO
+		voteSummaryVo.setShortURL(vote.getUrl());
 		voteSummaryVo.setSubmitTimes(String.valueOf(voteDataDao.counterVoteSubmitTimes(vote.getTableName())));
 		voteSummaryVo.setAuth(getVoteAuthInfo(vote));
 

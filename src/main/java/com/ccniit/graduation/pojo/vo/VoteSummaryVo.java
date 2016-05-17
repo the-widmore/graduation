@@ -11,7 +11,7 @@ public class VoteSummaryVo implements Serializable {
 	private String createTime;/* 创建时间 */
 	private String surplusTime;/* 剩余时间 */
 	private String endTime;/* 预计结束时间时间 */
-	private String lastSubmitTime;/* 上次提交时间 */
+	private String shortURL;/* 上次提交时间 */
 	private String submitTimes;/* 提交次数(如果是私有,应该以比例形式显示) */
 	private String auth;/* 授权类型 */
 
@@ -43,12 +43,12 @@ public class VoteSummaryVo implements Serializable {
 		this.endTime = endTime;
 	}
 
-	public String getLastSubmitTime() {
-		return lastSubmitTime;
+	public String getShortURL() {
+		return shortURL;
 	}
 
-	public void setLastSubmitTime(String lastSubmitTime) {
-		this.lastSubmitTime = lastSubmitTime;
+	public void setShortURL(String shortURL) {
+		this.shortURL = shortURL;
 	}
 
 	public String getSubmitTimes() {

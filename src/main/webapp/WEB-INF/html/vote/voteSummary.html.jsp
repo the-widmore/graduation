@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="x-ua-compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>投票:预览</title>
+<title>投票：摘要</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -32,47 +32,49 @@
 <body>
 
 	<nav class="navbar navbar-default">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-				aria-controls="navbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="/index.html">EasyVote</a>
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/index.html">EasyVote</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="../../index.html">首页</a></li>
+					<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
+					<li class="active"><a
+						href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">更多 <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a
+								href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
+							<li class="divider"></li>
+							<li class="dropdown-header">隐私政策</li>
+							<li><a
+								href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<%@include file="../user/userBar.jsp"%>
+				</ul>
+			</div>
 		</div>
-		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="../../index.html">首页</a></li>
-				<li><a href="${pageContext.request.contextPath}/search/">搜索</a></li>
-				<li class="active"><a
-					href="${pageContext.request.contextPath}/vote/startVote.html">投票</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/user/selfCenter.html">个人</a></li>
-				<li><a href="${pageContext.request.contextPath}/demo/demo.html">演示</a></li>
-				<li><a href="${pageContext.request.contextPath}/help/help.html">帮助</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/about/about.html">关于</a></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-haspopup="true"
-					aria-expanded="false">更多 <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a
-							href="${pageContext.request.contextPath}/more/activity.html">活动</a></li>
-						<li class="divider"></li>
-						<li class="dropdown-header">隐私政策</li>
-						<li><a
-							href="${pageContext.request.contextPath}/more/userData.html">用户数据</a></li>
-						<li><a
-							href="${pageContext.request.contextPath}/more/platformPolicy.html">平台政策</a></li>
-					</ul></li>
-			</ul>
-			<ul class="nav navbar-nav navbar-right">
-				<%@include file="../user/userBar.jsp"%>
-			</ul>
-		</div>
-	</div>
 	</nav>
 
 	<div class="container content">
@@ -122,9 +124,9 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-2">
 				<div class="bg-info">
-					<p style="text-align: center">点击次数</p>
+					<p style="text-align: center">分享URL</p>
 
-					<div class="voteInfo">345</div>
+					<div class="voteInfo">${voteSummary.shortURL }</div>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
@@ -147,17 +149,19 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-8"></div>
+			<div class="col-md-6"></div>
 			<div class="col-md-4">
 
 				<div class="btn-group">
-					<a href="${pageContext.request.contextPath}/vote/seeDefine/${vote}" target="_blank" class="btn btn-primary">查看定义</a>
-					<a href="${pageContext.request.contextPath}/vote/seeData/${vote}" target="_blank" class="btn btn-primary">查看数据</a>
+					<a href="${pageContext.request.contextPath}/vote/define/${voteId}"
+						target="_blank" class="btn btn-primary">查看定义</a> <a
+						href="${pageContext.request.contextPath}/vote/data/${voteId}"
+						target="_blank" class="btn btn-primary">查看数据</a>
 				</div>
 
 				<div class="btn-group">
-					<a href="#" target="_blank" class="btn btn-primary">清空数据</a>
-					<a href="#" target="_blank" class="btn btn-primary">现在结束</a>
+					<a href="#" target="_blank" class="btn btn-danger">清空数据</a> <a
+						href="#" target="_blank" class="btn btn-danger">现在结束</a>
 				</div>
 
 			</div>
@@ -167,7 +171,7 @@
 	</div>
 
 
-<%@ include file="../reusable/footer.jsp" %>
+	<%@ include file="../reusable/footer.jsp"%>
 
 	<script
 		src="${pageContext.request.contextPath}/resources/easyui/jquery.min.js"></script>

@@ -93,8 +93,7 @@ public class VoteDateServiceImpl implements VoteDataService {
 			dataArray.add(1, entry.getValue());
 			columns.add(dataArray);
 		}
-		chartData4C3Pie.setColumns(columns);
-
+		// TODO FIXME
 		DEV.debug("chartData4C3Pie {}", JSONUtils.toJSON(chartData4C3Pie));
 
 		return chartData4C3Pie;

@@ -36,42 +36,17 @@
 	<script src="../../../resources/c3/d3.v3.min.js"></script>
 	<script src="../../../resources/c3/c3.min.js"></script>
 	<script type="application/javascript">
-		
-    var chart_q1=c3.generate({
-        bindto:'#chart_q1',
-        data:{
-            columns:[
-                ['data1',354],
-                ['data2',124],
-                ['data3',38],
-                ['data4',259]
-            ],
-            type:'pie'
+
+        for(var i=1;i<=4;i++){
+            c3.generate({
+                bindto:"#chart_q"+i,
+                data:{
+                    url: 'http://localhost:8080/graduation/data/chart/47/'+i,
+                    mimeType: 'json',
+                    type:'pie'
+                }
+            });
         }
-    });
-
-    var chart_2=c3.generate({
-        bindto:'#chart_q2',
-        data:{
-            columns:[
-                ["A",4],
-                ["B",2]
-            ],
-            type:'pie'
-        },
-
-    });
-    
-    var chart_3=c3.generate({
-        bindto:'#chart_q3',
-        data:{
-        	url: 'http://localhost:8080/graduation/data/chart/47/3',
-            mimeType: 'json',
-            type:'pie'
-        },
-
-    });
-
 
 	</script>
 </body>

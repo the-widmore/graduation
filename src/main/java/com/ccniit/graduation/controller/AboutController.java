@@ -20,7 +20,7 @@ public class AboutController {
 
 	@RequestMapping(value = { VIEW_ABOUT_ALIAS }, method = RequestMethod.GET)
 	public String aboutAlias(ModelMap modelMap) {
-
+		
 		return VIEW_ABOUT_ALIAS;
 	}
 
@@ -36,7 +36,7 @@ public class AboutController {
 
 	@RequestMapping(value = { VIEW_ABOUT_SECOND_PASSWORD }, method = RequestMethod.GET)
 	public String aboutSecondPassword(ModelMap modelMap) {
-
+		
 		return VIEW_ABOUT_SECOND_PASSWORD;
 	}
 
@@ -44,7 +44,7 @@ public class AboutController {
 
 	@RequestMapping(value = { VIEW_ABOUT_SYSTEM_SECURITY }, method = RequestMethod.GET)
 	public String systemSecurity(ModelMap modelMap) {
-
+		
 		return VIEW_ABOUT_SYSTEM_SECURITY;
 	}
 

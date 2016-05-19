@@ -312,6 +312,12 @@ public class VoteController {
 	@RequestMapping(value = VOTE_DEFINDE_URL, method = RequestMethod.GET)
 	public String voteDefine(@PathVariable("voteId") long voteId, ModelMap model) throws IException {
 
+		Vote vote = voteService.selectVote(voteId);
+		VoteContent voteContent = voteContentService.getVoteContent(voteId);
+
+		model.addAttribute("vote", vote);
+		model.addAttribute("voteContent", voteContent);
+
 		return VOTE_DEFINE_VIEW;
 	}
 

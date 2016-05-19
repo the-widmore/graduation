@@ -13,5 +13,8 @@ public interface Commons {
 	// page size
 	public static final int VOTE_PAGE_SIZE = 20;// 每次查询的投票(Vote)数目
 	public static final int LINKMAN_PAGE_SIZE = 50;// 每次查询的联系人(Voter)人数据
+	
+	//Mime
+	public static final String MiME_JSON="application/json";
 
 }

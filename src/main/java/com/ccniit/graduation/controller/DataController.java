@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ccniit.graduation.dao.mongodb.IVoteDataDao;
 import com.ccniit.graduation.exception.IException;
+import com.ccniit.graduation.resource.Commons;
 import com.ccniit.graduation.service.VoteDataService;
 import com.ccniit.graduation.service.VoteService;
 
@@ -28,7 +29,7 @@ public class DataController {
 
 	private static final String CHART_DATA_URL = "/data/chart/{vid}/{qid}";
 
-	@RequestMapping(value = CHART_DATA_URL, method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = CHART_DATA_URL, method = { RequestMethod.GET, RequestMethod.POST },produces=Commons.MiME_JSON)
 	public List<List<Object>> getVoteChartData(@PathVariable("vid") long vid, @PathVariable("qid") int qid)
 			throws IException {
 		// FIXME remove

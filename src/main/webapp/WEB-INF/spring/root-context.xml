@@ -121,6 +121,7 @@
 				/vote=anon
 				/vote/**=authc
 				/user/**=authc
+				/vote/chart/**=authc
 			</value>
 		</property>
 	</bean>
